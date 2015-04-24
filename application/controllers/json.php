@@ -81,7 +81,7 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `OSB_shopphoto`");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_shopphoto`");
 $this->load->view("json",$data);
 }
 public function getsingleshopphoto()
@@ -94,28 +94,28 @@ function getallcategory()
 {
 $elements=array();
 $elements[0]=new stdClass();
-$elements[0]->field="`OSB_category`.`id`";
+$elements[0]->field="`osb_category`.`id`";
 $elements[0]->sort="1";
 $elements[0]->header="ID";
 $elements[0]->alias="id";
 
 $elements=array();
 $elements[1]=new stdClass();
-$elements[1]->field="`OSB_category`.`order`";
+$elements[1]->field="`osb_category`.`order`";
 $elements[1]->sort="1";
 $elements[1]->header="Order";
 $elements[1]->alias="order";
 
 $elements=array();
 $elements[2]=new stdClass();
-$elements[2]->field="`OSB_category`.`status`";
+$elements[2]->field="`osb_category`.`status`";
 $elements[2]->sort="1";
 $elements[2]->header="Status";
 $elements[2]->alias="status";
 
 $elements=array();
 $elements[3]=new stdClass();
-$elements[3]->field="`OSB_category`.`name`";
+$elements[3]->field="`osb_category`.`name`";
 $elements[3]->sort="1";
 $elements[3]->header="Name";
 $elements[3]->alias="name";
@@ -133,7 +133,7 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `OSB_category`");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_category`");
 $this->load->view("json",$data);
 }
 public function getsinglecategory()
@@ -146,28 +146,28 @@ function getallarea()
 {
 $elements=array();
 $elements[0]=new stdClass();
-$elements[0]->field="`OSB_area`.`id`";
+$elements[0]->field="`osb_area`.`id`";
 $elements[0]->sort="1";
 $elements[0]->header="ID";
 $elements[0]->alias="id";
 
 $elements=array();
 $elements[1]=new stdClass();
-$elements[1]->field="`OSB_area`.`order`";
+$elements[1]->field="`osb_area`.`order`";
 $elements[1]->sort="1";
 $elements[1]->header="Order";
 $elements[1]->alias="order";
 
 $elements=array();
 $elements[2]=new stdClass();
-$elements[2]->field="`OSB_area`.`status`";
+$elements[2]->field="`osb_area`.`status`";
 $elements[2]->sort="1";
 $elements[2]->header="Status";
 $elements[2]->alias="status";
 
 $elements=array();
 $elements[3]=new stdClass();
-$elements[3]->field="`OSB_area`.`name`";
+$elements[3]->field="`osb_area`.`name`";
 $elements[3]->sort="1";
 $elements[3]->header="Name";
 $elements[3]->alias="name";
@@ -185,7 +185,7 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `OSB_area`");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_area`");
 $this->load->view("json",$data);
 }
 public function getsinglearea()
@@ -198,42 +198,42 @@ function getallrequest()
 {
 $elements=array();
 $elements[0]=new stdClass();
-$elements[0]->field="`OSB_request`.`id`";
+$elements[0]->field="`osb_request`.`id`";
 $elements[0]->sort="1";
 $elements[0]->header="ID";
 $elements[0]->alias="id";
 
 $elements=array();
 $elements[1]=new stdClass();
-$elements[1]->field="`OSB_request`.`userfrom`";
+$elements[1]->field="`osb_request`.`userfrom`";
 $elements[1]->sort="1";
 $elements[1]->header="User From";
 $elements[1]->alias="userfrom";
 
 $elements=array();
 $elements[2]=new stdClass();
-$elements[2]->field="`OSB_request`.`userto`";
+$elements[2]->field="`osb_request`.`userto`";
 $elements[2]->sort="1";
 $elements[2]->header="User to";
 $elements[2]->alias="userto";
 
 $elements=array();
 $elements[3]=new stdClass();
-$elements[3]->field="`OSB_request`.`requeststatus`";
+$elements[3]->field="`osb_request`.`requeststatus`";
 $elements[3]->sort="1";
 $elements[3]->header="Request Status";
 $elements[3]->alias="requeststatus";
 
 $elements=array();
 $elements[4]=new stdClass();
-$elements[4]->field="`OSB_request`.`amount`";
+$elements[4]->field="`osb_request`.`amount`";
 $elements[4]->sort="1";
 $elements[4]->header="Amount";
 $elements[4]->alias="amount";
 
 $elements=array();
 $elements[5]=new stdClass();
-$elements[5]->field="`OSB_request`.`timestamp`";
+$elements[5]->field="`osb_request`.`timestamp`";
 $elements[5]->sort="1";
 $elements[5]->header="Time stamp";
 $elements[5]->alias="timestamp";
@@ -251,7 +251,7 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `OSB_request`");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_request`");
 $this->load->view("json",$data);
 }
 public function getsinglerequest()
@@ -264,14 +264,14 @@ function getallrequeststatus()
 {
 $elements=array();
 $elements[0]=new stdClass();
-$elements[0]->field="`OSB_requeststatus`.`id`";
+$elements[0]->field="`osb_requeststatus`.`id`";
 $elements[0]->sort="1";
 $elements[0]->header="ID";
 $elements[0]->alias="id";
 
 $elements=array();
 $elements[1]=new stdClass();
-$elements[1]->field="`OSB_requeststatus`.`name`";
+$elements[1]->field="`osb_requeststatus`.`name`";
 $elements[1]->sort="1";
 $elements[1]->header="Name";
 $elements[1]->alias="name";
@@ -289,7 +289,7 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `OSB_requeststatus`");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_requeststatus`");
 $this->load->view("json",$data);
 }
 public function getsinglerequeststatus()
@@ -302,42 +302,42 @@ function getalltransaction()
 {
 $elements=array();
 $elements[0]=new stdClass();
-$elements[0]->field="`OSB_transaction`.`id`";
+$elements[0]->field="`osb_transaction`.`id`";
 $elements[0]->sort="1";
 $elements[0]->header="ID";
 $elements[0]->alias="id";
 
 $elements=array();
 $elements[1]=new stdClass();
-$elements[1]->field="`OSB_transaction`.`userto`";
+$elements[1]->field="`osb_transaction`.`userto`";
 $elements[1]->sort="1";
 $elements[1]->header="User to";
 $elements[1]->alias="userto";
 
 $elements=array();
 $elements[2]=new stdClass();
-$elements[2]->field="`OSB_transaction`.`userfrom`";
+$elements[2]->field="`osb_transaction`.`userfrom`";
 $elements[2]->sort="1";
 $elements[2]->header="User From";
 $elements[2]->alias="userfrom";
 
 $elements=array();
 $elements[3]=new stdClass();
-$elements[3]->field="`OSB_transaction`.`transactionstatus`";
+$elements[3]->field="`osb_transaction`.`transactionstatus`";
 $elements[3]->sort="1";
 $elements[3]->header="Transaction Status";
 $elements[3]->alias="transactionstatus";
 
 $elements=array();
 $elements[4]=new stdClass();
-$elements[4]->field="`OSB_transaction`.`amount`";
+$elements[4]->field="`osb_transaction`.`amount`";
 $elements[4]->sort="1";
 $elements[4]->header="Amount";
 $elements[4]->alias="amount";
 
 $elements=array();
 $elements[5]=new stdClass();
-$elements[5]->field="`OSB_transaction`.`timestamp`";
+$elements[5]->field="`osb_transaction`.`timestamp`";
 $elements[5]->sort="1";
 $elements[5]->header="Time stamp";
 $elements[5]->alias="timestamp";
@@ -355,7 +355,7 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `OSB_transaction`");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_transaction`");
 $this->load->view("json",$data);
 }
 public function getsingletransaction()
@@ -368,14 +368,14 @@ function getalltransactionstatus()
 {
 $elements=array();
 $elements[0]=new stdClass();
-$elements[0]->field="`OSB_transactionstatus`.`id`";
+$elements[0]->field="`osb_transactionstatus`.`id`";
 $elements[0]->sort="1";
 $elements[0]->header="ID";
 $elements[0]->alias="id";
 
 $elements=array();
 $elements[1]=new stdClass();
-$elements[1]->field="`OSB_transactionstatus`.`name`";
+$elements[1]->field="`osb_transactionstatus`.`name`";
 $elements[1]->sort="1";
 $elements[1]->header="Name";
 $elements[1]->alias="name";
@@ -393,7 +393,7 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `OSB_transactionstatus`");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_transactionstatus`");
 $this->load->view("json",$data);
 }
 public function getsingletransactionstatus()
