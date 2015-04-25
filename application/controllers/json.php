@@ -425,13 +425,8 @@ $this->load->view('json',$data);
  {
 $area=$this->input->get('area');
 $category=$this->input->get('category');
-$data['message']=$this->restapi_model->searchresult($area,$category);
-$this->load->view('json',$data);
- }
- public function searchresult1()
- {
 $membershipno=$this->input->get('membershipno');
-$data['message']=$this->restapi_model->searchresult1($membershipno);
+$data['message']=$this->restapi_model->searchresult($area,$category,$membershipno);
 $this->load->view('json',$data);
  }
  public function shopprofile()

@@ -9,19 +9,19 @@ class restapi_model extends CI_Model
 	
 //		find shops
 		 $query['area']=$this->db->query("SELECT `name` FROM `osb_area`")->result();
-		$query['category']=$this->db->query("SELECT `name` FROM `osb_category`")->result();
+		$query['category']=$this->db->query("SELECT `name`,`id` FROM `osb_category`")->result();
 		
 		
 		return $query;
     }
-  public function searchresult($area,$category){
-  $query['searchresult']=$this->db->query("SELECT `user`.`shopname` as `name`,`user`.`salesbalance` as `sellbalance` FROM `user` LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE `user`.`area`='$area' AND `usercategory`.`category`=$category")->result();
+  public function searchresult($area,$category,$membershipno){
+  $query['searchresult']=$this->db->query("SELECT `user`.`shopname` as `name`,`user`.`salesbalance` as `sellbalance` FROM `user` LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE `user`.`area`='$area' AND `usercategory`.`category`='$category' OR `user`.`membershipno`='$membershipno'")->result();
 	  return $query;
   }
-	 public function searchresult1($membershipno){
-  $query['searchresult1']=$this->db->query("SELECT `shopname`,`salesbalance` FROM `user` WHERE `membershipno`='$membershipno'")->row();
-	  return $query;
-  }
+//	 public function searchresult1($membershipno){
+//  $query['searchresult1']=$this->db->query("SELECT `shopname`,`salesbalance` FROM `user` WHERE `membershipno`='$membershipno'")->row();
+//	  return $query;
+//  }
   public function shopprofile($user){
   $query['shopprofile']=$this->db->query("SELECT `user`.`shopname`,`user`.`address`,`user`.`description`,`user`.`website`,`user`.`shopcontact1`,`user`.`shopcontact2`,`user`.`shopemail`,`user`.`area`,`osb_area`.`name` as `area`,`osb_shopphoto`.`photo` as `shopphoto`,`osb_shopproductphoto`.`photo` as `productphoto`,`osb_category`.`name` as `category` FROM `user` LEFT OUTER JOIN `osb_shopphoto` ON `osb_shopphoto`.`user`=`user`.`id` LEFT OUTER JOIN `osb_shopproductphoto` ON `osb_shopproductphoto`.`user`=`user`.`id` LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_area` ON `osb_area`.`id`=`user`.`area` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE `user`.`id`='$user'")->result();
 	  return $query;
