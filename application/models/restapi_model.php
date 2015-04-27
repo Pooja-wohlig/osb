@@ -8,7 +8,7 @@ class restapi_model extends CI_Model
         $query['userdetails']=$this->db->query("SELECT `id`,`name`,`password`,`email`,`accesslevel`,`timestamp`,`status`,`image`,`username`,`socialid`,`logintype`,`json`,`shopname`,`membershipno`,`address`,`description`,`website`,`shopcontact1`,`shopcontact2`,`shopemail`,`purchasebalance`,`salesbalance` FROM `user` WHERE `id`='$user'")->row();
 	
 //		find shops
-		 $query['area']=$this->db->query("SELECT `name` FROM `osb_area`")->result();
+		 $query['area']=$this->db->query("SELECT `name`,`id` FROM `osb_area`")->result();
 		$query['category']=$this->db->query("SELECT `name`,`id` FROM `osb_category`")->result();
 		
 		

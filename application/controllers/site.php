@@ -102,52 +102,52 @@ class Site extends CI_Controller
 //            $category=$this->input->post('category');
  			$data[ 'password' ] =$this->user_model->get_random_password();
 			$password=$data[ 'password' ];
-//			echo $password;
-//			$this->user_model->sendemail($email,$membershipno,$password);
-//   
-//
-//
-//            $config['upload_path'] = './uploads/';
-//			$config['allowed_types'] = 'gif|jpg|png|jpeg';
-//			$this->load->library('upload', $config);
-//			$filename="image";
-//			$image="";
-//			if (  $this->upload->do_upload($filename))
-//			{
-//				$uploaddata = $this->upload->data();
-//				$image=$uploaddata['file_name'];
-//                
-//                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
-//                $config_r['maintain_ratio'] = TRUE;
-//                $config_t['create_thumb'] = FALSE;///add this
-//                $config_r['width']   = 800;
-//                $config_r['height'] = 800;
-//                $config_r['quality']    = 100;
-//                //end of configs
-//
-//                $this->load->library('image_lib', $config_r); 
-//                $this->image_lib->initialize($config_r);
-//                if(!$this->image_lib->resize())
-//                {
-//                    echo "Failed." . $this->image_lib->display_errors();
-//                    //return false;
-//                }  
-//                else
-//                {
-//                    //print_r($this->image_lib->dest_image);
-//                    //dest_image
-//                    $image=$this->image_lib->dest_image;
-//                    //return false;
-//                }
-//                
-//			}
-//            
-//		if($this->user_model->create($name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area)==0)
-//		$data['alerterror']="New user could not be created.";
-//			else
-//			$data['alertsuccess']="User created Successfully.";
-//			$data['redirect']="site/viewusers";
-//			$this->load->view("redirect",$data);
+			echo $password;
+			$this->user_model->sendemail($email,$membershipno,$password);
+   
+
+
+            $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                    //return false;
+                }  
+                else
+                {
+                    //print_r($this->image_lib->dest_image);
+                    //dest_image
+                    $image=$this->image_lib->dest_image;
+                    //return false;
+                }
+                
+			}
+            
+		if($this->user_model->create($name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area)==0)
+		$data['alerterror']="New user could not be created.";
+			else
+			$data['alertsuccess']="User created Successfully.";
+			$data['redirect']="site/viewusers";
+			$this->load->view("redirect",$data);
 		}
 	}
     function viewusers()
@@ -1063,7 +1063,7 @@ $elements[1]->sort="1";
 $elements[1]->header="Order";
 $elements[1]->alias="order";
 $elements[2]=new stdClass();
-$elements[2]->field="`osb_category`.`status`";
+$elements[2]->field="`statuses`.`name`";
 $elements[2]->sort="1";
 $elements[2]->header="Status";
 $elements[2]->alias="status";
@@ -1086,7 +1086,7 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_category`");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_category` LEFT OUTER JOIN `statuses` ON `osb_category`.`status`=`statuses`.`id`");
 $this->load->view("json",$data);
 }
 
@@ -1201,7 +1201,7 @@ $elements[1]->sort="1";
 $elements[1]->header="Order";
 $elements[1]->alias="order";
 $elements[2]=new stdClass();
-$elements[2]->field="`osb_area`.`status`";
+$elements[2]->field="`statuses`.`name`";
 $elements[2]->sort="1";
 $elements[2]->header="Status";
 $elements[2]->alias="status";
@@ -1224,7 +1224,7 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_area`");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_area` LEFT OUTER JOIN `statuses` ON `osb_area`.`status`=`statuses`.`id` ");
 $this->load->view("json",$data);
 }
 
@@ -1335,12 +1335,12 @@ $elements[0]->sort="1";
 $elements[0]->header="ID";
 $elements[0]->alias="id";
 $elements[1]=new stdClass();
-$elements[1]->field="`osb_request`.`userfrom`";
+$elements[1]->field="`tab2`.`name`";
 $elements[1]->sort="1";
 $elements[1]->header="User From";
 $elements[1]->alias="userfrom";
 $elements[2]=new stdClass();
-$elements[2]->field="`osb_request`.`userto`";
+$elements[2]->field="`tab1`.`name`";
 $elements[2]->sort="1";
 $elements[2]->header="User to";
 $elements[2]->alias="userto";
@@ -1373,7 +1373,7 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_request`");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_request` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_request`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_request`.`userfrom` ");
 $this->load->view("json",$data);
 }
 
@@ -1611,17 +1611,17 @@ $elements[0]->sort="1";
 $elements[0]->header="ID";
 $elements[0]->alias="id";
 $elements[1]=new stdClass();
-$elements[1]->field="`osb_transaction`.`userto`";
+$elements[1]->field="`tab1`.`name`";
 $elements[1]->sort="1";
 $elements[1]->header="User to";
 $elements[1]->alias="userto";
 $elements[2]=new stdClass();
-$elements[2]->field="`osb_transaction`.`userfrom`";
+$elements[2]->field="`tab2`.`name`";
 $elements[2]->sort="1";
 $elements[2]->header="User From";
 $elements[2]->alias="userfrom";
 $elements[3]=new stdClass();
-$elements[3]->field="`osb_transaction`.`transactionstatus`";
+$elements[3]->field="`osb_transactionstatus`.`name`";
 $elements[3]->sort="1";
 $elements[3]->header="Transaction Status";
 $elements[3]->alias="transactionstatus";
@@ -1635,6 +1635,11 @@ $elements[5]->field="`osb_transaction`.`timestamp`";
 $elements[5]->sort="1";
 $elements[5]->header="Time stamp";
 $elements[5]->alias="timestamp";
+//$elements[6]=new stdClass();
+//$elements[6]->field="`user`.`name`";
+//$elements[6]->sort="1";
+//$elements[6]->header="Name";
+//$elements[6]->alias="userfrom";
 $search=$this->input->get_post("search");
 $pageno=$this->input->get_post("pageno");
 $orderby=$this->input->get_post("orderby");
@@ -1649,7 +1654,7 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_transaction`");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_transaction` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_transaction`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_transaction`.`userfrom` LEFT OUTER JOIN `osb_transactionstatus` ON `osb_transactionstatus`.`id`=`osb_transaction`.`transactionstatus`");
 $this->load->view("json",$data);
 }
 
