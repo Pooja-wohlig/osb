@@ -56,7 +56,7 @@ return  $id;
     }
 	 public function accepted()
     {
-        $data=array("userfrom" => $user,"amount" => $amount,"transactionstatus" => 1);
+        $data=array("userfrom" => $user,"amount" => $amount);
 $query=$this->db->insert( "osb_transaction", $data );
 $id=$this->db->insert_id();
 		 if(!$query)
