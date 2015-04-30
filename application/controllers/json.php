@@ -464,8 +464,32 @@ $data['message']=$this->restapi_model->decline($id);
 $this->load->view('json',$data);
  }
  public function accepted(){
-$data['message']=$this->restapi_model->accepted();
+	 $user=$this->input->get('user');
+	 $amount=$this->input->get('amount');
+$data['message']=$this->restapi_model->accepted($user,$amount);
 $this->load->view('json',$data);
  }
+ public function changepassword()
+ {
+    $this->load->library('form_validation');
+    $this->form_validation->set_rules('password','Old Password','required|trim|xss_clean|callback_change');
+    $this->form_validation->set_rules('newpassword','New Password','required|trim');
+    $this->form_validation->set_rules('confirmpassword','Confirm Password','required|trim|matches[npassword]');
+    if ($this->form_validation->run() == FALSE)
+    {    
+     echo validation_errors();
+	}
+    }
+     public function change() // we will load models here to check with database
+  {
+		 $id=$this->input->get('id');
+		 $password=$this->input->get('password');
+		 $newpassword=$this->input->get('newpassword');
+		 $confirmpassword=$this->input->get('confirmpassword');
+		 
+//     $session_data = $this->session->userdata('logged_in');
+     $this->restapi_model->changepassword($id,$password,$newpassword,$confirmpassword);
+}
+
 
 } ?>

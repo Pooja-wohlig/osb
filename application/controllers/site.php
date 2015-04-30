@@ -1610,31 +1610,48 @@ $elements[0]->field="`osb_transaction`.`id`";
 $elements[0]->sort="1";
 $elements[0]->header="ID";
 $elements[0]->alias="id";
+	
 $elements[1]=new stdClass();
 $elements[1]->field="`tab1`.`name`";
 $elements[1]->sort="1";
 $elements[1]->header="User to";
 $elements[1]->alias="userto";
+	
 $elements[2]=new stdClass();
 $elements[2]->field="`tab2`.`name`";
 $elements[2]->sort="1";
 $elements[2]->header="User From";
 $elements[2]->alias="userfrom";
+	
 $elements[3]=new stdClass();
 $elements[3]->field="`osb_transactionstatus`.`name`";
 $elements[3]->sort="1";
 $elements[3]->header="Transaction Status";
 $elements[3]->alias="transactionstatus";
+	
 $elements[4]=new stdClass();
-$elements[4]->field="`osb_transaction`.`amount`";
+$elements[4]->field="`osb_transaction`.`reason`";
 $elements[4]->sort="1";
-$elements[4]->header="Amount";
-$elements[4]->alias="amount";
+$elements[4]->header="Reason";
+$elements[4]->alias="reason";
+
 $elements[5]=new stdClass();
-$elements[5]->field="`osb_transaction`.`timestamp`";
+$elements[5]->field="`osb_transaction`.`amount`";
 $elements[5]->sort="1";
-$elements[5]->header="Time stamp";
-$elements[5]->alias="timestamp";
+$elements[5]->header="Amount";
+$elements[5]->alias="amount";
+
+$elements[6]=new stdClass();
+$elements[6]->field="`osb_transaction`.`payableamount`";
+$elements[6]->sort="1";
+$elements[6]->header="Payable Amount";
+$elements[6]->alias="payableamount";
+	
+$elements[7]=new stdClass();
+$elements[7]->field="`osb_transaction`.`timestamp`";
+$elements[7]->sort="1";
+$elements[7]->header="Time stamp";
+$elements[7]->alias="timestamp";
 //$elements[6]=new stdClass();
 //$elements[6]->field="`user`.`name`";
 //$elements[6]->sort="1";
@@ -1677,6 +1694,8 @@ $this->form_validation->set_rules("userto","User to","trim");
 $this->form_validation->set_rules("userfrom","User From","trim");
 $this->form_validation->set_rules("transactionstatus","Transaction Status","trim");
 $this->form_validation->set_rules("amount","Amount","trim");
+$this->form_validation->set_rules("reason","Reason","trim");
+$this->form_validation->set_rules("payableamount","Payable Amount","trim");
 $this->form_validation->set_rules("timestamp","Time stamp","trim");
 if($this->form_validation->run()==FALSE)
 {
@@ -1694,8 +1713,10 @@ $userto=$this->input->get_post("userto");
 $userfrom=$this->input->get_post("userfrom");
 $transactionstatus=$this->input->get_post("transactionstatus");
 $amount=$this->input->get_post("amount");
+$reason=$this->input->get_post("reason");
+$payableamount=$this->input->get_post("payableamount");
 $timestamp=$this->input->get_post("timestamp");
-if($this->transaction_model->create($userto,$userfrom,$transactionstatus,$amount,$timestamp)==0)
+if($this->transaction_model->create($userto,$userfrom,$transactionstatus,$reason,$amount,$payableamount,$timestamp)==0)
 $data["alerterror"]="New transaction could not be created.";
 else
 $data["alertsuccess"]="transaction created Successfully.";
@@ -1724,6 +1745,8 @@ $this->form_validation->set_rules("userto","User to","trim");
 $this->form_validation->set_rules("userfrom","User From","trim");
 $this->form_validation->set_rules("transactionstatus","Transaction Status","trim");
 $this->form_validation->set_rules("amount","Amount","trim");
+$this->form_validation->set_rules("reason","Reason","trim");
+$this->form_validation->set_rules("payableamount","Payable Amount","trim");
 $this->form_validation->set_rules("timestamp","Time stamp","trim");
 if($this->form_validation->run()==FALSE)
 {
@@ -1743,8 +1766,10 @@ $userto=$this->input->get_post("userto");
 $userfrom=$this->input->get_post("userfrom");
 $transactionstatus=$this->input->get_post("transactionstatus");
 $amount=$this->input->get_post("amount");
+$reason=$this->input->get_post("reason");
+$payableamount=$this->input->get_post("payableamount");
 $timestamp=$this->input->get_post("timestamp");
-if($this->transaction_model->edit($id,$userto,$userfrom,$transactionstatus,$amount,$timestamp)==0)
+if($this->transaction_model->edit($id,$userto,$userfrom,$transactionstatus,$amount,$reason,$payableamount,$timestamp)==0)
 $data["alerterror"]="New transaction could not be Updated.";
 else
 $data["alertsuccess"]="transaction Updated Successfully.";

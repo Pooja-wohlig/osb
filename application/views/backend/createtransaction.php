@@ -32,9 +32,21 @@ transaction Details
 </div>
 </div>
 <div class="form-group">
+<label class="col-sm-2 control-label" for="normal-field">Reason</label>
+<div class="col-sm-4">
+<input type="text" id="normal-field" class="form-control" name="reason" value='<?php echo set_value('reason');?>'>
+</div>
+</div>
+<div class="form-group">
 <label class="col-sm-2 control-label" for="normal-field">Amount</label>
 <div class="col-sm-4">
 <input type="text" id="normal-field" class="form-control" name="amount" value='<?php echo set_value('amount');?>'>
+</div>
+</div>
+<div class="form-group">
+<label class="col-sm-2 control-label" for="normal-field">Payable Amount</label>
+<div class="col-sm-4">
+<input type="text" id="normal-field" class="form-control" name="payableamount" value='<?php echo set_value('payableamount');?>'>
 </div>
 </div>
 <div class="form-group">

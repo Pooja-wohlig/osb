@@ -15,7 +15,7 @@ class restapi_model extends CI_Model
 		return $query;
     }
   public function searchresult($area,$category,$membershipno){
-  $query['searchresult']=$this->db->query("SELECT `user`.`shopname` as `name`,`user`.`salesbalance` as `sellbalance` FROM `user` LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE `user`.`area`='$area' AND `usercategory`.`category`='$category' OR `user`.`membershipno`='$membershipno'")->result();
+  $query['searchresult']=$this->db->query("SELECT `user`.`id`,`user`.`shopname` as `name`,`user`.`salesbalance` as `sellbalance` FROM `user` LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE `user`.`area`='$area' AND `usercategory`.`category`='$category' OR `user`.`membershipno`='$membershipno'")->result();
 	  return $query;
   }
 //	 public function searchresult1($membershipno){
@@ -23,7 +23,7 @@ class restapi_model extends CI_Model
 //	  return $query;
 //  }
   public function shopprofile($user){
-  $query['shopprofile']=$this->db->query("SELECT `user`.`shopname`,`user`.`address`,`user`.`description`,`user`.`website`,`user`.`shopcontact1`,`user`.`shopcontact2`,`user`.`shopemail`,`user`.`area`,`osb_area`.`name` as `area`,`osb_shopphoto`.`photo` as `shopphoto`,`osb_shopproductphoto`.`photo` as `productphoto`,`osb_category`.`name` as `category` FROM `user` LEFT OUTER JOIN `osb_shopphoto` ON `osb_shopphoto`.`user`=`user`.`id` LEFT OUTER JOIN `osb_shopproductphoto` ON `osb_shopproductphoto`.`user`=`user`.`id` LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_area` ON `osb_area`.`id`=`user`.`area` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE `user`.`id`='$user'")->result();
+  $query['shopprofile']=$this->db->query("SELECT `user`.`purchasebalance`, `user`.`id`,`user`.`shopname`,`user`.`address`,`user`.`description`,`user`.`website`,`user`.`shopcontact1`,`user`.`shopcontact2`,`user`.`shopemail`,`user`.`area`,`osb_area`.`name` as `area`,`osb_shopphoto`.`photo` as `shopphoto`,`osb_shopproductphoto`.`photo` as `productphoto`,`osb_category`.`name` as `category` FROM `user` LEFT OUTER JOIN `osb_shopphoto` ON `osb_shopphoto`.`user`=`user`.`id` LEFT OUTER JOIN `osb_shopproductphoto` ON `osb_shopproductphoto`.`user`=`user`.`id` LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_area` ON `osb_area`.`id`=`user`.`area` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE `user`.`id`='$user'")->result();
 	  return $query;
   }
  public function yourbalance($user){
@@ -50,11 +50,11 @@ return  $id;
     }
 	   public function sellingapproval($user)
     {
-        $query['sellingapproval']=$this->db->query("SELECT `user`.`shopname`,`osb_request`.`amount` FROM `user` LEFT OUTER JOIN `osb_request` ON `osb_request`.`userfrom`=`user`.`id` WHERE `user`.`id`='$user'")->row();
+        $query['sellingapproval']=$this->db->query("SELECT `user`.`shopname`,`user`.`id`,`osb_request`.`amount` FROM `user` LEFT OUTER JOIN `osb_request` ON `osb_request`.`userfrom`=`user`.`id` WHERE `user`.`id`='$user'")->row();
 		return $query;
 		
     }
-	 public function accepted()
+	 public function accepted($user,$amount)
     {
         $data=array("userfrom" => $user,"amount" => $amount);
 $query=$this->db->insert( "osb_transaction", $data );
@@ -70,12 +70,52 @@ $id=$this->db->insert_id();
                'requeststatus' => 3
             );
 
-$this->db->where('id', $id);
+$this->db->where('userfrom', $id);
 $this->db->update('osb_request', $data);
     }
 
+	public function changepassword($id){
+	$this->load->library('form_validation');
+    $this->form_validation->set_rules('password','Old Password','required|trim|xss_clean|callback_change');
+    $this->form_validation->set_rules('newpassword','New Password','required|trim');
+    $this->form_validation->set_rules('confirmpassword','Confirm Password','required|trim|matches[npassword]');
+    if ($this->form_validation->run() == FALSE)
+    {    
+     echo validation_errors();
+	}
+	 $query['$my_info']=$this->db->query("select * from `user` where `id`='$id'")->row();
+     $db_password = $query['$my_info']->password;
+     $db_id = $query['$my_info']->id; 
+     
+     if (md5($password == $db_password)) { 
+ 
+  $fixed_pw = md5($newpassword);
+ 
+     $query = $this->db->query("Update `user` SET `password`='$fixed_pw' WHERE id=".$db_id); 
+// if($query=='true'){
+// echo "Password Updated!";
+// }
+//		 else{
+//		 echo "Wrong Old Password!";
+//		 }
+		 echo "in if";
+     $this->form_validation->set_message('change','<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert">&times;</a>
+<strong>Password Updated!</strong></div>');
+return false;
+   }
+
+    
+   else  {
+$this->form_validation->set_message('change','<div class="alert alert-error"><a href="#" class="close" data-dismiss="alert">&times;</a>
+  <strong>Wrong Old Password!</strong> </div>');
+echo "in else";
+return false;
+
+}
 	
-	
-	
+	 }
+//	else {
+//	return false;
+//	}
 }
 ?>
