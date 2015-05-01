@@ -74,7 +74,7 @@ $this->db->where('userfrom', $id);
 $this->db->update('osb_request', $data);
     }
 
-	public function changepassword($id){
+	public function changepassword($id,$password,$newpassword,$confirmpassword){
 	$this->load->library('form_validation');
     $this->form_validation->set_rules('password','Old Password','required|trim|xss_clean|callback_change');
     $this->form_validation->set_rules('newpassword','New Password','required|trim');
