@@ -3,9 +3,9 @@ if ( !defined( "BASEPATH" ) )
 exit( "No direct script access allowed" );
 class request_model extends CI_Model
 {
-public function create($userfrom,$userto,$requeststatus,$amount,$timestamp)
+public function create($userfrom,$userto,$requeststatus,$amount,$reason,$timestamp)
 {
-$data=array("userfrom" => $userfrom,"userto" => $userto,"requeststatus" => $requeststatus,"amount" => $amount,"timestamp" => $timestamp);
+$data=array("userfrom" => $userfrom,"userto" => $userto,"requeststatus" => $requeststatus,"amount" => $amount,"reason" => $reason,"timestamp" => $timestamp);
 $query=$this->db->insert( "osb_request", $data );
 $id=$this->db->insert_id();
 if(!$query)
@@ -24,9 +24,9 @@ $this->db->where("id",$id);
 $query=$this->db->get("osb_request")->row();
 return $query;
 }
-public function edit($id,$userfrom,$userto,$requeststatus,$amount,$timestamp)
+public function edit($id,$userfrom,$userto,$requeststatus,$amount,$reason,$timestamp)
 {
-$data=array("userfrom" => $userfrom,"userto" => $userto,"requeststatus" => $requeststatus,"amount" => $amount,"timestamp" => $timestamp);
+$data=array("userfrom" => $userfrom,"userto" => $userto,"requeststatus" => $requeststatus,"amount" => $amount,"reason" => $reason,"timestamp" => $timestamp);
 $this->db->where( "id", $id );
 $query=$this->db->update( "osb_request", $data );
 return 1;

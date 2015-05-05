@@ -74,48 +74,46 @@ $this->db->where('userfrom', $id);
 $this->db->update('osb_request', $data);
     }
 
-	public function changepassword($id,$password,$newpassword,$confirmpassword){
-	$this->load->library('form_validation');
-    $this->form_validation->set_rules('password','Old Password','required|trim|xss_clean|callback_change');
-    $this->form_validation->set_rules('newpassword','New Password','required|trim');
-    $this->form_validation->set_rules('confirmpassword','Confirm Password','required|trim|matches[npassword]');
-    if ($this->form_validation->run() == FALSE)
-    {    
-     echo validation_errors();
-	}
-	 $query['$my_info']=$this->db->query("select * from `user` where `id`='$id'")->row();
-     $db_password = $query['$my_info']->password;
-     $db_id = $query['$my_info']->id; 
-     
-     if (md5($password == $db_password)) { 
- 
-  $fixed_pw = md5($newpassword);
- 
-     $query = $this->db->query("Update `user` SET `password`='$fixed_pw' WHERE id=".$db_id); 
-// if($query=='true'){
-// echo "Password Updated!";
-// }
-//		 else{
-//		 echo "Wrong Old Password!";
-//		 }
-		 echo "in if";
-     $this->form_validation->set_message('change','<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert">&times;</a>
-<strong>Password Updated!</strong></div>');
-return false;
-   }
-
-    
-   else  {
-$this->form_validation->set_message('change','<div class="alert alert-error"><a href="#" class="close" data-dismiss="alert">&times;</a>
-  <strong>Wrong Old Password!</strong> </div>');
-echo "in else";
-return false;
-
-}
-	
+	public function changepassword($id,$oldpassword,$newpassword,$confirmpassword){
+		 $oldpassword=md5($oldpassword);
+        $newpassword=md5($newpassword);
+        $confirmpassword=md5($confirmpassword);
+			
+			if($newpassword==$confirmpassword){
+        $useridquery=$this->db->query("SELECT `id` FROM `user` WHERE `password`='$oldpassword'");
+        if($useridquery->num_rows()==0)
+        {
+            return 0;
+        }
+        else
+        {
+            $query=$useridquery->row();
+            $userid=$query->id;
+            $updatequery=$this->db->query("UPDATE `user` SET `password`='$newpassword' WHERE `id`='$userid'");
+            return 1;
+        }
+			}
+			else{
+			echo "New password and old password do not match!!!";
+			}
 	 }
-//	else {
-//	return false;
-//	}
+	public function getareacategory($area,$category){
+	 $query['area']=$this->db->query("SELECT `name` FROM `osb_area` WHERE `id`='$area'")->row();
+		$query['category']=$this->db->query("SELECT `name` FROM `osb_category` WHERE `id`='$category'")->row();
+		return $query;
+	}
+	public function purchaserequest($userfrom,$userto,$amount){
+	 $data=array("userfrom" => $userfrom,"userto" => $userto,"amount" => $amount,"requeststatus" => 1);
+$query=$this->db->insert( "osb_request", $data );
+$id=$this->db->insert_id();
+		 if(!$query)
+         return  0;
+		 else
+		return  $id;
+	}
+	public function updateprofile($id,$shopname,$area,$category,$address,$description,$shopcontact1,$shopcontact2,$shopemail,$website){
+	 $query=$this->db->query("UPDATE `user` SET `shopname`='$shopname',`area`='$area',`category`='$category',`address`='$address',`description`='$description',`shopcontact1`='$shopcontact1',`shopcontact2`='$shopcontact2',`shopemail`='$shopemail',`website`='$website' WHERE `id`='$id'");
+	}
+
 }
 ?>

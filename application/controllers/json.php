@@ -469,16 +469,40 @@ $this->load->view('json',$data);
 $data['message']=$this->restapi_model->accepted($user,$amount);
 $this->load->view('json',$data);
  }
-     public function change() // we will load models here to check with database
-  {
-		 $id=$this->input->get('id');
-		 $password=$this->input->get('password');
-		 $newpassword=$this->input->get('newpassword');
-		 $confirmpassword=$this->input->get('confirmpassword');
-		 
-//     $session_data = $this->session->userdata('logged_in');
-     $this->restapi_model->changepassword($id,$password,$newpassword,$confirmpassword);
+    public function changepassword() {
+        $id=$this->input->get("id");
+        $oldpassword=$this->input->get("oldpassword");
+        $newpassword=$this->input->get("newpassword");
+        $confirmpassword=$this->input->get("confirmpassword");
+        $data["message"] = $this->restapi_model->changepassword($id,$oldpassword,$newpassword,$confirmpassword);
+        $this->load->view("json", $data);
+    }
+public function getareacategory(){
+$area=$this->input->get("area");
+$category=$this->input->get("category");
+$data["message"] = $this->restapi_model->getareacategory($area,$category);
+   $this->load->view("json", $data);
 }
-
+ public function purchaserequest(){
+ $userfrom=$this->input->get('userfrom');
+ $userto=$this->input->get('userto');
+ $amount=$this->input->get('amount');
+$data['message']=$this->restapi_model->purchaserequest($userfrom,$userto,$amount);
+$this->load->view('json',$data);
+ }
+ public function updateprofile(){
+$id=$this->input->get('id');
+$shopname=$this->input->get('shopname'); 
+$area=$this->input->get('area'); 
+$category=$this->input->get('category'); 
+$address=$this->input->get('address'); 
+$description=$this->input->get('description'); 
+$shopcontact1=$this->input->get('shopcontact1'); 
+$shopcontact2=$this->input->get('shopcontact2'); 
+$shopemail=$this->input->get('shopemail'); 
+$website=$this->input->get('website'); 
+$data['message']=$this->restapi_model->updateprofile($id,$shopname,$area,$category,$address,$description,$shopcontact1,$shopcontact2,$shopemail,$website);
+$this->load->view('json',$data);
+ }
 
 } ?>

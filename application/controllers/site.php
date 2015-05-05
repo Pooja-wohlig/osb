@@ -1355,10 +1355,15 @@ $elements[4]->sort="1";
 $elements[4]->header="Amount";
 $elements[4]->alias="amount";
 $elements[5]=new stdClass();
-$elements[5]->field="`osb_request`.`timestamp`";
+$elements[5]->field="`osb_request`.`reason`";
 $elements[5]->sort="1";
-$elements[5]->header="Time stamp";
-$elements[5]->alias="timestamp";
+$elements[5]->header="Reason";
+$elements[5]->alias="reason";
+$elements[6]=new stdClass();
+$elements[6]->field="`osb_request`.`timestamp`";
+$elements[6]->sort="1";
+$elements[6]->header="Time stamp";
+$elements[6]->alias="timestamp";
 $search=$this->input->get_post("search");
 $pageno=$this->input->get_post("pageno");
 $orderby=$this->input->get_post("orderby");
@@ -1396,6 +1401,7 @@ $this->form_validation->set_rules("userfrom","User From","trim");
 $this->form_validation->set_rules("userto","User to","trim");
 $this->form_validation->set_rules("requeststatus","Request Status","trim");
 $this->form_validation->set_rules("amount","Amount","trim");
+$this->form_validation->set_rules("reason","Reason","trim");
 $this->form_validation->set_rules("timestamp","Time stamp","trim");
 if($this->form_validation->run()==FALSE)
 {
@@ -1413,8 +1419,9 @@ $userfrom=$this->input->get_post("userfrom");
 $userto=$this->input->get_post("userto");
 $requeststatus=$this->input->get_post("requeststatus");
 $amount=$this->input->get_post("amount");
+$reason=$this->input->get_post("reason");
 $timestamp=$this->input->get_post("timestamp");
-if($this->request_model->create($userfrom,$userto,$requeststatus,$amount,$timestamp)==0)
+if($this->request_model->create($userfrom,$userto,$requeststatus,$amount,$reason,$timestamp)==0)
 $data["alerterror"]="New request could not be created.";
 else
 $data["alertsuccess"]="request created Successfully.";
@@ -1443,6 +1450,7 @@ $this->form_validation->set_rules("userfrom","User From","trim");
 $this->form_validation->set_rules("userto","User to","trim");
 $this->form_validation->set_rules("requeststatus","Request Status","trim");
 $this->form_validation->set_rules("amount","Amount","trim");
+$this->form_validation->set_rules("reason","Reason","trim");
 $this->form_validation->set_rules("timestamp","Time stamp","trim");
 if($this->form_validation->run()==FALSE)
 {
@@ -1462,8 +1470,9 @@ $userfrom=$this->input->get_post("userfrom");
 $userto=$this->input->get_post("userto");
 $requeststatus=$this->input->get_post("requeststatus");
 $amount=$this->input->get_post("amount");
+$reason=$this->input->get_post("reason");
 $timestamp=$this->input->get_post("timestamp");
-if($this->request_model->edit($id,$userfrom,$userto,$requeststatus,$amount,$timestamp)==0)
+if($this->request_model->edit($id,$userfrom,$userto,$requeststatus,$amount,$reason,$timestamp)==0)
 $data["alerterror"]="New request could not be Updated.";
 else
 $data["alertsuccess"]="request Updated Successfully.";
