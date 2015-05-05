@@ -32,7 +32,7 @@ $query['yourbalance']=$this->db->query("SELECT `purchasebalance`,`salesbalance` 
   }	
  public function addbalance($user,$amount){
 	 
-	 $data=array("userfrom" => $user,"amount" => $amount,"requeststatus" => 1);
+	 $data=array("userfrom" => $user,"userto" => 1,"amount" => $amount,"requeststatus" => 1);
 $query=$this->db->insert( "osb_request", $data );
 $id=$this->db->insert_id();
 	 
@@ -111,8 +111,8 @@ $id=$this->db->insert_id();
 		 else
 		return  $id;
 	}
-	public function updateprofile($id,$shopname,$area,$category,$address,$description,$shopcontact1,$shopcontact2,$shopemail,$website){
-	 $query=$this->db->query("UPDATE `user` SET `shopname`='$shopname',`area`='$area',`category`='$category',`address`='$address',`description`='$description',`shopcontact1`='$shopcontact1',`shopcontact2`='$shopcontact2',`shopemail`='$shopemail',`website`='$website' WHERE `id`='$id'");
+	public function updateprofile($id,$shopname,$area,$address,$description,$shopcontact1,$shopcontact2,$shopemail,$website){
+	 $query=$this->db->query("UPDATE `user` SET `shopname`='$shopname',`area`='$area',`address`='$address',`description`='$description',`shopcontact1`='$shopcontact1',`shopcontact2`='$shopcontact2',`shopemail`='$shopemail',`website`='$website' WHERE `id`='$id'");
 	}
 
 }
