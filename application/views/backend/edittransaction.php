@@ -17,12 +17,14 @@ transaction Details
 <?php echo form_dropdown("userfrom",$userfrom,set_value('userfrom',$before->userfrom),"class='chzn-select form-control'");?>
 </div>
 </div>
+<!--
 <div class=" form-group">
 <label class="col-sm-2 control-label" for="normal-field">Transaction Status</label>
 <div class="col-sm-4">
 <?php echo form_dropdown("transactionstatus",$transactionstatus,set_value('transactionstatus',$before->transactionstatus),"class='chzn-select form-control'");?>
 </div>
 </div>
+-->
 <div class="form-group">
 <label class="col-sm-2 control-label" for="normal-field">Reason</label>
 <div class="col-sm-4">

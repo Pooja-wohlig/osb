@@ -3,9 +3,9 @@ if ( !defined( "BASEPATH" ) )
 exit( "No direct script access allowed" );
 class transaction_model extends CI_Model
 {
-public function create($userto,$userfrom,$transactionstatus,$amount,$reason,$payableamount,$timestamp)
+public function create($userto,$userfrom,$amount,$reason,$payableamount)
 {
-$data=array("userto" => $userto,"userfrom" => $userfrom,"transactionstatus" => $transactionstatus,"amount" => $amount,"reason" => $reason,"payableamount" => $payableamount,"timestamp" => $timestamp);
+$data=array("userto" => $userto,"userfrom" => $userfrom,"amount" => $amount,"reason" => $reason,"payableamount" => $payableamount);
 $query=$this->db->insert( "osb_transaction", $data );
 $id=$this->db->insert_id();
 if(!$query)
@@ -24,9 +24,9 @@ $this->db->where("id",$id);
 $query=$this->db->get("osb_transaction")->row();
 return $query;
 }
-public function edit($id,$userto,$userfrom,$transactionstatus,$amount,$reason,$payableamount,$timestamp)
+public function edit($id,$userto,$userfrom,$amount,$reason,$payableamount,$timestamp)
 {
-$data=array("userto" => $userto,"userfrom" => $userfrom,"transactionstatus" => $transactionstatus,"amount" => $amount,"reason" => $reason,"payableamount" => $payableamount,"timestamp" => $timestamp);
+$data=array("userto" => $userto,"userfrom" => $userfrom,"amount" => $amount,"reason" => $reason,"payableamount" => $payableamount,"timestamp" => $timestamp);
 $this->db->where( "id", $id );
 $query=$this->db->update( "osb_transaction", $data );
 return 1;

@@ -32,7 +32,7 @@ $query['yourbalance']=$this->db->query("SELECT `purchasebalance`,`salesbalance` 
   }	
  public function addbalance($user,$amount){
 	 
-	 $data=array("userfrom" => $user,"userto" => 1,"amount" => $amount,"requeststatus" => 1);
+	 $data=array("userfrom" => 1,"userto" => $user,"amount" => $amount,"requeststatus" => 1);
 $query=$this->db->insert( "osb_request", $data );
 $id=$this->db->insert_id();
 	 
@@ -43,20 +43,20 @@ return  $id;
   }
 	   public function transaction($user)
     {
-        $query['purchased']=$this->db->query("SELECT `user`.`shopname`,`osb_transaction`.`amount`,DATE(`osb_transaction`.`timestamp`) AS `date` FROM `user` LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userto`=`user`.`id` WHERE `user`.`id`='$user'")->result();
-		 $query['sales']=$this->db->query("SELECT `user`.`shopname`,`osb_transaction`.`amount`,DATE(`osb_transaction`.`timestamp`) AS `date` FROM `user` LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userfrom`=`user`.`id` WHERE `user`.`id`='$user'")->result();
-		$query['admin']=$this->db->query("SELECT `osb_transaction`.`amount`,DATE(`osb_transaction`.`timestamp`) AS `date` FROM `user` LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userfrom`=`user`.`id` WHERE `user`.`accesslevel`='1' AND `user`.`id`='$user'")->result();
+        $query['purchased']=$this->db->query("SELECT `user`.`shopname`,`osb_transaction`.`amount`,DATE(`osb_transaction`.`timestamp`) AS `date` FROM `user` LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userfrom`=`user`.`id` WHERE `osb_transaction`.`userto`!=1 AND `osb_transaction`.`userfrom`='$user'")->result();
+		 $query['sales']=$this->db->query("SELECT `user`.`shopname`,`osb_transaction`.`amount`,DATE(`osb_transaction`.`timestamp`) AS `date` FROM `user` LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userto`=`user`.`id` WHERE `osb_transaction`.`userto`='$user'")->result();
+		$query['admin']=$this->db->query("SELECT `osb_transaction`.`amount`,DATE(`osb_transaction`.`timestamp`) AS `date` FROM `user` LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userfrom`=`user`.`id` WHERE `osb_transaction`.`userfrom` OR `osb_transaction`.`userto`=1")->result();
 		return $query;
     }
 	   public function sellingapproval($user)
     {
-        $query['sellingapproval']=$this->db->query("SELECT `user`.`shopname`,`user`.`id`,`osb_request`.`amount` FROM `user` LEFT OUTER JOIN `osb_request` ON `osb_request`.`userfrom`=`user`.`id` WHERE `user`.`id`='$user'")->row();
+        $query['sellingapproval']=$this->db->query("SELECT `user`.`shopname`,`user`.`id`,`osb_request`.`amount` FROM `user` LEFT OUTER JOIN `osb_request` ON `osb_request`.`userfrom`=`user`.`id` WHERE `osb_request`.`userto`='$user'")->result();
 		return $query;
 		
     }
-	 public function accepted($user,$amount)
+	 public function accepted($userfrom,$userto,$amount)
     {
-        $data=array("userfrom" => $user,"amount" => $amount);
+        $data=array("userfrom" => $userfrom,"userto"=>$userto,"amount" => $amount);
 $query=$this->db->insert( "osb_transaction", $data );
 $id=$this->db->insert_id();
 		 if(!$query)
@@ -72,6 +72,7 @@ $id=$this->db->insert_id();
 
 $this->db->where('userfrom', $id);
 $this->db->update('osb_request', $data);
+			 return $id;
     }
 
 	public function changepassword($id,$oldpassword,$newpassword,$confirmpassword){
@@ -114,6 +115,31 @@ $id=$this->db->insert_id();
 	public function updateprofile($id,$shopname,$area,$address,$description,$shopcontact1,$shopcontact2,$shopemail,$website){
 	 $query=$this->db->query("UPDATE `user` SET `shopname`='$shopname',`area`='$area',`address`='$address',`description`='$description',`shopcontact1`='$shopcontact1',`shopcontact2`='$shopcontact2',`shopemail`='$shopemail',`website`='$website' WHERE `id`='$id'");
 	}
+public function acceptreason($id,$reason){
+ $data = array(
+               'reason' => $reason
+            );
 
+$this->db->where('id', $id);
+$this->db->update('osb_transaction', $data);
+}
+public function declinereason($id,$reason){
+ $data = array(
+               'reason' => $reason
+            );
+
+$this->db->where('userfrom', $id);
+$this->db->update('osb_request', $data);
+}
+	public function acceptstatus($id){
+	 $data = array(
+               'requeststatus' => 2
+            );
+
+$this->db->where('userfrom', $id);
+$this->db->update('osb_request', $data);
+	
+	}
+	
 }
 ?>

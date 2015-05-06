@@ -464,9 +464,11 @@ $data['message']=$this->restapi_model->decline($id);
 $this->load->view('json',$data);
  }
  public function accepted(){
-	 $user=$this->input->get('user');
+	 $userfrom=$this->input->get('userfrom');
+	 $userto=$this->input->get('userto');
 	 $amount=$this->input->get('amount');
-$data['message']=$this->restapi_model->accepted($user,$amount);
+//	 $reason=$this->input->get('reason');
+$data['message']=$this->restapi_model->accepted($userfrom,$userto,$amount);
 $this->load->view('json',$data);
  }
     public function changepassword() {
@@ -506,5 +508,24 @@ $website=$data['website'];
 $data['message']=$this->restapi_model->updateprofile($id,$shopname,$area,$category,$address,$description,$shopcontact1,$shopcontact2,$shopemail,$website);
 $this->load->view('json',$data);
  }
-
+public function acceptreason(){
+$id=$this->input->get('id');
+$reason=$this->input->get('reason');
+$data['message']=$this->restapi_model->acceptreason($id,$reason);
+$this->load->view('json',$data);
+}
+ public function declinereason(){
+$id=$this->input->get('id');
+$reason=$this->input->get('reason');
+$data['message']=$this->restapi_model->declinereason($id,$reason);
+$this->load->view('json',$data);
+}
+ public function acceptstatus(){
+ $id=$this->input->get('id');
+$data['message']=$this->restapi_model->acceptstatus($id);
+ }
+ public function transactionstatus(){
+$data['message']=$this->restapi_model->transactionstatus();
+$this->load->view('json',$data);
+ }
 } ?>

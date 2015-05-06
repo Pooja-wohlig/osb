@@ -3,9 +3,9 @@ if ( !defined( "BASEPATH" ) )
 exit( "No direct script access allowed" );
 class request_model extends CI_Model
 {
-public function create($userfrom,$userto,$requeststatus,$amount,$reason,$timestamp)
+public function create($userfrom,$userto,$requeststatus,$amount,$reason)
 {
-$data=array("userfrom" => $userfrom,"userto" => $userto,"requeststatus" => $requeststatus,"amount" => $amount,"reason" => $reason,"timestamp" => $timestamp);
+$data=array("userfrom" => $userfrom,"userto" => $userto,"requeststatus" => $requeststatus,"amount" => $amount,"reason" => $reason);
 $query=$this->db->insert( "osb_request", $data );
 $id=$this->db->insert_id();
 if(!$query)

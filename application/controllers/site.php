@@ -1314,6 +1314,82 @@ $this->area_model->delete($this->input->get("id"));
 $data["redirect"]="site/viewarea";
 $this->load->view("redirect",$data);
 }
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	//ADMIN REQUESTS
+	
+	public function viewrequestadmin()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data['requeststatus']=$this->requeststatus_model->getrequeststatusdropdown();
+$data['userto']=$this->user_model->getuserdropdown();
+$data['userfrom']=$this->user_model->getuserdropdown();
+$data["page"]="viewrequest";
+$data["base_url"]=site_url("site/viewrequestadminjson");
+$data["title"]="View request";
+$this->load->view("template",$data);
+}
+function viewrequestadminjson()
+{
+$elements=array();
+$elements[0]=new stdClass();
+$elements[0]->field="`osb_request`.`id`";
+$elements[0]->sort="1";
+$elements[0]->header="ID";
+$elements[0]->alias="id";
+$elements[1]=new stdClass();
+$elements[1]->field="`tab2`.`name`";
+$elements[1]->sort="1";
+$elements[1]->header="User From";
+$elements[1]->alias="userfrom";
+$elements[2]=new stdClass();
+$elements[2]->field="`tab1`.`name`";
+$elements[2]->sort="1";
+$elements[2]->header="User to";
+$elements[2]->alias="userto";
+$elements[3]=new stdClass();
+$elements[3]->field="`osb_request`.`requeststatus`";
+$elements[3]->sort="1";
+$elements[3]->header="Request Status";
+$elements[3]->alias="requeststatus";
+$elements[4]=new stdClass();
+$elements[4]->field="`osb_request`.`amount`";
+$elements[4]->sort="1";
+$elements[4]->header="Amount";
+$elements[4]->alias="amount";
+$elements[5]=new stdClass();
+$elements[5]->field="`osb_request`.`reason`";
+$elements[5]->sort="1";
+$elements[5]->header="Reason";
+$elements[5]->alias="reason";
+$elements[6]=new stdClass();
+$elements[6]->field="`osb_request`.`timestamp`";
+$elements[6]->sort="1";
+$elements[6]->header="Time stamp";
+$elements[6]->alias="timestamp";
+$search=$this->input->get_post("search");
+$pageno=$this->input->get_post("pageno");
+$orderby=$this->input->get_post("orderby");
+$orderorder=$this->input->get_post("orderorder");
+$maxrow=$this->input->get_post("maxrow");
+if($maxrow=="")
+{
+$maxrow=20;
+}
+if($orderby=="")
+{
+$orderby="id";
+$orderorder="ASC";
+}
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_request` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_request`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_request`.`userfrom`","WHERE `osb_request`.`userfrom`=1 ");
+$this->load->view("json",$data);
+}
+	
+	
+	
+	//ADMIN REQUESTS END
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 public function viewrequest()
 {
 $access=array("1");
@@ -1378,7 +1454,7 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_request` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_request`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_request`.`userfrom` ");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_request` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_request`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_request`.`userfrom`","WHERE `osb_request`.`userfrom`<>1  ");
 $this->load->view("json",$data);
 }
 
@@ -1632,35 +1708,35 @@ $elements[2]->sort="1";
 $elements[2]->header="User From";
 $elements[2]->alias="userfrom";
 	
-$elements[3]=new stdClass();
-$elements[3]->field="`osb_transactionstatus`.`name`";
-$elements[3]->sort="1";
-$elements[3]->header="Transaction Status";
-$elements[3]->alias="transactionstatus";
+//$elements[3]=new stdClass();
+//$elements[3]->field="`osb_transactionstatus`.`name`";
+//$elements[3]->sort="1";
+//$elements[3]->header="Transaction Status";
+//$elements[3]->alias="transactionstatus";
 	
+$elements[3]=new stdClass();
+$elements[3]->field="`osb_transaction`.`reason`";
+$elements[3]->sort="1";
+$elements[3]->header="Reason";
+$elements[3]->alias="reason";
+
 $elements[4]=new stdClass();
-$elements[4]->field="`osb_transaction`.`reason`";
+$elements[4]->field="`osb_transaction`.`amount`";
 $elements[4]->sort="1";
-$elements[4]->header="Reason";
-$elements[4]->alias="reason";
+$elements[4]->header="Amount";
+$elements[4]->alias="amount";
 
 $elements[5]=new stdClass();
-$elements[5]->field="`osb_transaction`.`amount`";
+$elements[5]->field="`osb_transaction`.`payableamount`";
 $elements[5]->sort="1";
-$elements[5]->header="Amount";
-$elements[5]->alias="amount";
-
-$elements[6]=new stdClass();
-$elements[6]->field="`osb_transaction`.`payableamount`";
-$elements[6]->sort="1";
-$elements[6]->header="Payable Amount";
-$elements[6]->alias="payableamount";
+$elements[5]->header="Payable Amount";
+$elements[5]->alias="payableamount";
 	
-$elements[7]=new stdClass();
-$elements[7]->field="`osb_transaction`.`timestamp`";
-$elements[7]->sort="1";
-$elements[7]->header="Time stamp";
-$elements[7]->alias="timestamp";
+$elements[6]=new stdClass();
+$elements[6]->field="`osb_transaction`.`timestamp`";
+$elements[6]->sort="1";
+$elements[6]->header="Time stamp";
+$elements[6]->alias="timestamp";
 //$elements[6]=new stdClass();
 //$elements[6]->field="`user`.`name`";
 //$elements[6]->sort="1";
@@ -1680,10 +1756,99 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_transaction` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_transaction`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_transaction`.`userfrom` LEFT OUTER JOIN `osb_transactionstatus` ON `osb_transactionstatus`.`id`=`osb_transaction`.`transactionstatus`");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_transaction` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_transaction`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_transaction`.`userfrom`","WHERE `osb_transaction`.`userfrom`!=1 ");
 $this->load->view("json",$data);
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	//ADMIN TRANSACTIONS
+	
+	public function viewtransactionadmin()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="viewtransaction";
+$data["base_url"]=site_url("site/viewtransactionadminjson");
+$data["title"]="View transaction";
+$this->load->view("template",$data);
+}
+function viewtransactionadminjson()
+{
+$elements=array();
+$elements[0]=new stdClass();
+$elements[0]->field="`osb_transaction`.`id`";
+$elements[0]->sort="1";
+$elements[0]->header="ID";
+$elements[0]->alias="id";
+	
+$elements[1]=new stdClass();
+$elements[1]->field="`tab1`.`name`";
+$elements[1]->sort="1";
+$elements[1]->header="User to";
+$elements[1]->alias="userto";
+	
+$elements[2]=new stdClass();
+$elements[2]->field="`tab2`.`name`";
+$elements[2]->sort="1";
+$elements[2]->header="User From";
+$elements[2]->alias="userfrom";
+	
+//$elements[3]=new stdClass();
+//$elements[3]->field="`osb_transactionstatus`.`name`";
+//$elements[3]->sort="1";
+//$elements[3]->header="Transaction Status";
+//$elements[3]->alias="transactionstatus";
+	
+$elements[3]=new stdClass();
+$elements[3]->field="`osb_transaction`.`reason`";
+$elements[3]->sort="1";
+$elements[3]->header="Reason";
+$elements[3]->alias="reason";
 
+$elements[4]=new stdClass();
+$elements[4]->field="`osb_transaction`.`amount`";
+$elements[4]->sort="1";
+$elements[4]->header="Amount";
+$elements[4]->alias="amount";
+
+$elements[5]=new stdClass();
+$elements[5]->field="`osb_transaction`.`payableamount`";
+$elements[5]->sort="1";
+$elements[5]->header="Payable Amount";
+$elements[5]->alias="payableamount";
+	
+$elements[6]=new stdClass();
+$elements[6]->field="`osb_transaction`.`timestamp`";
+$elements[6]->sort="1";
+$elements[6]->header="Time stamp";
+$elements[6]->alias="timestamp";
+//$elements[6]=new stdClass();
+//$elements[6]->field="`user`.`name`";
+//$elements[6]->sort="1";
+//$elements[6]->header="Name";
+//$elements[6]->alias="userfrom";
+$search=$this->input->get_post("search");
+$pageno=$this->input->get_post("pageno");
+$orderby=$this->input->get_post("orderby");
+$orderorder=$this->input->get_post("orderorder");
+$maxrow=$this->input->get_post("maxrow");
+if($maxrow=="")
+{
+$maxrow=20;
+}
+if($orderby=="")
+{
+$orderby="id";
+$orderorder="ASC";
+}
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_transaction` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_transaction`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_transaction`.`userfrom`","WHERE `osb_transaction`.`userfrom`=1");
+$this->load->view("json",$data);
+}
+	
+	//ADMIN TRANSACTIONS END
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 public function createtransaction()
 {
 $access=array("1");
@@ -1691,7 +1856,7 @@ $this->checkaccess($access);
 $data["page"]="createtransaction";
 $data['userto']=$this->user_model->getuserdropdown();
 $data['userfrom']=$this->user_model->getuserdropdown();
-$data['transactionstatus']=$this->transactionstatus_model->gettransactionstatusdropdown();
+//$data['transactionstatus']=$this->transactionstatus_model->gettransactionstatusdropdown();
 $data["title"]="Create transaction";
 $this->load->view("template",$data);
 }
@@ -1701,17 +1866,17 @@ $access=array("1");
 $this->checkaccess($access);
 $this->form_validation->set_rules("userto","User to","trim");
 $this->form_validation->set_rules("userfrom","User From","trim");
-$this->form_validation->set_rules("transactionstatus","Transaction Status","trim");
+//$this->form_validation->set_rules("transactionstatus","Transaction Status","trim");
 $this->form_validation->set_rules("amount","Amount","trim");
 $this->form_validation->set_rules("reason","Reason","trim");
 $this->form_validation->set_rules("payableamount","Payable Amount","trim");
-$this->form_validation->set_rules("timestamp","Time stamp","trim");
+//$this->form_validation->set_rules("timestamp","Time stamp","trim");
 if($this->form_validation->run()==FALSE)
 {
 $data["alerterror"]=validation_errors();
 $data['userto']=$this->user_model->getuserdropdown();
 $data['userfrom']=$this->user_model->getuserdropdown();
-$data['transactionstatus']=$this->transactionstatus_model->gettransactionstatusdropdown();
+//$data['transactionstatus']=$this->transactionstatus_model->gettransactionstatusdropdown();
 $data["page"]="createtransaction";
 $data["title"]="Create transaction";
 $this->load->view("template",$data);
@@ -1720,12 +1885,12 @@ else
 {
 $userto=$this->input->get_post("userto");
 $userfrom=$this->input->get_post("userfrom");
-$transactionstatus=$this->input->get_post("transactionstatus");
+//$transactionstatus=$this->input->get_post("transactionstatus");
 $amount=$this->input->get_post("amount");
 $reason=$this->input->get_post("reason");
 $payableamount=$this->input->get_post("payableamount");
 $timestamp=$this->input->get_post("timestamp");
-if($this->transaction_model->create($userto,$userfrom,$transactionstatus,$reason,$amount,$payableamount,$timestamp)==0)
+if($this->transaction_model->create($userto,$userfrom,$reason,$amount,$payableamount,$timestamp)==0)
 $data["alerterror"]="New transaction could not be created.";
 else
 $data["alertsuccess"]="transaction created Successfully.";
@@ -1740,7 +1905,7 @@ $this->checkaccess($access);
 $data["page"]="edittransaction";
 $data['userto']=$this->user_model->getuserdropdown();
 $data['userfrom']=$this->user_model->getuserdropdown();
-$data['transactionstatus']=$this->transactionstatus_model->gettransactionstatusdropdown();
+//$data['transactionstatus']=$this->transactionstatus_model->gettransactionstatusdropdown();
 $data["title"]="Edit transaction";
 $data["before"]=$this->transaction_model->beforeedit($this->input->get("id"));
 $this->load->view("template",$data);
@@ -1752,7 +1917,7 @@ $this->checkaccess($access);
 $this->form_validation->set_rules("id","ID","trim");
 $this->form_validation->set_rules("userto","User to","trim");
 $this->form_validation->set_rules("userfrom","User From","trim");
-$this->form_validation->set_rules("transactionstatus","Transaction Status","trim");
+//$this->form_validation->set_rules("transactionstatus","Transaction Status","trim");
 $this->form_validation->set_rules("amount","Amount","trim");
 $this->form_validation->set_rules("reason","Reason","trim");
 $this->form_validation->set_rules("payableamount","Payable Amount","trim");
@@ -1762,7 +1927,7 @@ if($this->form_validation->run()==FALSE)
 $data["alerterror"]=validation_errors();
 $data['userto']=$this->user_model->getuserdropdown();
 $data['userfrom']=$this->user_model->getuserdropdown();
-$data['transactionstatus']=$this->transactionstatus_model->gettransactionstatusdropdown();
+//$data['transactionstatus']=$this->transactionstatus_model->gettransactionstatusdropdown();
 $data["page"]="edittransaction";
 $data["title"]="Edit transaction";
 $data["before"]=$this->transaction_model->beforeedit($this->input->get("id"));
@@ -1773,12 +1938,12 @@ else
 $id=$this->input->get_post("id");
 $userto=$this->input->get_post("userto");
 $userfrom=$this->input->get_post("userfrom");
-$transactionstatus=$this->input->get_post("transactionstatus");
+//$transactionstatus=$this->input->get_post("transactionstatus");
 $amount=$this->input->get_post("amount");
 $reason=$this->input->get_post("reason");
 $payableamount=$this->input->get_post("payableamount");
 $timestamp=$this->input->get_post("timestamp");
-if($this->transaction_model->edit($id,$userto,$userfrom,$transactionstatus,$amount,$reason,$payableamount,$timestamp)==0)
+if($this->transaction_model->edit($id,$userto,$userfrom,$amount,$reason,$payableamount,$timestamp)==0)
 $data["alerterror"]="New transaction could not be Updated.";
 else
 $data["alertsuccess"]="transaction Updated Successfully.";
