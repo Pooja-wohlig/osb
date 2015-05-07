@@ -141,8 +141,43 @@ class Site extends CI_Controller
                 }
                 
 			}
+			
+			$config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="shoplogo";
+			$shoplogo="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$shoplogo=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                    //return false;
+                }  
+                else
+                {
+                    //print_r($this->image_lib->dest_image);
+                    //dest_image
+                    $shoplogo=$this->image_lib->dest_image;
+                    //return false;
+                }
+                
+			}
             
-		if($this->user_model->create($name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area)==0)
+		if($this->user_model->create($name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo)==0)
 		$data['alerterror']="New user could not be created.";
 			else
 			$data['alertsuccess']="User created Successfully.";
@@ -573,7 +608,7 @@ else
 $data["alertsuccess"]="shopproductphoto created Successfully.";
 	$userid=$this->input->get('id');
 $data["redirect"]="site/viewshopproductphoto?id=".$userid;
-$this->load->view("redirect",$data);
+$this->load->view("redirect2",$data);
 }
 }
 public function editshopproductphoto()
@@ -651,17 +686,25 @@ if($this->shopproductphoto_model->edit($id,$user,$photo)==0)
 $data["alerterror"]="New shopproductphoto could not be Updated.";
 else
 $data["alertsuccess"]="shopproductphoto Updated Successfully.";
-$data["redirect"]="site/viewshopproductphoto";
-$this->load->view("redirect",$data);
+$data["redirect"]="site/viewshopproductphoto?id=".$user;
+$this->load->view("redirect2",$data);
+	
+	if($this->shopphoto_model->edit($id,$user,$photo)==0)
+$data["alerterror"]="New shopphoto could not be Updated.";
+else
+$data["alertsuccess"]="shopphoto Updated Successfully.";
+$data["redirect"]="site/viewshopphoto?id=".$user;
+$this->load->view("redirect2",$data);
+	
 }
 }
 public function deleteshopproductphoto()
 {
 $access=array("1");
 $this->checkaccess($access);
-$this->shopproductphoto_model->delete($this->input->get("id"));
-$data["redirect"]="site/viewshopproductphoto";
-$this->load->view("redirect",$data);
+$this->shopproductphoto_model->delete($this->input->get("prodid"));
+$data["redirect"]="site/viewshopproductphoto?id=".$this->input->get('id');
+$this->load->view("redirect2",$data);
 }
 
 public function viewshopphoto()
@@ -783,7 +826,7 @@ else
 $data["alertsuccess"]="shopphoto created Successfully.";
 	$userid=$this->input->get('id');
 $data["redirect"]="site/viewshopphoto?id=".$userid;
-$this->load->view("redirect",$data);
+$this->load->view("redirect2",$data);
 }
 }
 
@@ -793,10 +836,10 @@ $access=array("1");
 $this->checkaccess($access);
 $data["page"]="editshopphoto";
 $data['user']=$this->shopproductphoto_model->getuserdropdown();
-//$data['userid']=$this->input->get('id');
-//$data['shopphotoid']=$this->input->get('shopphotoid');			
+$data['userid']=$this->input->get('id');
+$data['shopid']=$this->input->get('shopid');			
 $data["title"]="Edit shopphoto";
-$data["before"]=$this->shopphoto_model->beforeedit($this->input->get("id"));
+$data["before"]=$this->shopphoto_model->beforeedit($this->input->get("shopid"));
 $this->load->view("template",$data);
 }
 public function editshopphotosubmit()
@@ -812,8 +855,8 @@ if($this->form_validation->run()==FALSE)
 $data["alerterror"]=validation_errors();
 $data["page"]="editshopphoto";
 $data["title"]="Edit shopphoto";
-//   $data['userid']=$this->input->post('user');
-// $data['shopphotoid']=$this->input->post('id');
+   $data['userid']=$this->input->post('user');
+ $data['shopid']=$this->input->post('id');
 $data["before"]=$this->shopphoto_model->beforeedit($this->input->get("id"));
 	
 $this->load->view("template",$data);
@@ -870,7 +913,7 @@ $data["alerterror"]="New shopphoto could not be Updated.";
 else
 $data["alertsuccess"]="shopphoto Updated Successfully.";
 $data["redirect"]="site/viewshopphoto?id=".$user;
-$this->load->view("redirect",$data);
+$this->load->view("redirect2",$data);
 }
 }
 public function deleteshopphoto()
@@ -879,9 +922,9 @@ $access=array("1");
 $this->checkaccess($access);
 //		   $data['userid']=$this->input->get('id');
 //        $data['shopphotoid']=$this->input->get('shopphotoid');
-$this->shopphoto_model->delete($this->input->get("id"));
+$this->shopphoto_model->delete($this->input->get("shopid"));
 $data["redirect"]="site/viewshopphoto?id=".$this->input->get('id');
-$this->load->view("redirect",$data);
+$this->load->view("redirect2",$data);
 }
 	
 //	user_category-------------------------------------------------------------------------------------------------------------------------

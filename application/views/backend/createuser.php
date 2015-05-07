@@ -182,7 +182,12 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
 					<input type="text" id="normal-field" class="form-control" name="salesbalance" value="<?php echo set_value('salesbalance');?>">
 				  </div>
 				</div>
-				
+				<div class=" form-group">
+				  <label class="col-sm-2 control-label" for="normal-field">Shop Logo</label>
+				  <div class="col-sm-4">
+					<input type="file" id="normal-field" class="form-control" name="shoplogo" value="<?php echo set_value('shoplogo');?>">
+				  </div>
+				</div>
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label">&nbsp;</label>
 				  <div class="col-sm-4">

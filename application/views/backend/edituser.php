@@ -150,6 +150,15 @@
 				</div>
 			</div>
 			<div class=" form-group">
+				<label class="col-sm-2 control-label" for="normal-field">Shop Logo</label>
+				<div class="col-sm-4">
+					<input type="file" id="normal-field" class="form-control" name="shoplogo" value="<?php echo set_value('shoplogo',$before->shoplogo);?>">
+					<?php if($before->shoplogo == "") { } else { ?>
+					<img src="<?php echo base_url('uploads')." / ".$before->shoplogo; ?>" width="140px" height="140px">
+					<?php } ?>
+				</div>
+			</div>
+			<div class=" form-group">
 				<label class="col-sm-2 control-label">&nbsp;</label>
 				<div class="col-sm-4">
 					<button type="submit" class="btn btn-primary">Save</button>
