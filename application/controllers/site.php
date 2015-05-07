@@ -465,12 +465,15 @@ class Site extends CI_Controller
 $access=array("1");
 $this->checkaccess($access);
 $data["page"]="viewshopproductphoto";
-$data["base_url"]=site_url("site/viewshopproductphotojson");
+$data["userid"]=$this->input->get('id');
+$userid=$this->input->get('id');
+$data["base_url"]=site_url("site/viewshopproductphotojson?id=".$userid);
 $data["title"]="View shopproductphoto";
 $this->load->view("template",$data);
 }
 function viewshopproductphotojson()
 {
+$userid=$this->input->get('id');
 $elements=array();
 $elements[0]=new stdClass();
 $elements[0]->field="`osb_shopproductphoto`.`id`";
@@ -482,11 +485,11 @@ $elements[1]->field="`osb_shopproductphoto`.`user`";
 $elements[1]->sort="1";
 $elements[1]->header="User";
 $elements[1]->alias="user";
-//$elements[2]=new stdClass();
-//$elements[2]->field="`osb_shopproductphoto`.`photo`";
-//$elements[2]->sort="1";
-//$elements[2]->header="Photo";
-//$elements[2]->alias="photo";
+$elements[2]=new stdClass();
+$elements[2]->field="`osb_shopproductphoto`.`photo`";
+$elements[2]->sort="1";
+$elements[2]->header="Photo";
+$elements[2]->alias="photo";
 $search=$this->input->get_post("search");
 $pageno=$this->input->get_post("pageno");
 $orderby=$this->input->get_post("orderby");
@@ -501,7 +504,7 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_shopproductphoto`");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_shopproductphoto` LEFT OUTER JOIN `user` ON `user`.`id`=`osb_shopproductphoto`.`user`","WHERE `osb_shopproductphoto`.`user`='$userid'");
 $this->load->view("json",$data);
 }
 
@@ -562,16 +565,14 @@ $config['upload_path'] = './uploads/';
                     //dest_image
                     $photo=$this->image_lib->dest_image;
                     //return false;
-                }
-                
+                }         
 			}
-            
-//$photo=$this->input->get_post("photo");
 if($this->shopproductphoto_model->create($user,$photo)==0)
 $data["alerterror"]="New shopproductphoto could not be created.";
 else
 $data["alertsuccess"]="shopproductphoto created Successfully.";
-$data["redirect"]="site/viewshopproductphoto";
+	$userid=$this->input->get('id');
+$data["redirect"]="site/viewshopproductphoto?id=".$userid;
 $this->load->view("redirect",$data);
 }
 }
@@ -646,7 +647,6 @@ $user=$this->input->get_post("user");
                // print_r($image);
                 $photo=$photo->photo;
             }
-//$photo=$this->input->get_post("photo");
 if($this->shopproductphoto_model->edit($id,$user,$photo)==0)
 $data["alerterror"]="New shopproductphoto could not be Updated.";
 else
@@ -672,7 +672,8 @@ $data["page"]="viewshopphoto";
 $data['userid']=$this->input->get('id');
 $data['before']=$this->user_model->beforeedit($this->input->get('id'));
 $userid=$this->input->get('id');
-$data["base_url"]=site_url("site/viewshopphotojson");
+//	echo $userid;
+$data["base_url"]=site_url("site/viewshopphotojson?id=".$userid);
 $data["title"]="View shopphoto";
 $this->load->view("template",$data);
 }
@@ -690,11 +691,11 @@ $elements[1]->field="`osb_shopphoto`.`user`";
 $elements[1]->sort="1";
 $elements[1]->header="User";
 $elements[1]->alias="user";
-//$elements[2]=new stdClass();
-//$elements[2]->field="`osb_shopphoto`.`photo`";
-//$elements[2]->sort="1";
-//$elements[2]->header="Photo";
-//$elements[2]->alias="photo";
+$elements[2]=new stdClass();
+$elements[2]->field="`osb_shopphoto`.`photo`";
+$elements[2]->sort="1";
+$elements[2]->header="Photo";
+$elements[2]->alias="photo";
 $search=$this->input->get_post("search");
 $pageno=$this->input->get_post("pageno");
 $orderby=$this->input->get_post("orderby");
@@ -709,10 +710,10 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_shopphoto`");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_shopphoto` LEFT OUTER JOIN `user` ON `user`.`id`=`osb_shopphoto`.`user`","WHERE `osb_shopphoto`.`user`='$userid'");
 $this->load->view("json",$data);
 }
-
+// 
 public function createshopphoto()
 {
 $access=array("1");
@@ -728,7 +729,7 @@ public function createshopphotosubmit()
 $access=array("1");
 $this->checkaccess($access);
 $this->form_validation->set_rules("user","User","trim");
-$this->form_validation->set_rules("photo","Photo","trim");
+//$this->form_validation->set_rules("photo","Photo","trim");
 if($this->form_validation->run()==FALSE)
 {
 $data["alerterror"]=validation_errors();
@@ -741,7 +742,6 @@ $this->load->view("template",$data);
 else
 {
 $user=$this->input->get_post("user");
-//$photo=$this->input->get_post("photo");
 $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
 			$this->load->library('upload', $config);
@@ -773,15 +773,16 @@ $config['upload_path'] = './uploads/';
                     //dest_image
                     $photo=$this->image_lib->dest_image;
                     //return false;
-                }
-                
-			}
-            
+                }         
+			}            
+//	echo $user;
+//	echo $photo;
 if($this->shopphoto_model->create($user,$photo)==0)
 $data["alerterror"]="New shopphoto could not be created.";
 else
 $data["alertsuccess"]="shopphoto created Successfully.";
-$data["redirect"]="site/viewshopphoto";
+	$userid=$this->input->get('id');
+$data["redirect"]="site/viewshopphoto?id=".$userid;
 $this->load->view("redirect",$data);
 }
 }

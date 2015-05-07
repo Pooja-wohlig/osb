@@ -8,7 +8,7 @@ shopphoto Details
 <div class=" form-group">
 <label class="col-sm-2 control-label" for="normal-field">User</label>
 <div class="col-sm-4">
-<?php echo form_dropdown("user",$user,set_value('user',$before->user),"class='chzn-select form-control'");?>
+<?php echo form_dropdown("user",$user,set_value('user',$before->user),"class='chzn-select form-control' disabled='disabled'");?>
 </div>
 </div>
 <div class=" form-group">

@@ -7,16 +7,16 @@
 <div class="row">
 <div class="col-lg-12">
 <section class="panel">
-<header class="panel-heading">
+<header class="panel-heading">  
 shopproductphoto Details
 </header>
 <div class="panel-body">
-<form class='form-horizontal tasi-form' method='post' action='<?php echo site_url("site/createshopproductphotosubmit");?>' enctype= 'multipart/form-data'>
+<form class='form-horizontal tasi-form' method='post' action='<?php echo site_url("site/createshopproductphotosubmit?id=").$this->input->get('id');?>' enctype= 'multipart/form-data'>
 <div class="panel-body">
 <div class=" form-group">
 <label class="col-sm-2 control-label" for="normal-field">User</label>
 <div class="col-sm-4">
-<?php echo form_dropdown("user",$user,set_value('user'),"class='chzn-select form-control'");?>
+<?php echo form_dropdown("user",$user,set_value('user',$this->input->get('id')),"class='chzn-select form-control'");?>
 </div>
 </div>
 <div class="form-group">

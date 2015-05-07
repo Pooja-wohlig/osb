@@ -523,9 +523,17 @@ $this->load->view('json',$data);
  public function acceptstatus(){
  $id=$this->input->get('id');
 $data['message']=$this->restapi_model->acceptstatus($id);
+	 $this->load->view('json',$data);
  }
- public function transactionstatus(){
-$data['message']=$this->restapi_model->transactionstatus();
-$this->load->view('json',$data);
+ public function shopphoto(){
+ $id=$this->input->get('id');
+$data['message']=$this->restapi_model->shopphoto($id);
+	 $this->load->view('json',$data);
  }
+ public function shopproductphoto(){
+ $id=$this->input->get('id');
+$data['message']=$this->restapi_model->shopproductphoto($id);
+	 $this->load->view('json',$data);
+ }
+
 } ?>
