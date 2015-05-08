@@ -92,8 +92,8 @@ class restapi_model extends CI_Model {
         $query['category'] = $this->db->query("SELECT `name` FROM `osb_category` WHERE `id`='$category'")->row();
         return $query;
     }
-    public function purchaserequest($userfrom, $userto, $amount) {
-        $data = array("userfrom" => $userfrom, "userto" => $userto, "amount" => $amount, "requeststatus" => 1);
+    public function purchaserequest($userfrom, $userto, $amount,$reason) {
+        $data = array("userfrom" => $userfrom, "userto" => $userto, "amount" => $amount, "reason" => $reason, "requeststatus" => 1);
         $query = $this->db->insert("osb_request", $data);
         $id = $this->db->insert_id();
         if (!$query) return 0;
