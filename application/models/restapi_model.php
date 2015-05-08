@@ -15,12 +15,25 @@ class restapi_model extends CI_Model
 		return $query;
     }
   public function searchresult($area,$category){
-	  if($area=="0" && $category=="0"){
-	  $query=$this->db->query("SELECT `id`,`shopname` as `name`,`salesbalance` as `sellbalance` FROM `user` ORDER BY `salesbalance` DESC")->result();
-		  return $query;
+	  if($area!="0" || $area!="")
+	  {
+		  $areaquery="`user`.`area`='$area'";
 	  }
+	  else
+	  {
+		  $areaquery=" 1 ";
+	  }
+	  if($category!="0" || $category!="")
+	  {
+		  $categoryquery="`usercategory`.`category`='$category'";
+	  }
+	  else
+	  {
+		  $categoryquery=" 1 ";
+	  }
+	
 	  
-  $query=$this->db->query("SELECT `user`.`id`,`user`.`shopname` as `name`,`user`.`salesbalance` as `sellbalance` FROM `user` LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE `user`.`area`='$area' AND `usercategory`.`category`='$category'")->result();
+  	$query=$this->db->query("SELECT `user`.`id`,`user`.`shopname` as `name`,`user`.`salesbalance` as `sellbalance` FROM `user` LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE $areaquery AND $categoryquery")->result();
 	  return $query;
   }
 //	 public function searchresult1($membershipno){
