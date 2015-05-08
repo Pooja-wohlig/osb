@@ -20,6 +20,7 @@ request Details
 <th data-field="requeststatus">Request Status</th>
 <th data-field="amount">Amount</th>
 <th data-field="reason">Reason</th>
+<!--<th data-field="approvalreason">Approval Reason</th>-->
 <th data-field="timestamp">Time stamp</th>
 </tr>
 </thead>

@@ -1561,6 +1561,7 @@ $this->form_validation->set_rules("userto","User to","trim");
 $this->form_validation->set_rules("requeststatus","Request Status","trim");
 $this->form_validation->set_rules("amount","Amount","trim");
 $this->form_validation->set_rules("reason","Reason","trim");
+$this->form_validation->set_rules("approvalreason","Approval Reason","trim");
 $this->form_validation->set_rules("timestamp","Time stamp","trim");
 if($this->form_validation->run()==FALSE)
 {
@@ -1579,8 +1580,9 @@ $userto=$this->input->get_post("userto");
 $requeststatus=$this->input->get_post("requeststatus");
 $amount=$this->input->get_post("amount");
 $reason=$this->input->get_post("reason");
+$approvalreason=$this->input->get_post("approvalreason");
 $timestamp=$this->input->get_post("timestamp");
-if($this->request_model->create($userfrom,$userto,$requeststatus,$amount,$reason,$timestamp)==0)
+if($this->request_model->create($userfrom,$userto,$requeststatus,$amount,$reason,$approvalreason,$timestamp)==0)
 $data["alerterror"]="New request could not be created.";
 else
 $data["alertsuccess"]="request created Successfully.";
@@ -1610,6 +1612,7 @@ $this->form_validation->set_rules("userto","User to","trim");
 $this->form_validation->set_rules("requeststatus","Request Status","trim");
 $this->form_validation->set_rules("amount","Amount","trim");
 $this->form_validation->set_rules("reason","Reason","trim");
+$this->form_validation->set_rules("approvalreason","Approval Reason","trim");
 $this->form_validation->set_rules("timestamp","Time stamp","trim");
 if($this->form_validation->run()==FALSE)
 {
@@ -1630,8 +1633,9 @@ $userto=$this->input->get_post("userto");
 $requeststatus=$this->input->get_post("requeststatus");
 $amount=$this->input->get_post("amount");
 $reason=$this->input->get_post("reason");
+$approvalreason=$this->input->get_post("approvalreason");
 $timestamp=$this->input->get_post("timestamp");
-if($this->request_model->edit($id,$userfrom,$userto,$requeststatus,$amount,$reason,$timestamp)==0)
+if($this->request_model->edit($id,$userfrom,$userto,$requeststatus,$amount,$reason,$approvalreason,$timestamp)==0)
 $data["alerterror"]="New request could not be Updated.";
 else
 $data["alertsuccess"]="request Updated Successfully.";

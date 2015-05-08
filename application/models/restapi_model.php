@@ -56,12 +56,28 @@ class restapi_model extends CI_Model {
         $query['sellingapproval'] = $this->db->query("SELECT `osb_request`.`id` as `requestid`,`user`.`shopname`,`user`.`id`,`osb_request`.`amount` FROM `user` LEFT OUTER JOIN `osb_request` ON `osb_request`.`userfrom`=`user`.`id` WHERE `osb_request`.`userto`='$user'")->result();
         return $query;
     }
-    public function accepted($userfrom, $userto, $amount) {
-        $data = array("userfrom" => $userfrom, "userto" => $userto, "amount" => $amount);
-        $query = $this->db->insert("osb_transaction", $data);
-        $id = $this->db->insert_id();
-        if (!$query) return 0;
-        else return $id;
+    public function accepted($id,$reason,$status) {
+		if($status=="1"){
+			
+			$data = array('approvalreason' => $reason,'requeststatus' => 2);
+			$this->db->where('id', $id);
+			$this->db->update('osb_request', $data);	
+			$query=$this->db->query("SELECT `userfrom`,`userto`,`amount`,`reason` FROM `osb_request` WHERE id='$id'")->row();
+			
+			$userfrom = $query->userfrom;
+			$userto= $query->userto;
+			$amount= $query->amount;
+			$data = array("userfrom" => $userfrom, "userto" => $userto, "amount" => $amount);
+			$query = $this->db->insert("osb_transaction", $data);
+			$id = $this->db->insert_id();
+			return $id;
+		}
+		else if($status=="2"){
+			$data = array('requeststatus' => 3,'approvalreason' => $reason);
+			$this->db->where('id', $id);
+			$this->db->update('osb_request', $data);
+			return $id;
+		}
     }
     public function decline($id) {
         $data = array('requeststatus' => 3);

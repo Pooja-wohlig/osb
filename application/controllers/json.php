@@ -464,11 +464,10 @@ $data['message']=$this->restapi_model->decline($id);
 $this->load->view('json',$data);
  }
  public function accepted(){
-	 $userfrom=$this->input->get('userfrom');
-	 $userto=$this->input->get('userto');
-	 $amount=$this->input->get('amount');
+	 $id=$this->input->get('id');
 	 $reason=$this->input->get('reason');
-$data['message']=$this->restapi_model->accepted($userfrom,$userto,$amount);
+	 $status=$this->input->get('status');
+$data['message']=$this->restapi_model->accepted($id,$reason,$status);
 $this->load->view('json',$data);
  }
     public function changepassword() {

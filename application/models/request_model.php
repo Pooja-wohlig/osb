@@ -3,9 +3,9 @@ if ( !defined( "BASEPATH" ) )
 exit( "No direct script access allowed" );
 class request_model extends CI_Model
 {
-public function create($userfrom,$userto,$requeststatus,$amount,$reason)
+public function create($userfrom,$userto,$requeststatus,$amount,$reason,$approvalreason)
 {
-$data=array("userfrom" => $userfrom,"userto" => $userto,"requeststatus" => $requeststatus,"amount" => $amount,"reason" => $reason);
+$data=array("userfrom" => $userfrom,"userto" => $userto,"requeststatus" => $requeststatus,"amount" => $amount,"reason" => $reason,"approvalreason" => $approvalreason);
 $query=$this->db->insert( "osb_request", $data );
 $id=$this->db->insert_id();
 if(!$query)
@@ -24,9 +24,9 @@ $this->db->where("id",$id);
 $query=$this->db->get("osb_request")->row();
 return $query;
 }
-public function edit($id,$userfrom,$userto,$requeststatus,$amount,$reason,$timestamp)
+public function edit($id,$userfrom,$userto,$requeststatus,$amount,$reason,$approvalreason,$timestamp)
 {
-$data=array("userfrom" => $userfrom,"userto" => $userto,"requeststatus" => $requeststatus,"amount" => $amount,"reason" => $reason,"timestamp" => $timestamp);
+$data=array("userfrom" => $userfrom,"userto" => $userto,"requeststatus" => $requeststatus,"amount" => $amount,"reason" => $reason,"approvalreason" => $approvalreason,"timestamp" => $timestamp);
 $this->db->where( "id", $id );
 $query=$this->db->update( "osb_request", $data );
 return 1;
