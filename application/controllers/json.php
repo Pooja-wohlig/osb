@@ -435,12 +435,7 @@ $user=$this->input->get('user');
 $data['message']=$this->restapi_model->shopprofile($user);
 $this->load->view('json',$data);
  }
-  public function shopprofilemem()
- {
-$mem=$this->input->get('mem');
-$data['message']=$this->restapi_model->shopprofilemem($mem);
-$this->load->view('json',$data);
- }
+ 
    public function yourbalance()
  {
 $user=$this->input->get('user');
@@ -545,5 +540,9 @@ public function allshop(){
 $data['message']=$this->restapi_model->allshop();
 	 $this->load->view('json',$data);
 }
- 
+ public function shopprofilemem(){
+  $mem=$this->input->get('mem');
+$data['message']=$this->restapi_model->shopprofilemem($mem);
+	 $this->load->view('json',$data);
+ }
 } ?>
