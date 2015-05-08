@@ -467,7 +467,7 @@ $this->load->view('json',$data);
 	 $userfrom=$this->input->get('userfrom');
 	 $userto=$this->input->get('userto');
 	 $amount=$this->input->get('amount');
-//	 $reason=$this->input->get('reason');
+	 $reason=$this->input->get('reason');
 $data['message']=$this->restapi_model->accepted($userfrom,$userto,$amount);
 $this->load->view('json',$data);
  }
