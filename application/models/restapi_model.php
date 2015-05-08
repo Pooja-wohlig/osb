@@ -14,13 +14,13 @@ class restapi_model extends CI_Model
 		
 		return $query;
     }
-  public function searchresult($area,$category,$membershipno){
-	  if($area=="0" && $category=="0" && $membershipno=="0"){
+  public function searchresult($area,$category){
+	  if($area=="0" && $category=="0"){
 	  $query=$this->db->query("SELECT `id`,`shopname` as `name`,`salesbalance` as `sellbalance` FROM `user` ORDER BY `salesbalance` DESC")->result();
 		  return $query;
 	  }
 	  
-  $query=$this->db->query("SELECT `user`.`id`,`user`.`shopname` as `name`,`user`.`salesbalance` as `sellbalance` FROM `user` LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE `user`.`area`='$area' AND `usercategory`.`category`='$category' OR `user`.`membershipno`='$membershipno'")->result();
+  $query=$this->db->query("SELECT `user`.`id`,`user`.`shopname` as `name`,`user`.`salesbalance` as `sellbalance` FROM `user` LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE `user`.`area`='$area' AND `usercategory`.`category`='$category'")->result();
 	  return $query;
   }
 //	 public function searchresult1($membershipno){
