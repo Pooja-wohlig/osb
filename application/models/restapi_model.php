@@ -53,7 +53,11 @@ class restapi_model extends CI_Model {
         return $query;
     }
     public function sellingapproval($user) {
+<<<<<<< HEAD
         $query['sellingapproval'] = $this->db->query("SELECT `user`.`shopname`,`user`.`id`,`osb_request`.`amount` FROM `user` INNER JOIN `osb_request` ON `osb_request`.`userfrom`=`user`.`id` AND `osb_request`.`requeststatus`='1' AND `osb_request`.`userto`='$user'  ")->result();
+=======
+        $query['sellingapproval'] = $this->db->query("SELECT `osb_request`.`id` as `requestid`,`user`.`shopname`,`user`.`id`,`osb_request`.`amount` FROM `user` LEFT OUTER JOIN `osb_request` ON `osb_request`.`userfrom`=`user`.`id` WHERE `osb_request`.`userto`='$user'")->result();
+>>>>>>> origin/master
         return $query;
     }
 
