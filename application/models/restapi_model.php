@@ -53,7 +53,11 @@ class restapi_model extends CI_Model {
         return $query;
     }
     public function sellingapproval($user) {
+<<<<<<< HEAD
         $query['sellingapproval'] = $this->db->query("SELECT `user`.`shoplogo`,`user`.`shopname`,`user`.`id`,`osb_request`.`amount` FROM `user` INNER JOIN `osb_request` ON `osb_request`.`userfrom`=`user`.`id` AND `osb_request`.`requeststatus`='1' AND `osb_request`.`userto`='$user'  ")->result();
+=======
+        $query['sellingapproval'] = $this->db->query("SELECT `user`.`shopname`,`osb_request`.`id`,`osb_request`.`amount` FROM `user` INNER JOIN `osb_request` ON `osb_request`.`userfrom`=`user`.`id` AND `osb_request`.`requeststatus`='1' AND `osb_request`.`userto`='$user'  ")->result();
+>>>>>>> origin/master
         return $query;
     }
     public function accepted($id, $reason, $status) {
@@ -68,6 +72,8 @@ class restapi_model extends CI_Model {
             $data = array("userfrom" => $userfrom, "userto" => $userto, "amount" => $amount);
             $query = $this->db->insert("osb_transaction", $data);
             $id = $this->db->insert_id();
+            $query=$this->db->query("UPDATE `user` SET `user`.`purchasebalance`=`user`.`purchasebalance`-$amount WHERE `user`.`id`= '$userfrom'" );
+            $query=$this->db->query("UPDATE `user` SET `user`.`salesbalance`=`user`.`salesbalance`-$amount WHERE `user`.`id`= '$userto'" );
             return $id;
         } else if ($status == "2") {
             $data = array('requeststatus' => 3, 'approvalreason' => $reason);
