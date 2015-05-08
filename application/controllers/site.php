@@ -457,8 +457,50 @@ class Site extends CI_Controller
                // print_r($image);
                 $image=$image->image;
             }
+//           
+			
+			 $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="shoplogo";
+			$shoplogo="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$shoplogo=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                    //return false;
+                }  
+                else
+                {
+                    //print_r($this->image_lib->dest_image);
+                    //dest_image
+                    $image=$this->image_lib->dest_image;
+                    //return false;
+                }
+                
+			}
             
-			if($this->user_model->edit($id,$name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area)==0)
+            if($shoplogo=="")
+            {
+            $shoplogo=$this->user_model->getuserimagebyid($id);
+               // print_r($image);
+                $shoplogo=$shoplogo->image;
+            }
+			if($this->user_model->edit($id,$name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo)==0)
 			$data['alerterror']="User Editing was unsuccesful";
 			else
 			$data['alertsuccess']="User edited Successfully.";
@@ -613,12 +655,14 @@ $this->load->view("redirect2",$data);
 }
 public function editshopproductphoto()
 {
-$access=array("1");
+	$access=array("1");
 $this->checkaccess($access);
 $data["page"]="editshopproductphoto";
 $data['user']=$this->shopproductphoto_model->getuserdropdown();
+$data['userid']=$this->input->get('id');
+$data['prodid']=$this->input->get('prodid');
 $data["title"]="Edit shopproductphoto";
-$data["before"]=$this->shopproductphoto_model->beforeedit($this->input->get("id"));
+$data["before"]=$this->shopproductphoto_model->beforeedit($this->input->get("prodid"));
 $this->load->view("template",$data);
 }
 public function editshopproductphotosubmit()
@@ -634,6 +678,8 @@ $data["alerterror"]=validation_errors();
 $data["page"]="editshopproductphoto";
 $data['user']=$this->shopproductphoto_model->getuserdropdown();
 $data["title"]="Edit shopproductphoto";
+ $data['userid']=$this->input->post('user');
+ $data['prodid']=$this->input->post('id');
 $data["before"]=$this->shopproductphoto_model->beforeedit($this->input->get("id"));
 $this->load->view("template",$data);
 }
@@ -687,13 +733,6 @@ $data["alerterror"]="New shopproductphoto could not be Updated.";
 else
 $data["alertsuccess"]="shopproductphoto Updated Successfully.";
 $data["redirect"]="site/viewshopproductphoto?id=".$user;
-$this->load->view("redirect2",$data);
-	
-	if($this->shopphoto_model->edit($id,$user,$photo)==0)
-$data["alerterror"]="New shopphoto could not be Updated.";
-else
-$data["alertsuccess"]="shopphoto Updated Successfully.";
-$data["redirect"]="site/viewshopphoto?id=".$user;
 $this->load->view("redirect2",$data);
 	
 }

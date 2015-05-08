@@ -27,7 +27,10 @@ shopproductphoto Details
 </section>
 <script>
 function drawtable(resultrow) {
-return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.user + "</td><td>" + resultrow.photo + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editshopproductphoto?id=');?>"+resultrow.id+"'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' href='<?php echo site_url('site/deleteshopproductphoto?id='); ?>"+resultrow.id+"'><i class='icon-trash '></i></a></td></tr>";
+return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.user + "</td><td>" + resultrow.photo + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editshopproductphoto?id=');?>" + resultrow.user + "&prodid="+resultrow.id+"'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' href='<?php echo site_url('site/deleteshopproductphoto?id='); ?>" + resultrow.user + "&prodid="+resultrow.id+"'><i class='icon-trash '></i></a></td></tr>";
+	
+
+	
 }
 generatejquery("<?php echo $base_url;?>");
 </script>

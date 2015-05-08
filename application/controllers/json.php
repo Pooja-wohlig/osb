@@ -545,4 +545,5 @@ public function allshop(){
 $data['message']=$this->restapi_model->allshop();
 	 $this->load->view('json',$data);
 }
+ 
 } ?>
