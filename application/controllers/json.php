@@ -1,5 +1,5 @@
 <?php if ( ! defined("BASEPATH")) exit("No direct script access allowed");
-class Json extends CI_Controller 
+class Json extends CI_Controller
 {function getallshopproductphoto()
 {
 $elements=array();
@@ -408,11 +408,11 @@ $this->load->view("json",$data);
         $data['message']=$this->user_model->login($membershipno,$password);
         $this->load->view('json',$data);
  }
- 
+
     public function logout()
     {
         $this->session->sess_destroy();
-        
+
 		$this->load->view('json',true);
     }
  public function home()
@@ -434,7 +434,7 @@ $user=$this->input->get('user');
 $data['message']=$this->restapi_model->shopprofile($user);
 $this->load->view('json',$data);
  }
- 
+
    public function yourbalance()
  {
 $user=$this->input->get('user');
@@ -503,7 +503,7 @@ $description=$data['description'];
 $shopcontact1=$data['shopcontact1'];
 $shopcontact2=$data['shopcontact2'];
 $shopemail=$data['shopemail'];
-$website=$data['website']; 
+$website=$data['website'];
 	 print_r($data);
 $data['message']=$this->restapi_model->updateprofile($id,$shopname,$area,$category,$address,$description,$shopcontact1,$shopcontact2,$shopemail,$website);
 $this->load->view('json',$data);
