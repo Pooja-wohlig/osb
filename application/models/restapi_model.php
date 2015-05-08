@@ -16,7 +16,7 @@ class restapi_model extends CI_Model
     }
   public function searchresult($area,$category,$membershipno){
 	  if($area=="0" && $category=="0" && $membershipno=="0"){
-	  $query=$this->db->query("SELECT `id`,`shopname`,`salesbalance` FROM `user` ORDER BY `salesbalance` DESC")->result();
+	  $query=$this->db->query("SELECT `id`,`shopname` as `name`,`salesbalance` as `sellbalance` FROM `user` ORDER BY `salesbalance` DESC")->result();
 		  return $query;
 	  }
 	  
