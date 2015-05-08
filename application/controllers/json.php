@@ -544,4 +544,14 @@ $data['message']=$this->restapi_model->allshop();
 $data['message']=$this->restapi_model->shopprofilemem($mem);
 	 $this->load->view('json',$data);
  }
+ public function getallcategory1(){
+ $data['message']=$this->restapi_model->getallcategory1();
+	 $this->load->view('json',$data);
+ }
+ public function updatecat(){
+  $userid=$this->input->get('user');
+  $catid=$this->input->get('id');
+$data['message']=$this->restapi_model->updatecat($userid,$catid);
+	 $this->load->view('json',$data);
+ }
 } ?>

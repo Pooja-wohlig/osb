@@ -47,13 +47,13 @@ class restapi_model extends CI_Model {
         else return $id;
     }
     public function transaction($user) {
-        $query['purchased'] = $this->db->query("SELECT `user`.`shopname`,`osb_transaction`.`amount`,DATE(`osb_transaction`.`timestamp`) AS `date` FROM `user` LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userfrom`=`user`.`id` WHERE `osb_transaction`.`userto`!=1 AND `osb_transaction`.`userfrom`='$user'")->result();
-        $query['sales'] = $this->db->query("SELECT `user`.`shopname`,`osb_transaction`.`amount`,DATE(`osb_transaction`.`timestamp`) AS `date` FROM `user` LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userto`=`user`.`id` WHERE `osb_transaction`.`userfrom`!=1 AND `osb_transaction`.`userto`='$user'")->result();
+        $query['purchased'] = $this->db->query("SELECT `user`.`shoplogo`,`user`.`shopname`,`osb_transaction`.`amount`,DATE(`osb_transaction`.`timestamp`) AS `date` FROM `user` LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userfrom`=`user`.`id` WHERE `osb_transaction`.`userto`!=1 AND `osb_transaction`.`userfrom`='$user'")->result();
+        $query['sales'] = $this->db->query("SELECT `user`.`shoplogo`,`user`.`shopname`,`osb_transaction`.`amount`,DATE(`osb_transaction`.`timestamp`) AS `date` FROM `user` LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userto`=`user`.`id` WHERE `osb_transaction`.`userfrom`!=1 AND `osb_transaction`.`userto`='$user'")->result();
         $query['admin'] = $this->db->query("SELECT `osb_transaction`.`amount`,DATE(`osb_transaction`.`timestamp`) AS `date` FROM `user` LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userfrom`=`user`.`id` WHERE `osb_transaction`.`userfrom` OR `osb_transaction`.`userto`=1")->result();
         return $query;
     }
     public function sellingapproval($user) {
-        $query['sellingapproval'] = $this->db->query("SELECT `user`.`shopname`,`user`.`id`,`osb_request`.`amount` FROM `user` INNER JOIN `osb_request` ON `osb_request`.`userfrom`=`user`.`id` AND `osb_request`.`requeststatus`='1' AND `osb_request`.`userto`='$user'  ")->result();
+        $query['sellingapproval'] = $this->db->query("SELECT `user`.`shoplogo`,`user`.`shopname`,`user`.`id`,`osb_request`.`amount` FROM `user` INNER JOIN `osb_request` ON `osb_request`.`userfrom`=`user`.`id` AND `osb_request`.`requeststatus`='1' AND `osb_request`.`userto`='$user'  ")->result();
         return $query;
     }
     public function accepted($id, $reason, $status) {
@@ -142,5 +142,15 @@ class restapi_model extends CI_Model {
         $query = $this->db->query("SELECT `shopname`,`sellbalance`,`photo` FROM `osb_shopphoto` WHERE `user`='$id'")->result();
         return $query;
     }
+	 public function getallcategory1() {
+        $query = $this->db->query("SELECT `id`,`name` FROM `osb_category`")->result();
+        return $query;
+    }
+	public function updatecat($userid,$catid){
+	$data = array('user' => $userid,'category' =>$catid);
+        $this->db->where('user', $userid);
+        $this->db->update('usercategory', $data);
+		return $userid;
+	}
 }
 ?>
