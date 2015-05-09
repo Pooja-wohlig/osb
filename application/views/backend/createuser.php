@@ -189,6 +189,12 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
 				  </div>
 				</div>
 				<div class=" form-group">
+				  <label class="col-sm-2 control-label" for="normal-field">Percent Payment</label>
+				  <div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="percentpayment" value="<?php echo set_value('percentpayment');?>">
+				  </div>
+				</div>
+				<div class=" form-group">
 				  <label class="col-sm-2 control-label">&nbsp;</label>
 				  <div class="col-sm-4">
 				  <button type="submit" class="btn btn-primary">Save</button>

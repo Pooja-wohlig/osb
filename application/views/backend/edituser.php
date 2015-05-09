@@ -150,6 +150,12 @@
 				</div>
 			</div>
 			<div class=" form-group">
+				<label class="col-sm-2 control-label" for="normal-field">Percent Payment</label>
+				<div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="percentpayment" value="<?php echo set_value('percentpayment',$before->percentpayment);?>">
+				</div>
+			</div>
+			<div class=" form-group">
 				<label class="col-sm-2 control-label" for="normal-field">Shop Logo</label>
 				<div class="col-sm-4">
 					<input type="file" id="normal-field" class="form-control" name="shoplogo" value="<?php echo set_value('shoplogo',$before->shoplogo);?>">

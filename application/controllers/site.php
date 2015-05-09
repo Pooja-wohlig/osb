@@ -65,6 +65,7 @@ class Site extends CI_Controller
 		$this->form_validation->set_rules('shopemail','shopemail','trim');
 		$this->form_validation->set_rules('purchasebalance','purchasebalance','trim');
 		$this->form_validation->set_rules('salesbalance','salesbalance','trim');
+		$this->form_validation->set_rules('percentpayment','Percent Payment','trim');
 		if($this->form_validation->run() == FALSE)	
 		{
 			$data['alerterror'] = validation_errors();
@@ -99,6 +100,7 @@ class Site extends CI_Controller
             $shopemail=$this->input->post('shopemail');
             $purchasebalance=$this->input->post('purchasebalance');
             $salesbalance=$this->input->post('salesbalance');
+            $percentpayment=$this->input->post('percentpayment');
 //            $category=$this->input->post('category');
  			$data[ 'password' ] =$this->user_model->get_random_password();
 			$password=$data[ 'password' ];
@@ -177,7 +179,7 @@ class Site extends CI_Controller
                 
 			}
             
-		if($this->user_model->create($name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo)==0)
+		if($this->user_model->create($name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment)==0)
 		$data['alerterror']="New user could not be created.";
 			else
 			$data['alertsuccess']="User created Successfully.";
@@ -378,6 +380,7 @@ class Site extends CI_Controller
 		$this->form_validation->set_rules('shopemail','shopemail','trim');
 		$this->form_validation->set_rules('purchasebalance','purchasebalance','trim');
 		$this->form_validation->set_rules('salesbalance','salesbalance','trim');
+		$this->form_validation->set_rules('percentpayment','Percent Payment','trim');
 		if($this->form_validation->run() == FALSE)	
 		{
 			$data['alerterror'] = validation_errors();
@@ -414,6 +417,7 @@ class Site extends CI_Controller
             $shopemail=$this->input->post('shopemail');
             $purchasebalance=$this->input->post('purchasebalance');
             $salesbalance=$this->input->post('salesbalance');
+            $percentpayment=$this->input->post('percentpayment');
 //            $category=$this->input->get_post('category');
             
             $config['upload_path'] = './uploads/';
@@ -500,7 +504,7 @@ class Site extends CI_Controller
                // print_r($image);
                 $shoplogo=$shoplogo->image;
             }
-			if($this->user_model->edit($id,$name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo)==0)
+			if($this->user_model->edit($id,$name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment)==0)
 			$data['alerterror']="User Editing was unsuccesful";
 			else
 			$data['alertsuccess']="User edited Successfully.";

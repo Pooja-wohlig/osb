@@ -54,7 +54,7 @@ class restapi_model extends CI_Model {
     }
     public function sellingapproval($user) {
 
-        $query['sellingapproval'] = $this->db->query("SELECT `user`.`shopname`,`osb_request`.`id`,`osb_request`.`amount` FROM `user` INNER JOIN `osb_request` ON `osb_request`.`userfrom`=`user`.`id` AND `osb_request`.`requeststatus`='1' AND `osb_request`.`userto`='$user'  ")->result();
+        $query['sellingapproval'] = $this->db->query("SELECT `user`.`shoplogo`,`osb_request`.`id`,`osb_request`.`amount` FROM `user` INNER JOIN `osb_request` ON `osb_request`.`userfrom`=`user`.`id` AND `osb_request`.`requeststatus`='1' AND `osb_request`.`userto`='$user'  ")->result();
         return $query;
     }
     public function accepted($id, $reason, $status) {
@@ -115,8 +115,8 @@ class restapi_model extends CI_Model {
         if (!$query) return 0;
         else return $id;
     }
-    public function updateprofile($id, $shopname, $area, $address, $description, $shopcontact1, $shopcontact2, $shopemail, $website) {
-        $query = $this->db->query("UPDATE `user` SET `shopname`='$shopname',`area`='$area',`address`='$address',`description`='$description',`shopcontact1`='$shopcontact1',`shopcontact2`='$shopcontact2',`shopemail`='$shopemail',`website`='$website' WHERE `id`='$id'");
+    public function updateprofile($id, $shopname, $address, $description, $shopcontact1, $shopcontact2, $shopemail, $website) {
+        $query = $this->db->query("UPDATE `user` SET `shopname`='$shopname',`address`='$address',`description`='$description',`shopcontact1`='$shopcontact1',`shopcontact2`='$shopcontact2',`shopemail`='$shopemail',`website`='$website' WHERE `id`='$id'");
     }
     public function acceptreason($id, $reason) {
         $data = array('reason' => $reason);
@@ -153,6 +153,16 @@ class restapi_model extends CI_Model {
 	$data = array('user' => $userid,'category' =>$catid);
         $this->db->where('user', $userid);
         $this->db->update('usercategory', $data);
+		return $userid;
+	}
+	 public function getarea() {
+        $query = $this->db->query("SELECT `id`,`name` FROM `osb_area`")->result();
+        return $query;
+    }
+	public function updatearea($userid,$areaid){
+	$data = array('area' =>$areaid);
+        $this->db->where('id', $userid);
+        $this->db->update('user', $data);
 		return $userid;
 	}
 }

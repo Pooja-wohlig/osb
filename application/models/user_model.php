@@ -32,7 +32,7 @@ class User_model extends CI_Model
 	}
 	
 	
-	public function create($name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo)
+	public function create($name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment)
 	{
 		$data  = array(
 			'name' => $name,
@@ -55,7 +55,8 @@ class User_model extends CI_Model
 			'shopemail' => $shopemail,
 			'purchasebalance' => $purchasebalance,
 			'salesbalance' => $salesbalance,
-			'shoplogo' => $shoplogo
+			'shoplogo' => $shoplogo,
+			'percentpayment' => $percentpayment
 						
 		);
 		$query=$this->db->insert( 'user', $data );
@@ -123,7 +124,7 @@ class User_model extends CI_Model
 		return $query;
 	}
 	
-	public function edit($id,$name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo)
+	public function edit($id,$name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment)
 	{
 		$data  = array(
 			'name' => $name,
@@ -146,6 +147,7 @@ class User_model extends CI_Model
 			'purchasebalance' => $purchasebalance,
 			'salesbalance' => $salesbalance,
 			'shoplogo' => $shoplogo,
+			'percentpayment' => $percentpayment
 		);
 		if($password != "")
 			$data['password'] =md5($password);

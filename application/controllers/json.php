@@ -496,8 +496,6 @@ $this->load->view('json',$data);
 $data = json_decode(file_get_contents('php://input'), true);
 $id=$data['id'];
 $shopname=$data['shopname'];
-$area=$data['area'];
-$category=$data['category'];
 $address=$data['address'];
 $description=$data['description'];
 $shopcontact1=$data['shopcontact1'];
@@ -505,7 +503,7 @@ $shopcontact2=$data['shopcontact2'];
 $shopemail=$data['shopemail'];
 $website=$data['website'];
 	 print_r($data);
-$data['message']=$this->restapi_model->updateprofile($id,$shopname,$area,$category,$address,$description,$shopcontact1,$shopcontact2,$shopemail,$website);
+$data['message']=$this->restapi_model->updateprofile($id,$shopname,$address,$description,$shopcontact1,$shopcontact2,$shopemail,$website);
 $this->load->view('json',$data);
  }
 public function acceptreason(){
@@ -552,6 +550,16 @@ $data['message']=$this->restapi_model->shopprofilemem($mem);
   $userid=$this->input->get('user');
   $catid=$this->input->get('id');
 $data['message']=$this->restapi_model->updatecat($userid,$catid);
+	 $this->load->view('json',$data);
+ }
+ public function getarea(){
+ $data['message']=$this->restapi_model->getarea();
+	 $this->load->view('json',$data);
+ }
+ public function updatearea(){
+  $userid=$this->input->get('user');
+  $areaid=$this->input->get('id');
+$data['message']=$this->restapi_model->updatearea($userid,$areaid);
 	 $this->load->view('json',$data);
  }
 } ?>
