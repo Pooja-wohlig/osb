@@ -1639,12 +1639,18 @@ $amount=$this->input->get_post("amount");
 $reason=$this->input->get_post("reason");
 $approvalreason=$this->input->get_post("approvalreason");
 $timestamp=$this->input->get_post("timestamp");
+	if($requeststatus=="2" && $userfrom=="1"){
+		
+		echo $requeststatus;
+	$this->transaction_model->adminaccept($amount,$userto,$userfrom);
+	}
 if($this->request_model->edit($id,$userfrom,$userto,$requeststatus,$amount,$reason,$approvalreason,$timestamp)==0)
 $data["alerterror"]="New request could not be Updated.";
 else
 $data["alertsuccess"]="request Updated Successfully.";
 $data["redirect"]="site/viewrequest";
 $this->load->view("redirect",$data);
+
 }
 }
 public function deleterequest()
@@ -1814,13 +1820,13 @@ $elements[3]->alias="reason";
 $elements[4]=new stdClass();
 $elements[4]->field="`osb_transaction`.`amount`";
 $elements[4]->sort="1";
-$elements[4]->header="Amount";
+$elements[4]->header="Cash Amount";
 $elements[4]->alias="amount";
 
 $elements[5]=new stdClass();
 $elements[5]->field="`osb_transaction`.`payableamount`";
 $elements[5]->sort="1";
-$elements[5]->header="Payable Amount";
+$elements[5]->header="Barter Amount";
 $elements[5]->alias="payableamount";
 	
 $elements[6]=new stdClass();
@@ -1900,13 +1906,13 @@ $elements[3]->alias="reason";
 $elements[4]=new stdClass();
 $elements[4]->field="`osb_transaction`.`amount`";
 $elements[4]->sort="1";
-$elements[4]->header="Amount";
+$elements[4]->header="Cash Amount";
 $elements[4]->alias="amount";
 
 $elements[5]=new stdClass();
 $elements[5]->field="`osb_transaction`.`payableamount`";
 $elements[5]->sort="1";
-$elements[5]->header="Payable Amount";
+$elements[5]->header="Barter Amount";
 $elements[5]->alias="payableamount";
 	
 $elements[6]=new stdClass();

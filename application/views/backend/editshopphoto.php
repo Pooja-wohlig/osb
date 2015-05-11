@@ -1,6 +1,6 @@
 <section class="panel">
 	<header class="panel-heading">
-		shopphoto Details
+		Shopphoto Details
 	</header>
 	<div class="panel-body">
 		<form class='form-horizontal tasi-form' method='post' action='<?php echo site_url("site/editshopphotosubmit");?>' enctype='multipart/form-data'>

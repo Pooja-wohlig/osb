@@ -1,6 +1,6 @@
 <section class="panel">
 <header class="panel-heading">
-request Details
+Request Details
 </header>
 <div class="panel-body">
 <form class='form-horizontal tasi-form' method='post' action='<?php echo site_url("site/editrequestsubmit");?>' enctype= 'multipart/form-data'>

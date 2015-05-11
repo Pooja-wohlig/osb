@@ -7,7 +7,7 @@
 <div class="col-lg-12">
 <section class="panel">
 <header class="panel-heading">
-shopphoto Details
+Shopphoto Details
 </header>
 <div class="drawchintantable">
 <?php $this->chintantable->createsearch("shopphoto List");?>
@@ -27,7 +27,7 @@ shopphoto Details
 </section>
 <script>
 function drawtable(resultrow) {
-return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.user + "</td><td>" + resultrow.photo + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editshopphoto?id=');?>" + resultrow.user + "&shopid="+resultrow.id+"'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' href='<?php echo site_url('site/deleteshopphoto?id=');?>" + resultrow.user + "&shopid="+resultrow.id+"'><i class='icon-trash '></i></a></td></tr>";	
+return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.user + "</td><td>" + resultrow.photo + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editshopphoto?id=');?>" + resultrow.user + "&shopid="+resultrow.id+"'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' onclick=\"return confirm('Are you sure you want to delete?');\" href='<?php echo site_url('site/deleteshopphoto?id=');?>" + resultrow.user + "&shopid="+resultrow.id+"'><i class='icon-trash '></i></a></td></tr>";	
 }
 generatejquery("<?php echo $base_url;?>");
 </script>
