@@ -36,7 +36,7 @@ class restapi_model extends CI_Model {
         return $query;
     }
     public function yourbalance($user) {
-        $query['yourbalance'] = $this->db->query("SELECT `purchasebalance`,`salesbalance` FROM `user` WHERE `id`='$user'")->result();
+        $query['yourbalance'] = $this->db->query("SELECT `purchasebalance`,`salesbalance` FROM `user` WHERE `id`='$user'")->row();
         return $query;
     }
     public function addbalance($user, $amount) {
