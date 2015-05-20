@@ -405,7 +405,8 @@ $this->load->view("json",$data);
  public function login(){
   $membershipno=$this->input->get("membershipno");
         $password=$this->input->get("password");
-        $data['message']=$this->user_model->login($membershipno,$password);
+        $token=$this->input->get("token");
+        $data['message']=$this->user_model->login($membershipno,$password,$token);
         $this->load->view('json',$data);
  }
 
