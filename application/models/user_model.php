@@ -531,6 +531,22 @@ echo $this->email->print_debugger();
 				}
 
 	}
+public function sendnotification($content, $device) {
+		$this->pwCall('createMessage', array(
+      'application' => "750D7-714E7",
+      'auth' => "a0uodqwhBT4RyJwkpunWhMtQ3WkGWVuBVIt35pmMtlWVnNc0rRSFW0fEWHjdZK5bNnnK1IHgmm8IthKE9AhT",
+      'notifications' => array(
+              array(
+                  'send_date' => 'now',
+                  'content' => $content,
+                  'data' => array('custom' => 'json data'),
+                  "devices" =>  array($device)
+              )
+          )
+      )
+   );
+
+	}
 
 
 

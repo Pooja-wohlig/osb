@@ -413,22 +413,7 @@ $this->load->view("json",$data);
 
  public function test() {
 
-$this->user_model->pwCall('createMessage', array(
-      'application' => "750D7-714E7",
-      'auth' => "a0uodqwhBT4RyJwkpunWhMtQ3WkGWVuBVIt35pmMtlWVnNc0rRSFW0fEWHjdZK5bNnnK1IHgmm8IthKE9AhT",
-      'notifications' => array(
-              array(
-                  'send_date' => 'now',
-                  'content' => 'test',
-                  'data' => array('custom' => 'json data'),
-                  "devices" =>  [
-              "296fbeb76f8709ce"
-           ]
-
-              )
-          )
-      )
-   );
+$this->user_model->sendnotification('test','296fbeb76f8709ce');
 
  }
 
