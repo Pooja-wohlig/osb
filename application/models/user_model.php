@@ -338,7 +338,7 @@ echo $this->email->print_debugger();
             $user=$query->row();
             $user=$user->id;
 
-						$query=$this->db->query("UPDATE `user` SET `token`='$token' WHERE `id`='$id'");
+						$query=$this->db->query("UPDATE `user` SET `token`='$token' WHERE `id`='$user'");
 
 
             $newdata = array(
@@ -507,6 +507,32 @@ echo $this->email->print_debugger();
             return 1;
 //        }
 	}
+
+	public function pwCall($method, $data) {
+		$url = 'https://cp.pushwoosh.com/json/1.3/' . $method;
+		$request = json_encode(['request' => $data]);
+
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+		curl_setopt($ch, CURLOPT_ENCODING, 'gzip, deflate');
+		curl_setopt($ch, CURLOPT_HEADER, true);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
+
+		$response = curl_exec($ch);
+		$info = curl_getinfo($ch);
+		curl_close($ch);
+
+				if (true) {
+						print "[PW] request: $request\n";
+						print "[PW] response: $response\n";
+						print "[PW] info: " . print_r($info, true);
+				}
+
+	}
+
+
 
     function sociallogin($user_profile,$provider)
     {
