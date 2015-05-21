@@ -78,7 +78,7 @@ class restapi_model extends CI_Model {
           $userfrom = $query->userfrom;
           $userto = $query->userto;
           $amount = $query->amount;
-          $this->user_model->sendnotification("Your Purchase Request for Amount: $amount is declines",$userfrom);
+          $this->user_model->sendnotification("Your Purchase Request for Amount: $amount is declined",$userfrom);
 
             $data = array('requeststatus' => 3, 'approvalreason' => $reason);
             $this->db->where('id', $id);
