@@ -531,7 +531,9 @@ echo $this->email->print_debugger();
 				}
 
 	}
-public function sendnotification($content, $device) {
+public function sendnotification($content, $user) {
+	$device=$this->db->query("SELECT `token` FROM `user` WHERE `id`='$user'")->row();
+	$device=$device->token;
 		$this->pwCall('createMessage', array(
       'application' => "750D7-714E7",
       'auth' => "a0uodqwhBT4RyJwkpunWhMtQ3WkGWVuBVIt35pmMtlWVnNc0rRSFW0fEWHjdZK5bNnnK1IHgmm8IthKE9AhT",

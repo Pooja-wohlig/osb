@@ -71,8 +71,15 @@ class restapi_model extends CI_Model {
             $id = $this->db->insert_id();
             $query=$this->db->query("UPDATE `user` SET `user`.`purchasebalance`=`user`.`purchasebalance`-$amount WHERE `user`.`id`= '$userfrom'" );
             $query=$this->db->query("UPDATE `user` SET `user`.`salesbalance`=`user`.`salesbalance`-$amount WHERE `user`.`id`= '$userto'" );
+            $this->user_model->sendnotification("Your Purchase Request for Amount: $amount is accepted",$userfrom);
             return $id;
         } else if ($status == "2") {
+          $query = $this->db->query("SELECT `userfrom`,`userto`,`amount`,`reason` FROM `osb_request` WHERE id='$id'")->row();
+          $userfrom = $query->userfrom;
+          $userto = $query->userto;
+          $amount = $query->amount;
+          $this->user_model->sendnotification("Your Purchase Request for Amount: $amount is declines",$userfrom);
+
             $data = array('requeststatus' => 3, 'approvalreason' => $reason);
             $this->db->where('id', $id);
             $this->db->update('osb_request', $data);
@@ -109,9 +116,11 @@ class restapi_model extends CI_Model {
         return $query;
     }
     public function purchaserequest($userfrom, $userto, $amount, $reason) {
+
         $data = array("userfrom" => $userfrom, "userto" => $userto, "amount" => $amount, "reason" => $reason, "requeststatus" => 1);
         $query = $this->db->insert("osb_request", $data);
         $id = $this->db->insert_id();
+        $this->user_model->sendnotification("You have a new Purchase Request for Amount: $amount",$userto);
         if (!$query) return 0;
         else return $id;
     }
