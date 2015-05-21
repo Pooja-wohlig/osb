@@ -550,6 +550,31 @@ public function sendnotification($content, $user) {
 
 	}
 
+	function changeuserimage($user,$imagename) {
+			$query=$this->db->query("UPDATE `user` SET `shoplogo`='$imagename' WHERE `id`='$user'" );
+			return $imagename;
+	}
+	function changeshopimage($user,$imagename,$id) {
+		if($id=="")
+		{
+			$query=$this->db->query("INSERT INTO `osb_shopphoto` (`id`, `user`, `photo`) VALUES (NULL, '$user', '$imagename')" );
+		}
+		else {
+			$query=$this->db->query("UPDATE `osb_shopphoto` SET `photo` = '$imagename' WHERE `id` = '$id'" );
+		}
+		return $imagename;
+	}
+	function changeproductimage($user,$imagename,$id) {
+		if($id=="")
+		{
+			$query=$this->db->query("INSERT INTO `osb_shopproductphoto` (`id`, `user`, `photo`) VALUES (NULL, '$user', '$imagename')" );
+		}
+		else {
+			$query=$this->db->query("UPDATE `osb_shopproductphoto` SET `photo` = '$imagename' WHERE `id` = '$id'" );
+		}
+		return $imagename;
+	}
+
 
 
     function sociallogin($user_profile,$provider)

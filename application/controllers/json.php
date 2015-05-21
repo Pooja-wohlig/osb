@@ -570,4 +570,126 @@ $data['message']=$this->restapi_model->updatecat($userid,$catid);
 $data['message']=$this->restapi_model->updatearea($userid,$areaid);
 	 $this->load->view('json',$data);
  }
+
+ public function imageuploadprofile() {
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $this->load->library('upload', $config);
+        $image="file";
+        $user=$this->input->get_post("user");
+        if (  $this->upload->do_upload($image))
+        {
+            $uploaddata = $this->upload->data();
+            $image=$uploaddata['file_name'];
+            $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+            $config_r['maintain_ratio'] = TRUE;
+            $config_t['create_thumb'] = FALSE;///add this
+            $config_r['width']   = 800;
+            $config_r['height'] = 800;
+            $config_r['quality']    = 100;
+            //end of configs
+
+            $this->load->library('image_lib', $config_r);
+            $this->image_lib->initialize($config_r);
+            if(!$this->image_lib->resize())
+            {
+                echo "Failed." . $this->image_lib->display_errors();
+            }
+            else
+            {
+                $image=$this->image_lib->dest_image;
+            }
+
+
+        }
+        $obj = new stdClass();
+        $obj->value=$this->user_model->changeuserimage($user,$this->image_lib->dest_image);
+        $data["message"]=$obj;
+
+
+        $this->load->view("json",$data);
+    }
+
+    public function imageuploadshop() {
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $this->load->library('upload', $config);
+        $image="file";
+        $user=$this->input->get_post("user");
+        $id=$this->input->get_post("id");
+        if (  $this->upload->do_upload($image))
+        {
+            $uploaddata = $this->upload->data();
+            $image=$uploaddata['file_name'];
+            $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+            $config_r['maintain_ratio'] = TRUE;
+            $config_t['create_thumb'] = FALSE;///add this
+            $config_r['width']   = 800;
+            $config_r['height'] = 800;
+            $config_r['quality']    = 100;
+            //end of configs
+
+            $this->load->library('image_lib', $config_r);
+            $this->image_lib->initialize($config_r);
+            if(!$this->image_lib->resize())
+            {
+                echo "Failed." . $this->image_lib->display_errors();
+            }
+            else
+            {
+                $image=$this->image_lib->dest_image;
+            }
+
+
+        }
+
+        $obj = new stdClass();
+        $obj->value=$this->user_model->changeshopimage($user,$this->image_lib->dest_image,$id);
+        $data["message"]=$obj;
+
+
+        $this->load->view("json",$data);
+    }
+
+    public function imageuploadproduct() {
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $this->load->library('upload', $config);
+        $image="file";
+        $user=$this->input->get_post("user");
+        $id=$this->input->get_post("id");
+        if (  $this->upload->do_upload($image))
+        {
+            $uploaddata = $this->upload->data();
+            $image=$uploaddata['file_name'];
+            $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+            $config_r['maintain_ratio'] = TRUE;
+            $config_t['create_thumb'] = FALSE;///add this
+            $config_r['width']   = 800;
+            $config_r['height'] = 800;
+            $config_r['quality']    = 100;
+            //end of configs
+
+            $this->load->library('image_lib', $config_r);
+            $this->image_lib->initialize($config_r);
+            if(!$this->image_lib->resize())
+            {
+                echo "Failed." . $this->image_lib->display_errors();
+            }
+            else
+            {
+                $image=$this->image_lib->dest_image;
+            }
+
+
+        }
+
+        $obj = new stdClass();
+        $obj->value=$this->user_model->changeproductimage($user,$this->image_lib->dest_image,$id);
+        $data["message"]=$obj;
+
+        $this->load->view("json",$data);
+    }
+
+
 } ?>
