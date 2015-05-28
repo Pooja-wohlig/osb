@@ -49,7 +49,7 @@ class restapi_model extends CI_Model {
   public function transaction($user) {
         $query['purchased'] = $this->db->query("SELECT `user`.`shoplogo`,`user`.`shopname`,`osb_transaction`.`amount`,DATE(`osb_transaction`.`timestamp`) AS `date` FROM `user` LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userfrom`=`user`.`id` WHERE `osb_transaction`.`userfrom`!=1 AND `osb_transaction`.`userto`='$user'")->result();
         $query['sales'] = $this->db->query("SELECT `user`.`shoplogo`,`user`.`shopname`,`osb_transaction`.`amount`,DATE(`osb_transaction`.`timestamp`) AS `date` FROM `user` LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userto`=`user`.`id` WHERE `osb_transaction`.`userto`!=1 AND `osb_transaction`.`userfrom`='$user'")->result();
-        $query['admin'] = $this->db->query("SELECT  `osb_transaction`.`amount` , DATE(  `osb_transaction`.`timestamp` ) AS  `date` 
+        $query['admin'] = $this->db->query("SELECT  `osb_transaction`.`amount` ,`osb_transaction`.`payableamount` as `barteramount`, DATE(  `osb_transaction`.`timestamp` ) AS  `date` 
 FROM  `user` 
 LEFT OUTER JOIN  `osb_transaction` ON  `osb_transaction`.`userfrom` =  `user`.`id` 
 WHERE  `osb_transaction`.`userfrom` =1
@@ -59,7 +59,7 @@ AND  `osb_transaction`.`userto` ='$user'")->result();
 
     public function sellingapproval($user) {
 
-        $query['sellingapproval'] = $this->db->query("SELECT `user`.`shoplogo`,`osb_request`.`id`,`osb_request`.`amount` FROM `user` INNER JOIN `osb_request` ON `osb_request`.`userfrom`=`user`.`id` AND `osb_request`.`requeststatus`='1' AND `osb_request`.`userto`='$user'  ")->result();
+        $query['sellingapproval'] = $this->db->query("SELECT `user`.`shoplogo`,`osb_request`.`id`,`osb_request`.`amount`,`osb_request`.`reason` FROM `user` INNER JOIN `osb_request` ON `osb_request`.`userfrom`=`user`.`id` AND `osb_request`.`requeststatus`='1' AND `osb_request`.`userto`='$user'  ")->result();
         return $query;
     }
     public function accepted($id, $reason, $status) {
