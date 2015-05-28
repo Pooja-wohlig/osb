@@ -453,7 +453,8 @@ $this->load->view('json',$data);
  {
 $user=$this->input->get('user');
 $amount=$this->input->get('amount');
-$data['message']=$this->restapi_model->addbalance($user,$amount);
+$reason=$this->input->get('reason');
+$data['message']=$this->restapi_model->addbalance($user,$amount,$reason);
 $this->load->view('json',$data);
  }
  public function transaction(){

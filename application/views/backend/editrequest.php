@@ -30,6 +30,12 @@ Request Details
 </div>
 </div>
 <div class="form-group">
+<label class="col-sm-2 control-label" for="normal-field">Reason</label>
+<div class="col-sm-4">
+<input type="text" id="normal-field" class="form-control" name="reason" value='<?php echo set_value('reason',$before->reason);?>'>
+</div>
+</div>
+<div class="form-group">
 <label class="col-sm-2 control-label" for="normal-field">Approval Reason</label>
 <div class="col-sm-4">
 <input type="text" id="normal-field" class="form-control" name="approvalreason" value='<?php echo set_value('approvalreason',$before->approvalreason);?>'>

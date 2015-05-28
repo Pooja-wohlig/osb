@@ -38,14 +38,14 @@ return $query;
 }
 	public function adminaccept($amount,$userto,$userfrom){
 		$query=$this->db->query("UPDATE `user` SET `user`.`salesbalance`=`user`.`salesbalance`+$amount,`user`.`purchasebalance`=`user`.`purchasebalance`+$amount WHERE `user`.`id`= '$userto'" );
-	$data=array("userto" => $userto,"userfrom" => $userfrom,"amount" => $amount);
+	$data=array("userto" => $userto,"userfrom" => $userfrom,"payableamount" => $amount);
 $query=$this->db->insert( "osb_transaction", $data );
 $id=$this->db->insert_id();
 $query=$this->db->query("SELECT `percentpayment` FROM `user` WHERE `id`= '$userto'" )->row();
 	$x=$query->percentpayment;
 		$y=100;
 	    $m=$x/$y;
-		$query=$this->db->query("UPDATE `osb_transaction` SET `payableamount`=$amount*$m WHERE `userto`= '$userto' AND `userfrom`=1" );
+		$query=$this->db->query("UPDATE `osb_transaction` SET `amount`=$amount*$m WHERE `userto`= '$userto' AND `userfrom`=1 AND `payableamount`='$amount'");
 		return $userto;
 	}
 }

@@ -1603,7 +1603,7 @@ $data['requeststatus']=$this->requeststatus_model->getrequeststatusdropdown();
 $data['userto']=$this->user_model->getuserdropdown();
 $data['userfrom']=$this->user_model->getuserdropdown();
 $data["title"]="Edit request";
-$data["before"]=$this->request_model->beforeedit($this->input->get("id"));
+$data["before"]=$this->request_model->beforeedit($this->input->get("id"));	
 $this->load->view("template",$data);
 }
 public function editrequestsubmit()
