@@ -994,12 +994,12 @@ $elements[0]->sort="1";
 $elements[0]->header="ID";
 $elements[0]->alias="id";
 $elements[1]=new stdClass();
-$elements[1]->field="`usercategory`.`user`";
+$elements[1]->field="`user`.`name`";
 $elements[1]->sort="1";
 $elements[1]->header="User";
 $elements[1]->alias="user";
 $elements[2]=new stdClass();
-$elements[2]->field="`usercategory`.`category`";
+$elements[2]->field="`osb_category`.`name`";
 $elements[2]->sort="1";
 $elements[2]->header="Category";
 $elements[2]->alias="category";
@@ -1641,8 +1641,8 @@ $approvalreason=$this->input->get_post("approvalreason");
 $timestamp=$this->input->get_post("timestamp");
 	if($requeststatus=="2" && $userfrom=="1"){
 		
-		echo $requeststatus;
-		echo $id;
+//		echo $requeststatus;
+//		echo $id;
 	$this->transaction_model->adminaccept($amount,$userto,$userfrom,$id);
 	}
 if($this->request_model->edit($id,$userfrom,$userto,$requeststatus,$amount,$reason,$approvalreason,$timestamp)==0)
