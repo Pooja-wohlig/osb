@@ -1642,7 +1642,8 @@ $timestamp=$this->input->get_post("timestamp");
 	if($requeststatus=="2" && $userfrom=="1"){
 		
 		echo $requeststatus;
-	$this->transaction_model->adminaccept($amount,$userto,$userfrom);
+		echo $id;
+	$this->transaction_model->adminaccept($amount,$userto,$userfrom,$id);
 	}
 if($this->request_model->edit($id,$userfrom,$userto,$requeststatus,$amount,$reason,$approvalreason,$timestamp)==0)
 $data["alerterror"]="New request could not be Updated.";
