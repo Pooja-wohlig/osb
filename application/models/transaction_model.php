@@ -37,7 +37,7 @@ $query=$this->db->query("DELETE FROM `osb_transaction` WHERE `id`='$id'");
 return $query;
 }
 	public function adminaccept($amount,$userto,$userfrom,$requestid){
-		$query=$this->db->query("UPDATE `user` SET `user`.`salesbalance`=`user`.`salesbalance`+$amount,`user`.`purchasebalance`=`user`.`purchasebalance`+$amount WHERE `user`.`id`= '$userto'" );
+			$query=$this->db->query("UPDATE `user` SET `user`.`salesbalance`=`user`.`salesbalance`+$amount,`user`.`purchasebalance`=`user`.`purchasebalance`+$amount WHERE `user`.`id`= '$userto'" );
 	$data=array("userto" => $userto,"userfrom" => $userfrom,"payableamount" => $amount,"requestid"=> $requestid);
 $query=$this->db->insert( "osb_transaction", $data );
 $id=$this->db->insert_id();

@@ -1603,7 +1603,7 @@ $data['requeststatus']=$this->requeststatus_model->getrequeststatusdropdown();
 $data['userto']=$this->user_model->getuserdropdown();
 $data['userfrom']=$this->user_model->getuserdropdown();
 $data["title"]="Edit request";
-$data["before"]=$this->request_model->beforeedit($this->input->get("id"));	
+$data["before"]=$this->request_model->beforeedit($this->input->get("id"));
 $this->load->view("template",$data);
 }
 public function editrequestsubmit()
@@ -1639,10 +1639,7 @@ $amount=$this->input->get_post("amount");
 $reason=$this->input->get_post("reason");
 $approvalreason=$this->input->get_post("approvalreason");
 $timestamp=$this->input->get_post("timestamp");
-	if($requeststatus=="2" && $userfrom=="1"){
-		
-//		echo $requeststatus;
-//		echo $id;
+	if($requeststatus=="2" && $userfrom=="1"){		
 	$this->transaction_model->adminaccept($amount,$userto,$userfrom,$id);
 	}
 if($this->request_model->edit($id,$userfrom,$userto,$requeststatus,$amount,$reason,$approvalreason,$timestamp)==0)
