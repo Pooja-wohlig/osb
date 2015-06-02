@@ -331,7 +331,7 @@ echo $this->email->print_debugger();
     }
     function login($membershipno,$password,$token)
     {
-		$query=$this->db->query("SELECT `token` FROM `user` WHERE `membershipno`='$membershipno'")->row();
+		$query1=$this->db->query("SELECT `token` FROM `user` WHERE `membershipno`='$membershipno'")->row();
 		
         $password=md5($password);
         $query=$this->db->query("SELECT `id` FROM `user` WHERE `membershipno`='$membershipno' AND `password`= '$password'");
@@ -349,7 +349,7 @@ echo $this->email->print_debugger();
 
             $this->session->set_userdata($newdata);
             //print_r($newdata);
-			if ($query->token == "0" || $query->token == null)
+			if ($query1->token == "0" || $query1->token == null)
 			{
 				return $user;
 			}
