@@ -176,5 +176,17 @@ class restapi_model extends CI_Model {
         $this->db->update('user', $data);
 		return $userid;
 	}
+	public function logout($loginid){
+	$data  = array(
+			'token' =>0,
+		);
+		$this->db->where('id',$loginid);
+		$query=$this->db->update( 'user', $data );
+		if(!$query)
+			return  0;
+		else
+			return  1;
+	
+	}
 }
 ?>

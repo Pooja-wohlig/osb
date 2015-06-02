@@ -331,19 +331,18 @@ echo $this->email->print_debugger();
     }
     function login($membershipno,$password,$token)
     {
-		if($token=="0" || null){
+		$query=$this->db->query("SELECT `token` FROM `user` WHERE `membershipno`='$membershipno'")->row();
+		if ($query->token == "0" || $query->token == "null")
+		{
         $password=md5($password);
         $query=$this->db->query("SELECT `id` FROM `user` WHERE `membershipno`='$membershipno' AND `password`= '$password'");
         if($query->num_rows > 0)
         {
             $user=$query->row();
             $user=$user->id;
-
-						$query=$this->db->query("UPDATE `user` SET `token`='$token' WHERE `id`='$user'");
-
-
+			$query=$this->db->query("UPDATE `user` SET `token`='$token' WHERE `id`='$user'");
             $newdata = array(
-                'membershipno'     => $membershipno,
+                'membershipno' => $membershipno,
                 'password' => $password,
                 'logged_in' => true,
                 'id'=> $user
@@ -353,14 +352,12 @@ echo $this->email->print_debugger();
             //print_r($newdata);
             return $user;
         }
-        else
-        return false;
+        else {
+        		return false;
+			}
 		}
-		else {
-		return -1;
-		}
-
-
+		else 
+			return -1;
     }
 
     function authenticate() {

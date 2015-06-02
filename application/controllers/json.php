@@ -419,7 +419,8 @@ $this->user_model->sendnotification('test','296fbeb76f8709ce');
 
     public function logout()
     {
-		
+		$loginid=$this->input->get("loginid");
+		$data['message']=$this->restapi_model->logout($loginid);
         $this->session->sess_destroy();
 
 		$this->load->view('json',true);
