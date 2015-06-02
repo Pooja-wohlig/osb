@@ -419,6 +419,7 @@ $this->user_model->sendnotification('test','296fbeb76f8709ce');
 
     public function logout()
     {
+		
         $this->session->sess_destroy();
 
 		$this->load->view('json',true);

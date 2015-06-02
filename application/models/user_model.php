@@ -354,6 +354,10 @@ echo $this->email->print_debugger();
         }
         else
         return false;
+		}
+		else {
+		return -1;
+		}
 
 
     }
