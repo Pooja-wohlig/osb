@@ -331,6 +331,7 @@ echo $this->email->print_debugger();
     }
     function login($membershipno,$password,$token)
     {
+		if($token=="0" || null){
         $password=md5($password);
         $query=$this->db->query("SELECT `id` FROM `user` WHERE `membershipno`='$membershipno' AND `password`= '$password'");
         if($query->num_rows > 0)
