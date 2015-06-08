@@ -1,9 +1,7 @@
 <?php
 
 $posted = array();
-print_r($_GET);
 if(!empty($_GET)) {
-    //print_r($_POST);
   foreach($_GET as $key => $value) {    
     $posted[$key] = $value; 
 	
@@ -19,9 +17,9 @@ if(!empty($_GET)) {
     }
   </script>
   </head>
-  <body onload="submitPayuForm()">
+  <body onload="submitPayuForm()" style="display:none">
     <h2>PayU Form</h2>
-    <form action="http://localhost/xbalance/payumoney/PayUmoney_form.php" method="post" name="payuForm">
+    <form action="http://wohlig.co.in/osb/payumoney/PayUMoney_form.php" method="post" name="payuForm">
       <table>
         <tr>
           <td><b>Mandatory Parameters</b></td>
