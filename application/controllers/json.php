@@ -693,6 +693,13 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
 
         $this->load->view("json",$data);
     }
+ public function payumoneysuccess()
+ {
+    $orderid=$this->input->get('orderid');
+     echo $orderid;
+     print_r($_POST);
+ 
+ }
 
 
 } ?>
