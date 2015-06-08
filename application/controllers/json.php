@@ -695,10 +695,15 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
     }
  public function payumoneysuccess()
  {
-    $orderid=$this->input->get('orderid');
-     echo $orderid;
-     print_r($_POST);
- 
+     $orderid=$this->input->get('orderid');
+     $data['message']=$this->restapi_model->updateorderstatusafterpayment($orderid);
+	 $this->load->view('json',$data);
+ }
+ public function checkorderstatus()
+ {
+     $orderid=$this->input->get('orderid');
+     $data['message']=$this->restapi_model->checkorderstatus($orderid);
+	 $this->load->view('json',$data);
  }
 
 

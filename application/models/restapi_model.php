@@ -198,5 +198,26 @@ class restapi_model extends CI_Model {
 			return  1;
 	
 	}
+    
+	public function updateorderstatusafterpayment($orderid)
+    {
+        $query=$this->db->query("UPDATE `osb_request` SET `requeststatus`=2 , `approvalreason`='Paid Through Payment Gateway' WHERE `id`='$orderid'");
+        return $query;
+	}
+    
+	public function checkorderstatus($orderid)
+    {
+        $query=$this->db->query("SELECT `requeststatus` FROM `osb_request` WHERE `id`='$orderid'")->row();
+        $status=$query->requeststatus;
+        if($status==2)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+//        return $query;
+	}
 }
 ?>
