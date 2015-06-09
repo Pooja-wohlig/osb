@@ -32,11 +32,12 @@ class User_model extends CI_Model
 	}
 
 
-	public function create($name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment)
+	public function create($name,$email,$message,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus)
 	{
 		$data  = array(
 			'name' => $name,
 			'email' => $email,
+			'message' => $message,
 			'password' =>md5($password),
 			'accesslevel' => $accesslevel,
 			'status' => $status,
@@ -56,8 +57,18 @@ class User_model extends CI_Model
 			'purchasebalance' => $purchasebalance,
 			'salesbalance' => $salesbalance,
 			'shoplogo' => $shoplogo,
-			'percentpayment' => $percentpayment
-
+			'percentpayment' => $percentpayment,
+			'billingaddress' => $billingaddress,
+			'billingcity' => $billingcity,
+			'billingstate' => $billingstate,
+			'billingcountry' => $billingcountry,
+			'billingpincode' => $billingpincode,
+			'shippingaddress' => $shippingaddress,
+			'shippingcity' => $shippingcity,
+			'shippingcountry' => $shippingcountry,
+			'shippingstate' => $shippingstate,
+			'shippingpincode' => $shippingpincode,
+			'onlinestatus' => $onlinestatus
 		);
 		$query=$this->db->insert( 'user', $data );
 		$id=$this->db->insert_id();
@@ -124,11 +135,12 @@ class User_model extends CI_Model
 		return $query;
 	}
 
-	public function edit($id,$name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment)
+	public function edit($id,$name,$email,$message,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus)
 	{
 		$data  = array(
 			'name' => $name,
 			'email' => $email,
+			'message' => $message,
 			'accesslevel' => $accesslevel,
 			'status' => $status,
             'socialid'=> $socialid,
@@ -147,7 +159,18 @@ class User_model extends CI_Model
 			'purchasebalance' => $purchasebalance,
 			'salesbalance' => $salesbalance,
 			'shoplogo' => $shoplogo,
-			'percentpayment' => $percentpayment
+			'percentpayment' => $percentpayment,
+			'billingaddress' => $billingaddress,
+			'billingcity' => $billingcity,
+			'billingstate' => $billingstate,
+			'billingcountry' => $billingcountry,
+			'billingpincode' => $billingpincode,
+			'shippingaddress' => $shippingaddress,
+			'shippingcity' => $shippingcity,
+			'shippingcountry' => $shippingcountry,
+			'shippingstate' => $shippingstate,
+			'shippingpincode' => $shippingpincode,
+			'onlinestatus' => $onlinestatus
 		);
 		if($password != "")
 			$data['password'] =md5($password);
@@ -250,7 +273,7 @@ $this->email->message('Your Membershipid no is'."$membershipno".'and password is
 
 $this->email->send();
 
-echo $this->email->print_debugger();
+//echo $this->email->print_debugger();
 	}
 
 	function changestatus($id)
@@ -640,5 +663,14 @@ public function sendnotification($content, $user) {
             return $newdata;
         }
     }
+	public function getonlinestatusdropdown()
+	{
+		$onlinestatus= array(
+			 "1" => "online",
+			 "2" => "offline",
+			 "3" => "both"
+			);
+		return $onlinestatus;
+	}
 }
 ?>

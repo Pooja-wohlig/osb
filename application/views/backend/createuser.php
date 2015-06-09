@@ -48,6 +48,13 @@
 				  </div>
 				</div>
 -->
+			<div class=" form-group">
+				  <label class="col-sm-2 control-label" for="normal-field">Message</label>
+				  <div class="col-sm-4">
+					  <textarea rows="4" cols="50" id="normal-field" class="form-control" name="message" value="<?php echo set_value('message');?>"></textarea>
+				  </div>
+				</div>
+			
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">SocialId</label>
 				  <div class="col-sm-4">
@@ -192,6 +199,95 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
 				  <label class="col-sm-2 control-label" for="normal-field">Percent Payment</label>
 				  <div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="percentpayment" value="<?php echo set_value('percentpayment');?>">
+				  </div>
+				</div>
+<!--			shipping and billing-->
+				<div class=" form-group">
+				  <label class="col-sm-2 control-label" for="normal-field">Billing Address</label>
+				  <div class="col-sm-4">
+					  <textarea rows="4" cols="50" id="normal-field" class="form-control" name="billingaddress" value="<?php echo set_value('billingaddress');?>"></textarea>
+				  </div>
+				</div>
+				
+				<div class=" form-group">
+				  <label class="col-sm-2 control-label" for="normal-field">Billing City</label>
+				  <div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="billingcity" value="<?php echo set_value('billingcity');?>">
+				  </div>
+				</div>
+				
+				<div class=" form-group">
+				  <label class="col-sm-2 control-label" for="normal-field">Billing State</label>
+				  <div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="billingstate" value="<?php echo set_value('billingstate');?>">
+				  </div>
+				</div>
+				
+				<div class=" form-group">
+				  <label class="col-sm-2 control-label" for="normal-field">Billing Country</label>
+				  <div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="billingcountry" value="<?php echo set_value('billingcountry');?>">
+				  </div>
+				</div>
+				
+				
+				<div class=" form-group">
+				  <label class="col-sm-2 control-label" for="normal-field">Billing Pincode</label>
+				  <div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="billingpincode" value="<?php echo set_value('billingpincode');?>">
+				  </div>
+				</div>
+				
+				<div class=" form-group">
+				  <label class="col-sm-2 control-label" for="normal-field">Shipping Address</label>
+				  <div class="col-sm-4">
+					  <textarea rows="4" cols="50" id="normal-field" class="form-control" name="shippingaddress" value="<?php echo set_value('shippingaddress');?>"></textarea>
+				  </div>
+				</div>
+				
+				<div class=" form-group">
+				  <label class="col-sm-2 control-label" for="normal-field">Shipping City</label>
+				  <div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="shippingcity" value="<?php echo set_value('shippingcity');?>">
+				  </div>
+				</div>
+				
+				<div class=" form-group">
+				  <label class="col-sm-2 control-label" for="normal-field">shippingcountry</label>
+				  <div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="shippingcountry" value="<?php echo set_value('shippingcountry');?>">
+				  </div>
+				</div>
+				
+				<div class=" form-group">
+				  <label class="col-sm-2 control-label" for="normal-field">Shipping State</label>
+				  <div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="shippingstate" value="<?php echo set_value('shippingstate');?>">
+				  </div>
+				</div>
+				
+				<div class=" form-group">
+				  <label class="col-sm-2 control-label" for="normal-field">Shipping Pincode</label>
+				  <div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="shippingpincode" value="<?php echo set_value('shippingpincode');?>">
+				  </div>
+				</div>
+				
+<!--
+				<div class=" form-group">
+				  <label class="col-sm-2 control-label" for="normal-field">Online Status</label>
+				  <div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="onlinestatus" value="<?php echo set_value('onlinestatus');?>">
+				  </div>
+				</div>
+-->
+				<div class=" form-group">
+				  <label class="col-sm-2 control-label">Online Status</label>
+				  <div class="col-sm-4">
+					<?php
+						
+						echo form_dropdown('onlinestatus',$onlinestatus,set_value('onlinestatus'),'class="chzn-select form-control" 	data-placeholder="Choose a Accesslevel..."');
+					?>
 				  </div>
 				</div>
 				<div class=" form-group">

@@ -222,5 +222,27 @@ WHERE `osb_transaction`.`userfrom`=1 AND `osb_transaction`.`userto`='$user'")->r
         }
 //        return $query;
 	}
+	public function createproduct($name,$sku,$price,$description,$status){
+	$data=array("name" => $name,"sku" => $sku,"price" => $price,"description" => $description,"status" => $status);
+$query=$this->db->insert( "product", $data );
+$id=$this->db->insert_id();
+if(!$query)
+return  0;
+else
+return  $id;
+	}
+	public function editproduct($id,$name,$sku,$price,$description,$status){
+	 $data = array("name" => $name,"sku" => $sku,"price" => $price,"description" => $description,"status" => $status);
+        $this->db->where('id', $id);
+        $this->db->update('product', $data);
+	}
+//	public function viewallproducts(){
+//$query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `status` FROM `product`")->result();
+//		return $query;
+// }
+		public function getsingleproduct($id){
+$query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `status` FROM `product` WHERE `id`='$id'")->result();
+		return $query;
+ }
 }
 ?>

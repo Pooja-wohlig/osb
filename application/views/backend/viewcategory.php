@@ -18,6 +18,7 @@ Category Details
 <th data-field="order">Order</th>
 <th data-field="status">Status</th>
 <th data-field="name">Name</th>
+<th data-field="parent">Parent</th>
 </tr>
 </thead>
 <tbody>
@@ -28,7 +29,11 @@ Category Details
 </section>
 <script>
 function drawtable(resultrow) {
-return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.order + "</td><td>" + resultrow.status + "</td><td>" + resultrow.name + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editcategory?id=');?>"+resultrow.id+"'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' onclick=\"return confirm('Are you sure you want to delete?');\" href='<?php echo site_url('site/deletecategory?id='); ?>"+resultrow.id+"'><i class='icon-trash '></i></a></td></tr>";
+	if(resultrow.parent==null)
+	{
+	resultrow.parent="";
+	}
+return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.order + "</td><td>" + resultrow.status + "</td><td>" + resultrow.name + "</td><td>" + resultrow.parent + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editcategory?id=');?>"+resultrow.id+"'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' onclick=\"return confirm('Are you sure you want to delete?');\" href='<?php echo site_url('site/deletecategory?id='); ?>"+resultrow.id+"'><i class='icon-trash '></i></a></td></tr>";
 }
 generatejquery("<?php echo $base_url;?>");
 </script>

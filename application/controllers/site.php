@@ -36,6 +36,7 @@ class Site extends CI_Controller
 		$data[ 'status' ] =$this->user_model->getstatusdropdown();
 		$data[ 'logintype' ] =$this->user_model->getlogintypedropdown();	
 		$data[ 'area' ] =$this->area_model->getareadropdown();	
+		$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();	
 //        $data['category']=$this->category_model->getcategorydropdown();
 		$data[ 'page' ] = 'createuser';
 		$data[ 'title' ] = 'Create User';
@@ -71,7 +72,8 @@ class Site extends CI_Controller
 			$data['alerterror'] = validation_errors();
 			$data['accesslevel']=$this->user_model->getaccesslevels();
             $data[ 'status' ] =$this->user_model->getstatusdropdown();
-            $data[ 'area' ] =$this->area_model->getareadropdown();
+            $data[ 'area' ] =$this->area_model->getareadropdown();		
+			$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();	
             $data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
             
 //            $data['category']=$this->category_model->getcategorydropdown();
@@ -83,6 +85,7 @@ class Site extends CI_Controller
 		{
             $name=$this->input->post('name');
             $email=$this->input->post('email');
+            $message=$this->input->post('message');
 //            $password=$this->input->post('password');
             $accesslevel=$this->input->post('accesslevel');
             $status=$this->input->post('status');
@@ -101,10 +104,21 @@ class Site extends CI_Controller
             $purchasebalance=$this->input->post('purchasebalance');
             $salesbalance=$this->input->post('salesbalance');
             $percentpayment=$this->input->post('percentpayment');
+			$billingaddress=$this->input->post('billingaddress');
+			$billingcity=$this->input->post('billingcity');
+			$billingstate=$this->input->post('billingstate');
+			$billingcountry=$this->input->post('billingcountry');
+			$billingpincode=$this->input->post('billingpincode');
+			$shippingaddress=$this->input->post('shippingaddress');
+			$shippingcity=$this->input->post('shippingcity');
+			$shippingcountry=$this->input->post('shippingcountry');
+			$shippingstate=$this->input->post('shippingstate');
+			$shippingpincode=$this->input->post('shippingpincode');
+			$onlinestatus=$this->input->post('onlinestatus');
 //            $category=$this->input->post('category');
  			$data[ 'password' ] =$this->user_model->get_random_password();
 			$password=$data[ 'password' ];
-			echo $password;
+//			echo $password;
 			$this->user_model->sendemail($email,$membershipno,$password);
    
 
@@ -179,14 +193,14 @@ class Site extends CI_Controller
                 
 			}
             
-		if($this->user_model->create($name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment)==0)
+		if($this->user_model->create($name,$email,$message,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus)==0)
 		$data['alerterror']="New user could not be created.";
 			else
 			$data['alertsuccess']="User created Successfully.";
 			$data['redirect']="site/viewusers";
-			$this->load->view("redirect",$data);
-		}
-	}
+			$this->load->view("redirect",$data);		   
+		   }
+		   }
     function viewusers()
 	{
 		$access = array("1");
@@ -350,6 +364,7 @@ class Site extends CI_Controller
 		$data['accesslevel']=$this->user_model->getaccesslevels();
 		$data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
 		 $data[ 'area' ] =$this->area_model->getareadropdown();
+		$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();	
 		$data['before']=$this->user_model->beforeedit($this->input->get('id'));
 		$data['page']='edituser';
 		$data['title']='Edit User';
@@ -388,6 +403,7 @@ class Site extends CI_Controller
 			$data['accesslevel']=$this->user_model->getaccesslevels();
             $data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
 			 $data[ 'area' ] =$this->area_model->getareadropdown();
+			$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();	
 			$data['before']=$this->user_model->beforeedit($this->input->post('id'));
 			$data['page']='edituser';
 //			$data['page2']='block/userblock';
@@ -400,6 +416,7 @@ class Site extends CI_Controller
             $id=$this->input->get_post('id');
             $name=$this->input->get_post('name');
             $email=$this->input->get_post('email');
+            $message=$this->input->get_post('message');
             $password=$this->input->get_post('password');
             $accesslevel=$this->input->get_post('accesslevel');
             $status=$this->input->get_post('status');
@@ -418,6 +435,17 @@ class Site extends CI_Controller
             $purchasebalance=$this->input->post('purchasebalance');
             $salesbalance=$this->input->post('salesbalance');
             $percentpayment=$this->input->post('percentpayment');
+			$billingaddress=$this->input->post('billingaddress');
+			$billingcity=$this->input->post('billingcity');
+			$billingstate=$this->input->post('billingstate');
+			$billingcountry=$this->input->post('billingcountry');
+			$billingpincode=$this->input->post('billingpincode');
+			$shippingaddress=$this->input->post('shippingaddress');
+			$shippingcity=$this->input->post('shippingcity');
+			$shippingcountry=$this->input->post('shippingcountry');
+			$shippingstate=$this->input->post('shippingstate');
+			$shippingpincode=$this->input->post('shippingpincode');
+			$onlinestatus=$this->input->post('onlinestatus');
 //            $category=$this->input->get_post('category');
             
             $config['upload_path'] = './uploads/';
@@ -504,7 +532,7 @@ class Site extends CI_Controller
                // print_r($image);
                 $shoplogo=$shoplogo->image;
             }
-			if($this->user_model->edit($id,$name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment)==0)
+			if($this->user_model->edit($id,$name,$email,$message,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus)==0)
 			$data['alerterror']="User Editing was unsuccesful";
 			else
 			$data['alertsuccess']="User edited Successfully.";
@@ -1159,6 +1187,11 @@ $elements[3]->field="`osb_category`.`name`";
 $elements[3]->sort="1";
 $elements[3]->header="Name";
 $elements[3]->alias="name";
+$elements[4]=new stdClass();
+$elements[4]->field="`tab1`.`name`";
+$elements[4]->sort="1";
+$elements[4]->header="Parent";
+$elements[4]->alias="parent";
 $search=$this->input->get_post("search");
 $pageno=$this->input->get_post("pageno");
 $orderby=$this->input->get_post("orderby");
@@ -1173,7 +1206,11 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_category` LEFT OUTER JOIN `statuses` ON `osb_category`.`status`=`statuses`.`id`");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_category` LEFT OUTER JOIN `osb_category` as `tab1` ON `osb_category`.`parent`=`tab1`.`id`  LEFT OUTER JOIN `statuses` ON `osb_category`.`status`=`statuses`.`id`");
+	
+//	SELECT a.column_name, b.column_name...
+//FROM table1 a, table1 b
+//WHERE a.common_field = b.common_field;
 $this->load->view("json",$data);
 }
 
@@ -1183,6 +1220,7 @@ $access=array("1");
 $this->checkaccess($access);
 $data["page"]="createcategory";
 $data[ 'status' ] =$this->user_model->getstatusdropdown();
+$data[ 'parent' ] =$this->category_model->getparentdropdown();
 $data["title"]="Create category";
 $this->load->view("template",$data);
 }
@@ -1197,6 +1235,7 @@ if($this->form_validation->run()==FALSE)
 {
 $data["alerterror"]=validation_errors();
 $data[ 'status' ] =$this->user_model->getstatusdropdown();
+	$data[ 'parent' ] =$this->category_model->getparentdropdown();
 $data["page"]="createcategory";
 $data["title"]="Create category";
 $this->load->view("template",$data);
@@ -1206,7 +1245,8 @@ else
 $order=$this->input->get_post("order");
 $status=$this->input->get_post("status");
 $name=$this->input->get_post("name");
-if($this->category_model->create($order,$status,$name)==0)
+$parent=$this->input->get_post("parent");
+if($this->category_model->create($order,$status,$name,$parent)==0)
 $data["alerterror"]="New category could not be created.";
 else
 $data["alertsuccess"]="category created Successfully.";
@@ -1220,6 +1260,7 @@ $access=array("1");
 $this->checkaccess($access);
 $data["page"]="editcategory";
 $data[ 'status' ] =$this->user_model->getstatusdropdown();
+$data[ 'parent' ] =$this->category_model->getparentdropdown();
 $data["title"]="Edit category";
 $data["before"]=$this->category_model->beforeedit($this->input->get("id"));
 $this->load->view("template",$data);
@@ -1236,6 +1277,7 @@ if($this->form_validation->run()==FALSE)
 {
 $data["alerterror"]=validation_errors();
 $data[ 'status' ] =$this->user_model->getstatusdropdown();
+$data[ 'parent' ] =$this->category_model->getparentdropdown();
 $data["page"]="editcategory";
 $data["title"]="Edit category";
 $data["before"]=$this->category_model->beforeedit($this->input->get("id"));
@@ -1247,7 +1289,8 @@ $id=$this->input->get_post("id");
 $order=$this->input->get_post("order");
 $status=$this->input->get_post("status");
 $name=$this->input->get_post("name");
-if($this->category_model->edit($id,$order,$status,$name)==0)
+$parent=$this->input->get_post("parent");
+if($this->category_model->edit($id,$order,$status,$name,$parent)==0)
 $data["alerterror"]="New category could not be Updated.";
 else
 $data["alertsuccess"]="category Updated Successfully.";
@@ -2169,5 +2212,925 @@ $data["redirect"]="site/viewtransactionstatus";
 $this->load->view("redirect",$data);
 }
 
+    
+    
+    
+    //Changes By Avinash
+    //product
+    public function viewproduct()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $data["page"]="viewproduct";
+        $data["base_url"]=site_url("site/viewproductjson");
+        $data["title"]="View product";
+        $this->load->view("template",$data);
+    }
+    function viewproductjson()
+    {
+        $elements=array();
+        
+        $elements[0]=new stdClass();
+        $elements[0]->field="`product`.`id`";
+        $elements[0]->sort="1";
+        $elements[0]->header="ID";
+        $elements[0]->alias="id";
+        
+        $elements[1]=new stdClass();
+        $elements[1]->field="`product`.`name`";
+        $elements[1]->sort="1";
+        $elements[1]->header="Name";
+        $elements[1]->alias="name";
+        
+        $elements[2]=new stdClass();
+        $elements[2]->field="`product`.`sku`";
+        $elements[2]->sort="1";
+        $elements[2]->header="Sku";
+        $elements[2]->alias="sku";
+        
+        $elements[3]=new stdClass();
+        $elements[3]->field="`product`.`price`";
+        $elements[3]->sort="1";
+        $elements[3]->header="Price";
+        $elements[3]->alias="price";
+        
+        $elements[4]=new stdClass();
+        $elements[4]->field="`product`.`description`";
+        $elements[4]->sort="1";
+        $elements[4]->header="Description";
+        $elements[4]->alias="description";
+        
+        $elements[5]=new stdClass();
+        $elements[5]->field="`product`.`status`";
+        $elements[5]->sort="1";
+        $elements[5]->header="Status";
+        $elements[5]->alias="status";
+        
+        $search=$this->input->get_post("search");
+        $pageno=$this->input->get_post("pageno");
+        $orderby=$this->input->get_post("orderby");
+        $orderorder=$this->input->get_post("orderorder");
+        $maxrow=$this->input->get_post("maxrow");
+        
+        if($maxrow=="")
+        {
+            $maxrow=20;
+        }
+        if($orderby=="")
+        {
+            $orderby="id";
+            $orderorder="ASC";
+        }
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `product`");
+        $this->load->view("json",$data);
+    }
+
+	public function createproduct()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$data[ 'status' ] =$this->product_model->getstatusdropdown();
+		$data['category']=$this->product_model->getcategorydropdown();
+		$data[ 'page' ] = 'createproduct';
+		$data[ 'title' ] = 'Create product';
+		$this->load->view( 'template', $data );	
+	}
+	function createproductsubmit()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->form_validation->set_rules('name','Name','trim|required');
+		$this->form_validation->set_rules('sku','sku','trim|');
+		$this->form_validation->set_rules('status','status','trim|');
+		$this->form_validation->set_rules('description','description','trim|');
+		$this->form_validation->set_rules('price','price','trim|');
+		if($this->form_validation->run() == FALSE)	
+		{
+			$data['alerterror'] = validation_errors();
+			$data[ 'status' ] =$this->product_model->getstatusdropdown();
+			$data['category']=$this->product_model->getcategorydropdown();
+			$data[ 'page' ] = 'createproduct';
+			$data[ 'title' ] = 'Create product';
+			$this->load->view('template',$data);
+		}
+		else
+		{
+			$name=$this->input->post('name');
+			$sku=$this->input->post('sku');
+			$status=$this->input->post('status');
+			$description=$this->input->post('description');
+			$price=$this->input->post('price');
+			$category=$this->input->post('category');
+			
+			$productid=$this->product_model->createproduct($name,$sku,$description,$price,$status,$category);
+            if($productid==0)
+			$data['alerterror']="New product could not be created.";
+			else
+			$data['alertsuccess']="product  created Successfully.";
+			$data['redirect']="site/viewproduct";
+			//$data['other']="template=$template";
+			$this->load->view("redirect",$data);
+		}
+	}
+    
+//	function viewproduct()
+//	{
+//		$access = array("1");
+//		$this->checkaccess($access);
+//        $data['table']=$this->product_model->viewproduct();
+//		$data['page']='viewproduct';
+//		$data['title']='View product';
+//        $this->load->view('template',$data);
+//	}
+
+	function editproduct()
+	{
+		$access = array("5","1");
+		$this->checkaccess($access);
+		$data['before']=$this->product_model->beforeeditproduct($this->input->get('id'));
+		$data[ 'status' ] =$this->product_model->getstatusdropdown();
+		$data['category']=$this->product_model->getcategorydropdown();
+		$data['page']='editproduct';
+		$data['page2']='block/productblock';
+		$data['title']='Edit product';
+		$this->load->view('templatewith2',$data);
+	}
+	function editproductsubmit()
+	{
+		$this->form_validation->set_rules('name','Name','trim|required');
+		$this->form_validation->set_rules('sku','sku','trim|');
+		$this->form_validation->set_rules('status','status','trim|');
+		$this->form_validation->set_rules('description','description','trim|');
+		$this->form_validation->set_rules('price','price','trim|');
+        
+		if($this->form_validation->run() == FALSE)	
+		{
+			$data['alerterror'] = validation_errors();
+			$data[ 'status' ] =$this->product_model->getstatusdropdown();
+			$data['category']=$this->product_model->getcategorydropdown();
+			$data['before']=$this->product_model->beforeeditproduct($this->input->post('id'));
+			$data['page']='editproduct';
+			$data['page2']='block/productblock';
+			$data['title']='Edit product';
+			$this->load->view('templatewith2',$data);
+		}
+		else
+		{
+			$id=$this->input->post('id');
+			$name=$this->input->post('name');
+			$sku=$this->input->post('sku');
+			$status=$this->input->post('status');
+			$description=$this->input->post('description');
+			$price=$this->input->post('price');
+			$category=$this->input->post('category');
+            
+			if($this->product_model->editproduct($id,$name,$sku,$description,$price,$status,$category)==0)
+			$data['alerterror']="product Editing was unsuccesful";
+			else
+			$data['alertsuccess']="product edited Successfully.";
+            
+			$data['redirect']="site/editproduct?id=".$id;
+			$this->load->view("redirect2",$data);
+		}
+	}
+	function deleteproduct()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->product_model->deleteproduct($this->input->get('id'));
+		$data['table']=$this->product_model->viewproduct();
+		$data['alertsuccess']="product Deleted Successfully";
+		$data['redirect']="site/viewproduct";
+        //$data['other']="template=$template";
+        $this->load->view("redirect",$data);
+	}
+   
+    
+    
+    //productimages
+    
+	function viewproductimages()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$data['table']=$this->product_model->viewproductimages($this->input->get('id'));
+//		$data['before']=$this->product_model->beforeedit($this->input->get('id'));
+		$data['before']=$this->product_model->beforeeditproduct($this->input->get('id'));
+		$data['page']='viewproductimages';
+		$data['page2']='block/productblock';
+		$data['title']='View Product Images';
+		$this->load->view('templatewith2',$data);
+	}
+    
+	public function createproductimages()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$data['product']=$this->input->get('id');
+//        $data['before']=$this->product_model->beforeedit($this->input->get('id'));
+		$data['before']=$this->product_model->beforeeditproduct($this->input->get('id'));
+//		$data['page']='viewproductimages';
+		$data[ 'page' ] = 'createproductimages';
+		$data['page2']='block/productblock';
+		$data[ 'title' ] = 'Create productimage';
+		$this->load->view( 'templatewith2', $data );	
+	}
+    
+	function createproductimagessubmit()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->form_validation->set_rules('order','order','trim');
+		
+		if($this->form_validation->run() == FALSE)	
+		{
+			$data['alerterror'] = validation_errors();
+			$access = array("1");
+            $this->checkaccess($access);
+            $data['product']=$this->input->get('id');
+            $data['before']=$this->product_model->beforeeditproduct($this->input->get_post('id'));
+            $data[ 'page' ] = 'createproductimages';
+            $data[ 'title' ] = 'Create productimage';
+            $this->load->view( 'template', $data );		
+		}
+		else
+		{
+            $order=$this->input->post('order');
+            $product=$this->input->post('product');
+            
+			$config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+			}
+            //echo $image;
+			if($this->product_model->createproductimages($product,$order,$image)==0)
+			$data['alerterror']="New Image could not be created.";
+			else
+			$data['alertsuccess']="Image created Successfully.";
+			
+			$data['table']=$this->product_model->viewproductimages($product);
+            $data['redirect']="site/viewproductimages?id=".$product;
+			$this->load->view("redirect2",$data);
+		}
+	}
+    
+	public function editproductimages()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$data['product']=$this->input->get('productid');
+//        $data['before']=$this->product_model->beforeedit($this->input->get('productid'));
+        $data['before']=$this->product_model->beforeeditproduct($this->input->get_post('id'));
+        $data['beforeproductimages']=$this->product_model->beforeeditproductimages($this->input->get('id'));
+//		$data['page']='viewproductimages';
+		$data[ 'page' ] = 'editproductimages';
+		$data['page2']='block/productblock';
+		$data[ 'title' ] = 'Create productimage';
+		$this->load->view( 'templatewith2', $data );	
+	}
+    
+	function editproductimagessubmit()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->form_validation->set_rules('order','order','trim');
+        
+		if($this->form_validation->run() == FALSE)	
+		{
+			$data['alerterror'] = validation_errors();
+			$data['product']=$this->input->get('productid');
+            $data['before']=$this->product_model->beforeedit($this->input->get('productid'));
+            $data['beforeproductimages']=$this->product_model->beforeeditproductimages($this->input->get('id'));
+    //		$data['page']='viewproductimages';
+            $data[ 'page' ] = 'editproductimages';
+            $data['page2']='block/productblock';
+            $data[ 'title' ] = 'Create productimage';
+            $this->load->view( 'templatewith2', $data );
+		}
+		else
+		{
+			$id=$this->input->post('id');
+//            echo $id;
+            $order=$this->input->post('order');
+            $product=$this->input->post('product');
+//            echo $product;
+            
+            $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+			}
+            
+            if($image=="")
+            {
+            $image=$this->product_model->getproductimagesbyid($id);
+            $image=$image->image;
+            }
+//            echo $image;
+			if($this->product_model->editproductimages($id,$order,$image,$product)==0)
+			$data['alerterror']="Image Editing was unsuccesful";
+			else
+			$data['alertsuccess']="Image edited Successfully.";
+			
+			$data['table']=$this->product_model->viewproductimages($product);
+            $data['redirect']="site/viewproductimages?id=".$product;
+			$this->load->view("redirect2",$data);
+			
+		}
+	}
+    
+	function deleteproductimages()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->product_model->deleteproductimages($this->input->get('id'));
+        $product=$this->input->get('productid');
+        $data['alerterror']="Image Deleted Successfully.";
+		$data['table']=$this->product_model->viewproductimages($product);
+        $data['redirect']="site/viewproductimages?id=".$product;
+        $this->load->view("redirect2",$data);
+	}
+    
+    
+    
+    //Order
+    
+    
+//	function vieworder()
+//	{
+//        $access = array("1");
+//		$this->checkaccess($access);
+//		$data['table']=$this->order_model->vieworder();
+//		$data['page']='vieworder';
+//		$data['title']='View order';
+//		$this->load->view('template',$data);
+//	}
+    
+    public function vieworder()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $data["page"]="vieworder";
+        $data["base_url"]=site_url("site/vieworderjson");
+        $data["title"]="View order";
+        $this->load->view("template",$data);
+    }
+    function vieworderjson()
+    {
+        $elements=array();
+        
+        $elements[0]=new stdClass();
+        $elements[0]->field="`order`.`id`";
+        $elements[0]->sort="1";
+        $elements[0]->header="ID";
+        $elements[0]->alias="id";
+        
+        $elements[1]=new stdClass();
+        $elements[1]->field="`order`.`name`";
+        $elements[1]->sort="1";
+        $elements[1]->header="User Name";
+        $elements[1]->alias="name";
+        
+        $elements[2]=new stdClass();
+        $elements[2]->field="`order`.`email`";
+        $elements[2]->sort="1";
+        $elements[2]->header="Email";
+        $elements[2]->alias="email";
+        
+        $elements[3]=new stdClass();
+        $elements[3]->field="`order`.`transactionid`";
+        $elements[3]->sort="1";
+        $elements[3]->header="Transaction Id";
+        $elements[3]->alias="transactionid";
+        
+        $elements[4]=new stdClass();
+        $elements[4]->field="`order`.`trackingcode`";
+        $elements[4]->sort="1";
+        $elements[4]->header="Tracking Code";
+        $elements[4]->alias="trackingcode";
+        
+        $elements[5]=new stdClass();
+        $elements[5]->field="`order`.`orderstatus`";
+        $elements[5]->sort="1";
+        $elements[5]->header="Order Status id";
+        $elements[5]->alias="orderstatus";
+        
+        $elements[6]=new stdClass();
+        $elements[6]->field="`order`.`timestamp`";
+        $elements[6]->sort="1";
+        $elements[6]->header="Timestamp";
+        $elements[6]->alias="timestamp";
+        
+        $elements[7]=new stdClass();
+        $elements[7]->field="`orderstatus`.`name`";
+        $elements[7]->sort="1";
+        $elements[7]->header="Status";
+        $elements[7]->alias="orderstatusname";
+        
+        $search=$this->input->get_post("search");
+        $pageno=$this->input->get_post("pageno");
+        $orderby=$this->input->get_post("orderby");
+        $orderorder=$this->input->get_post("orderorder");
+        $maxrow=$this->input->get_post("maxrow");
+        
+        if($maxrow=="")
+        {
+            $maxrow=20;
+        }
+        if($orderby=="")
+        {
+            $orderby="id";
+            $orderorder="ASC";
+        }
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `order` INNER JOIN `orderstatus` ON `orderstatus`.`id`=`order`.`orderstatus`");
+        $this->load->view("json",$data);
+    }
+
+    function createorder()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		//$data[ 'category' ] =$this->order_model->getcategorydropdown();
+		$data[ 'user' ] =$this->order_model->getuser();
+		$data[ 'country' ] =$this->order_model->getcountry();
+		$data[ 'orderstatus' ] =$this->order_model->getorderstatus();
+		$data['before']=$this->order_model->beforeedit($this->input->get('id'));
+		$data['page']='createorder';
+		//$data['page2']='block/orderblock';
+		$data['title']='Create order';
+		$this->load->view('template',$data);
+	}
+	function createordersubmit()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->form_validation->set_rules('orderstatus','orderstatus','trim|');
+		$this->form_validation->set_rules('firstname','Firstname','trim');
+//		$this->form_validation->set_rules('lastname','Lastname','trim|required');
+		$this->form_validation->set_rules('email','Email','trim|valid_email');
+		$this->form_validation->set_rules('billingaddress','billingaddress','trim');
+		$this->form_validation->set_rules('billingcity','billingcity','trim');
+		$this->form_validation->set_rules('billingstate','billingstate','trim');
+		$this->form_validation->set_rules('billingcountry','billingcountry','trim');
+		$this->form_validation->set_rules('shippingaddress','shippingaddress','trim');
+		$this->form_validation->set_rules('shippingcity','shippingcity','trim');
+		$this->form_validation->set_rules('shippingstate','shippingstate','trim');
+		$this->form_validation->set_rules('shippingcountry','shippingcountry','trim');
+		$this->form_validation->set_rules('shippingpincode','shippingpincode','trim');
+		$this->form_validation->set_rules('transactionid','transactionid','trim');
+//		$this->form_validation->set_rules('currency','currency','trim');
+		if($this->form_validation->run() == FALSE)	
+		{
+			$data['alerterror'] = validation_errors();
+			$data[ 'user' ] =$this->order_model->getuser();
+			$data[ 'country' ] =$this->user_model->getcountry();
+			$data[ 'orderstatus' ] =$this->order_model->getorderstatus();
+			$data[ 'currency' ] =$this->currency_model->getcurrencydropdown();
+			$data['before']=$this->order_model->beforeedit($this->input->get('id'));
+			$data['page']='createorder';
+			$data['page2']='block/orderblock';
+			$data['title']='Edit order';
+			$this->load->view('template',$data);
+		}
+		else
+		{
+			$user=$this->input->post('user');
+			$firstname=$this->input->post('firstname');
+//			$lastname=$this->input->post('lastname');
+			$email=$this->input->post('email');
+			$billingaddress=$this->input->post('billingaddress');
+			$billingcity=$this->input->post('billingcity');
+			$billingstate=$this->input->post('billingstate');
+			$billingcountry=$this->input->post('billingcountry');
+			$shippingaddress=$this->input->post('shippingaddress');
+			$shippingcity=$this->input->post('shippingcity');
+			$shippingstate=$this->input->post('shippingstate');
+			$shippingcountry=$this->input->post('shippingcountry');
+			$shippingpincode=$this->input->post('shippingpincode');
+//			$currency=$this->input->post('currency');
+			$orderstatus=$this->input->post('orderstatus');
+			$trackingcode=$this->input->post('trackingcode');
+			$transactionid=$this->input->post('transactionid');
+			if(($this->order_model->createorder($user,$firstname,$email,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid))==0)
+				$data['alerterror']="Order could not be Created.";
+			else
+				$data['alertsuccess']="Order  edited Successfully.";
+			$data['redirect']="site/vieworder";
+			//$data['other']="template=$template";
+			$this->load->view("redirect",$data);
+		}
+			
+	}
+    
+    
+	function editorder()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		//$data[ 'category' ] =$this->order_model->getcategorydropdown();
+		$data[ 'user' ] =$this->order_model->getuser();
+		$data[ 'country' ] =$this->order_model->getcountry();
+		$data[ 'orderstatus' ] =$this->order_model->getorderstatus();
+		$data['before']=$this->order_model->beforeedit($this->input->get('id'));
+		$data['page']='editorder';
+		$data['page2']='block/orderblock';
+		$data['title']='Edit order';
+		$this->load->view('templatewith2',$data);
+	}
+	function editordersubmit()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->form_validation->set_rules('orderstatus','orderstatus','trim|');
+		$this->form_validation->set_rules('firstname','Firstname','trim');
+//		$this->form_validation->set_rules('lastname','Lastname','trim|required');
+		$this->form_validation->set_rules('email','Email','trim|valid_email');
+		$this->form_validation->set_rules('billingaddress','billingaddress','trim');
+		$this->form_validation->set_rules('billingcity','billingcity','trim');
+		$this->form_validation->set_rules('billingstate','billingstate','trim');
+		$this->form_validation->set_rules('billingcountry','billingcountry','trim');
+		$this->form_validation->set_rules('shippingaddress','shippingaddress','trim');
+		$this->form_validation->set_rules('shippingcity','shippingcity','trim');
+		$this->form_validation->set_rules('shippingstate','shippingstate','trim');
+		$this->form_validation->set_rules('shippingcountry','shippingcountry','trim');
+		$this->form_validation->set_rules('shippingpincode','shippingpincode','trim');
+		$this->form_validation->set_rules('transactionid','transactionid','trim');
+		if($this->form_validation->run() == FALSE)	
+		{
+			$data['alerterror'] = validation_errors();
+			$data[ 'user' ] =$this->order_model->getuser();
+			$data[ 'country' ] =$this->order_model->getcountry();
+			$data[ 'orderstatus' ] =$this->order_model->getorderstatus();
+			$data[ 'currency' ] =$this->currency_model->getcurrencydropdown();
+			$data['before']=$this->order_model->beforeedit($this->input->get('id'));
+			$data['page']='editorder';
+			$data['page2']='block/orderblock';
+			$data['title']='Edit order';
+			$this->load->view('template',$data);
+		}
+		else
+		{
+			
+			$id=$this->input->post('id');
+			$user=$this->input->post('user');
+			$firstname=$this->input->post('firstname');
+//			$lastname=$this->input->post('lastname');
+			$email=$this->input->post('email');
+			$billingaddress=$this->input->post('billingaddress');
+			$billingcity=$this->input->post('billingcity');
+			$billingstate=$this->input->post('billingstate');
+			$billingcountry=$this->input->post('billingcountry');
+			$shippingaddress=$this->input->post('shippingaddress');
+			$shippingcity=$this->input->post('shippingcity');
+			$shippingstate=$this->input->post('shippingstate');
+			$shippingcountry=$this->input->post('shippingcountry');
+			$shippingpincode=$this->input->post('shippingpincode');
+//			$currency=$this->input->post('currency');
+			$orderstatus=$this->input->post('orderstatus');
+			$trackingcode=$this->input->post('trackingcode');
+			$transactionid=$this->input->post('transactionid');
+			if(($this->order_model->edit($id,$user,$firstname,$email,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid))==0)
+				$data['alerterror']="Order could not be edited.";
+			else
+            {
+				$data['alertsuccess']="Order  edited Successfully.";
+//                $query1=$this->order_model->getorderstatus1($orderstatus);
+//                //echo $state=$query1;
+//                //$email=$this->input->get('email');
+//                $this->load->library('email');
+//                $email=$email;
+//                $this->email->from('lyla@lylaloves.co.uk', 'Lyla');
+//                $this->email->to($email);
+//                $this->email->cc('another@another-example.com');
+//                $this->email->bcc('them@their-example.com');
+//
+//                $this->email->subject('Welcome to Lyla');
+//                $this->email->message('<img src="http://lylaloves.co.uk/img/dispatchedbylyla.jpg" width="560px" height="398px"><br><b>YOUR ORDER IS '.$query1->name.'</b>');
+//
+//                $this->email->send();
+
+            }
+			$data['redirect']="site/vieworder";
+			//$data['other']="template=$template";
+			$this->load->view("redirect",$data);
+		}
+			
+	}
+    
+    
+	function vieworderitems()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+//		$data[ 'category' ] =$this->category_model->getcategorydropdown();
+		$data[ 'table' ] =$this->order_model->getorderitem($this->input->get('id'));
+		$data['before']=$this->order_model->beforeedit($this->input->get('id'));
+        $data['id']=$this->input->get('id');
+		$data['page']='vieworderitems';
+		$data['page2']='block/orderblock';
+		$data['title']='Edit order items';
+		$this->load->view('templatewith2',$data);
+	}
+    
+    
+        
+    public function createorderitems()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+        $id=$this->input->get('id');
+		$data['order']=$this->order_model->getorderitem($this->input->get('id'));
+		$data['before']=$this->order_model->beforeedit($this->input->get('id'));
+		$data[ 'product' ] =$this->product_model->getproductdropdown();
+//		$data[ 'category' ] =$this->category_model->getcategorydropdown();
+		$data[ 'page' ] = 'createorderitem';
+		$data['page2']='block/orderblock';
+		$data[ 'title' ] = 'Create Orderitem';
+		$this->load->view( 'template', $data );	
+	}
+    function createorderitemsubmit()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->form_validation->set_rules('product','Product','trim|');
+		$this->form_validation->set_rules('price','Price','trim');
+		$this->form_validation->set_rules('quantity','Lastname','trim');
+		$this->form_validation->set_rules('discount','Discount','trim');
+		$this->form_validation->set_rules('finalprice','Finalprice','trim');
+		if($this->form_validation->run() == FALSE)	
+		{
+			$data['alerterror'] = validation_errors();
+        $id=$this->input->get('id');
+		$data['order']=$this->order_model->getorderitem($this->input->get_post('id'));
+		$data['before']=$this->order_model->beforeedit($this->input->get_post('id'));
+		$data[ 'product' ] =$this->product_model->getproductdropdown();
+//		$data[ 'category' ] =$this->category_model->getcategorydropdown();
+			$data['page']='createorderitems';
+			$data['page2']='block/orderblock';
+			$data['title']='Create order';
+			$this->load->view('template',$data);
+		}
+		else
+		{
+			
+			$order=$this->input->get_post('id');
+			$product=$this->input->post('product');
+			$price=$this->input->post('price');
+			$quantity=$this->input->post('quantity');
+			$discount=$this->input->post('discount');
+			$finalprice=$this->input->post('finalprice');
+//			echo $order;
+//			echo $product;
+//			echo $price;
+//			echo $quantity;
+//			echo $finalprice;
+			if(($this->order_model->createorderitems($order,$product,$price,$quantity,$discount,$finalprice))==0)
+				$data['alerterror']="Orderitem could not be Created.";
+			else
+				$data['alertsuccess']="Orderitem  edited Successfully.";
+			$data['redirect']="site/vieworderitems?id=".$order;
+			//$data['other']="template=$template";
+			$this->load->view("redirect2",$data);
+		}
+			
+	}
+    
+    function editorderitem()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+        $id=$this->input->get('id');
+		$data['order']=$this->order_model->getorderitem($this->input->get('order'));
+		$data['before']=$this->order_model->beforeedititem($this->input->get('id'));
+		$data[ 'product' ] =$this->product_model->getproductdropdown();
+//		$data[ 'category' ] =$this->category_model->getcategorydropdown();
+		$data[ 'table' ] =$this->order_model->getorderitem();
+		$data['page']='editorderitem';
+		$data['page2']='block/orderblock';
+		$data['title']='Edit order item';
+		$this->load->view('template',$data);
+	}
+    function editorderitemsubmit()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->form_validation->set_rules('product','Product','trim|');
+		$this->form_validation->set_rules('price','Price','trim');
+		$this->form_validation->set_rules('quantity','Lastname','trim');
+		$this->form_validation->set_rules('discount','Discount','trim');
+		$this->form_validation->set_rules('finalprice','Finalprice','trim');
+		if($this->form_validation->run() == FALSE)	
+		{
+			$data['alerterror'] = validation_errors();
+        $id=$this->input->get('id');
+		$data['order']=$this->order_model->getorderitem();
+		$data['before']=$this->order_model->beforeedititem($this->input->get('id'));
+		$data[ 'product' ] =$this->product_model->getproductdropdown();
+//		$data[ 'category' ] =$this->category_model->getcategorydropdown();
+		$data[ 'table' ] =$this->order_model->getorderitem();
+		$data['page']='editorderitems';
+		$data['page2']='block/orderblock';
+		$data['title']='Edit order item';
+		$this->load->view('template',$data);
+		}
+		else
+		{
+			$id=$this->input->get_post('id');
+			//$order=$this->input->get_post('id');
+			$product=$this->input->post('product');
+			$order=$this->input->get_post('order');
+			$price=$this->input->post('price');
+			$quantity=$this->input->post('quantity');
+			$discount=$this->input->post('discount');
+			$finalprice=$this->input->post('finalprice');
+            //echo $order;
+			
+			if(($this->order_model->updateorderitem($id,$order,$product,$price,$quantity,$discount,$finalprice))==0)
+				$data['alerterror']="Orderitem could not be Updated.";
+			else
+				$data['alertsuccess']="Orderitem  edited Successfully.";
+			$data['redirect']="site/vieworderitems?id=".$order;
+//			$data['order']="id=$order";
+			$this->load->view("redirect2",$data);
+		}
+			
+	}
+    
+    
+    function deleteorderitem()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+        $order=$this->input->get('order');
+		$this->order_model->deleteorderitem($this->input->get('id'));
+		$data[ 'table' ] =$this->order_model->getorderitem($order);
+		$data['alertsuccess']="Orderitem Deleted Successfully";
+		$data['redirect']="site/vieworderitems?id=".$order;
+//			$data['order']="id=$order";
+        $this->load->view("redirect2",$data);
+	}
+    
+//notification starts
+	
+	public function viewnotification()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $data["page"]="viewnotification";
+        $data[ 'user' ] =$this->user_model->getuserdropdown();
+        $data[ 'type' ] =$this->notification_model->gettypedropdown();
+        $data["base_url"]=site_url("site/viewnotificationjson");
+        $data["title"]="View notification";
+        $this->load->view("template",$data);
+    }
+    function viewnotificationjson()
+    {
+        $elements=array();
+        $elements[0]=new stdClass();
+        $elements[0]->field="`notification`.`id`";
+        $elements[0]->sort="1";
+        $elements[0]->header="ID";
+        $elements[0]->alias="id";
+        $elements[1]=new stdClass();
+        $elements[1]->field="`user`.`name`";
+        $elements[1]->sort="1";
+        $elements[1]->header="User";
+        $elements[1]->alias="user";
+        $elements[2]=new stdClass();
+        $elements[2]->field="`notification`.`timestamp`";
+        $elements[2]->sort="1";
+        $elements[2]->header="Timestamp";
+        $elements[2]->alias="timestamp";
+        $elements[3]=new stdClass();
+        $elements[3]->field="`notification`.`message`";
+        $elements[3]->sort="1";
+        $elements[3]->header="Message";
+        $elements[3]->alias="message";
+        $elements[4]=new stdClass();
+        $elements[4]->field="`notification`.`type`";
+        $elements[4]->sort="1";
+        $elements[4]->header="Type";
+        $elements[4]->alias="type";
+        $search=$this->input->get_post("search");
+        $pageno=$this->input->get_post("pageno");
+        $orderby=$this->input->get_post("orderby");
+        $orderorder=$this->input->get_post("orderorder");
+        $maxrow=$this->input->get_post("maxrow");
+        if($maxrow=="")
+        {
+        $maxrow=20;
+        }
+        if($orderby=="")
+        {
+        $orderby="id";
+        $orderorder="ASC";
+        }
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `notification` LEFT OUTER JOIN `user` ON `notification`.`user`=`user`.`id` ");
+        $this->load->view("json",$data);
+    }
+
+    public function createnotification()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $data[ 'user' ] =$this->user_model->getuserdropdown();
+        $data[ 'type' ] =$this->notification_model->gettypedropdown();
+        $data["page"]="createnotification";
+        $data["title"]="Create Notification";
+        $this->load->view("template",$data);
+    }
+    public function createnotificationsubmit() 
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $this->form_validation->set_rules("type","Type","trim");
+        $this->form_validation->set_rules("message","Message","trim");
+        if($this->form_validation->run()==FALSE)
+        {
+            $data["alerterror"]=validation_errors();
+            $data[ 'user' ] =$this->user_model->getuserdropdown();
+            $data[ 'type' ] =$this->notification_model->gettypedropdown();
+            $data["page"]="createnotiication";
+            $data["title"]="Create Notification";
+            $this->load->view("template",$data);
+        }
+        else
+        {
+            $user=$this->input->get_post("user");
+            $type=$this->input->get_post("type");
+            $message=$this->input->get_post("message");
+            if($this->notification_model->create($user,$type,$message)==0)
+            $data["alerterror"]="New notification could not be created.";
+            else
+            $data["alertsuccess"]="notification created Successfully.";
+            $data["redirect"]="site/viewnotification";
+            $this->load->view("redirect",$data);
+        }
+    }
+    public function editnotification()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $data[ 'user' ] =$this->user_model->getuserdropdown();
+        $data[ 'type' ] =$this->notification_model->gettypedropdown();
+        $data["page"]="editnotification";
+        $data["title"]="Edit Notification";
+        $data["before"]=$this->notification_model->beforeedit($this->input->get("id"));
+        $this->load->view("template",$data);
+    }
+    public function editnotificationsubmit()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $this->form_validation->set_rules("id","ID","trim");
+        $this->form_validation->set_rules("type","Type","trim");
+        $this->form_validation->set_rules("message","Message","trim");
+        if($this->form_validation->run()==FALSE)
+        {
+            $data["alerterror"]=validation_errors();
+            $data[ 'user' ] =$this->user_model->getuserdropdown();
+            $data[ 'type' ] =$this->notification_model->gettypedropdown();
+            $data["page"]="editnotification";
+            $data["title"]="Edit Notification";
+            $data["before"]=$this->notification_model->beforeedit($this->input->get("id"));
+            $this->load->view("template",$data);
+        }
+        else
+        {
+            $id=$this->input->get_post("id");
+            $user=$this->input->get_post("user");
+            $type=$this->input->get_post("type");
+            $message=$this->input->get_post("message");
+            $timestamp=$this->input->get_post("timestamp");
+            if($this->notification_model->edit($id,$user,$type,$timestamp,$message)==0)
+            $data["alerterror"]="New notification could not be Updated.";
+            else
+            $data["alertsuccess"]="notification Updated Successfully.";
+            $data["redirect"]="site/viewnotification";
+            $this->load->view("redirect",$data);
+        }
+    }
+    public function deletenotification()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $this->notification_model->delete($this->input->get("id"));
+        $data["redirect"]="site/viewnotification";
+        $this->load->view("redirect",$data);
+    }
+//	notification ends
+	
+    
 }
 ?>
