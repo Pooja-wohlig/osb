@@ -3,13 +3,14 @@ if ( !defined( 'BASEPATH' ) )
 	exit( 'No direct script access allowed' );
 class Product_model extends CI_Model
 {
-	public function createproduct($name,$sku,$description,$price,$status,$category)
+	public function createproduct($name,$sku,$description,$price,$status,$category,$user)
 	{
 		$data  = array(
 			'name' => $name,
 			'sku' => $sku,
 			'description' => $description,
 			'price' => $price,
+			'user' => $user,
 			'status' => $status
 		);
 		$query=$this->db->insert( 'product', $data );
@@ -30,7 +31,7 @@ class Product_model extends CI_Model
 	}
 	function viewproduct()
 	{
-	$query=$this->db->query("SELECT `product`.`id`,`product`.`name`,`product`.`sku`,`product`.`price`,`product`.`quantity` FROM `product`
+	$query=$this->db->query("SELECT `product`.`id`,`product`.`name`,`product`.`user`,`product`.`sku`,`product`.`price`,`product`.`quantity` FROM `product`
 		ORDER BY `product`.`id` ASC")->result();
 		return $query;
 	}
@@ -54,13 +55,14 @@ class Product_model extends CI_Model
 		return $query;
 	}
 
-	public function editproduct( $id,$name,$sku,$description,$price,$status,$category)
+	public function editproduct( $id,$name,$sku,$description,$price,$status,$category,$user)
 	{
 		$data = array(
 			'name' => $name,
 			'sku' => $sku,
 			'description' => $description,
 			'price' => $price,
+			'user' => $user,
 			'status' => $status
 		);
 		$this->db->where( 'id', $id );

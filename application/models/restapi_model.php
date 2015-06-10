@@ -8,21 +8,6 @@ class restapi_model extends CI_Model {
         $query['category'] = $this->db->query("SELECT `name`,`id` FROM `osb_category`")->result();
         return $query;
     }
-    public function searchresult($area, $category) {
-        if ($area != "0" && $area != "") {
-            $areaquery = "`user`.`area`='$area'";
-        } else {
-            $areaquery = " 1 ";
-        }
-        if ($category != "0" && $category != "") {
-            $categoryquery = "`usercategory`.`category`='$category'";
-        } else {
-            $categoryquery = " 1 ";
-        }
-        //print_r("SELECT `user`.`id`,`user`.`shopname` as `name`,`user`.`salesbalance` as `sellbalance` FROM `user` LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE $areaquery AND $categoryquery");
-        $query = $this->db->query("SELECT `user`.`id`,`user`.`shopname` as `name`,`user`.`salesbalance` as `sellbalance` FROM `user` LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE $areaquery AND $categoryquery AND `user`.`salesbalance` > 0 ORDER BY `user`.`salesbalance` DESC")->result();
-        return $query;
-    }
     //	 public function searchresult1($membershipno){
     //  $query['searchresult1']=$this->db->query("SELECT `shopname`,`salesbalance` FROM `user` WHERE `membershipno`='$membershipno'")->row();
     //	  return $query;
@@ -222,20 +207,6 @@ WHERE `osb_transaction`.`userfrom`=1 AND `osb_transaction`.`userto`='$user'")->r
         }
 //        return $query;
 	}
-	public function createproduct($name,$sku,$price,$description,$status){
-	$data=array("name" => $name,"sku" => $sku,"price" => $price,"description" => $description,"status" => $status);
-$query=$this->db->insert( "product", $data );
-$id=$this->db->insert_id();
-if(!$query)
-return  0;
-else
-return  $id;
-	}
-	public function editproduct($id,$name,$sku,$price,$description,$status){
-	 $data = array("name" => $name,"sku" => $sku,"price" => $price,"description" => $description,"status" => $status);
-        $this->db->where('id', $id);
-        $this->db->update('product', $data);
-	}
 //	public function viewallproducts(){
 //$query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `status` FROM `product`")->result();
 //		return $query;
@@ -244,5 +215,204 @@ return  $id;
 $query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `status` FROM `product` WHERE `id`='$id'")->result();
 		return $query;
  }
+    
+    
+	public function buyproduct($userid,$productid,$quantity,$name,$email,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$sameas)
+    {
+        $getproductdetails=$this->db->query("SELECT * FROM `product` WHERE `id`='$productid'")->row();
+        $price=$getproductdetails->price;
+        $finalprice=$price*$quantity;
+        $querycreateorder=$this->db->query("INSERT INTO `order`( `user`, `name`, `email`, `billingaddress`, `billingcity`, `billingstate`, `billingcountry`, `billingpincode`, `shippingaddress`, `shippingcity`, `shippingcountry`, `shippingstate`, `orderstatus`, `timestamp`) VALUES ('$userid','$name','$email','$billingaddress','$billingcity','$billingstate','$billingcountry','$billingpincode','$shippingaddress','$shippingcity','$shippingcountry','$shippingstate','1',NULL)");
+        $order=$this->db->insert_id();
+        $data  = array(
+			'order' => $order,
+			'product' => $productid,
+			'price' => $price,
+			'quantity' => $quantity,
+			'finalprice' => $finalprice
+		);
+		$query=$this->db->insert( 'orderitems', $data );
+//        $id=$this->db->insert_id();
+        if(!$query)
+        return  0;
+        else
+        return  $order;
+	}
+    
+	public function viewsingleorder($orderid,$userid)
+    {
+        $query=$this->db->query("SELECT  `order`.`id`  AS `id` ,  `order`.`name`  AS `name` ,  `order`.`email`  AS `email` ,  `order`.`transactionid`  AS `transactionid` ,  `order`.`trackingcode`  AS `trackingcode` ,  `order`.`orderstatus`  AS `orderstatus` ,  `order`.`timestamp`  AS `timestamp`,`order`. `billingaddress`,`order`. `billingcity`,`order`. `billingstate`,`order`. `billingcountry`,`order`. `billingpincode`,`order`. `shippingaddress`,`order`. `shippingcity`,`order`. `shippingcountry`,`order`. `shippingstate`,`order`. `shippingpincode` ,  `orderstatus`.`name`  AS `orderstatusname` ,  `orderitems`.`product`  AS `productid` ,  `orderitems`.`quantity`  AS `quantity` ,  `orderitems`.`price`  AS `price` ,  `orderitems`.`finalprice`  AS `finalprice` ,  `product`.`name`  AS `productname` ,  `product`.`sku`  AS `productsku` 
+        FROM `orderitems` 
+        LEFT OUTER JOIN `order` ON `orderitems`.`order`=`order`.`id` 
+        LEFT OUTER JOIN `orderstatus` ON `orderstatus`.`id`=`order`.`orderstatus` 
+        LEFT OUTER JOIN `product` ON `orderitems`.`product`=`product`.`id`  
+        WHERE `order`.`user`='$userid' AND `order`.`id`='$orderid'")->row();
+        
+        if(!$query)
+        return  0;
+        else
+        return  $query;
+	}
+    
+	public function createproduct($name,$sku,$price,$description,$status,$user)
+    {
+        $data=array(
+            "name" => $name,
+            "sku" => $sku,
+            "price" => $price,
+            "description" => $description,
+            "user" => $user,
+            "status" => $status
+        );
+        $query=$this->db->insert( "product", $data );
+        $id=$this->db->insert_id();
+        if(!$query)
+        return  0;
+        else
+        return  $id;
+	}
+    
+	public function editproduct($id,$name,$sku,$price,$description,$status,$user)
+    {
+        $data = array(
+            "name" => $name,
+            "sku" => $sku,
+            "price" => $price,
+            "description" => $description,
+            "status" => $status
+        );
+        $this->db->where('id', $id);
+        $this->db->update('product', $data);
+	}
+	public function deleteproduct($productid,$user)
+    {
+        $querydelete=$this->db->query("DELETE FROM `product` WHERE `id`='$productid' AND `user`='$user'");
+        if($querydelete)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+	}
+    
+    public function searchresult($area,$category,$online,$offline) 
+    {
+        if ($area != "0" && $area != "") 
+        {
+            $areaquery = "`user`.`area`='$area'";
+        } 
+        else 
+        {
+            $areaquery = " 1 ";
+        }
+        
+        if ($category != "0" && $category != "") 
+        {
+            $categoryquery = "`usercategory`.`category`='$category'";
+        } 
+        else 
+        {
+            $categoryquery = " 1 ";
+        }
+        
+        if ($online == "0") 
+        {
+            if($offline=="0")
+            {
+                $onlinequery = " 1 ";
+            }
+            else
+            {
+                $onlinequery = "`user`.`onlinestatus`='2'";
+            }
+        } 
+        else if($online=="1")
+        {
+            if($offline=="0")
+            {
+                $onlinequery = "`user`.`onlinestatus`='1'";
+            }
+            else
+            {
+                $onlinequery = " (`user`.`onlinestatus`='3' OR `user`.`onlinestatus`='2' OR `user`.`onlinestatus`='1') ";
+            }
+        }
+        
+        
+        //print_r("SELECT `user`.`id`,`user`.`shopname` as `name`,`user`.`salesbalance` as `sellbalance` FROM `user` LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE $areaquery AND $categoryquery");
+        $query = $this->db->query("SELECT `user`.`id`,`user`.`shopname` as `name`,`user`.`salesbalance` as `sellbalance`,`user`.`onlinestatus` as `onlinestatus` 
+        FROM `user` 
+        LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` 
+        LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` 
+        WHERE $areaquery AND $categoryquery AND $onlinequery AND`user`.`salesbalance` > 0 ORDER BY `user`.`salesbalance` DESC")->result();
+        return $query;
+    }
+    
+    
+	public function editprofile($userid,$name,$email,$message,$image,$username,$shopname,$membershipnumber,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$area,$shoplogo,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$password)
+    {
+        
+		$data  = array(
+			'name' => $name,
+			'email' => $email,
+			'message' => $message,
+            'image'=> $image,
+			'shopname' => $shopname,
+			'area' => $area,
+			'membershipno' => $membershipnumber,
+			'address' => $address,
+			'description' => $description,
+			'website' => $website,
+			'shopcontact1' => $shopcontact1,
+			'shopcontact2' => $shopcontact2,
+			'shopemail' => $shopemail,
+			'purchasebalance' => $purchasebalance,
+			'salesbalance' => $salesbalance,
+			'shoplogo' => $shoplogo,
+			'percentpayment' => $percentpayment,
+			'billingaddress' => $billingaddress,
+			'billingcity' => $billingcity,
+			'billingstate' => $billingstate,
+			'billingcountry' => $billingcountry,
+			'billingpincode' => $billingpincode,
+			'shippingaddress' => $shippingaddress,
+			'shippingcity' => $shippingcity,
+			'shippingcountry' => $shippingcountry,
+			'shippingstate' => $shippingstate,
+			'shippingpincode' => $shippingpincode,
+			'onlinestatus' => $onlinestatus
+		);
+		if($password != "")
+			$data['password'] =md5($password);
+        $this->db->where('id', $id);
+        $this->db->update('user', $data);
+	}
+    
+    
+	public function viewmysingleorder($orderid,$userid)
+    {
+        $query=$this->db->query("SELECT  `order`.`id`  AS `id` ,  `order`.`name`  AS `name` ,  `order`.`email`  AS `email` ,  `order`.`transactionid`  AS `transactionid` ,  `order`.`trackingcode`  AS `trackingcode` ,  `order`.`orderstatus`  AS `orderstatus` ,  `order`.`timestamp`  AS `timestamp`,`order`. `billingaddress`,`order`. `billingcity`,`order`. `billingstate`,`order`. `billingcountry`,`order`. `billingpincode`,`order`. `shippingaddress`,`order`. `shippingcity`,`order`. `shippingcountry`,`order`. `shippingstate`,`order`. `shippingpincode` ,  `orderstatus`.`name`  AS `orderstatusname` ,  `orderitems`.`product`  AS `productid` ,  `orderitems`.`quantity`  AS `quantity` ,  `orderitems`.`price`  AS `price` ,  `orderitems`.`finalprice`  AS `finalprice` ,  `product`.`name`  AS `productname` ,  `product`.`sku`  AS `productsku` 
+        FROM `orderitems` 
+        LEFT OUTER JOIN `order` ON `orderitems`.`order`=`order`.`id` 
+        LEFT OUTER JOIN `orderstatus` ON `orderstatus`.`id`=`order`.`orderstatus` 
+        LEFT OUTER JOIN `product` ON `orderitems`.`product`=`product`.`id`  
+        WHERE `order`.`user`='$userid' AND `order`.`id`='$orderid'")->row();
+        
+        if(!$query)
+        return  0;
+        else
+        return  $query;
+	}
+	public function changeproductstatus($productid,$status)
+    {
+        $query=$this->db->query("UPDATE `product` SET `status`='$status' WHERE `id`='$productid'");
+        
+        if(!$query)
+        return  0;
+        else
+        return  1;
+	}
 }
 ?>

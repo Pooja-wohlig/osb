@@ -431,13 +431,6 @@ $user=$this->input->get('user');
 $data['message']=$this->restapi_model->home($user);
 $this->load->view('json',$data);
  }
-  public function searchresult()
- {
-$area=$this->input->get('area');
-$category=$this->input->get('category');
-$data['message']=$this->restapi_model->searchresult($area,$category);
-$this->load->view('json',$data);
- }
  public function shopprofile()
  {
 $user=$this->input->get('user');
@@ -705,90 +698,439 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
      $data['message']=$this->restapi_model->checkorderstatus($orderid);
 	 $this->load->view('json',$data);
  }
-public function createproduct()
- {
-	  $data = json_decode(file_get_contents('php://input'), true);
-$name=$data['name'];
-$sku=$data['sku'];
-$price=$data['price'];
-$description=$data['description'];
-$status=$data['status'];
-$data['message']=$this->restapi_model->createproduct($name,$sku,$price,$description,$status);
-$this->load->view('json',$data);
- }
- public function editproduct()
- {
-	  $data = json_decode(file_get_contents('php://input'), true);
-$id=$data['id'];
-$name=$data['name'];
-$sku=$data['sku'];
-$price=$data['price'];
-$description=$data['description'];
-$status=$data['status'];
-$data['message']=$this->restapi_model->editproduct($id,$name,$sku,$price,$description,$status);
-$this->load->view('json',$data);
- }
- public function viewallproducts(){
-//  $data['message']=$this->restapi_model->viewallproducts();
-//	 $this->load->view('json',$data);
-	 $elements=array();
-$elements[0]=new stdClass();
-$elements[0]->field="`product`.`id`";
-$elements[0]->sort="1";
-$elements[0]->header="ID";
-$elements[0]->alias="id";
-
-$elements[1]=new stdClass();
-$elements[1]->field="`product`.`name`";
-$elements[1]->sort="1";
-$elements[1]->header="Name";
-$elements[1]->alias="name";
-
-$elements[2]=new stdClass();
-$elements[2]->field="`product`.`sku`";
-$elements[2]->sort="1";
-$elements[2]->header="Sku";
-$elements[2]->alias="sku";
-	 
-$elements[3]=new stdClass();
-$elements[3]->field="`product`.`price`";
-$elements[3]->sort="1";
-$elements[3]->header="Price";
-$elements[3]->alias="price";
-	 
-$elements[4]=new stdClass();
-$elements[4]->field="`product`.`description`";
-$elements[4]->sort="1";
-$elements[4]->header="Description";
-$elements[4]->alias="description";
-	 
-$elements[5]=new stdClass();
-$elements[5]->field="`product`.`status`";
-$elements[5]->sort="1";
-$elements[5]->header="Status";
-$elements[5]->alias="status";
-
-$search=$this->input->get_post("search");
-$pageno=$this->input->get_post("pageno");
-$orderby=$this->input->get_post("orderby");
-$orderorder=$this->input->get_post("orderorder");
-$maxrow=$this->input->get_post("maxrow");
-if($maxrow=="")
-{
-	  $maxrow=20;
-}
-if($orderby=="")
-{
-$orderby="id";
-$orderorder="ASC";
-}
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `product`");
-$this->load->view("json",$data);
- }
 public function getsingleproduct(){
 	$id=$this->input->get('id');
   $data['message']=$this->restapi_model->getsingleproduct($id);
 	 $this->load->view('json',$data);
  }
+ 
+ 
+    public function buyproduct()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $userid=$data['userid'];
+        $productid=$data['productid'];
+        $quantity=$data['quantity'];
+        $name=$data['name'];
+        $email=$data['email'];
+        $billingaddress=$data['billingaddress'];
+        $billingcity=$data['billingcity'];
+        $billingstate=$data['billingstate'];
+        $billingcountry=$data['billingcountry'];
+        $billingpincode=$data['billingpincode'];
+        $shippingaddress=$data['shippingaddress'];
+        $shippingcity=$data['shippingcity'];
+        $shippingcountry=$data['shippingcountry'];
+        $shippingstate=$data['shippingstate'];
+        $shippingpincode=$data['shippingpincode'];
+        $sameas=$data['sameas'];
+        $data['message']=$this->restapi_model->buyproduct($userid,$productid,$quantity,$name,$email,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$sameas);
+        $this->load->view('json',$data);
+    }
+ 
+ function viewallorders()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $userid=$data['userid'];
+     
+        $elements=array();
+        
+        $elements[0]=new stdClass();
+        $elements[0]->field="`order`.`id`";
+        $elements[0]->sort="1";
+        $elements[0]->header="ID";
+        $elements[0]->alias="id";
+        
+        $elements[1]=new stdClass();
+        $elements[1]->field="`order`.`name`";
+        $elements[1]->sort="1";
+        $elements[1]->header="User Name";
+        $elements[1]->alias="name";
+        
+        $elements[2]=new stdClass();
+        $elements[2]->field="`order`.`email`";
+        $elements[2]->sort="1";
+        $elements[2]->header="Email";
+        $elements[2]->alias="email";
+        
+        $elements[3]=new stdClass();
+        $elements[3]->field="`order`.`transactionid`";
+        $elements[3]->sort="1";
+        $elements[3]->header="Transaction Id";
+        $elements[3]->alias="transactionid";
+        
+        $elements[4]=new stdClass();
+        $elements[4]->field="`order`.`trackingcode`";
+        $elements[4]->sort="1";
+        $elements[4]->header="Tracking Code";
+        $elements[4]->alias="trackingcode";
+        
+        $elements[5]=new stdClass();
+        $elements[5]->field="`order`.`orderstatus`";
+        $elements[5]->sort="1";
+        $elements[5]->header="Order Status id";
+        $elements[5]->alias="orderstatus";
+        
+        $elements[6]=new stdClass();
+        $elements[6]->field="`order`.`timestamp`";
+        $elements[6]->sort="1";
+        $elements[6]->header="Timestamp";
+        $elements[6]->alias="timestamp";
+        
+        $elements[7]=new stdClass();
+        $elements[7]->field="`orderstatus`.`name`";
+        $elements[7]->sort="1";
+        $elements[7]->header="Status";
+        $elements[7]->alias="orderstatusname";
+        
+        $elements[8]=new stdClass();
+        $elements[8]->field="`orderitems`.`product`";
+        $elements[8]->sort="1";
+        $elements[8]->header="Productid";
+        $elements[8]->alias="productid";
+        
+        $elements[9]=new stdClass();
+        $elements[9]->field="`orderitems`.`quantity`";
+        $elements[9]->sort="1";
+        $elements[9]->header="Quantity";
+        $elements[9]->alias="quantity";
+        
+        $elements[10]=new stdClass();
+        $elements[10]->field="`orderitems`.`price`";
+        $elements[10]->sort="1";
+        $elements[10]->header="Price";
+        $elements[10]->alias="price";
+        
+        $elements[11]=new stdClass();
+        $elements[11]->field="`orderitems`.`finalprice`";
+        $elements[11]->sort="1";
+        $elements[11]->header="Final Price";
+        $elements[11]->alias="finalprice";
+        
+        $elements[12]=new stdClass();
+        $elements[12]->field="`product`.`name`";
+        $elements[12]->sort="1";
+        $elements[12]->header="Product name";
+        $elements[12]->alias="productname";
+        
+        $elements[13]=new stdClass();
+        $elements[13]->field="`product`.`sku`";
+        $elements[13]->sort="1";
+        $elements[13]->header="Product SKU";
+        $elements[13]->alias="productsku";
+        
+        $search=$this->input->get_post("search");
+        $pageno=$this->input->get_post("pageno");
+        $orderby=$this->input->get_post("orderby");
+        $orderorder=$this->input->get_post("orderorder");
+        $maxrow=$this->input->get_post("maxrow");
+        
+        if($maxrow=="")
+        {
+            $maxrow=20;
+        }
+        if($orderby=="")
+        {
+            $orderby="id";
+            $orderorder="ASC";
+        }
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `orderitems` LEFT OUTER JOIN `order` ON `orderitems`.`order`=`order`.`id` LEFT OUTER JOIN `orderstatus` ON `orderstatus`.`id`=`order`.`orderstatus` LEFT OUTER JOIN `product` ON `orderitems`.`product`=`product`.`id`","WHERE `order`.`user`='$userid'");
+        $this->load->view("json",$data);
+    }
 
+    function viewsingleorder()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $orderid=$data['orderid'];
+        $userid=$data['userid'];
+        $data['message']=$this->restapi_model->viewsingleorder($orderid,$userid);
+        $this->load->view("json",$data);
+    }
+
+    public function createproduct()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $name=$data['name'];
+        $sku=$data['sku'];
+        $price=$data['price'];
+        $description=$data['description'];
+        $status=$data['status'];
+        $user=$data['user'];
+        $data['message']=$this->restapi_model->createproduct($name,$sku,$price,$description,$status,$user);
+        $this->load->view('json',$data);
+    }
+ 
+    public function editproduct()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $id=$data['id'];
+        $name=$data['name'];
+        $sku=$data['sku'];
+        $price=$data['price'];
+        $description=$data['description'];
+        $status=$data['status'];
+        $user=$data['user'];
+        $data['message']=$this->restapi_model->editproduct($id,$name,$sku,$price,$description,$status,$user);
+        $this->load->view('json',$data);
+    }
+    public function viewallproducts()
+    {
+        $elements=array();
+        $elements[0]=new stdClass();
+        $elements[0]->field="`product`.`id`";
+        $elements[0]->sort="1";
+        $elements[0]->header="ID";
+        $elements[0]->alias="id";
+
+        $elements[1]=new stdClass();
+        $elements[1]->field="`product`.`name`";
+        $elements[1]->sort="1";
+        $elements[1]->header="Name";
+        $elements[1]->alias="name";
+
+        $elements[2]=new stdClass();
+        $elements[2]->field="`product`.`sku`";
+        $elements[2]->sort="1";
+        $elements[2]->header="Sku";
+        $elements[2]->alias="sku";
+
+        $elements[3]=new stdClass();
+        $elements[3]->field="`product`.`price`";
+        $elements[3]->sort="1";
+        $elements[3]->header="Price";
+        $elements[3]->alias="price";
+
+        $elements[4]=new stdClass();
+        $elements[4]->field="`product`.`description`";
+        $elements[4]->sort="1";
+        $elements[4]->header="Description";
+        $elements[4]->alias="description";
+
+        $elements[5]=new stdClass();
+        $elements[5]->field="`product`.`status`";
+        $elements[5]->sort="1";
+        $elements[5]->header="Status";
+        $elements[5]->alias="status";
+
+        $search=$this->input->get_post("search");
+        $pageno=$this->input->get_post("pageno");
+        $orderby=$this->input->get_post("orderby");
+        $orderorder=$this->input->get_post("orderorder");
+        $maxrow=$this->input->get_post("maxrow");
+
+        if($maxrow=="")
+        {
+              $maxrow=20;
+        }
+        if($orderby=="")
+        {
+            $orderby="id";
+            $orderorder="ASC";
+        }
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `product`","WHERE `product`.`status`=1");
+        $this->load->view("json",$data);
+    }
+ 
+    public function deleteproduct()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $productid=$data['productid'];
+        $user=$data['user'];
+        $data['message']=$this->restapi_model->deleteproduct($productid,$user);
+        $this->load->view('json',$data);
+    }
+
+ 
+    public function searchresult()
+    {
+        $area=$this->input->get('area');
+        $category=$this->input->get('category');
+        $online=$this->input->get('online');
+        $offline=$this->input->get('offline');
+        $data['message']=$this->restapi_model->searchresult($area,$category,$online,$offline);
+        $this->load->view('json',$data);
+    }
+ 
+ 
+    public function editprofilesubmit()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $userid=$data['userid'];
+        $name=$data['name'];
+        $password=$data['password'];
+        $email=$data['email'];
+        $message=$data['message'];
+        $image=$data['image'];
+        $username=$data['username'];
+        $shopname=$data['shopname'];
+        $membershipnumber=$data['membershipnumber'];
+        $address=$data['address'];
+        $description=$data['description'];
+        $website=$data['website'];
+        $shopcontact1=$data['shopcontact1'];
+        $shopcontact2=$data['shopcontact2'];
+        $shopemail=$data['shopemail'];
+        $area=$data['area'];
+        $shoplogo=$data['shoplogo'];
+        $billingaddress=$data['billingaddress'];
+        $billingcity=$data['billingcity'];
+        $billingstate=$data['billingstate'];
+        $billingcountry=$data['billingcountry'];
+        $billingpincode=$data['billingpincode'];
+        $shippingaddress=$data['shippingaddress'];
+        $shippingcity=$data['shippingcity'];
+        $shippingcountry=$data['shippingcountry'];
+        $shippingstate=$data['shippingstate'];
+        $shippingpincode=$data['shippingpincode'];
+        $onlinestatus=$data['onlinestatus'];
+        $data['message']=$this->restapi_model->editprofile($userid,$name,$email,$message,$image,$username,$shopname,$membershipnumber,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$area,$shoplogo,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$password);
+        $this->load->view('json',$data);
+    }
+ 
+ 
+ function viewmyproductorders()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $userid=$data['userid'];
+        
+        $products=$this->db->query("SELECT * FROM `product` WHERE `user`='$userid'")->result();
+//        print_r($products);
+     $productid="(";
+     foreach ($products as $key=>$product)
+     {
+         if($key==0)
+         {
+            $productid.=$product->id;
+         }
+         else
+         {
+            $productid.=",".$product->id;
+         }
+     }
+     $productid.=")";
+//     echo $productid;
+        $elements=array();
+        
+        $elements[0]=new stdClass();
+        $elements[0]->field="`order`.`id`";
+        $elements[0]->sort="1";
+        $elements[0]->header="ID";
+        $elements[0]->alias="id";
+        
+        $elements[1]=new stdClass();
+        $elements[1]->field="`order`.`name`";
+        $elements[1]->sort="1";
+        $elements[1]->header="User Name";
+        $elements[1]->alias="name";
+        
+        $elements[2]=new stdClass();
+        $elements[2]->field="`order`.`email`";
+        $elements[2]->sort="1";
+        $elements[2]->header="Email";
+        $elements[2]->alias="email";
+        
+        $elements[3]=new stdClass();
+        $elements[3]->field="`order`.`transactionid`";
+        $elements[3]->sort="1";
+        $elements[3]->header="Transaction Id";
+        $elements[3]->alias="transactionid";
+        
+        $elements[4]=new stdClass();
+        $elements[4]->field="`order`.`trackingcode`";
+        $elements[4]->sort="1";
+        $elements[4]->header="Tracking Code";
+        $elements[4]->alias="trackingcode";
+        
+        $elements[5]=new stdClass();
+        $elements[5]->field="`order`.`orderstatus`";
+        $elements[5]->sort="1";
+        $elements[5]->header="Order Status id";
+        $elements[5]->alias="orderstatus";
+        
+        $elements[6]=new stdClass();
+        $elements[6]->field="`order`.`timestamp`";
+        $elements[6]->sort="1";
+        $elements[6]->header="Timestamp";
+        $elements[6]->alias="timestamp";
+        
+        $elements[7]=new stdClass();
+        $elements[7]->field="`orderstatus`.`name`";
+        $elements[7]->sort="1";
+        $elements[7]->header="Status";
+        $elements[7]->alias="orderstatusname";
+        
+        $elements[8]=new stdClass();
+        $elements[8]->field="`orderitems`.`product`";
+        $elements[8]->sort="1";
+        $elements[8]->header="Productid";
+        $elements[8]->alias="productid";
+        
+        $elements[9]=new stdClass();
+        $elements[9]->field="`orderitems`.`quantity`";
+        $elements[9]->sort="1";
+        $elements[9]->header="Quantity";
+        $elements[9]->alias="quantity";
+        
+        $elements[10]=new stdClass();
+        $elements[10]->field="`orderitems`.`price`";
+        $elements[10]->sort="1";
+        $elements[10]->header="Price";
+        $elements[10]->alias="price";
+        
+        $elements[11]=new stdClass();
+        $elements[11]->field="`orderitems`.`finalprice`";
+        $elements[11]->sort="1";
+        $elements[11]->header="Final Price";
+        $elements[11]->alias="finalprice";
+        
+        $elements[12]=new stdClass();
+        $elements[12]->field="`product`.`name`";
+        $elements[12]->sort="1";
+        $elements[12]->header="Product name";
+        $elements[12]->alias="productname";
+        
+        $elements[13]=new stdClass();
+        $elements[13]->field="`product`.`sku`";
+        $elements[13]->sort="1";
+        $elements[13]->header="Product SKU";
+        $elements[13]->alias="productsku";
+        
+        $search=$this->input->get_post("search");
+        $pageno=$this->input->get_post("pageno");
+        $orderby=$this->input->get_post("orderby");
+        $orderorder=$this->input->get_post("orderorder");
+        $maxrow=$this->input->get_post("maxrow");
+        
+        if($maxrow=="")
+        {
+            $maxrow=20;
+        }
+        if($orderby=="")
+        {
+            $orderby="id";
+            $orderorder="ASC";
+        }
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `orderitems` LEFT OUTER JOIN `order` ON `orderitems`.`order`=`order`.`id` LEFT OUTER JOIN `orderstatus` ON `orderstatus`.`id`=`order`.`orderstatus` LEFT OUTER JOIN `product` ON `orderitems`.`product`=`product`.`id`","WHERE `orderitems`.`product` IN $productid");
+        $this->load->view("json",$data);
+    }
+ 
+    function viewmysingleorder()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $orderid=$data['orderid'];
+        $userid=$data['userid'];
+        $data['message']=$this->restapi_model->viewmysingleorder($orderid,$userid);
+        $this->load->view("json",$data);
+    }
+
+    function changeproductstatus()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $productid=$data['productid'];
+        $status=$data['status'];
+        $data['message']=$this->restapi_model->changeproductstatus($productid,$status);
+        $this->load->view("json",$data);
+    }
+
+ 
 } ?>

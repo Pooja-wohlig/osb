@@ -16,6 +16,17 @@
 						  <input type="text" id="normal-field" class="form-control" name="name" value="<?php echo set_value('name',$before['product']->name);?>">
 						</div>
 					</div>		
+					
+					<div class=" form-group">
+					  <label class="col-sm-2 control-label">user</label>
+					  <div class="col-sm-4">
+						<?php
+							
+							echo form_dropdown('user',$user,set_value('user',$before['product']->user),'class="chzn-select form-control" 	data-placeholder="Choose a Accesslevel..."');
+						?>
+					  </div>
+					</div>
+					
 					<div class="form-group">
 						<label class="col-sm-2 control-label">SKU</label>
 						<div class="col-sm-4">
