@@ -27,7 +27,7 @@ Area Details
 <label class="col-sm-2 control-label" for="normal-field">&nbsp;</label>
 <div class="col-sm-4">
 <button type="submit" class="btn btn-primary">Save</button>
-<a href='<?php echo site_url("site/viewpage"); ?>' class='btn btn-secondary'>Cancel</a>
+<a href='<?php echo site_url("site/viewarea"); ?>' class='btn btn-secondary'>Cancel</a>
 </div>
 </div>
 </form>

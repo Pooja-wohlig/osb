@@ -1140,6 +1140,11 @@ public function getsingleproduct(){
 		$data['message']=$this->restapi_model->becomeamember($name,$email,$number,$message);
 		$this->load->view('json',$data);
  }
+ public function viewmyproducts(){
+  $user=$this->input->get('user');
+     $data['message']=$this->restapi_model->viewmyproducts($user);
+	 $this->load->view('json',$data);
+ }
 
  
 } ?>

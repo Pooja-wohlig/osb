@@ -118,7 +118,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Order Status</label>
 						<div class="col-sm-4">
-						  <?php 	 echo form_dropdown('orderstatus',$orderstatus,set_value('orderstatus',$before['order']->orderstatus),'class="chzn-select orderstatus form-control" 	'); ?>
+						  <?php echo form_dropdown('orderstatus',$orderstatus,set_value('orderstatus',$before['order']->orderstatus),'class="chzn-select orderstatus form-control" 	'); ?>
 						</div>
 					</div>
 					<div class="form-group">

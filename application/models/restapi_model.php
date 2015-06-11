@@ -423,5 +423,12 @@ return  0;
 else
 return  $id;
  }
+	public function viewmyproducts($user){
+	 $query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `status` FROM `product` WHERE `user`='$user'")->result();     
+        if(!$query)
+        return  0;
+        else
+        return  $query;
+	}
 }
 ?>
