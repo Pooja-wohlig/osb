@@ -414,5 +414,14 @@ $query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `st
         else
         return  1;
 	}
+	public function becomeamember($name,$email,$number,$message){
+$data=array("name" => $name,"email" => $email,"personalcontact" => $number,"message" => $message);
+$query=$this->db->insert( "user", $data );
+$id=$this->db->insert_id();
+if(!$query)
+return  0;
+else
+return  $id;
+ }
 }
 ?>

@@ -54,7 +54,12 @@
 					  <textarea rows="4" cols="50" id="normal-field" class="form-control" name="message" value="<?php echo set_value('message');?>"></textarea>
 				  </div>
 				</div>
-			
+			<div class=" form-group">
+ 				<label class="col-sm-2 control-label" for="normal-field">Personal Contact</label>
+				<div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="personalcontact" value="<?php echo set_value('personalcontact');?>">
+				</div>
+			</div>
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">SocialId</label>
 				  <div class="col-sm-4">

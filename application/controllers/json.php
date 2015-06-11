@@ -1131,6 +1131,15 @@ public function getsingleproduct(){
         $data['message']=$this->restapi_model->changeproductstatus($productid,$status);
         $this->load->view("json",$data);
     }
+ public function becomeamember(){
+		$data = json_decode(file_get_contents('php://input'), true);
+		$name=$data['name'];
+		$email=$data['email'];
+		$number=$data['number'];
+		$message=$data['message'];
+		$data['message']=$this->restapi_model->becomeamember($name,$email,$number,$message);
+		$this->load->view('json',$data);
+ }
 
  
 } ?>

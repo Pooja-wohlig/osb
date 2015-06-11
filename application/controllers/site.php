@@ -86,6 +86,7 @@ class Site extends CI_Controller
             $name=$this->input->post('name');
             $email=$this->input->post('email');
             $message=$this->input->post('message');
+            $personalcontact=$this->input->post('personalcontact');
 //            $password=$this->input->post('password');
             $accesslevel=$this->input->post('accesslevel');
             $status=$this->input->post('status');
@@ -193,7 +194,7 @@ class Site extends CI_Controller
                 
 			}
             
-		if($this->user_model->create($name,$email,$message,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus)==0)
+		if($this->user_model->create($name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus)==0)
 		$data['alerterror']="New user could not be created.";
 			else
 			$data['alertsuccess']="User created Successfully.";
@@ -417,6 +418,7 @@ class Site extends CI_Controller
             $name=$this->input->get_post('name');
             $email=$this->input->get_post('email');
             $message=$this->input->get_post('message');
+            $personalcontact=$this->input->get_post('personalcontact');
             $password=$this->input->get_post('password');
             $accesslevel=$this->input->get_post('accesslevel');
             $status=$this->input->get_post('status');
@@ -532,7 +534,7 @@ class Site extends CI_Controller
                // print_r($image);
                 $shoplogo=$shoplogo->image;
             }
-			if($this->user_model->edit($id,$name,$email,$message,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus)==0)
+			if($this->user_model->edit($id,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus)==0)
 			$data['alerterror']="User Editing was unsuccesful";
 			else
 			$data['alertsuccess']="User edited Successfully.";
