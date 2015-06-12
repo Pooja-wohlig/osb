@@ -44,6 +44,13 @@
 					</div>
 					
 					<div class="form-group">
+						<label class="col-sm-2 control-label">Quantity</label>
+						<div class="col-sm-4">
+						  <input type="text" id="normal-field" class="form-control" name="quantity" value="<?php echo set_value('quantity');?>">
+						</div>
+					</div>
+					
+					<div class="form-group">
 						<label class="col-sm-2 control-label">Category</label>
 						<div class="col-sm-4">
 						   <?php 

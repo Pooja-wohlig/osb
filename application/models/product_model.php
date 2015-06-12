@@ -3,13 +3,14 @@ if ( !defined( 'BASEPATH' ) )
 	exit( 'No direct script access allowed' );
 class Product_model extends CI_Model
 {
-	public function createproduct($name,$sku,$description,$price,$status,$category,$user)
+	public function createproduct($name,$sku,$description,$price,$status,$category,$user,$quantity)
 	{
 		$data  = array(
 			'name' => $name,
 			'sku' => $sku,
 			'description' => $description,
 			'price' => $price,
+			'quantity' => $quantity,
 			'user' => $user,
 			'status' => $status
 		);
@@ -55,13 +56,14 @@ class Product_model extends CI_Model
 		return $query;
 	}
 
-	public function editproduct( $id,$name,$sku,$description,$price,$status,$category,$user)
+	public function editproduct( $id,$name,$sku,$description,$price,$status,$category,$user,$quantity)
 	{
 		$data = array(
 			'name' => $name,
 			'sku' => $sku,
 			'description' => $description,
 			'price' => $price,
+			'quantity' => $quantity,
 			'user' => $user,
 			'status' => $status
 		);

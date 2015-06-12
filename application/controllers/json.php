@@ -698,11 +698,14 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
      $data['message']=$this->restapi_model->checkorderstatus($orderid);
 	 $this->load->view('json',$data);
  }
-public function getsingleproduct(){
-	$id=$this->input->get('id');
-  $data['message']=$this->restapi_model->getsingleproduct($id);
-	 $this->load->view('json',$data);
- }
+ 
+ //
+    public function getsingleproduct()
+    {
+        $id=$this->input->get('id');
+        $data['message']=$this->restapi_model->getsingleproduct($id);
+        $this->load->view('json',$data);
+    }
  
  
     public function buyproduct()
@@ -856,7 +859,8 @@ public function getsingleproduct(){
         $description=$data['description'];
         $status=$data['status'];
         $user=$data['user'];
-        $data['message']=$this->restapi_model->createproduct($name,$sku,$price,$description,$status,$user);
+        $quantity=$data['quantity'];
+        $data['message']=$this->restapi_model->createproduct($name,$sku,$price,$description,$status,$user,$quantity);
         $this->load->view('json',$data);
     }
  
@@ -870,7 +874,8 @@ public function getsingleproduct(){
         $description=$data['description'];
         $status=$data['status'];
         $user=$data['user'];
-        $data['message']=$this->restapi_model->editproduct($id,$name,$sku,$price,$description,$status,$user);
+        $quantity=$data['quantity'];
+        $data['message']=$this->restapi_model->editproduct($id,$name,$sku,$price,$description,$status,$user,$quantity);
         $this->load->view('json',$data);
     }
     public function viewallproducts()

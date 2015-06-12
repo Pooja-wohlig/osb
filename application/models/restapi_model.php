@@ -254,7 +254,7 @@ $query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `st
         return  $query;
 	}
     
-	public function createproduct($name,$sku,$price,$description,$status,$user)
+	public function createproduct($name,$sku,$price,$description,$status,$user,$quantity)
     {
         $data=array(
             "name" => $name,
@@ -262,25 +262,89 @@ $query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `st
             "price" => $price,
             "description" => $description,
             "user" => $user,
+            "quantity" => $quantity,
             "status" => $status
         );
-        $query=$this->db->insert( "product", $data );
-        $id=$this->db->insert_id();
-        if(!$query)
-        return  0;
+        $userdetails=$this->db->query("SELECT * FROM `user` WHERE `id`='$user'")->row();
+        $salesbalance=$userdetails->salesbalance;
+        $finalprice=$price*$quantity;
+        if($salesbalance < $finalprice)
+        {
+            return "Low Sales Ballance";
+        }
         else
-        return  $id;
+        {
+            $query=$this->db->insert( "product", $data );
+            $id=$this->db->insert_id();
+            if($status==1)
+            {
+                $changedsalesbalance=$salesbalance-$finalprice;
+                $queryupdatesalesbalance=$this->db->query("UPDATE `user` SET `salesbalance`='$changedsalesbalance' WHERE `id`='$user'");
+            }
+            if(!$query)
+            return  0;
+            else
+            return  $id;
+        }
 	}
     
-	public function editproduct($id,$name,$sku,$price,$description,$status,$user)
+	public function editproduct($id,$name,$sku,$price,$description,$status,$user,$quantity)
     {
         $data = array(
             "name" => $name,
             "sku" => $sku,
             "price" => $price,
             "description" => $description,
+            "quantity" => $quantity,
             "status" => $status
         );
+        
+        $productdetails=$this->db->query("SELECT `product`.`id` AS `productid`,`product`.`price`,`product`.`quantity`,`product`.`user`,`product`.`status`,`user`.`salesbalance` FROM `product` INNER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`id`='$id'")->row();
+        $olduser=$productdetails->user;
+        $oldprice=$productdetails->price;
+        $oldquantity=$productdetails->quantity;
+        $oldsalesbalance=$productdetails->salesbalance;
+        $oldstatus=$productdetails->status;
+        $oldfinalprice=$oldprice*$oldquantity;
+        
+        if($price==$oldprice && $quantity==$quantity && $status==$oldstatus)
+        {
+            $this->db->where('id', $id);
+            $this->db->update('product', $data);
+            return 1;
+        }
+        if($price != $oldprice || $quantity != $oldquantity)
+        {
+            $newfinalprice=$price*$quantity;
+            if($newfinalprice<$oldfinalprice)
+            {
+                $difference=$oldfinalprice-$newfinalprice;
+                $lastsalesbalance=$oldsalesbalance-$difference;
+                $insertedsalesbalance=$oldsalesbalance+$lastsalesbalance;
+            }
+            else if($newfinalprice>$oldfinalprice)
+            {
+                $difference=$newfinalprice-$oldfinalprice;
+                $lastsalesbalance=$oldsalesbalance+$difference;
+                $insertedsalesbalance=$oldsalesbalance-$lastsalesbalance;
+            }
+            if($status == $oldstatus)
+            {
+                no change in user
+            }
+            else if($status<$oldstatus)
+            {
+                userchange with - value
+            }
+            else if($status > $oldstatus)
+            {
+                userchange with + value
+            }
+        
+        }
+        
+        
+        
         $this->db->where('id', $id);
         $this->db->update('product', $data);
 	}
@@ -407,6 +471,29 @@ $query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `st
 	}
 	public function changeproductstatus($productid,$status)
     {
+        $productdetails=$this->db->query("SELECT `product`.`id` AS `productid`,`product`.`price`,`product`.`quantity`,`product`.`user`,`product`.`status`,`user`.`salesbalance` FROM `product` INNER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`id`='$productid'")->row();
+        $user=$productdetails->user;
+        $price=$productdetails->price;
+        $quantity=$productdetails->quantity;
+        $salesbalance=$productdetails->salesbalance;
+        $oldstatus=$productdetails->status;
+        $finalprice=$price*$quantity;
+        
+//        
+        if($status==$oldstatus)
+        {
+            return 0;
+        }
+        else if($status<$oldstatus)
+        {
+            $newsalesbalance=$salesbalance+$finalprice;
+            $queryupdatesalesbalance=$this->db->query("UPDATE `user` SET `salesbalance`='$newsalesbalance' WHERE `id`='$user'");
+        }
+        else if($status>$oldstatus)
+        {
+            $newsalesbalanceafter=$salesbalance-$finalprice;
+            $queryupdatesalesbalance=$this->db->query("UPDATE `user` SET `salesbalance`='$newsalesbalance' WHERE `id`='$user'");
+        }
         $query=$this->db->query("UPDATE `product` SET `status`='$status' WHERE `id`='$productid'");
         
         if(!$query)

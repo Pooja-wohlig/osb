@@ -2307,6 +2307,7 @@ $this->load->view("redirect",$data);
 		$this->form_validation->set_rules('status','status','trim|');
 		$this->form_validation->set_rules('description','description','trim|');
 		$this->form_validation->set_rules('price','price','trim|');
+		$this->form_validation->set_rules('quantity','quantity','trim|');
 		if($this->form_validation->run() == FALSE)	
 		{
 			$data['alerterror'] = validation_errors();
@@ -2326,8 +2327,9 @@ $this->load->view("redirect",$data);
 			$price=$this->input->post('price');
 			$category=$this->input->post('category');
 			$user=$this->input->post('user');
+			$quantity=$this->input->post('quantity');
 			
-			$productid=$this->product_model->createproduct($name,$sku,$description,$price,$status,$category,$user);
+			$productid=$this->product_model->createproduct($name,$sku,$description,$price,$status,$category,$user,$quantity);
             if($productid==0)
 			$data['alerterror']="New product could not be created.";
 			else
@@ -2368,6 +2370,7 @@ $this->load->view("redirect",$data);
 		$this->form_validation->set_rules('status','status','trim|');
 		$this->form_validation->set_rules('description','description','trim|');
 		$this->form_validation->set_rules('price','price','trim|');
+		$this->form_validation->set_rules('quantity','quantity','trim|');
         
 		if($this->form_validation->run() == FALSE)	
 		{
@@ -2391,8 +2394,9 @@ $this->load->view("redirect",$data);
 			$price=$this->input->post('price');
 			$category=$this->input->post('category');
 			$user=$this->input->post('user');
+			$quantity=$this->input->post('quantity');
             
-			if($this->product_model->editproduct($id,$name,$sku,$description,$price,$status,$category,$user)==0)
+			if($this->product_model->editproduct($id,$name,$sku,$description,$price,$status,$category,$user,$quantity)==0)
 			$data['alerterror']="product Editing was unsuccesful";
 			else
 			$data['alertsuccess']="product edited Successfully.";
