@@ -5,7 +5,7 @@
 				 Product Details
 			</header>
 			<div class="panel-body">
-				<form class="form-horizontal row-fluid" method="post" action="<?php echo site_url('site/createproductsubmit');?>" >
+				<form class="form-horizontal row-fluid" method="post" action="<?php echo site_url('site/createproductsubmit');?>" enctype= "multipart/form-data" >
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Name</label>
 						<div class="col-sm-4">
@@ -60,6 +60,13 @@
 						</div>
 					</div>
 					
+                    <div class=" form-group">
+                      <label class="col-sm-2 control-label" for="normal-field">Image</label>
+                      <div class="col-sm-4">
+                        <input type="file" id="normal-field" class="form-control" name="image" value="<?php echo set_value('image');?>">
+                      </div>
+                    </div>
+				
 					<div class=" form-group">
 					  <label class="col-sm-2 control-label">Status</label>
 					  <div class="col-sm-4">

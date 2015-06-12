@@ -63,7 +63,19 @@
 							?>
 						</div>
 					</div>
-					
+					<?php
+//print_r($before);
+?>
+                    <div class=" form-group">
+                        <label class="col-sm-2 control-label" for="normal-field">Image</label>
+                        <div class="col-sm-4">
+                            <input type="file" id="normal-field" class="form-control" name="image" value="<?php echo set_value('image',$before['product']->image);?>">
+                            <?php if($before['product']->image == "") { } else { ?>
+                            <img src="<?php echo base_url('uploads')."/".$before['product']->image; ?>" width="140px" height="140px">
+                            <?php } ?>
+                        </div>
+                    </div>
+
 					<div class=" form-group">
 					  <label class="col-sm-2 control-label">Status</label>
 					  <div class="col-sm-4">

@@ -3,7 +3,7 @@ if ( !defined( 'BASEPATH' ) )
 	exit( 'No direct script access allowed' );
 class Product_model extends CI_Model
 {
-	public function createproduct($name,$sku,$description,$price,$status,$category,$user,$quantity)
+	public function createproduct($name,$sku,$description,$price,$status,$category,$user,$quantity,$image)
 	{
 		$data  = array(
 			'name' => $name,
@@ -12,8 +12,10 @@ class Product_model extends CI_Model
 			'price' => $price,
 			'quantity' => $quantity,
 			'user' => $user,
+			'image' => $image,
 			'status' => $status
 		);
+//        print_r($data);
 		$query=$this->db->insert( 'product', $data );
 		$id=$this->db->insert_id();
 
@@ -56,7 +58,7 @@ class Product_model extends CI_Model
 		return $query;
 	}
 
-	public function editproduct( $id,$name,$sku,$description,$price,$status,$category,$user,$quantity)
+	public function editproduct( $id,$name,$sku,$description,$price,$status,$category,$user,$quantity,$image)
 	{
 		$data = array(
 			'name' => $name,
@@ -65,6 +67,7 @@ class Product_model extends CI_Model
 			'price' => $price,
 			'quantity' => $quantity,
 			'user' => $user,
+			'image' => $image,
 			'status' => $status
 		);
 		$this->db->where( 'id', $id );
@@ -209,6 +212,12 @@ class Product_model extends CI_Model
 	function deleteproductimages($id)
 	{
 		$query=$this->db->query("DELETE FROM `productimage` WHERE `id`='$id'");
+	}
+    
+	public function getproductimagebyid($id)
+	{
+		$query=$this->db->query("SELECT `image` FROM `product` WHERE `id`='$id'")->row();
+		return $query;
 	}
 }
 ?>
