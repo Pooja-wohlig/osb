@@ -327,25 +327,30 @@ $query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `st
                 $lastsalesbalance=$oldsalesbalance+$difference;
                 $insertedsalesbalance=$oldsalesbalance-$lastsalesbalance;
             }
-            if($status == $oldstatus)
-            {
-                no change in user
-            }
-            else if($status<$oldstatus)
-            {
-                userchange with - value
-            }
-            else if($status > $oldstatus)
-            {
-                userchange with + value
-            }
+            $queryupdatesalesbalance=$this->db->query("UPDATE `user` SET `salesbalance`='$insertedsalesbalance' WHERE `id`='$user'");
+            
+            
+            $this->db->where('id', $id);
+            $this->db->update('product', $data);
+            return 1;
+//            if($status == $oldstatus)
+//            {
+//                no change in user
+//            }
+//            else if($status<$oldstatus)
+//            {
+//                userchange with - value
+//            }
+//            else if($status > $oldstatus)
+//            {
+//                userchange with + value
+//            }
         
         }
+        return 0;
         
         
         
-        $this->db->where('id', $id);
-        $this->db->update('product', $data);
 	}
 	public function deleteproduct($productid,$user)
     {
