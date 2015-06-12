@@ -1100,6 +1100,12 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         $elements[13]->header="Product SKU";
         $elements[13]->alias="productsku";
         
+	    $elements[14]=new stdClass();
+        $elements[14]->field="`product`.`image`";
+        $elements[14]->sort="1";
+        $elements[14]->header="Product Image";
+        $elements[14]->alias="productimage";
+	 
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
         $orderby=$this->input->get_post("orderby");
