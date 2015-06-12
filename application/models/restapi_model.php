@@ -47,11 +47,10 @@ FROM `osb_transaction`
 WHERE `osb_transaction`.`userfrom`=1 AND `osb_transaction`.`userto`='$user'")->row();
         return $query;
     }
-    public function sellingapproval($user) {
+  
+public function sellingapproval($user) {
 
-        $query['sellingapproval'] = $this->db->query("SELECT `user`.`shoplogo`,`osb_request`.`id`,`osb_request`.`amount`,`osb_request`.`reason` 
-		FROM `osb_request` 
-		INNER JOIN `user` ON `osb_request`.`userfrom`=`user`.`id` WHERE `osb_request`.`requeststatus`='1' AND `osb_request`.`userto`='$user'")->result();
+        $query['sellingapproval'] = $this->db->query("SELECT `user`.`shoplogo`,`user`.`purchasebalance`,`osb_request`.`id`,`osb_request`.`amount`,`osb_request`.`reason` FROM `osb_request` INNER JOIN `user` ON `osb_request`.`userfrom`=`user`.`id` WHERE `osb_request`.`requeststatus`='1' AND `osb_request`.`userto`='$user'")->result();
         return $query;
     }
     public function accepted($id, $reason, $status) {
@@ -270,7 +269,7 @@ $query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `st
         $finalprice=$price*$quantity;
         if($salesbalance < $finalprice)
         {
-            return "Low Sales Ballance";
+            return "Low Sales Balance";
         }
         else
         {
@@ -511,7 +510,7 @@ else
 return  $id;
  }
 	public function viewmyproducts($user){
-	 $query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `status` FROM `product` WHERE `user`='$user'")->result();     
+	 $query=$this->db->query("SELECT `product`.`id` as `productid`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`,`product`.`user`,`productimage`.`id` as `productimageid`,`productimage`.`image`,`productimage`.`order` FROM `product` LEFT OUTER JOIN `productimage` ON `productimage`.`product`=`product`.`id` WHERE `user`='$user'")->result();    
         if(!$query)
         return  0;
         else
