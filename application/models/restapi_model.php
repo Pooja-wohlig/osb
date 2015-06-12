@@ -211,7 +211,7 @@ public function sellingapproval($user) {
 //		return $query;
 // }
 		public function getsingleproduct($id){
-$query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `status` FROM `product` WHERE `id`='$id'")->result();
+$query=$this->db->query("SELECT `product`.`id` as `productid`, `product`.`quantity`,`product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`,`product`.`user`,`productimage`.`id` as `productimageid`,`productimage`.`image`,`productimage`.`order` FROM `product` LEFT OUTER JOIN `productimage` ON `productimage`.`product`=`product`.`id` WHERE `product`.`id`='$id'")->row();
 		return $query;
  }
     
