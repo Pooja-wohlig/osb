@@ -107,7 +107,7 @@
 			<div class=" form-group">
 				<label class="col-sm-2 control-label" for="normal-field">Address</label>
 				<div class="col-sm-4">
-					<textarea type="text" id="normal-field" class="form-control" name="address" value="<?php echo set_value('address',$before->address);?>"></textarea>
+					<textarea type="text" id="normal-field" class="form-control" name="address" value="<?php echo set_value('address',$before->address);?>"><?php echo set_value('address',$before->address);?></textarea>
 				</div>
 			</div>
 			<div class=" form-group">
@@ -122,7 +122,7 @@
 			<div class=" form-group">
 				<label class="col-sm-2 control-label" for="normal-field">Description</label>
 				<div class="col-sm-4">
-					<textarea rows="4" cols="50" id="normal-field" class="form-control" name="description" value="<?php echo set_value('description',$before->description);?>"></textarea>
+					<textarea rows="4" cols="50" id="normal-field" class="form-control" name="description" value="<?php echo set_value('description',$before->description);?>"><?php echo set_value('description',$before->description);?></textarea>
 				</div>
 			</div>
 			<div class=" form-group">

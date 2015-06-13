@@ -651,7 +651,7 @@ public function sendnotification($content, $user) {
         {
             $query=$query->row();
             $newdata = array(
-                'email'     => $user_profile->email,
+                'email' => $user_profile->email,
                 'password' => "",
                 'logged_in' => true,
                 'id'=> $query->id,
@@ -669,8 +669,7 @@ public function sendnotification($content, $user) {
 	{
 		$onlinestatus= array(
 			 "1" => "online",
-			 "2" => "offline",
-			 "3" => "both"
+			 "2" => "offline"
 			);
 		return $onlinestatus;
 	}

@@ -211,7 +211,7 @@ public function sellingapproval($user) {
 //		return $query;
 // }
 		public function getsingleproduct($id){
-$query=$this->db->query("SELECT `product`.`id` as `productid`, `product`.`quantity`,`product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`,`product`.`user`,`productimage`.`id` as `productimageid`,`productimage`.`image`,`productimage`.`order` FROM `product` LEFT OUTER JOIN `productimage` ON `productimage`.`product`=`product`.`id` WHERE `product`.`id`='$id'")->row();
+$query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` as `categoryid`,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` WHERE `product`.`id`='$id'")->row();
 		return $query;
  }
     
@@ -515,11 +515,19 @@ else
 return  $id;
  }
 	public function viewmyproducts($user){
-	 $query=$this->db->query("SELECT `product`.`id` as `productid`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`,`product`.`user`,`productimage`.`id` as `productimageid`,`productimage`.`image`,`productimage`.`order` FROM `product` LEFT OUTER JOIN `productimage` ON `productimage`.`product`=`product`.`id` WHERE `user`='$user'")->result();    
+	 $query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `status`, `user`, `quantity`, `image` FROM `product` WHERE `user`='$user'")->result();    
         if(!$query)
         return  0;
         else
         return  $query;
+	}
+	public function editproductimage($id,$imagename) {
+			$query=$this->db->query("UPDATE `product` SET `image`='$imagename' WHERE `id`='$id'" );
+			return $imagename;
+	}
+	public function searchproduct($product){
+	$query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` as `categoryid`,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` WHERE `product`.`name` LIKE '%$product%'")->result();
+		return $query;
 	}
 }
 ?>

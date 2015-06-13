@@ -75,7 +75,15 @@
                             <?php } ?>
                         </div>
                     </div>
-
+					<div class=" form-group">
+					  <label class="col-sm-2 control-label">Online Status</label>
+					  <div class="col-sm-4">
+						<?php
+							
+							echo form_dropdown('onlinestatus',$onlinestatus,set_value('onlinestatus',$before['product']->onlinestatus),'class="chzn-select form-control" 	data-placeholder="Choose a Accesslevel..."');
+						?>
+					  </div>
+					</div>
 					<div class=" form-group">
 					  <label class="col-sm-2 control-label">Status</label>
 					  <div class="col-sm-4">
