@@ -297,7 +297,8 @@ $query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku
             "quantity" => $quantity,
             "status" => $status
         );
-        
+        $productquery="SELECT `product`.`id` AS `productid`,`product`.`price`,`product`.`quantity`,`product`.`user`,`product`.`status`,`user`.`salesbalance` FROM `product` INNER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`id`='$id'";
+        echo "Product:- ".$productquery;
         $productdetails=$this->db->query("SELECT `product`.`id` AS `productid`,`product`.`price`,`product`.`quantity`,`product`.`user`,`product`.`status`,`user`.`salesbalance` FROM `product` INNER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`id`='$id'")->row();
         $olduser=$productdetails->user;
         $oldprice=$productdetails->price;
@@ -310,6 +311,7 @@ $query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku
         {
             $this->db->where('id', $id);
             $this->db->update('product', $data);
+            echo "in all same if";
             return 1;
         }
         if($price != $oldprice || $quantity != $oldquantity)
@@ -332,6 +334,7 @@ $query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku
             
             $this->db->where('id', $id);
             $this->db->update('product', $data);
+            echo "in different if";
             return 1;
 //            if($status == $oldstatus)
 //            {
