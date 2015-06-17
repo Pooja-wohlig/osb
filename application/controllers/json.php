@@ -1207,4 +1207,79 @@ $category=$this->input->get_post('category');
 	 $this->load->view('json',$data);
 }
  
+     public function getalluserproducts()
+     {
+         $data = json_decode(file_get_contents('php://input'), true);
+         $userid=$data['userid'];
+         
+        $elements=array();
+        
+        $elements[0]=new stdClass();
+        $elements[0]->field="`product`.`id`";
+        $elements[0]->sort="1";
+        $elements[0]->header="ID";
+        $elements[0]->alias="id";
+        
+        $elements[1]=new stdClass();
+        $elements[1]->field="`product`.`name`";
+        $elements[1]->sort="1";
+        $elements[1]->header="Name";
+        $elements[1]->alias="name";
+        
+        $elements[2]=new stdClass();
+        $elements[2]->field="`product`.`sku`";
+        $elements[2]->sort="1";
+        $elements[2]->header="Sku";
+        $elements[2]->alias="sku";
+        
+        $elements[3]=new stdClass();
+        $elements[3]->field="`product`.`price`";
+        $elements[3]->sort="1";
+        $elements[3]->header="Price";
+        $elements[3]->alias="price";
+        
+        $elements[4]=new stdClass();
+        $elements[4]->field="`product`.`description`";
+        $elements[4]->sort="1";
+        $elements[4]->header="Description";
+        $elements[4]->alias="description";
+        
+        $elements[5]=new stdClass();
+        $elements[5]->field="`product`.`status`";
+        $elements[5]->sort="1";
+        $elements[5]->header="Status";
+        $elements[5]->alias="status";
+        
+        $elements[6]=new stdClass();
+        $elements[6]->field="`product`.`quantity`";
+        $elements[6]->sort="1";
+        $elements[6]->header="Quantity";
+        $elements[6]->alias="quantity";
+        
+        $elements[7]=new stdClass();
+        $elements[7]->field="`product`.`image`";
+        $elements[7]->sort="1";
+        $elements[7]->header="Image";
+        $elements[7]->alias="image";
+        
+        $search=$this->input->get_post("search");
+        $pageno=$this->input->get_post("pageno");
+        $orderby=$this->input->get_post("orderby");
+        $orderorder=$this->input->get_post("orderorder");
+        $maxrow=$this->input->get_post("maxrow");
+        
+        if($maxrow=="")
+        {
+            $maxrow=20;
+        }
+        if($orderby=="")
+        {
+            $orderby="id";
+            $orderorder="ASC";
+        }
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `product`","WHERE `product`.`user`='$userid'");
+        $this->load->view("json",$data);
+
+     }
+ 
 } ?>
