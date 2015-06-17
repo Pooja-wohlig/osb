@@ -2785,6 +2785,7 @@ $this->load->view("redirect",$data);
 		$this->form_validation->set_rules('shippingcountry','shippingcountry','trim');
 		$this->form_validation->set_rules('shippingpincode','shippingpincode','trim');
 		$this->form_validation->set_rules('transactionid','transactionid','trim');
+		$this->form_validation->set_rules('logisticcharge','logisticcharge','trim');
 //		$this->form_validation->set_rules('currency','currency','trim');
 		if($this->form_validation->run() == FALSE)	
 		{
@@ -2818,7 +2819,8 @@ $this->load->view("redirect",$data);
 			$orderstatus=$this->input->post('orderstatus');
 			$trackingcode=$this->input->post('trackingcode');
 			$transactionid=$this->input->post('transactionid');
-			if(($this->order_model->createorder($user,$firstname,$email,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid))==0)
+			$logisticcharge=$this->input->post('logisticcharge');
+			if(($this->order_model->createorder($user,$firstname,$email,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid,$logisticcharge))==0)
 				$data['alerterror']="Order could not be Created.";
 			else
 				$data['alertsuccess']="Order  edited Successfully.";
@@ -2862,6 +2864,7 @@ $this->load->view("redirect",$data);
 		$this->form_validation->set_rules('shippingcountry','shippingcountry','trim');
 		$this->form_validation->set_rules('shippingpincode','shippingpincode','trim');
 		$this->form_validation->set_rules('transactionid','transactionid','trim');
+		$this->form_validation->set_rules('logisticcharge','logisticcharge','trim');
 		if($this->form_validation->run() == FALSE)	
 		{
 			$data['alerterror'] = validation_errors();
@@ -2896,7 +2899,8 @@ $this->load->view("redirect",$data);
 			$orderstatus=$this->input->post('orderstatus');
 			$trackingcode=$this->input->post('trackingcode');
 			$transactionid=$this->input->post('transactionid');
-			if(($this->order_model->edit($id,$user,$firstname,$email,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid))==0)
+			$logisticcharge=$this->input->post('logisticcharge');
+			if(($this->order_model->edit($id,$user,$firstname,$email,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid,$logisticcharge))==0)
 				$data['alerterror']="Order could not be edited.";
 			else
             {

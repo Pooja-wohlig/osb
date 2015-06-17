@@ -210,7 +210,7 @@ class Order_model extends CI_Model
 		return $query;
 	}
 	
-	public function edit($id,$user,$firstname,$email,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid)
+	public function edit($id,$user,$firstname,$email,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid,$logisticcharge)
 	{
 		
 		$data  = array(
@@ -228,7 +228,8 @@ class Order_model extends CI_Model
 			'shippingpincode' => $shippingpincode,
 			'orderstatus' =>$orderstatus,
 			'trackingcode' => $trackingcode,
-			'transactionid' => $transactionid
+			'transactionid' => $transactionid,
+			'logisticcharge' => $logisticcharge
 		);
 		$this->db->where( 'id', $id );
 		$query=$this->db->update( 'order', $data );
@@ -274,7 +275,7 @@ class Order_model extends CI_Model
     }
     
     
-    public function createorder($user,$firstname,$email,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid)
+    public function createorder($user,$firstname,$email,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid,$logisticcharge)
 	{
 		
 		$data  = array(
@@ -292,7 +293,8 @@ class Order_model extends CI_Model
 			'shippingpincode' => $shippingpincode,
 			'orderstatus' =>$orderstatus,
 			'trackingcode' => $trackingcode,
-			'transactionid' => $transactionid
+			'transactionid' => $transactionid,
+			'logisticcharge' => $logisticcharge
 		);
 		$query=$this->db->insert( 'order', $data );
 		

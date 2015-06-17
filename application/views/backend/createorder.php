@@ -116,6 +116,12 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label class="col-sm-2 control-label">Logistic Charges</label>
+						<div class="col-sm-4">
+						  <input type="text" id="" name="logisticcharge" class="form-control" value="<?php echo set_value('logisticcharge',$before['order']->logisticcharge); ?>">
+						</div>
+					</div>
+					<div class="form-group">
 						<label class="col-sm-2 control-label">Order Status</label>
 						<div class="col-sm-4">
 						  <?php echo form_dropdown('orderstatus',$orderstatus,set_value('orderstatus',$before['order']->orderstatus),'class="chzn-select orderstatus form-control" 	'); ?>

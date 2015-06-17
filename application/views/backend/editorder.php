@@ -131,6 +131,12 @@ ini_set('display_errors', 1);?>
 						  <input type="text" id="" name="trackingcode" class="form-control" value="<?php echo set_value('trackingcode',$before['order']->trackingcode); ?>">
 						</div>
 					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Logistic Charge</label>
+						<div class="col-sm-4">
+						  <input type="text" id="" name="logisticcharge" class="form-control" value="<?php echo set_value('logisticcharge',$before['order']->logisticcharge); ?>">
+						</div>
+					</div>
 <!--
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Shipping Method</label>
