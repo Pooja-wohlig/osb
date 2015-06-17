@@ -1201,7 +1201,9 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
  }
 public function searchproduct(){
 $product=$this->input->get_post('product');
-	 $data['message']=$this->restapi_model->searchproduct($product);
+$membershipno=$this->input->get_post('membershipno');
+$category=$this->input->get_post('category');
+	 $data['message']=$this->restapi_model->searchproduct($product,$membershipno,$category);
 	 $this->load->view('json',$data);
 }
  
