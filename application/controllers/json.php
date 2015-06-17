@@ -846,7 +846,7 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         $data = json_decode(file_get_contents('php://input'), true);
         $orderid=$data['orderid'];
         $userid=$data['userid'];
-        $data['message']=$this->restapi_model->viewsingleorder($orderid,$userid);
+        $data['message']=$this->restapi_model->viewsingleordernew($orderid,$userid);
         $this->load->view("json",$data);
     }
 
@@ -1000,19 +1000,26 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         
         $products=$this->db->query("SELECT * FROM `product` WHERE `user`='$userid'")->result();
 //        print_r($products);
-     $productid="(";
-     foreach ($products as $key=>$product)
+     if(empty($products))
      {
-         if($key==0)
-         {
-            $productid.=$product->id;
-         }
-         else
-         {
-            $productid.=",".$product->id;
-         }
+         $productid="(0)";
      }
+     else
+     {
+         $productid="(";
+         foreach ($products as $key=>$product)
+         {
+             if($key==0)
+             {
+                $productid.=$product->id;
+             }
+             else
+             {
+                $productid.=",".$product->id;
+             }
+         }
      $productid.=")";
+     }
 //     echo $productid;
         $elements=array();
         

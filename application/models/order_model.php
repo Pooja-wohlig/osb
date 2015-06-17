@@ -393,8 +393,7 @@ class Order_model extends CI_Model
 		LEFT OUTER JOIN `order` ON `order`.`id`=`orderitems`.`order` 
 		LEFT OUTER JOIN `product` ON `product`.`id`=`orderitems`.`product`
 		LEFT OUTER JOIN `productimage` ON `productimage`.`product`=`orderitems`.`product`
-        AND `orderitems`.`order`='$id'
-        GROUP BY `product`.`id`
+        WHERE `orderitems`.`order`='$id'
         " )->result();
 		
 		return $query;

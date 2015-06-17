@@ -221,7 +221,7 @@ $query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku
         $getproductdetails=$this->db->query("SELECT * FROM `product` WHERE `id`='$productid'")->row();
         $price=$getproductdetails->price;
         $finalprice=$price*$quantity;
-        $querycreateorder=$this->db->query("INSERT INTO `order`( `user`, `name`, `email`, `billingaddress`, `billingcity`, `billingstate`, `billingcountry`, `billingpincode`, `shippingaddress`, `shippingcity`, `shippingcountry`, `shippingstate`, `orderstatus`, `timestamp`) VALUES ('$userid','$name','$email','$billingaddress','$billingcity','$billingstate','$billingcountry','$billingpincode','$shippingaddress','$shippingcity','$shippingcountry','$shippingstate','1',NULL)");
+        $querycreateorder=$this->db->query("INSERT INTO `order`( `user`, `name`, `email`, `billingaddress`, `billingcity`, `billingstate`, `billingcountry`, `billingpincode`, `shippingaddress`, `shippingcity`, `shippingcountry`, `shippingstate`,`shippingpincode`, `orderstatus`, `timestamp`) VALUES ('$userid','$name','$email','$billingaddress','$billingcity','$billingstate','$billingcountry','$billingpincode','$shippingaddress','$shippingcity','$shippingcountry','$shippingstate','$shippingpincode','1',NULL)");
         $order=$this->db->insert_id();
         $data  = array(
 			'order' => $order,
@@ -247,6 +247,22 @@ $query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku
         LEFT OUTER JOIN `product` ON `orderitems`.`product`=`product`.`id`  
         WHERE `order`.`user`='$userid' AND `order`.`id`='$orderid'")->row();
         
+        if(!$query)
+        return  0;
+        else
+        return  $query;
+	}
+	public function viewsingleordernew($orderid,$userid)
+    {
+		$query=$this->db->query("SELECT `order`.`id`,`order`. `user`,`order`. `name`,`order`. `email`,`order`. `billingaddress`,`order`. `billingcity`,`order`. `billingstate`,`order`. `billingcountry`,`order`. `billingpincode`,`order`. `shippingaddress`,`order`. `shippingcity`,`order`. `shippingcountry`,`order`. `shippingstate`,`order`. `shippingpincode`,`order`. `transactionid`,`order`. `trackingcode`,`order`. `orderstatus`,`order`. `timestamp` ,`user`.`name` AS `username`
+FROM `order` 
+LEFT OUTER JOIN `user` ON `order`.`user`=`user`.`id`
+WHERE `order`.`id`='$orderid'")->row();
+		$query->orderitems=$this->db->query("SELECT `orderitems`.`id`,`orderitems`. `order`,`product`.`name` AS `productname`,`orderitems`. `product`,`orderitems`. `quantity`,`orderitems`. `price`,`orderitems`. `discount`,`orderitems`. `finalprice` 
+FROM `orderitems` 
+INNER JOIN `order` ON `order`.`id`=`orderitems`.`order`
+INNER JOIN `product` ON `product`.`id`=`orderitems`.`product`
+WHERE `orderitems`.`order`='$orderid'")->result();
         if(!$query)
         return  0;
         else
