@@ -506,7 +506,6 @@ $shopcontact1=$data['shopcontact1'];
 $shopcontact2=$data['shopcontact2'];
 $shopemail=$data['shopemail'];
 $website=$data['website'];
-	 print_r($data);
 $data['message']=$this->restapi_model->updateprofile($id,$shopname,$address,$description,$shopcontact1,$shopcontact2,$shopemail,$website);
 $this->load->view('json',$data);
  }

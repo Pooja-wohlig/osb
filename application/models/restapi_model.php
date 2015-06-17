@@ -125,6 +125,10 @@ public function sellingapproval($user) {
     }
     public function updateprofile($id, $shopname, $address, $description, $shopcontact1, $shopcontact2, $shopemail, $website) {
         $query = $this->db->query("UPDATE `user` SET `shopname`='$shopname',`address`='$address',`description`='$description',`shopcontact1`='$shopcontact1',`shopcontact2`='$shopcontact2',`shopemail`='$shopemail',`website`='$website' WHERE `id`='$id'");
+		 if(!$query)
+            return  0;
+            else
+            return  $id;
     }
     public function acceptreason($id, $reason) {
         $data = array('reason' => $reason);
@@ -314,7 +318,7 @@ WHERE `orderitems`.`order`='$orderid'")->result();
             "status" => $status
         );
         $productquery="SELECT `product`.`id` AS `productid`,`product`.`price`,`product`.`quantity`,`product`.`user`,`product`.`status`,`user`.`salesbalance` FROM `product` INNER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`id`='$id'";
-        echo "Product:- ".$productquery;
+//        echo "Product:- ".$productquery;
         $productdetails=$this->db->query("SELECT `product`.`id` AS `productid`,`product`.`price`,`product`.`quantity`,`product`.`user`,`product`.`status`,`user`.`salesbalance` FROM `product` INNER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`id`='$id'")->row();
         $olduser=$productdetails->user;
         $oldprice=$productdetails->price;
@@ -327,7 +331,7 @@ WHERE `orderitems`.`order`='$orderid'")->result();
         {
             $this->db->where('id', $id);
             $this->db->update('product', $data);
-            echo "in all same if";
+//            echo "in all same if";
             return 1;
         }
         if($price != $oldprice || $quantity != $oldquantity)
@@ -350,7 +354,7 @@ WHERE `orderitems`.`order`='$orderid'")->result();
             
             $this->db->where('id', $id);
             $this->db->update('product', $data);
-            echo "in different if";
+//            echo "in different if";
             return 1;
 //            if($status == $oldstatus)
 //            {
