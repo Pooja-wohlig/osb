@@ -36,6 +36,12 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label class="col-sm-2 control-label">Contact No</label>
+						<div class="col-sm-4">
+						  <input type="text" id="normal-field" class="form-control" name="contactno" value="<?php echo set_value('contactno',$before['contactno']->contactno);?>">
+						</div>
+					</div>
+					<div class="form-group">
 						<label class="col-sm-2 control-label">Billing Address</label>
 						<div class="col-sm-4">
 						  <textarea name="billingaddress" class="form-control"><?php echo set_value('billingcity',$before['order']->billingaddress); ?></textarea>

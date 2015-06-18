@@ -715,6 +715,7 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         $quantity=$data['quantity'];
         $name=$data['name'];
         $email=$data['email'];
+        $contactno=$data['contactno'];
         $billingaddress=$data['billingaddress'];
         $billingcity=$data['billingcity'];
         $billingstate=$data['billingstate'];
@@ -725,8 +726,9 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         $shippingcountry=$data['shippingcountry'];
         $shippingstate=$data['shippingstate'];
         $shippingpincode=$data['shippingpincode'];
+        $logisticcharge=$data['logisticcharge'];
         $sameas=$data['sameas'];
-        $data['message']=$this->restapi_model->buyproduct($userid,$productid,$quantity,$name,$email,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$sameas);
+        $data['message']=$this->restapi_model->buyproduct($userid,$productid,$quantity,$name,$email,$contactno,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$logisticcharge,$sameas);
         $this->load->view('json',$data);
     }
  
@@ -774,7 +776,7 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         $elements[5]->alias="orderstatus";
         
         $elements[6]=new stdClass();
-        $elements[6]->field="`order`.`timestamp`";
+        $elements[6]->field="DATE(`order`.`timestamp`)";
         $elements[6]->sort="1";
         $elements[6]->header="Timestamp";
         $elements[6]->alias="timestamp";
@@ -820,6 +822,12 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         $elements[13]->sort="1";
         $elements[13]->header="Product SKU";
         $elements[13]->alias="productsku";
+	    
+	    $elements[14]=new stdClass();
+        $elements[14]->field="`product`.`image`";
+        $elements[14]->sort="1";
+        $elements[14]->header="Product Image";
+        $elements[14]->alias="productimage";
         
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
@@ -1059,7 +1067,7 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         $elements[5]->alias="orderstatus";
         
         $elements[6]=new stdClass();
-        $elements[6]->field="`order`.`timestamp`";
+        $elements[6]->field="DATE(`order`.`timestamp`)";
         $elements[6]->sort="1";
         $elements[6]->header="Timestamp";
         $elements[6]->alias="timestamp";
@@ -1280,5 +1288,15 @@ $category=$this->input->get_post('category');
         $this->load->view("json",$data);
 
      }
- 
+  public function getuserdetails(){
+		$data = json_decode(file_get_contents('php://input'), true);
+		$user=$data['userid'];
+		$data['message']=$this->restapi_model->getuserdetails($user);
+		$this->load->view('json',$data);
+ }
+  public function getnotification(){
+		$user=$this->input->get(userid);
+		$data['message']=$this->restapi_model->getnotification($user);
+		$this->load->view('json',$data);
+ }
 } ?>

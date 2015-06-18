@@ -210,13 +210,14 @@ class Order_model extends CI_Model
 		return $query;
 	}
 	
-	public function edit($id,$user,$firstname,$email,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid,$logisticcharge)
+	public function edit($id,$user,$firstname,$email,$contactno,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid,$logisticcharge)
 	{
 		
 		$data  = array(
 			'user' => $user,
 			'name' => $firstname,
 			'email' => $email,
+			'contactno' => $contactno,
 			'billingaddress' => $billingaddress,
 			'billingcity' => $billingcity,
 			'billingstate' => $billingstate,
@@ -275,13 +276,14 @@ class Order_model extends CI_Model
     }
     
     
-    public function createorder($user,$firstname,$email,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid,$logisticcharge)
+    public function createorder($user,$firstname,$email,$contactno,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid,$logisticcharge)
 	{
 		
 		$data  = array(
 			'user' => $user,
 			'name' => $firstname,
 			'email' => $email,
+			'contactno' => $contactno,
 			'billingaddress' => $billingaddress,
 			'billingcity' => $billingcity,
 			'billingstate' => $billingstate,

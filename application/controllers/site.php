@@ -2775,6 +2775,7 @@ $this->load->view("redirect",$data);
 		$this->form_validation->set_rules('firstname','Firstname','trim');
 //		$this->form_validation->set_rules('lastname','Lastname','trim|required');
 		$this->form_validation->set_rules('email','Email','trim|valid_email');
+		$this->form_validation->set_rules('contactno','contactno','trim');
 		$this->form_validation->set_rules('billingaddress','billingaddress','trim');
 		$this->form_validation->set_rules('billingcity','billingcity','trim');
 		$this->form_validation->set_rules('billingstate','billingstate','trim');
@@ -2806,6 +2807,7 @@ $this->load->view("redirect",$data);
 			$firstname=$this->input->post('firstname');
 //			$lastname=$this->input->post('lastname');
 			$email=$this->input->post('email');
+			$contactno=$this->input->post('contactno');
 			$billingaddress=$this->input->post('billingaddress');
 			$billingcity=$this->input->post('billingcity');
 			$billingstate=$this->input->post('billingstate');
@@ -2820,7 +2822,7 @@ $this->load->view("redirect",$data);
 			$trackingcode=$this->input->post('trackingcode');
 			$transactionid=$this->input->post('transactionid');
 			$logisticcharge=$this->input->post('logisticcharge');
-			if(($this->order_model->createorder($user,$firstname,$email,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid,$logisticcharge))==0)
+			if(($this->order_model->createorder($user,$firstname,$email,$contactno,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid,$logisticcharge))==0)
 				$data['alerterror']="Order could not be Created.";
 			else
 				$data['alertsuccess']="Order  edited Successfully.";
@@ -2854,6 +2856,7 @@ $this->load->view("redirect",$data);
 		$this->form_validation->set_rules('firstname','Firstname','trim');
 //		$this->form_validation->set_rules('lastname','Lastname','trim|required');
 		$this->form_validation->set_rules('email','Email','trim|valid_email');
+		$this->form_validation->set_rules('contactno','contactno','trim');
 		$this->form_validation->set_rules('billingaddress','billingaddress','trim');
 		$this->form_validation->set_rules('billingcity','billingcity','trim');
 		$this->form_validation->set_rules('billingstate','billingstate','trim');
@@ -2886,6 +2889,7 @@ $this->load->view("redirect",$data);
 			$firstname=$this->input->post('firstname');
 //			$lastname=$this->input->post('lastname');
 			$email=$this->input->post('email');
+			$contactno=$this->input->post('contactno');
 			$billingaddress=$this->input->post('billingaddress');
 			$billingcity=$this->input->post('billingcity');
 			$billingstate=$this->input->post('billingstate');
@@ -2900,7 +2904,7 @@ $this->load->view("redirect",$data);
 			$trackingcode=$this->input->post('trackingcode');
 			$transactionid=$this->input->post('transactionid');
 			$logisticcharge=$this->input->post('logisticcharge');
-			if(($this->order_model->edit($id,$user,$firstname,$email,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid,$logisticcharge))==0)
+			if(($this->order_model->edit($id,$user,$firstname,$email,$contactno,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid,$logisticcharge))==0)
 				$data['alerterror']="Order could not be edited.";
 			else
             {

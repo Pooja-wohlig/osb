@@ -13,7 +13,7 @@ class restapi_model extends CI_Model {
     //	  return $query;
     //  }
     public function shopprofile($user) {
-        $query = $this->db->query("SELECT `user`.`shoplogo`,`user`.`purchasebalance`,`user`.`salesbalance`, `user`.`id`,`user`.`shopname`,`user`.`address`,`user`.`description`,`user`.`website`,`user`.`shopcontact1`,`user`.`shopcontact2`,`user`.`shopemail`,`user`.`area` as `areaid`,`osb_area`.`name` as `area`,`osb_shopphoto`.`photo` as `shopphoto`,`osb_shopproductphoto`.`photo` as `productphoto`,`osb_category`.`id` as `categoryid`,`osb_category`.`name` as `category` FROM `user` LEFT OUTER JOIN `osb_shopphoto` ON `osb_shopphoto`.`user`=`user`.`id` LEFT OUTER JOIN `osb_shopproductphoto` ON `osb_shopproductphoto`.`user`=`user`.`id` LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_area` ON `osb_area`.`id`=`user`.`area` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE `user`.`id`='$user' GROUP BY `user`.`id`")->row();
+        $query = $this->db->query("SELECT `user`.`shoplogo`,`user`.`purchasebalance`,`user`.`salesbalance`, `user`.`id`,`user`.`shopname`,`user`.`billingaddress`,`user`.`description`,`user`.`website`,`user`.`shopcontact1`,`user`.`shopcontact2`,`user`.`shopemail`,`user`.`area` as `areaid`,`osb_area`.`name` as `area`,`osb_shopphoto`.`photo` as `shopphoto`,`osb_shopproductphoto`.`photo` as `productphoto`,`osb_category`.`id` as `categoryid`,`osb_category`.`name` as `category` FROM `user` LEFT OUTER JOIN `osb_shopphoto` ON `osb_shopphoto`.`user`=`user`.`id` LEFT OUTER JOIN `osb_shopproductphoto` ON `osb_shopproductphoto`.`user`=`user`.`id` LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_area` ON `osb_area`.`id`=`user`.`area` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE `user`.`id`='$user' GROUP BY `user`.`id`")->row();
         return $query;
     }
     public function shopprofilemem($mem) {
@@ -124,7 +124,7 @@ public function sellingapproval($user) {
         else return $id;
     }
     public function updateprofile($id, $shopname, $address, $description, $shopcontact1, $shopcontact2, $shopemail, $website) {
-        $query = $this->db->query("UPDATE `user` SET `shopname`='$shopname',`address`='$address',`description`='$description',`shopcontact1`='$shopcontact1',`shopcontact2`='$shopcontact2',`shopemail`='$shopemail',`website`='$website' WHERE `id`='$id'");
+        $query = $this->db->query("UPDATE `user` SET `shopname`='$shopname',`billingaddress`='$address',`description`='$description',`shopcontact1`='$shopcontact1',`shopcontact2`='$shopcontact2',`shopemail`='$shopemail',`website`='$website' WHERE `id`='$id'");
 		 if(!$query)
             return  0;
             else
@@ -215,17 +215,17 @@ public function sellingapproval($user) {
 //		return $query;
 // }
 		public function getsingleproduct($id){
-$query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` as `categoryid`,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` WHERE `product`.`id`='$id'")->row();
+$query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` as `categoryid`,`osb_category`.`name` as `categoryname`,`user`.`shopname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`id`='$id'")->row();
 		return $query;
  }
     
     
-	public function buyproduct($userid,$productid,$quantity,$name,$email,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$sameas)
+	public function buyproduct($userid,$productid,$quantity,$name,$email,$contactno,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$logisticcharge,$sameas)
     {
         $getproductdetails=$this->db->query("SELECT * FROM `product` WHERE `id`='$productid'")->row();
         $price=$getproductdetails->price;
         $finalprice=$price*$quantity;
-        $querycreateorder=$this->db->query("INSERT INTO `order`( `user`, `name`, `email`, `billingaddress`, `billingcity`, `billingstate`, `billingcountry`, `billingpincode`, `shippingaddress`, `shippingcity`, `shippingcountry`, `shippingstate`,`shippingpincode`, `orderstatus`, `timestamp`) VALUES ('$userid','$name','$email','$billingaddress','$billingcity','$billingstate','$billingcountry','$billingpincode','$shippingaddress','$shippingcity','$shippingcountry','$shippingstate','$shippingpincode','1',NULL)");
+        $querycreateorder=$this->db->query("INSERT INTO `order`( `user`, `name`, `email`,`contactno`, `billingaddress`, `billingcity`, `billingstate`, `billingcountry`, `billingpincode`, `shippingaddress`, `shippingcity`, `shippingcountry`, `shippingstate`,`shippingpincode`,`logisticcharge`,`orderstatus`, `timestamp`) VALUES ('$userid','$name','$email','$contactno','$billingaddress','$billingcity','$billingstate','$billingcountry','$billingpincode','$shippingaddress','$shippingcity','$shippingcountry','$shippingstate','$shippingpincode','$logisticcharge','1',NULL)");
         $order=$this->db->insert_id();
         $data  = array(
 			'order' => $order,
@@ -550,6 +550,14 @@ return  $id;
 	}
 	public function searchproduct($product,$membershipno,$category){
 	$query=$this->db->query("SELECT `product`.`id` as `productid`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` ,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`name` LIKE '%$product%' OR `user`.`membershipno`='$membershipno' OR `productcategory`.`category`='$category'")->result();
+		return $query;
+	}
+	public function getuserdetails($user){
+		$query=$this->db->query("SELECT `id`, `name`, `email`, `message`, `personalcontact`, `accesslevel`, `timestamp`, `status`, `image`, `username`, `socialid`, `logintype`, `json`, `shopname`, `membershipno`, `address`, `description`, `website`, `shopcontact1`, `shopcontact2`, `shopemail`, `purchasebalance`, `salesbalance`, `area`, `shoplogo`, `percentpayment`, `token`, `billingaddress`, `billingcity`, `billingstate`, `billingcountry`, `billingpincode`, `shippingaddress`, `shippingcity`, `shippingcountry`, `shippingstate`, `shippingpincode`, `onlinestatus` FROM `user` WHERE `id`='$user'")->result();
+		return $query;
+	}
+	public function getnotification($user){
+		$query=$this->db->query("SELECT `id`, `user`, `type`, DATE(`timestamp`) as `date`, `message` FROM `notification` WHERE `user`='$user'")->result();
 		return $query;
 	}
 }
