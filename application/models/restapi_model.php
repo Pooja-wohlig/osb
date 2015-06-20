@@ -215,7 +215,7 @@ public function sellingapproval($user) {
 //		return $query;
 // }
 		public function getsingleproduct($id){
-$query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` as `categoryid`,`osb_category`.`name` as `categoryname`,`user`.`shopname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`id`='$id'")->row();
+$query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` as `category`,`osb_category`.`name` as `categoryname`,`user`.`shopname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`id`='$id'")->row();
 		return $query;
  }
     
@@ -273,7 +273,7 @@ WHERE `orderitems`.`order`='$orderid'")->result();
         return  $query;
 	}
     
-	public function createproduct($name,$sku,$price,$description,$status,$user,$quantity)
+	public function createproduct($name,$sku,$price,$description,$status,$user,$quantity,$category)
     {
         $data=array(
             "name" => $name,
@@ -289,12 +289,13 @@ WHERE `orderitems`.`order`='$orderid'")->result();
         $finalprice=$price*$quantity;
         if($salesbalance < $finalprice)
         {
-            return "Low Sales Balance";
+            return -1;
         }
         else
         {
             $query=$this->db->insert( "product", $data );
             $id=$this->db->insert_id();
+			$querycategory=$this->db->query("INSERT INTO `productcategory`(`product`, `category`) VALUES ('$id','$category')");
             if($status==1)
             {
                 $changedsalesbalance=$salesbalance-$finalprice;
@@ -307,7 +308,7 @@ WHERE `orderitems`.`order`='$orderid'")->result();
         }
 	}
     
-	public function editproduct($id,$name,$sku,$price,$description,$status,$user,$quantity)
+	public function editproduct($id,$name,$sku,$price,$description,$status,$user,$quantity,$category)
     {
         $data = array(
             "name" => $name,
@@ -331,6 +332,7 @@ WHERE `orderitems`.`order`='$orderid'")->result();
         {
             $this->db->where('id', $id);
             $this->db->update('product', $data);
+			$this->db->query("UPDATE `productcategory` SET `category`='$category' WHERE `product`='$id'");
 //            echo "in all same if";
             return 1;
         }
@@ -354,6 +356,7 @@ WHERE `orderitems`.`order`='$orderid'")->result();
             
             $this->db->where('id', $id);
             $this->db->update('product', $data);
+			$this->db->query("UPDATE `productcategory` SET `category`='$category' WHERE `product`='$id'");
 //            echo "in different if";
             return 1;
 //            if($status == $oldstatus)

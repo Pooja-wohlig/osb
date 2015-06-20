@@ -867,7 +867,8 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         $status=$data['status'];
         $user=$data['user'];
         $quantity=$data['quantity'];
-        $data['message']=$this->restapi_model->createproduct($name,$sku,$price,$description,$status,$user,$quantity);
+        $category=$data['category'];
+        $data['message']=$this->restapi_model->createproduct($name,$sku,$price,$description,$status,$user,$quantity,$category);
         $this->load->view('json',$data);
     }
  
@@ -882,7 +883,8 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         $status=$data['status'];
         $user=$data['user'];
         $quantity=$data['quantity'];
-        $data['message']=$this->restapi_model->editproduct($id,$name,$sku,$price,$description,$status,$user,$quantity);
+        $category=$data['category'];
+        $data['message']=$this->restapi_model->editproduct($id,$name,$sku,$price,$description,$status,$user,$quantity,$category);
         $this->load->view('json',$data);
     }
     public function viewallproducts()
