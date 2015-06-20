@@ -106,7 +106,8 @@ public function sellingapproval($user) {
                 return 1;
             }
         } else {
-            echo "New password and old password do not match!!!";
+//            echo "New password and old password do not match!!!";
+			return -1;
         }
     }
     public function getareacategory($area, $category) {

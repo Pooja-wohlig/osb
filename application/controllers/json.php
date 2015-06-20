@@ -588,7 +588,7 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
             $this->image_lib->initialize($config_r);
             if(!$this->image_lib->resize())
             {
-                echo "Failed." . $this->image_lib->display_errors();
+                $this->image_lib->display_errors();
             }
             else
             {
@@ -628,7 +628,7 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
             $this->image_lib->initialize($config_r);
             if(!$this->image_lib->resize())
             {
-                echo "Failed." . $this->image_lib->display_errors();
+              $this->image_lib->display_errors();
             }
             else
             {
@@ -669,7 +669,7 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
             $this->image_lib->initialize($config_r);
             if(!$this->image_lib->resize())
             {
-                echo "Failed." . $this->image_lib->display_errors();
+                $this->image_lib->display_errors();
             }
             else
             {
@@ -1194,7 +1194,7 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
             $this->image_lib->initialize($config_r);
             if(!$this->image_lib->resize())
             {
-                echo "Failed." . $this->image_lib->display_errors();
+                $this->image_lib->display_errors();
             }
             else
             {
