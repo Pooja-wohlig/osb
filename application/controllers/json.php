@@ -878,7 +878,7 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
 		$data['message']=0;
 		}
 		else{
-        $data['message']=$this->restapi_model->createproduct($name,$sku,$price,$description,$status,$user,$quantity,$category);
+        $data['message']=$this->restapi_model->createproduct($name,$sku,$price,$description,$status,$user,$quantity,$category,$image);
 		}
         $this->load->view('json',$data);
     }
@@ -1218,7 +1218,8 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
             }
         }
         $obj = new stdClass();
-        $obj->value=$this->restapi_model->editproductimage($id,$this->image_lib->dest_image);
+//        $obj->value=$this->restapi_model->editproductimage($id,$this->image_lib->dest_image);
+        $obj->value=$this->image_lib->dest_image;
         $data["message"]=$obj;
         $this->load->view("json",$data);
  }

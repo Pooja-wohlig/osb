@@ -274,7 +274,7 @@ WHERE `orderitems`.`order`='$orderid'")->result();
         return  $query;
 	}
     
-	public function createproduct($name,$sku,$price,$description,$status,$user,$quantity,$category)
+	public function createproduct($name,$sku,$price,$description,$status,$user,$quantity,$category,$image)
     {
         $data=array(
             "name" => $name,
@@ -283,7 +283,8 @@ WHERE `orderitems`.`order`='$orderid'")->result();
             "description" => $description,
             "user" => $user,
             "quantity" => $quantity,
-            "status" => $status
+            "status" => $status,
+			"image" => $image
         );
         $userdetails=$this->db->query("SELECT * FROM `user` WHERE `id`='$user'")->row();
         $salesbalance=$userdetails->salesbalance;
