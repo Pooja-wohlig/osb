@@ -320,8 +320,6 @@ WHERE `orderitems`.`order`='$orderid'")->result();
             "quantity" => $quantity,
             "status" => $status
         );
-        $productquery="SELECT `product`.`id` AS `productid`,`product`.`price`,`product`.`quantity`,`product`.`user`,`product`.`status`,`user`.`salesbalance` FROM `product` INNER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`id`='$id'";
-//        echo "Product:- ".$productquery;
         $productdetails=$this->db->query("SELECT `product`.`id` AS `productid`,`product`.`price`,`product`.`quantity`,`product`.`user`,`product`.`status`,`user`.`salesbalance` FROM `product` INNER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`id`='$id'")->row();
         $olduser=$productdetails->user;
         $oldprice=$productdetails->price;
@@ -330,52 +328,71 @@ WHERE `orderitems`.`order`='$orderid'")->result();
         $oldstatus=$productdetails->status;
         $oldfinalprice=$oldprice*$oldquantity;
         
-        if($price==$oldprice && $quantity==$quantity && $status==$oldstatus)
-        {
-            $this->db->where('id', $id);
-            $this->db->update('product', $data);
-			$this->db->query("UPDATE `productcategory` SET `category`='$category' WHERE `product`='$id'");
-//            echo "in all same if";
-            return 1;
-        }
-        if($price != $oldprice || $quantity != $oldquantity)
-        {
-            $newfinalprice=$price*$quantity;
-            if($newfinalprice<$oldfinalprice)
-            {
-                $difference=$oldfinalprice-$newfinalprice;
-                $lastsalesbalance=$oldsalesbalance-$difference;
-                $insertedsalesbalance=$oldsalesbalance+$lastsalesbalance;
-            }
-            else if($newfinalprice>$oldfinalprice)
-            {
-                $difference=$newfinalprice-$oldfinalprice;
-                $lastsalesbalance=$oldsalesbalance+$difference;
-                $insertedsalesbalance=$oldsalesbalance-$lastsalesbalance;
-            }
-            $queryupdatesalesbalance=$this->db->query("UPDATE `user` SET `salesbalance`='$insertedsalesbalance' WHERE `id`='$user'");
-            
-            
-            $this->db->where('id', $id);
-            $this->db->update('product', $data);
-			$this->db->query("UPDATE `productcategory` SET `category`='$category' WHERE `product`='$id'");
-//            echo "in different if";
-            return 1;
-//            if($status == $oldstatus)
-//            {
-//                no change in user
-//            }
-//            else if($status<$oldstatus)
-//            {
-//                userchange with - value
-//            }
-//            else if($status > $oldstatus)
-//            {
-//                userchange with + value
-//            }
+        $changedsalesbalance=$oldsalesbalance+$oldfinalprice;
+        $receivedfinalprice= $price * $quantity;
         
+        if($changedsalesbalance < $receivedfinalprice)
+        {
+            return 0;
         }
-        return 0;
+        else
+        {
+            $this->db->where('id', $id);
+            $this->db->update('product', $data);
+            $query=$this->db->query("UPDATE `productcategory` SET `category`='$category' WHERE `product`='$id'");
+
+
+            $lastsalesbalance=$changedsalesbalance-$receivedfinalprice;
+            $queryupdatesalesbalance=$this->db->query("UPDATE `user` SET `salesbalance`='$lastsalesbalance' WHERE `id`='$user'");
+            return 1;
+        }
+//        }
+//            echo "in all same if";
+//            return 1;
+//        }
+        
+        
+//        if($price != $oldprice || $quantity != $oldquantity)
+//        {
+//            $newfinalprice=$price*$quantity;
+//            if($newfinalprice<$oldfinalprice)
+//            {
+//                $difference=$oldfinalprice-$newfinalprice;
+//                $lastsalesbalance=$oldsalesbalance-$difference;
+//                $insertedsalesbalance=$oldsalesbalance+$lastsalesbalance;
+//            }
+//            else if($newfinalprice>$oldfinalprice)
+//            {
+//                $difference=$newfinalprice-$oldfinalprice;
+//                $lastsalesbalance=$oldsalesbalance+$difference;
+//                $insertedsalesbalance=$oldsalesbalance-$lastsalesbalance;
+//            }
+//            $queryupdatesalesbalance=$this->db->query("UPDATE `user` SET `salesbalance`='$insertedsalesbalance' WHERE `id`='$user'");
+//            
+//            
+//            $this->db->where('id', $id);
+//            $this->db->update('product', $data);
+//			$this->db->query("UPDATE `productcategory` SET `category`='$category' WHERE `product`='$id'");
+////            echo "in different if";
+//            return 1;
+////            if($status == $oldstatus)
+////            {
+////                no change in user
+////            }
+////            else if($status<$oldstatus)
+////            {
+////                userchange with - value
+////            }
+////            else if($status > $oldstatus)
+////            {
+////                userchange with + value
+////            }
+//        
+//        }
+//        if($query)
+//            return 1;
+//        else
+//            return 0;
         
         
         
