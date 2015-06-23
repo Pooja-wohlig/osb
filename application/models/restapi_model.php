@@ -564,5 +564,10 @@ return  $id;
 		$query=$this->db->query("SELECT `id`, `user`, `type`, DATE(`timestamp`) as `date`, `message` FROM `notification` WHERE `user`='$user'")->result();
 		return $query;
 	}
+	public function addproductimage($id,$imagename) {
+		$query=$this->db->query("UPDATE `product` SET `image`='$imagename' WHERE `id`='$id'" );
+			return $imagename;
+			
+	}
 }
 ?>

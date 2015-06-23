@@ -600,8 +600,6 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         $obj = new stdClass();
         $obj->value=$this->user_model->changeuserimage($user,$this->image_lib->dest_image);
         $data["message"]=$obj;
-
-
         $this->load->view("json",$data);
     }
 
@@ -709,7 +707,7 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
  
     public function buyproduct()
     {
-        $data = json_decode(file_get_contents('php://input'), true);
+        $data = json_decode(file_get_contents('php://input'), true);	
         $userid=$data['userid'];
         $productid=$data['productid'];
         $quantity=$data['quantity'];
@@ -728,7 +726,14 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         $shippingpincode=$data['shippingpincode'];
         $logisticcharge=$data['logisticcharge'];
         $sameas=$data['sameas'];
+		if(empty($data))
+		{
+		$data['message']=0;
+		}
+		else
+		{
         $data['message']=$this->restapi_model->buyproduct($userid,$productid,$quantity,$name,$email,$contactno,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$logisticcharge,$sameas);
+		}
         $this->load->view('json',$data);
     }
  
@@ -868,7 +873,13 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         $user=$data['user'];
         $quantity=$data['quantity'];
         $category=$data['category'];
+        $image=$data['image'];
+		if(empty($data)){
+		$data['message']=0;
+		}
+		else{
         $data['message']=$this->restapi_model->createproduct($name,$sku,$price,$description,$status,$user,$quantity,$category);
+		}
         $this->load->view('json',$data);
     }
  
@@ -884,7 +895,12 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         $user=$data['user'];
         $quantity=$data['quantity'];
         $category=$data['category'];
+		if(empty($data)){
+		$data['message']=0;
+		}
+		else{
         $data['message']=$this->restapi_model->editproduct($id,$name,$sku,$price,$description,$status,$user,$quantity,$category);
+		}
         $this->load->view('json',$data);
     }
     public function viewallproducts()
@@ -1173,11 +1189,11 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
 	 $this->load->view('json',$data);
  }
  public function editproductimage(){
- $id=$this->input->get_post('id');
 	   $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
         $this->load->library('upload', $config);
         $image="file";
+	    $id=$this->input->get_post('id');
         if (  $this->upload->do_upload($image))
         {
             $uploaddata = $this->upload->data();
@@ -1200,11 +1216,9 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
             {
                 $image=$this->image_lib->dest_image;
             }
-
-
         }
         $obj = new stdClass();
-        $obj->value=$this->user_model->editproductimage($id,$this->image_lib->dest_image);
+        $obj->value=$this->restapi_model->editproductimage($id,$this->image_lib->dest_image);
         $data["message"]=$obj;
         $this->load->view("json",$data);
  }
@@ -1300,5 +1314,41 @@ $category=$this->input->get_post('category');
 		$user=$this->input->get(userid);
 		$data['message']=$this->restapi_model->getnotification($user);
 		$this->load->view('json',$data);
+ }
+ public function addproductimage(){
+ $id=$this->input->get_post('id');
+	   $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $this->load->library('upload', $config);
+        $image="file";
+        if (  $this->upload->do_upload($image))
+        {
+            $uploaddata = $this->upload->data();
+            $image=$uploaddata['file_name'];
+            $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+            $config_r['maintain_ratio'] = TRUE;
+            $config_t['create_thumb'] = FALSE;///add this
+            $config_r['width']   = 800;
+            $config_r['height'] = 800;
+            $config_r['quality']    = 100;
+            //end of configs
+
+            $this->load->library('image_lib', $config_r);
+            $this->image_lib->initialize($config_r);
+            if(!$this->image_lib->resize())
+            {
+                $this->image_lib->display_errors();
+            }
+            else
+            {
+                $image=$this->image_lib->dest_image;
+            }
+
+
+        }
+        $obj = new stdClass();
+        $obj->value=$this->restapi_model->addproductimage($id,$this->image_lib->dest_image);
+        $data["message"]=$obj;
+        $this->load->view("json",$data);
  }
 } ?>
