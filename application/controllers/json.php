@@ -1189,7 +1189,7 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
 	 $this->load->view('json',$data);
  }
  public function editproductimage(){
-	   $config['upload_path'] = './uploads/';
+	    $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
         $this->load->library('upload', $config);
         $image="file";
@@ -1218,8 +1218,7 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
             }
         }
         $obj = new stdClass();
-//        $obj->value=$this->restapi_model->editproductimage($id,$this->image_lib->dest_image);
-        $obj->value=$this->image_lib->dest_image;
+        $obj->value=$this->restapi_model->editproductimage($id,$this->image_lib->dest_image);
         $data["message"]=$obj;
         $this->load->view("json",$data);
  }
@@ -1317,7 +1316,7 @@ $category=$this->input->get_post('category');
 		$this->load->view('json',$data);
  }
  public function addproductimage(){
- $id=$this->input->get_post('id');
+// $id=$this->input->get_post('id');
 	   $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
         $this->load->library('upload', $config);
@@ -1344,11 +1343,9 @@ $category=$this->input->get_post('category');
             {
                 $image=$this->image_lib->dest_image;
             }
-
-
         }
         $obj = new stdClass();
-        $obj->value=$this->restapi_model->addproductimage($id,$this->image_lib->dest_image);
+        $obj->value=$this->image_lib->dest_image;
         $data["message"]=$obj;
         $this->load->view("json",$data);
  }
