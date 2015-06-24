@@ -400,6 +400,8 @@ WHERE `orderitems`.`order`='$orderid'")->result();
 	public function deleteproduct($productid,$user)
     {
         $querydelete=$this->db->query("DELETE FROM `product` WHERE `id`='$productid' AND `user`='$user'");
+        $querydelete=$this->db->query("DELETE FROM `productcategory` WHERE `product`='$productid'");
+        $querydelete=$this->db->query("DELETE FROM `productimage` WHERE `product`='$productid'");
         if($querydelete)
         {
             return 1;
