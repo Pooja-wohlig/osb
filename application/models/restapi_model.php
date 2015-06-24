@@ -50,7 +50,7 @@ WHERE `osb_transaction`.`userfrom`=1 AND `osb_transaction`.`userto`='$user'")->r
   
 public function sellingapproval($user) {
 
-        $query['sellingapproval'] = $this->db->query("SELECT `user`.`shoplogo`,`user`.`purchasebalance`,`osb_request`.`id`,`osb_request`.`amount`,`osb_request`.`reason` FROM `osb_request` INNER JOIN `user` ON `osb_request`.`userfrom`=`user`.`id` WHERE `osb_request`.`requeststatus`='1' AND `osb_request`.`userto`='$user'")->result();
+        $query['sellingapproval'] = $this->db->query("SELECT `user`.`shoplogo`,`user`.`purchasebalance`,`user`.`shopname`,`osb_request`.`id`,`osb_request`.`amount`,`osb_request`.`reason` FROM `osb_request` INNER JOIN `user` ON `osb_request`.`userfrom`=`user`.`id` WHERE `osb_request`.`requeststatus`='1' AND `osb_request`.`userto`='$user'")->result();
         return $query;
     }
     public function accepted($id, $reason, $status) {
@@ -106,7 +106,7 @@ public function sellingapproval($user) {
                 return 1;
             }
         } else {
-//            echo "New password and old password do not match!!!";
+//            echo "New password and confirm password do not match!!!";
 			return -1;
         }
     }

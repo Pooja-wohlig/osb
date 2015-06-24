@@ -1284,6 +1284,12 @@ $category=$this->input->get_post('category');
         $elements[7]->sort="1";
         $elements[7]->header="Image";
         $elements[7]->alias="image";
+		 
+		$elements[8]=new stdClass();
+        $elements[8]->field="`user`.`shopname`";
+        $elements[8]->sort="1";
+        $elements[8]->header="Shopname";
+        $elements[8]->alias="shopname";
         
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
@@ -1300,7 +1306,7 @@ $category=$this->input->get_post('category');
             $orderby="id";
             $orderorder="ASC";
         }
-        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `product`","WHERE `product`.`user`='$userid'");
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `product` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user`","WHERE `product`.`user`='$userid'");
         $this->load->view("json",$data);
 
      }
