@@ -572,10 +572,45 @@ return  $id;
 			$query=$this->db->query("UPDATE `product` SET `image`='$imagename' WHERE `id`='$id'" );
 			return $imagename;
 	}
-	public function searchproduct($product,$membershipno,$category){
+	public function searchproductold($product,$membershipno,$category){
 	$query=$this->db->query("SELECT `product`.`id` as `productid`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` ,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`name` LIKE '%$product%' OR `user`.`membershipno`='$membershipno' OR `productcategory`.`category`='$category'")->result();
 		return $query;
 	}
+	
+    public function searchproduct($product,$membershipno,$category) 
+    {
+		$wherequery="";
+		
+		if ($membershipno != "0" && $membershipno != "") 
+		{
+			$wherequery.=" AND `user`.`membershipno`='$membershipno'";
+			$userquery=$this->db->query("SELECT * FROM `user` WHERE `membershipno`='$membershipno'")->row();
+			if(empty($userquery))
+			{
+				return -1;
+			}
+			else
+			{
+			
+			}
+		}
+		else
+		{
+			if ($product != "0" && $product != "") 
+			{
+				$wherequery .= " AND `product`.`name` LIKE '%$product%'";
+			} 
+			if ($category != "0" && $category != "") 
+			{
+				$wherequery .= " AND `productcategory`.`category`='$category'";
+			}
+		}
+//        $queryforprinting="SELECT `product`.`id` as `productid`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` ,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE 1 $wherequery ";
+//		echo $queryforprinting;
+        $query = $this->db->query("SELECT `product`.`id` as `productid`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` ,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE 1 $wherequery GROUP BY `product`.`id`")->result();
+        return $query;
+    }
+    
 	public function getuserdetails($user){
 		$query=$this->db->query("SELECT `id`, `name`, `email`, `message`, `personalcontact`, `accesslevel`, `timestamp`, `status`, `image`, `username`, `socialid`, `logintype`, `json`, `shopname`, `membershipno`, `address`, `description`, `website`, `shopcontact1`, `shopcontact2`, `shopemail`, `purchasebalance`, `salesbalance`, `area`, `shoplogo`, `percentpayment`, `token`, `billingaddress`, `billingcity`, `billingstate`, `billingcountry`, `billingpincode`, `shippingaddress`, `shippingcity`, `shippingcountry`, `shippingstate`, `shippingpincode`, `onlinestatus` FROM `user` WHERE `id`='$user'")->result();
 		return $query;
