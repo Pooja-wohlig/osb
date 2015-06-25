@@ -1226,13 +1226,15 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
 //        $data["message"]=$obj;
 //        $this->load->view("json",$data);
  }
-public function searchproduct(){
-$product=$this->input->get_post('product');
-$membershipno=$this->input->get_post('membershipno');
-$category=$this->input->get_post('category');
-	 $data['message']=$this->restapi_model->searchproduct($product,$membershipno,$category);
-	 $this->load->view('json',$data);
-}
+    public function searchproduct()
+    {
+        $product=$this->input->get_post('product');
+        $membershipno=$this->input->get_post('membershipno');
+        $category=$this->input->get_post('category');
+        $priceorder=$this->input->get_post('priceorder');
+        $data['message']=$this->restapi_model->searchproduct($product,$membershipno,$category,$priceorder);
+        $this->load->view('json',$data);
+    }
  
      public function getalluserproducts()
      {

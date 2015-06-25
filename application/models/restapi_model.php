@@ -531,7 +531,11 @@ WHERE `orderitems`.`order`='$orderid'")->result();
 	}
 	public function changeproductstatus($productid,$status)
     {
+//        echo $productid;
+//        $q="SELECT `product`.`id` AS `productid`,`product`.`price`,`product`.`quantity`,`product`.`user`,`product`.`status`,`user`.`salesbalance` FROM `product` INNER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`id`='$productid'";
+//        echo $q;
         $productdetails=$this->db->query("SELECT `product`.`id` AS `productid`,`product`.`price`,`product`.`quantity`,`product`.`user`,`product`.`status`,`user`.`salesbalance` FROM `product` INNER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`id`='$productid'")->row();
+//        print_r($productdetails);
         $user=$productdetails->user;
         $price=$productdetails->price;
         $quantity=$productdetails->quantity;
@@ -539,20 +543,19 @@ WHERE `orderitems`.`order`='$orderid'")->result();
         $oldstatus=$productdetails->status;
         $finalprice=$price*$quantity;
         
-//        
         if($status==$oldstatus)
         {
             return 0;
         }
         else if($status<$oldstatus)
         {
-            $newsalesbalance=$salesbalance+$finalprice;
-            $queryupdatesalesbalance=$this->db->query("UPDATE `user` SET `salesbalance`='$newsalesbalance' WHERE `id`='$user'");
+            $newsalesbalanceafter=$salesbalance+$finalprice;
+            $queryupdatesalesbalance=$this->db->query("UPDATE `user` SET `salesbalance`='$newsalesbalanceafter' WHERE `id`='$user'");
         }
         else if($status>$oldstatus)
         {
             $newsalesbalanceafter=$salesbalance-$finalprice;
-            $queryupdatesalesbalance=$this->db->query("UPDATE `user` SET `salesbalance`='$newsalesbalance' WHERE `id`='$user'");
+            $queryupdatesalesbalance=$this->db->query("UPDATE `user` SET `salesbalance`='$newsalesbalanceafter' WHERE `id`='$user'");
         }
         $query=$this->db->query("UPDATE `product` SET `status`='$status' WHERE `id`='$productid'");
         
@@ -586,9 +589,10 @@ return  $id;
 		return $query;
 	}
 	
-    public function searchproduct($product,$membershipno,$category) 
+    public function searchproduct($product,$membershipno,$category,$priceorder) 
     {
 		$wherequery="";
+        $orderclause="";
 		
 		if ($membershipno != "0" && $membershipno != "") 
 		{
@@ -614,9 +618,17 @@ return  $id;
 				$wherequery .= " AND `productcategory`.`category`='$category'";
 			}
 		}
-//        $queryforprinting="SELECT `product`.`id` as `productid`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` ,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE 1 $wherequery ";
+        if($priceorder==0)
+        {
+            $orderclause .=" ORDER BY `product`.`price` ASC ";
+        }
+        else
+        {
+            $orderclause .=" ORDER BY `product`.`price` DESC ";
+        }
+//        $queryforprinting="SELECT `product`.`id` as `productid`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` ,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE 1 $wherequery GROUP BY `product`.`id` $orderclause ";
 //		echo $queryforprinting;
-        $query = $this->db->query("SELECT `product`.`id` as `productid`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` ,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE 1 $wherequery GROUP BY `product`.`id`")->result();
+        $query = $this->db->query("SELECT `product`.`id` as `productid`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` ,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE 1 $wherequery GROUP BY `product`.`id` $orderclause ")->result();
         return $query;
     }
     
