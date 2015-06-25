@@ -1227,17 +1227,7 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
 //        $data["message"]=$obj;
 //        $this->load->view("json",$data);
  }
-<<<<<<< HEAD
-    public function searchproduct()
-    {
-        $product=$this->input->get_post('product');
-        $membershipno=$this->input->get_post('membershipno');
-        $category=$this->input->get_post('category');
-        $priceorder=$this->input->get_post('priceorder');
-        $data['message']=$this->restapi_model->searchproduct($product,$membershipno,$category,$priceorder);
-        $this->load->view('json',$data);
-    }
-=======
+
 public function searchproduct(){
 $product=$this->input->get_post('product');
 $membershipno=$this->input->get_post('membershipno');
@@ -1246,7 +1236,6 @@ $sort=$this->input->get_post('sortid');
 	 $data['message']=$this->restapi_model->searchproduct($product,$membershipno,$category,$sort);
 	 $this->load->view('json',$data);
 }
->>>>>>> fd7b65b86b078b49b642695403d404dee3765495
  
      public function getalluserproducts()
      {
