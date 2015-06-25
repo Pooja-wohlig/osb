@@ -895,11 +895,12 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         $user=$data['user'];
         $quantity=$data['quantity'];
         $category=$data['category'];
+        $image=$data['image'];
 		if(empty($data)){
 		$data['message']=0;
 		}
 		else{
-        $data['message']=$this->restapi_model->editproduct($id,$name,$sku,$price,$description,$status,$user,$quantity,$category);
+        $data['message']=$this->restapi_model->editproduct($id,$name,$sku,$price,$description,$status,$user,$quantity,$category,$image);
 		}
         $this->load->view('json',$data);
     }

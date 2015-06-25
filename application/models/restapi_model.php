@@ -310,7 +310,7 @@ WHERE `orderitems`.`order`='$orderid'")->result();
         }
 	}
     
-	public function editproduct($id,$name,$sku,$price,$description,$status,$user,$quantity,$category)
+	public function editproduct($id,$name,$sku,$price,$description,$status,$user,$quantity,$category,$image)
     {
         $data = array(
             "name" => $name,
@@ -318,7 +318,8 @@ WHERE `orderitems`.`order`='$orderid'")->result();
             "price" => $price,
             "description" => $description,
             "quantity" => $quantity,
-            "status" => $status
+            "status" => $status,
+            "image" => $image
         );
         $productdetails=$this->db->query("SELECT `product`.`id` AS `productid`,`product`.`price`,`product`.`quantity`,`product`.`user`,`product`.`status`,`user`.`salesbalance` FROM `product` INNER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`id`='$id'")->row();
         $olduser=$productdetails->user;
