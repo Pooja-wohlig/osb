@@ -399,11 +399,20 @@ WHERE `orderitems`.`order`='$orderid'")->result();
 	}
 	public function deleteproduct($productid,$user)
     {
+        $productdetails=$this->db->query("SELECT * FROM `product` WHERE `id`='$productid'")->row();
+        $productprice=$productdetails->price;
+        $productquantity=$productdetails->quantity;
+        $productfinalamount=$productprice * $productquantity;
+        $userdetails=$this->db->query("SELECT * FROM `user` WHERE `id`='$user'")->row();
+        $salesbalance=$userdetails->salesbalance;
+        $lastsalesbalance=$salesbalance + $productfinalamount;
+        
         $querydelete=$this->db->query("DELETE FROM `product` WHERE `id`='$productid' AND `user`='$user'");
         $querydelete=$this->db->query("DELETE FROM `productcategory` WHERE `product`='$productid'");
         $querydelete=$this->db->query("DELETE FROM `productimage` WHERE `product`='$productid'");
         if($querydelete)
         {
+            $updateuser=$this->db->query("UPDATE `user` SET `salesbalance`='$lastsalesbalance' WHERE `user`='$user'");
             return 1;
         }
         else
