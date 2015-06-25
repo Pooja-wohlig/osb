@@ -1193,7 +1193,7 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
         $this->load->library('upload', $config);
         $image="file";
-	    $id=$this->input->get_post('id');
+//	    $id=$this->input->get_post('id');
         if (  $this->upload->do_upload($image))
         {
             $uploaddata = $this->upload->data();
@@ -1217,10 +1217,14 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
                 $image=$this->image_lib->dest_image;
             }
         }
-        $obj = new stdClass();
-        $obj->value=$this->restapi_model->editproductimage($id,$this->image_lib->dest_image);
-        $data["message"]=$obj;
-        $this->load->view("json",$data);
+	 			$obj = new stdClass();
+	 			$obj->value=$this->image_lib->dest_image;
+	 			$data["message"]=$obj;
+                $this->load->view("json",$data);
+//        $obj = new stdClass();
+//        $obj->value=$this->restapi_model->editproductimage($id,$this->image_lib->dest_image);
+//        $data["message"]=$obj;
+//        $this->load->view("json",$data);
  }
 public function searchproduct(){
 $product=$this->input->get_post('product');
