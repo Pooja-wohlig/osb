@@ -413,12 +413,12 @@ WHERE `orderitems`.`order`='$orderid'")->result();
         $querydelete=$this->db->query("DELETE FROM `productimage` WHERE `product`='$productid'");
         if($querydelete)
         {
-            $updateuser=$this->db->query("UPDATE `user` SET `salesbalance`='$lastsalesbalance' WHERE `user`='$user'");
+            $updateuser=$this->db->query("UPDATE `user` SET `salesbalance`='$lastsalesbalance' WHERE `id`='$user'");
             return 1;
         }
         else
         {
-            return 0;
+            return -1;
         }
 	}
     

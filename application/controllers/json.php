@@ -967,8 +967,16 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         $data = json_decode(file_get_contents('php://input'), true);
         $productid=$data['productid'];
         $user=$data['user'];
-        $data['message']=$this->restapi_model->deleteproduct($productid,$user);
-        $this->load->view('json',$data);
+		if(empty($data))
+		{
+			$data['message']=0;
+		}
+		else
+		{
+        	$data['message']=$this->restapi_model->deleteproduct($productid,$user);
+		}
+        	$this->load->view('json',$data);
+		
     }
 
  
