@@ -225,7 +225,14 @@ $query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku
     {
         $getproductdetails=$this->db->query("SELECT * FROM `product` WHERE `id`='$productid'")->row();
         $price=$getproductdetails->price;
+        $oldquantity=$getproductdetails->quantity;
         $finalprice=$price*$quantity;
+        $newproductquantity=$oldquantity-$quantity;
+        
+        $getuserdetails=$this->db->query("SELECT * FROM `user` WHERE `id`='$userid'")->row();
+        $purchasebalance=$getuserdetails->purchasebalance;
+        $newpurchasebalance=$purchasebalance - $finalprice;
+        
         $querycreateorder=$this->db->query("INSERT INTO `order`( `user`, `name`, `email`,`contactno`, `billingaddress`, `billingcity`, `billingstate`, `billingcountry`, `billingpincode`, `shippingaddress`, `shippingcity`, `shippingcountry`, `shippingstate`,`shippingpincode`,`logisticcharge`,`orderstatus`, `timestamp`) VALUES ('$userid','$name','$email','$contactno','$billingaddress','$billingcity','$billingstate','$billingcountry','$billingpincode','$shippingaddress','$shippingcity','$shippingcountry','$shippingstate','$shippingpincode','$logisticcharge','1',NULL)");
         $order=$this->db->insert_id();
         $data  = array(
@@ -236,6 +243,8 @@ $query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku
 			'finalprice' => $finalprice
 		);
 		$query=$this->db->insert( 'orderitems', $data );
+        $updateuserpurchasebalance=$this->db->query("UPDATE `user` SET `purchasebalance`='$newpurchasebalance'");
+        $updateproductquantity=$this->db->query("UPDATE `product` SET `quantity`='$newproductquantity'");
 //        $id=$this->db->insert_id();
         if(!$query)
         return  0;
@@ -629,7 +638,7 @@ return  $id;
         }
 //        $queryforprinting="SELECT `product`.`id` as `productid`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` ,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE 1 $wherequery GROUP BY `product`.`id` $orderclause ";
 //		echo $queryforprinting;
-        $query = $this->db->query("SELECT `product`.`id` as `productid`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` ,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE 1 $wherequery GROUP BY `product`.`id` $orderclause ")->result();
+        $query = $this->db->query("SELECT `product`.`id` as `productid`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` ,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`quantity` > 0 AND `product`.`status`=0  $wherequery GROUP BY `product`.`id` $orderclause ")->result();
         return $query;
     }
     
