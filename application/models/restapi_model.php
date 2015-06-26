@@ -237,24 +237,26 @@ $query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku
         {
             return -1;
         }
-        
-        $querycreateorder=$this->db->query("INSERT INTO `order`( `user`, `name`, `email`,`contactno`, `billingaddress`, `billingcity`, `billingstate`, `billingcountry`, `billingpincode`, `shippingaddress`, `shippingcity`, `shippingcountry`, `shippingstate`,`shippingpincode`,`logisticcharge`,`orderstatus`, `timestamp`) VALUES ('$userid','$name','$email','$contactno','$billingaddress','$billingcity','$billingstate','$billingcountry','$billingpincode','$shippingaddress','$shippingcity','$shippingcountry','$shippingstate','$shippingpincode','$logisticcharge','1',NULL)");
-        $order=$this->db->insert_id();
-        $data  = array(
-			'order' => $order,
-			'product' => $productid,
-			'price' => $price,
-			'quantity' => $quantity,
-			'finalprice' => $finalprice
-		);
-		$query=$this->db->insert( 'orderitems', $data );
-        $updateuserpurchasebalance=$this->db->query("UPDATE `user` SET `purchasebalance`='$newpurchasebalance'");
-        $updateproductquantity=$this->db->query("UPDATE `product` SET `quantity`='$newproductquantity'");
-//        $id=$this->db->insert_id();
-        if(!$query)
-        return  0;
         else
-        return  $order;
+        {
+            $querycreateorder=$this->db->query("INSERT INTO `order`( `user`, `name`, `email`,`contactno`, `billingaddress`, `billingcity`, `billingstate`, `billingcountry`, `billingpincode`, `shippingaddress`, `shippingcity`, `shippingcountry`, `shippingstate`,`shippingpincode`,`logisticcharge`,`orderstatus`, `timestamp`) VALUES ('$userid','$name','$email','$contactno','$billingaddress','$billingcity','$billingstate','$billingcountry','$billingpincode','$shippingaddress','$shippingcity','$shippingcountry','$shippingstate','$shippingpincode','$logisticcharge','1',NULL)");
+            $order=$this->db->insert_id();
+            $data  = array(
+                'order' => $order,
+                'product' => $productid,
+                'price' => $price,
+                'quantity' => $quantity,
+                'finalprice' => $finalprice
+            );
+            $query=$this->db->insert( 'orderitems', $data );
+            $updateuserpurchasebalance=$this->db->query("UPDATE `user` SET `purchasebalance`='$newpurchasebalance' WHERE `id`='$userid'");
+            $updateproductquantity=$this->db->query("UPDATE `product` SET `quantity`='$newproductquantity' WHERE `id`='$productid'");
+    //        $id=$this->db->insert_id();
+            if(!$query)
+                return  0;
+            else
+                return  $order;
+        }
 	}
     
 	public function viewsingleorder($orderid,$userid)
