@@ -888,7 +888,7 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         $data = json_decode(file_get_contents('php://input'), true);
         $id=$data['id'];
         $name=$data['name'];
-        $sku=$data['sku'];
+//        $sku=$data['sku'];
         $price=$data['price'];
         $description=$data['description'];
         $status=$data['status'];
@@ -900,7 +900,7 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
 		$data['message']=0;
 		}
 		else{
-        $data['message']=$this->restapi_model->editproduct($id,$name,$sku,$price,$description,$status,$user,$quantity,$category,$image);
+        $data['message']=$this->restapi_model->editproduct($id,$name,$price,$description,$status,$user,$quantity,$category,$image);
 		}
         $this->load->view('json',$data);
     }

@@ -330,11 +330,11 @@ WHERE `orderitems`.`order`='$orderid'")->result();
         }
 	}
     
-	public function editproduct($id,$name,$sku,$price,$description,$status,$user,$quantity,$category,$image)
+	public function editproduct($id,$name,$price,$description,$status,$user,$quantity,$category,$image)
     {
         $data = array(
             "name" => $name,
-            "sku" => $sku,
+//            "sku" => $sku,
             "price" => $price,
             "description" => $description,
             "quantity" => $quantity,
