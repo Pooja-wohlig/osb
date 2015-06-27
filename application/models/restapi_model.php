@@ -290,11 +290,11 @@ WHERE `orderitems`.`order`='$orderid'")->result();
         return  $query;
 	}
     
-	public function createproduct($name,$sku,$price,$description,$status,$user,$quantity,$category,$image)
+	public function createproduct($name,$price,$description,$status,$user,$quantity,$category,$image)
     {
         $data=array(
             "name" => $name,
-            "sku" => $sku,
+//            "sku" => $sku,
             "price" => $price,
             "description" => $description,
             "user" => $user,
