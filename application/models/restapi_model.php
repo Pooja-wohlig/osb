@@ -552,38 +552,40 @@ WHERE `orderitems`.`order`='$orderid'")->result();
 	}
 	public function changeproductstatus($productid,$status)
     {
-//        echo $productid;
-//        $q="SELECT `product`.`id` AS `productid`,`product`.`price`,`product`.`quantity`,`product`.`user`,`product`.`status`,`user`.`salesbalance` FROM `product` INNER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`id`='$productid'";
-//        echo $q;
         $productdetails=$this->db->query("SELECT `product`.`id` AS `productid`,`product`.`price`,`product`.`quantity`,`product`.`user`,`product`.`status`,`user`.`salesbalance` FROM `product` INNER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`id`='$productid'")->row();
-//        print_r($productdetails);
+
         $user=$productdetails->user;
-        $price=$productdetails->price;
-        $quantity=$productdetails->quantity;
-        $salesbalance=$productdetails->salesbalance;
+        $price=floatval($productdetails->price);
+        $quantity=floatval($productdetails->quantity);
+        $salesbalance=floatval($productdetails->salesbalance);
         $oldstatus=$productdetails->status;
         $finalprice=$price*$quantity;
-        
-        if($status==$oldstatus)
-        {
-            return 0;
-        }
-        else if($status<$oldstatus)
+		$status=intval($status);
+		$oldstatus=intval($oldstatus);
+       $echo.= $status;
+$echo.= $oldstatus;
+       
+if($status==0 && $oldstatus==1)
         {
             $newsalesbalanceafter=$salesbalance+$finalprice;
+$echo.=".$newsalesbalanceafter.";
             $queryupdatesalesbalance=$this->db->query("UPDATE `user` SET `salesbalance`='$newsalesbalanceafter' WHERE `id`='$user'");
+$echo.= "Done";
         }
-        else if($status>$oldstatus)
+        else if($status==1 && $oldstatus==0)
         {
+
             $newsalesbalanceafter=$salesbalance-$finalprice;
+$echo.=".$newsalesbalanceafter.";
             $queryupdatesalesbalance=$this->db->query("UPDATE `user` SET `salesbalance`='$newsalesbalanceafter' WHERE `id`='$user'");
+$echo.= "done2";
         }
         $query=$this->db->query("UPDATE `product` SET `status`='$status' WHERE `id`='$productid'");
         
         if(!$query)
-        return  0;
+        return  $echo;
         else
-        return  1;
+        return  $echo;
 	}
 	public function becomeamember($name,$email,$number,$message){
 $data=array("name" => $name,"email" => $email,"personalcontact" => $number,"message" => $message);
