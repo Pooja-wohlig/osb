@@ -846,8 +846,8 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         }
         if($orderby=="")
         {
-            $orderby="timestamp";
-            $orderorder="ASC";
+            $orderby="id";
+            $orderorder="DESC";
         }
         $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `orderitems` LEFT OUTER JOIN `order` ON `orderitems`.`order`=`order`.`id` LEFT OUTER JOIN `orderstatus` ON `orderstatus`.`id`=`order`.`orderstatus` LEFT OUTER JOIN `product` ON `orderitems`.`product`=`product`.`id`","WHERE `order`.`user`='$userid'");
         $this->load->view("json",$data);
@@ -1159,8 +1159,8 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         }
         if($orderby=="")
         {
-            $orderby="timestamp";
-            $orderorder="ASC";
+            $orderby="id";
+            $orderorder="DESC";
         }
         $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `orderitems` LEFT OUTER JOIN `order` ON `orderitems`.`order`=`order`.`id` LEFT OUTER JOIN `orderstatus` ON `orderstatus`.`id`=`order`.`orderstatus` LEFT OUTER JOIN `product` ON `orderitems`.`product`=`product`.`id`","WHERE `orderitems`.`product` IN $productid");
         $this->load->view("json",$data);
