@@ -92,13 +92,14 @@ if(empty($posted['hash']) && sizeof($posted) > 0) {
       <input type="hidden" name="key" value="<?php echo $MERCHANT_KEY ?>" />
       <input type="hidden" name="hash" value="<?php echo $hash ?>"/>
       <input type="hidden" name="txnid" value="<?php echo $txnid ?>" />
-      <table>
+      <input type="hidden" name="amount" value="<?php echo (empty($posted['amount'])) ? '' : $posted['amount'] ?>" />
+      <b>Mandatory Parameters</b>
         <tr>
-          <td><b>Mandatory Parameters</b></td>
+          <td></td>
         </tr>
         <tr>
-          <td>Amount: <?php echo $posted['amount'];?></td>
-          <td><input type="hidden" name="amount" value="<?php echo (empty($posted['amount'])) ? '' : $posted['amount'] ?>" /></td>
+          <td>Amount: <?php echo empty($posted['amount']);?></td>
+          <td></td>
           <td>First Name: </td>
           <td><input name="firstname" id="firstname" value="<?php echo (empty($posted['firstname'])) ? '' : $posted['firstname']; ?>" /></td>
         </tr>
@@ -175,7 +176,6 @@ if(empty($posted['hash']) && sizeof($posted) > 0) {
             <td colspan="4"><input type="submit" value="Submit" /></td>
           <?php } ?>
         </tr>
-      </table>
     </form>
   </body>
 </html>
