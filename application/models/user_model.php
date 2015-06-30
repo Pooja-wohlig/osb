@@ -581,6 +581,9 @@ public function sendnotification($content, $user) {
 
 	}
 
+	function addnotificationtodb($message,$userto) {
+			$query=$this->db->query("INSERT INTO `notification` (`id`, `user`,`type`, `message`) VALUES (NULL, '$userto',2, '$message')");
+	}
 	function changeuserimage($user,$imagename) {
 			$query=$this->db->query("UPDATE `user` SET `shoplogo`='$imagename' WHERE `id`='$user'" );
 			return $imagename;

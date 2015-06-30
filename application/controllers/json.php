@@ -639,8 +639,6 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         $obj = new stdClass();
         $obj->value=$this->user_model->changeshopimage($user,$this->image_lib->dest_image,$id);
         $data["message"]=$obj;
-
-
         $this->load->view("json",$data);
     }
 

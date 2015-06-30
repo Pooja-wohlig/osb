@@ -115,12 +115,29 @@ public function sellingapproval($user) {
         $query['category'] = $this->db->query("SELECT `name` FROM `osb_category` WHERE `id`='$category'")->row();
         return $query;
     }
-    public function purchaserequest($userfrom, $userto, $amount, $reason) {
+    public function purchaserequestold($userfrom, $userto, $amount, $reason) {
 
         $data = array("userfrom" => $userfrom, "userto" => $userto, "amount" => $amount, "reason" => $reason, "requeststatus" => 1);
         $query = $this->db->insert("osb_request", $data);
         $id = $this->db->insert_id();
         $this->user_model->sendnotification("You have a new Purchase Request for Amount: $amount",$userto);
+        if (!$query) return 0;
+        else return $id;
+    }
+    public function purchaserequest($userfrom, $userto, $amount, $reason) {
+
+        $data = array(
+			"userfrom" => $userfrom,
+			"userto" => $userto,
+			"amount" => $amount,
+			"reason" => $reason,
+			"requeststatus" => 1
+		);
+        $query = $this->db->insert("osb_request", $data);
+        $id = $this->db->insert_id();
+        $this->user_model->sendnotification("You have a new Purchase Request for Amount: $amount",$userto);
+		$message="You have a new Purchase Request for Amount: ".$amount;
+		$this->user_model->addnotificationtodb($message,$userto);
         if (!$query) return 0;
         else return $id;
     }
