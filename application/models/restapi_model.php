@@ -68,8 +68,13 @@ public function sellingapproval($user) {
             $query=$this->db->query("UPDATE `user` SET `user`.`purchasebalance`=`user`.`purchasebalance`-$amount WHERE `user`.`id`= '$userfrom'" );
             $query=$this->db->query("UPDATE `user` SET `user`.`salesbalance`=`user`.`salesbalance`-$amount WHERE `user`.`id`= '$userto'" );
             $this->user_model->sendnotification("Your Purchase Request for Amount: $amount is accepted",$userfrom);
+//			$message="You have a new Purchase Request for Amount: ".$amount;
+			$message="Your Purchase Request for Amount:" .$amount. "is accepted";
+		    $this->user_model->addnotificationtodb($message,$userfrom);
 			if($query->salesbalance<1000){
 			  $this->user_model->sendnotification("Your Sell balance is too low please recharge your Account!!!",$userfrom);
+			 $message="Your Sell balance is too low please recharge your Account!!!";
+		     $this->user_model->addnotificationtodb($message,$userfrom);
 			}
             return $id;
         } else if ($status == "2") {
@@ -78,7 +83,8 @@ public function sellingapproval($user) {
           $userto = $query->userto;
           $amount = $query->amount;
           $this->user_model->sendnotification("Your Purchase Request for Amount: $amount is declined",$userfrom);
-
+			 $message="Your Purchase Request for Amount: ".$amount." is declined";
+		     $this->user_model->addnotificationtodb($message,$userfrom);
             $data = array('requeststatus' => 3, 'approvalreason' => $reason);
             $this->db->where('id', $id);
             $this->db->update('osb_request', $data);
@@ -121,6 +127,8 @@ public function sellingapproval($user) {
         $query = $this->db->insert("osb_request", $data);
         $id = $this->db->insert_id();
         $this->user_model->sendnotification("You have a new Purchase Request for Amount: $amount",$userto);
+			$message="You have a new Purchase Request for Amount: ".$amount;
+		$this->user_model->addnotificationtodb($message,$userto);
         if (!$query) return 0;
         else return $id;
     }
@@ -141,8 +149,8 @@ public function sellingapproval($user) {
         if (!$query) return 0;
         else return $id;
     }
-    public function updateprofile($id, $shopname, $address, $description, $shopcontact1, $shopcontact2, $shopemail, $website) {
-        $query = $this->db->query("UPDATE `user` SET `shopname`='$shopname',`billingaddress`='$address',`description`='$description',`shopcontact1`='$shopcontact1',`shopcontact2`='$shopcontact2',`shopemail`='$shopemail',`website`='$website' WHERE `id`='$id'");
+    public function updateprofile($id, $shopname, $address, $description, $shopcontact1, $shopcontact2, $shopemail, $website,$shoplogo) {
+        $query = $this->db->query("UPDATE `user` SET `shopname`='$shopname',`billingaddress`='$address',`description`='$description',`shopcontact1`='$shopcontact1',`shopcontact2`='$shopcontact2',`shopemail`='$shopemail',`website`='$website',`shoplogo`='$shoplogo' WHERE `id`='$id'");
 		 if(!$query)
             return  0;
             else

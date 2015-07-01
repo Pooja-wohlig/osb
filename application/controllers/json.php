@@ -506,7 +506,8 @@ $shopcontact1=$data['shopcontact1'];
 $shopcontact2=$data['shopcontact2'];
 $shopemail=$data['shopemail'];
 $website=$data['website'];
-$data['message']=$this->restapi_model->updateprofile($id,$shopname,$address,$description,$shopcontact1,$shopcontact2,$shopemail,$website);
+$shoplogo=$data['shoplogo'];
+$data['message']=$this->restapi_model->updateprofile($id,$shopname,$address,$description,$shopcontact1,$shopcontact2,$shopemail,$website,$shoplogo);
 $this->load->view('json',$data);
  }
 public function acceptreason(){
@@ -567,119 +568,177 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
  }
 
  public function imageuploadprofile() {
-        $config['upload_path'] = './uploads/';
+$user=$this->input->get_post("user");
+$date = new DateTime();
+         $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
+$config['max_size']	= '10000000';
+$config['overwrite']	= true;
+$config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
+
         $this->load->library('upload', $config);
-        $image="file";
-        $user=$this->input->get_post("user");
-        if (  $this->upload->do_upload($image))
+        //$image="file";
+        if (  $this->upload->do_upload("file"))
         {
             $uploaddata = $this->upload->data();
             $image=$uploaddata['file_name'];
-            $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
-            $config_r['maintain_ratio'] = TRUE;
-            $config_t['create_thumb'] = FALSE;///add this
-            $config_r['width']   = 800;
-            $config_r['height'] = 800;
-            $config_r['quality']    = 100;
-            //end of configs
 
-            $this->load->library('image_lib', $config_r);
-            $this->image_lib->initialize($config_r);
-            if(!$this->image_lib->resize())
-            {
-                $this->image_lib->display_errors();
-            }
-            else
-            {
-                $image=$this->image_lib->dest_image;
-            }
-
-
-        }
         $obj = new stdClass();
-        $obj->value=$this->user_model->changeuserimage($user,$this->image_lib->dest_image);
+        $obj->value=$image;
         $data["message"]=$obj;
-        $this->load->view("json",$data);
+        $this->load->view("json2",$data); 
+        }
+       else
+{
+
+        $obj = new stdClass();
+        $obj->value=$this->upload->display_errors();
+        $data["message"]=$obj;
+        $this->load->view("json2",$data); 
+
+}
     }
 
     public function imageuploadshop() {
-        $config['upload_path'] = './uploads/';
+			$user=$this->input->get_post("user");
+		$id=$this->input->get_post("id");
+$date = new DateTime();
+         $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
+$config['max_size']	= '10000000';
+$config['overwrite']	= true;
+$config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
+
         $this->load->library('upload', $config);
-        $image="file";
-        $user=$this->input->get_post("user");
-        $id=$this->input->get_post("id");
-        if (  $this->upload->do_upload($image))
+        //$image="file";
+        if (  $this->upload->do_upload("file"))
         {
             $uploaddata = $this->upload->data();
             $image=$uploaddata['file_name'];
-            $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
-            $config_r['maintain_ratio'] = TRUE;
-            $config_t['create_thumb'] = FALSE;///add this
-            $config_r['width']   = 800;
-            $config_r['height'] = 800;
-            $config_r['quality']    = 100;
-            //end of configs
-
-            $this->load->library('image_lib', $config_r);
-            $this->image_lib->initialize($config_r);
-            if(!$this->image_lib->resize())
-            {
-              $this->image_lib->display_errors();
-            }
-            else
-            {
-                $image=$this->image_lib->dest_image;
-            }
-
-
-        }
 
         $obj = new stdClass();
-        $obj->value=$this->user_model->changeshopimage($user,$this->image_lib->dest_image,$id);
+        $obj->value=$image;
+		$obj->value=$this->user_model->changeshopimage($user,$image,$id);
         $data["message"]=$obj;
-        $this->load->view("json",$data);
+        $this->load->view("json2",$data); 
+        }
+       else
+{
+
+        $obj = new stdClass();
+        $obj->value=$this->upload->display_errors();
+        $data["message"]=$obj;
+        $this->load->view("json2",$data); 
+
+}
+//        $config['upload_path'] = './uploads/';
+//        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+//        $this->load->library('upload', $config);
+//        $image="file";
+//        $user=$this->input->get_post("user");
+//        $id=$this->input->get_post("id");
+//        if (  $this->upload->do_upload($image))
+//        {
+//            $uploaddata = $this->upload->data();
+//            $image=$uploaddata['file_name'];
+//            $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+//            $config_r['maintain_ratio'] = TRUE;
+//            $config_t['create_thumb'] = FALSE;///add this
+//            $config_r['width']   = 800;
+//            $config_r['height'] = 800;
+//            $config_r['quality']    = 100;
+//            //end of configs
+//
+//            $this->load->library('image_lib', $config_r);
+//            $this->image_lib->initialize($config_r);
+//            if(!$this->image_lib->resize())
+//            {
+//              $this->image_lib->display_errors();
+//            }
+//            else
+//            {
+//                $image=$this->image_lib->dest_image;
+//            }
+//
+//
+//        }
+//
+//        $obj = new stdClass();
+//        $obj->value=$this->user_model->changeshopimage($user,$this->image_lib->dest_image,$id);
+//        $data["message"]=$obj;
+//        $this->load->view("json",$data);
     }
 
     public function imageuploadproduct() {
-        $config['upload_path'] = './uploads/';
+		
+				$user=$this->input->get_post("user");
+		$id=$this->input->get_post("id");
+$date = new DateTime();
+         $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
+$config['max_size']	= '10000000';
+$config['overwrite']	= true;
+$config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
+
         $this->load->library('upload', $config);
-        $image="file";
-        $user=$this->input->get_post("user");
-        $id=$this->input->get_post("id");
-        if (  $this->upload->do_upload($image))
+        //$image="file";
+        if (  $this->upload->do_upload("file"))
         {
             $uploaddata = $this->upload->data();
             $image=$uploaddata['file_name'];
-            $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
-            $config_r['maintain_ratio'] = TRUE;
-            $config_t['create_thumb'] = FALSE;///add this
-            $config_r['width']   = 800;
-            $config_r['height'] = 800;
-            $config_r['quality']    = 100;
-            //end of configs
-
-            $this->load->library('image_lib', $config_r);
-            $this->image_lib->initialize($config_r);
-            if(!$this->image_lib->resize())
-            {
-                $this->image_lib->display_errors();
-            }
-            else
-            {
-                $image=$this->image_lib->dest_image;
-            }
-
-
-        }
 
         $obj = new stdClass();
-        $obj->value=$this->user_model->changeproductimage($user,$this->image_lib->dest_image,$id);
+        $obj->value=$image;		
+		$obj->value=$this->user_model->changeproductimage($user,$image,$id);
         $data["message"]=$obj;
+        $this->load->view("json2",$data); 
+        }
+       else
+{
 
-        $this->load->view("json",$data);
+        $obj = new stdClass();
+        $obj->value=$this->upload->display_errors();
+        $data["message"]=$obj;
+        $this->load->view("json2",$data); 
+
+}
+//        $config['upload_path'] = './uploads/';
+//        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+//        $this->load->library('upload', $config);
+//        $image="file";
+//        $user=$this->input->get_post("user");
+//        $id=$this->input->get_post("id");
+//        if (  $this->upload->do_upload($image))
+//        {
+//            $uploaddata = $this->upload->data();
+//            $image=$uploaddata['file_name'];
+//            $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+//            $config_r['maintain_ratio'] = TRUE;
+//            $config_t['create_thumb'] = FALSE;///add this
+//            $config_r['width']   = 800;
+//            $config_r['height'] = 800;
+//            $config_r['quality']    = 100;
+//            //end of configs
+//
+//            $this->load->library('image_lib', $config_r);
+//            $this->image_lib->initialize($config_r);
+//            if(!$this->image_lib->resize())
+//            {
+//                $this->image_lib->display_errors();
+//            }
+//            else
+//            {
+//                $image=$this->image_lib->dest_image;
+//            }
+//
+//
+//        }
+//
+//        $obj = new stdClass();
+//        $obj->value=$this->user_model->changeproductimage($user,$this->image_lib->dest_image,$id);
+//        $data["message"]=$obj;
+//
+//        $this->load->view("json",$data);
     }
  public function payumoneysuccess()
  {
@@ -737,7 +796,7 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
  
  function viewallorders()
     {
-        $data = json_decode(file_get_contents('php://input'), true);
+       $data = json_decode(file_get_contents('php://input'), true);
         $userid=$data['userid'];
      
         $elements=array();
@@ -831,6 +890,12 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         $elements[14]->sort="1";
         $elements[14]->header="Product Image";
         $elements[14]->alias="productimage";
+	 
+	    $elements[15]=new stdClass();
+        $elements[15]->field="`user`.`shopname`";
+        $elements[15]->sort="1";
+        $elements[15]->header="Shop Name";
+        $elements[15]->alias="shopname";
         
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
@@ -847,7 +912,8 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
             $orderby="id";
             $orderorder="DESC";
         }
-        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `orderitems` LEFT OUTER JOIN `order` ON `orderitems`.`order`=`order`.`id` LEFT OUTER JOIN `orderstatus` ON `orderstatus`.`id`=`order`.`orderstatus` LEFT OUTER JOIN `product` ON `orderitems`.`product`=`product`.`id`","WHERE `order`.`user`='$userid'");
+//        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `orderitems` LEFT OUTER JOIN `order` ON `orderitems`.`order`=`order`.`id` LEFT OUTER JOIN `orderstatus` ON `orderstatus`.`id`=`order`.`orderstatus` LEFT OUTER JOIN `product` ON `orderitems`.`product`=`product`.`id`","WHERE `order`.`user`='$userid'");
+	     $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `orderitems` LEFT OUTER JOIN `order` ON `orderitems`.`order`=`order`.`id` LEFT OUTER JOIN `orderstatus` ON `orderstatus`.`id`=`order`.`orderstatus` LEFT OUTER JOIN `product` ON `orderitems`.`product`=`product`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` ","WHERE `order`.`user`='$userid'");
         $this->load->view("json",$data);
     }
 
@@ -1145,6 +1211,12 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         $elements[14]->header="Product Image";
         $elements[14]->alias="productimage";
 	 
+	    $elements[15]=new stdClass();
+        $elements[15]->field="`user`.`shopname`";
+        $elements[15]->sort="1";
+        $elements[15]->header="Shop Name";
+        $elements[15]->alias="shopname";
+	 
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
         $orderby=$this->input->get_post("orderby");
@@ -1160,7 +1232,8 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
             $orderby="id";
             $orderorder="DESC";
         }
-        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `orderitems` LEFT OUTER JOIN `order` ON `orderitems`.`order`=`order`.`id` LEFT OUTER JOIN `orderstatus` ON `orderstatus`.`id`=`order`.`orderstatus` LEFT OUTER JOIN `product` ON `orderitems`.`product`=`product`.`id`","WHERE `orderitems`.`product` IN $productid");
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `orderitems` LEFT OUTER JOIN `order` ON `orderitems`.`order`=`order`.`id` LEFT OUTER JOIN `orderstatus` ON `orderstatus`.`id`=`order`.`orderstatus` LEFT OUTER JOIN `product` ON `orderitems`.`product`=`product`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`order`.`user`","WHERE `orderitems`.`product` IN $productid");
+//	  $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `orderitems` LEFT OUTER JOIN `order` ON `orderitems`.`order`=`order`.`id` LEFT OUTER JOIN `orderstatus` ON `orderstatus`.`id`=`order`.`orderstatus` LEFT OUTER JOIN `product` ON `orderitems`.`product`=`product`.`id`","WHERE `orderitems`.`product` IN $productid");
         $this->load->view("json",$data);
     }
  
@@ -1196,42 +1269,35 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
 	 $this->load->view('json',$data);
  }
  public function editproductimage(){
-	    $config['upload_path'] = './uploads/';
+	    $user=$this->input->get_post("user");
+$date = new DateTime();
+         $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
+$config['max_size']	= '10000000';
+$config['overwrite']	= true;
+$config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
+
         $this->load->library('upload', $config);
-        $image="file";
-//	    $id=$this->input->get_post('id');
-        if (  $this->upload->do_upload($image))
+        //$image="file";
+        if (  $this->upload->do_upload("file"))
         {
             $uploaddata = $this->upload->data();
             $image=$uploaddata['file_name'];
-            $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
-            $config_r['maintain_ratio'] = TRUE;
-            $config_t['create_thumb'] = FALSE;///add this
-            $config_r['width']   = 800;
-            $config_r['height'] = 800;
-            $config_r['quality']    = 100;
-            //end of configs
 
-            $this->load->library('image_lib', $config_r);
-            $this->image_lib->initialize($config_r);
-            if(!$this->image_lib->resize())
-            {
-                $this->image_lib->display_errors();
-            }
-            else
-            {
-                $image=$this->image_lib->dest_image;
-            }
+        $obj = new stdClass();
+        $obj->value=$image;
+        $data["message"]=$obj;
+        $this->load->view("json2",$data); 
         }
-	 			$obj = new stdClass();
-	 			$obj->value=$this->image_lib->dest_image;
-	 			$data["message"]=$obj;
-                $this->load->view("json",$data);
-//        $obj = new stdClass();
-//        $obj->value=$this->restapi_model->editproductimage($id,$this->image_lib->dest_image);
-//        $data["message"]=$obj;
-//        $this->load->view("json",$data);
+       else
+{
+
+        $obj = new stdClass();
+        $obj->value=$this->upload->display_errors();
+        $data["message"]=$obj;
+        $this->load->view("json2",$data); 
+
+}
  }
 
 public function searchproduct(){
@@ -1335,37 +1401,35 @@ $sort=$this->input->get_post('sortid');
 		$this->load->view('json',$data);
  }
  public function addproductimage(){
-// $id=$this->input->get_post('id');
-	   $config['upload_path'] = './uploads/';
+$user=$this->input->get_post("user");
+$date = new DateTime();
+         $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
+$config['max_size']	= '10000000';
+$config['overwrite']	= true;
+$config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
+
         $this->load->library('upload', $config);
-        $image="file";
-        if (  $this->upload->do_upload($image))
+        //$image="file";
+        if (  $this->upload->do_upload("file"))
         {
             $uploaddata = $this->upload->data();
             $image=$uploaddata['file_name'];
-            $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
-            $config_r['maintain_ratio'] = TRUE;
-            $config_t['create_thumb'] = FALSE;///add this
-            $config_r['width']   = 800;
-            $config_r['height'] = 800;
-            $config_r['quality']    = 100;
-            //end of configs
 
-            $this->load->library('image_lib', $config_r);
-            $this->image_lib->initialize($config_r);
-            if(!$this->image_lib->resize())
-            {
-                $this->image_lib->display_errors();
-            }
-            else
-            {
-                $image=$this->image_lib->dest_image;
-            }
-        }
         $obj = new stdClass();
-        $obj->value=$this->image_lib->dest_image;
+        $obj->value=$image;
         $data["message"]=$obj;
-        $this->load->view("json",$data);
+        $this->load->view("json2",$data); 
+        }
+       else
+{
+
+        $obj = new stdClass();
+        $obj->value=$this->upload->display_errors();
+        $data["message"]=$obj;
+        $this->load->view("json2",$data); 
+
+	   }
+
  }
 } ?>
