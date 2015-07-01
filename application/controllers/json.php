@@ -896,6 +896,24 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $elements[15]->sort="1";
         $elements[15]->header="Shop Name";
         $elements[15]->alias="shopname";
+	 
+	    $elements[16]=new stdClass();
+        $elements[16]->field="`user`.`email`";
+        $elements[16]->sort="1";
+        $elements[16]->header="User Email";
+        $elements[16]->alias="email1";
+	 
+	 	$elements[17]=new stdClass();
+        $elements[17]->field="`user`.`address`";
+        $elements[17]->sort="1";
+        $elements[17]->header="User Address";
+        $elements[17]->alias="address";
+	 
+	    $elements[18]=new stdClass();
+        $elements[18]->field="`user`.`personalcontact`";
+        $elements[18]->sort="1";
+        $elements[18]->header="Personal Contact";
+        $elements[18]->alias="personalcontact";
         
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
@@ -1216,6 +1234,24 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $elements[15]->sort="1";
         $elements[15]->header="Shop Name";
         $elements[15]->alias="shopname";
+	 
+	    $elements[16]=new stdClass();
+        $elements[16]->field="`user`.`email`";
+        $elements[16]->sort="1";
+        $elements[16]->header="User Email";
+        $elements[16]->alias="email1";
+	 
+	 	$elements[17]=new stdClass();
+        $elements[17]->field="`user`.`address`";
+        $elements[17]->sort="1";
+        $elements[17]->header="User Address";
+        $elements[17]->alias="address";
+	 
+	    $elements[18]=new stdClass();
+        $elements[18]->field="`user`.`personalcontact`";
+        $elements[18]->sort="1";
+        $elements[18]->header="Personal Contact";
+        $elements[18]->alias="personalcontact";
 	 
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");

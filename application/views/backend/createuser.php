@@ -57,7 +57,7 @@
 			<div class=" form-group">
  				<label class="col-sm-2 control-label" for="normal-field">Personal Contact</label>
 				<div class="col-sm-4">
-					<input type="text" id="normal-field" class="form-control" name="personalcontact" value="<?php echo set_value('personalcontact');?>">
+					<input type="text" id="normal-field" maxlength="10" class="form-control" name="personalcontact" value="<?php echo set_value('personalcontact');?>">
 				</div>
 			</div>
 				<div class=" form-group">
@@ -167,13 +167,13 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
 					<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">Shop contact1</label>
 				  <div class="col-sm-4">
-					<input type="text" id="normal-field" class="form-control" name="shopcontact1" value="<?php echo set_value('shopcontact1');?>">
+					<input type="text" id="normal-field" maxlength="10" class="form-control" name="shopcontact1" value="<?php echo set_value('shopcontact1');?>">
 				  </div>
 				</div>
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">Shop contact2</label>
 				  <div class="col-sm-4">
-					<input type="text" id="normal-field" class="form-control" name="shopcontact2" value="<?php echo set_value('shopcontact2');?>">
+					<input type="text" id="normal-field" maxlength="10" class="form-control" name="shopcontact2" value="<?php echo set_value('shopcontact2');?>">
 				  </div>
 				</div>
 				<div class=" form-group">
@@ -239,7 +239,7 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">Billing Pincode</label>
 				  <div class="col-sm-4">
-					<input type="text" id="normal-field" class="form-control" name="billingpincode" value="<?php echo set_value('billingpincode');?>">
+					<input type="text" id="normal-field" maxlength="6" class="form-control" name="billingpincode" value="<?php echo set_value('billingpincode');?>">
 				  </div>
 				</div>
 				
@@ -274,7 +274,7 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">Shipping Pincode</label>
 				  <div class="col-sm-4">
-					<input type="text" id="normal-field" class="form-control" name="shippingpincode" value="<?php echo set_value('shippingpincode');?>">
+					<input type="text" id="normal-field" maxlength="6" class="form-control" name="shippingpincode" value="<?php echo set_value('shippingpincode');?>">
 				  </div>
 				</div>
 				
