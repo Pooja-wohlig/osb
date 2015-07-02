@@ -112,7 +112,6 @@ public function sellingapproval($user) {
                 return 1;
             }
         } else {
-//            echo "New password and confirm password do not match!!!";
 			return -1;
         }
     }

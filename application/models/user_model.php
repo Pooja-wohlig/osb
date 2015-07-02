@@ -555,11 +555,11 @@ $this->email->send();
 		$info = curl_getinfo($ch);
 		curl_close($ch);
 
-				if (true) {
-						print "[PW] request: $request\n";
-						print "[PW] response: $response\n";
-						print "[PW] info: " . print_r($info, true);
-				}
+//				if (true) {
+//						print "[PW] request: $request\n";
+//						print "[PW] response: $response\n";
+//						print "[PW] info: " . print_r($info, true);
+//				}
 
 	}
 public function sendnotification($content, $user) {
