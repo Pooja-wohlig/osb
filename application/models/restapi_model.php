@@ -54,7 +54,7 @@ public function sellingapproval($user) {
         return $query;
     }
     public function accepted($id, $reason, $status) {
-        if ($status == "1") {
+            if ($status == "1") {
             $data = array('approvalreason' => $reason, 'requeststatus' => 2);
             $this->db->where('id', $id);
             $this->db->update('osb_request', $data);
@@ -112,6 +112,7 @@ public function sellingapproval($user) {
                 return 1;
             }
         } else {
+//            echo "New password and confirm password do not match!!!";
 			return -1;
         }
     }
@@ -126,8 +127,6 @@ public function sellingapproval($user) {
         $query = $this->db->insert("osb_request", $data);
         $id = $this->db->insert_id();
         $this->user_model->sendnotification("You have a new Purchase Request for Amount: $amount",$userto);
-			$message="You have a new Purchase Request for Amount: ".$amount;
-		$this->user_model->addnotificationtodb($message,$userto);
         if (!$query) return 0;
         else return $id;
     }
@@ -689,8 +688,8 @@ $echo.= "done2";
         return  $echo;
 	}
 	public function becomeamember($name,$email,$number,$message){
-$data=array("name" => $name,"email" => $email,"personalcontact" => $number,"message" => $message);
-$query=$this->db->insert( "user", $data );
+$data=array("name" => $name,"email" => $email,"personalcontact" => $number,"message" => $message,"status"=>2);
+$query=$this->db->insert( "register", $data );
 $id=$this->db->insert_id();
 if(!$query)
 return  0;

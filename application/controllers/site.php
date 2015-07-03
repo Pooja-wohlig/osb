@@ -3236,6 +3236,189 @@ $this->load->view("redirect",$data);
     }
 //	notification ends
 	
+	
+	// NEW REGISTER
+	
+	public function createregister()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$data[ 'status' ] =$this->register_model->getregisterdropdown();
+		$data[ 'page' ] = 'createregister';
+		$data[ 'title' ] = 'Create Register';
+		$this->load->view( 'template', $data );	
+	}
+	function createregistersubmit()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->form_validation->set_rules('name','Name','trim|required|max_length[30]');
+		$this->form_validation->set_rules('email','Email','trim|required|valid_email|is_unique[user.email]');
+//		$this->form_validation->set_rules('password','Password','trim|required|min_length[6]|max_length[30]');
+	    $this->form_validation->set_rules('personalcontact','Personal Contact','trim|required|max_length[10]');
+		$this->form_validation->set_rules('status','status','trim|');
+		if($this->form_validation->run() == FALSE)	
+		{
+			$data['alerterror'] = validation_errors();
+            $data[ 'status' ] =$this->register_model->getregisterdropdown();          
+//            $data['category']=$this->category_model->getcategorydropdown();
+            $data[ 'page' ] = 'createregister';
+            $data[ 'title' ] = 'Create Register';
+            $this->load->view( 'template', $data );	
+		}
+		else
+		{
+            $name=$this->input->post('name');
+            $email=$this->input->post('email');
+            $message=$this->input->post('message');
+            $personalcontact=$this->input->post('personalcontact');
+            $status=$this->input->post('status');
+			if($this->register_model->create($name,$email,$message,$personalcontact,$status)==0)
+		$data['alerterror']="New Register could not be created.";
+			else
+			$data['alertsuccess']="Register created Successfully.";
+			$data['redirect']="site/viewregister";
+			$this->load->view("redirect",$data);		   
+		   }
+		   }
+	
+//	if($this->request_model->create($userfrom,$userto,$requeststatus,$amount,$reason,$approvalreason,$timestamp)==0)
+//$data["alerterror"]="New request could not be created.";
+//else
+//$data["alertsuccess"]="request created Successfully.";
+//$data["redirect"]="site/viewrequest";
+//$this->load->view("redirect",$data);
+//}
+	
+    function viewregister()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$data['page']='viewregister';
+        $data['base_url'] = site_url("site/viewregisterjson");
+        
+		$data['title']='View Register';
+		$this->load->view('template',$data);
+	} 
+    function viewregisterjson()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+        
+        
+        $elements=array();
+        $elements[0]=new stdClass();
+        $elements[0]->field="`register`.`id`";
+        $elements[0]->sort="1";
+        $elements[0]->header="ID";
+        $elements[0]->alias="id";
+        
+        
+        $elements[1]=new stdClass();
+        $elements[1]->field="`register`.`name`";
+        $elements[1]->sort="1";
+        $elements[1]->header="Name";
+        $elements[1]->alias="name";
+        
+        $elements[2]=new stdClass();
+        $elements[2]->field="`register`.`email`";
+        $elements[2]->sort="1";
+        $elements[2]->header="Email";
+        $elements[2]->alias="email";
+        
+        $elements[3]=new stdClass();
+        $elements[3]->field="`register`.`personalcontact`";
+        $elements[3]->sort="1";
+        $elements[3]->header="Personal Contact";
+        $elements[3]->alias="personalcontact";
+		
+		$elements[4]=new stdClass();
+        $elements[4]->field="`register`.`status`";
+        $elements[4]->sort="1";
+        $elements[4]->header="Status";
+        $elements[4]->alias="status";
+        
+        $search=$this->input->get_post("search");
+        $pageno=$this->input->get_post("pageno");
+        $orderby=$this->input->get_post("orderby");
+        $orderorder=$this->input->get_post("orderorder");
+        $maxrow=$this->input->get_post("maxrow");
+        if($maxrow=="")
+        {
+            $maxrow=20;
+        }
+        
+        if($orderby=="")
+        {
+            $orderby="id";
+            $orderorder="ASC";
+        }
+       
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `register`");
+        
+		$this->load->view("json",$data);
+	} 
+    
+    
+	function editregister()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$data["page2"]="block/userblock";
+		$data[ 'status' ] =$this->register_model->getregisterdropdown();
+		$data['before']=$this->register_model->beforeedit($this->input->get('id'));
+		$data['page']='editregister';
+		$data['title']='Edit Register';
+		$this->load->view('template',$data);
+	}
+	function editregistersubmit()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		
+		$this->form_validation->set_rules('name','Name','trim|required|max_length[30]');
+		$this->form_validation->set_rules('email','Email','trim|required|valid_email');
+		$this->form_validation->set_rules('status','status','trim|');
+		if($this->form_validation->run() == FALSE)	
+		{
+			$data['alerterror'] = validation_errors();
+			$data[ 'status' ] =$this->register_model->getregisterdropdown();	
+			$data['before']=$this->register_model->beforeedit($this->input->post('id'));
+			$data['page']='editregister';
+//			$data['page2']='block/userblock';
+			$data['title']='Edit Register';
+			$this->load->view('template',$data);
+		}
+		else
+		{
+            
+            $id=$this->input->get_post('id');
+            $name=$this->input->get_post('name');
+            $email=$this->input->get_post('email');
+            $message=$this->input->get_post('message');
+            $personalcontact=$this->input->get_post('personalcontact');
+            $status=$this->input->get_post('status');
+			if($this->register_model->edit($id,$name,$email,$message,$personalcontact,$status)==0)
+			$data['alerterror']="New register editing was unsuccesful";
+			else
+			$data['alertsuccess']="New register edited Successfully.";
+			
+			$data['redirect']="site/viewregister";
+			$this->load->view("redirect",$data);
+			
+		}
+	}
+	
+	function deleteregister()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->register_model->deleteregister($this->input->get('id'));
+//		$data['table']=$this->user_model->viewusers();
+		$data['alertsuccess']="Register Deleted Successfully";
+		$data['redirect']="site/viewregister";
+		$this->load->view("redirect",$data);
+	}
     
 }
 ?>
