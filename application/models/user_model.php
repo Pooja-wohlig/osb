@@ -268,10 +268,10 @@ class User_model extends CI_Model
 	}
 	public function sendemail($email,$membershipno,$password){
 	$this->load->library('email');
-$this->email->from('pthakare33@gmail.com', 'pooja');
+$this->email->from('dhavalwohlig@gmail.com', 'Dhaval');
 $this->email->to($email);
 $this->email->subject('Auto generated Password');
-$this->email->message('Your Membershipid no is'."$membershipno".'and password is'."$password");
+		$this->email->message("Your OSB Account Information is as follows : <br/>Membership Id : ".$membershipno." <br/>Password : ".$password);
 
 $this->email->send();
 

@@ -1296,7 +1296,12 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
 		$email=$data['email'];
 		$number=$data['number'];
 		$message=$data['message'];
+	    if(empty($data)){
+		$data['message']=0;
+		}
+	    else{
 		$data['message']=$this->restapi_model->becomeamember($name,$email,$number,$message);
+		}
 		$this->load->view('json',$data);
  }
  public function viewmyproducts(){
