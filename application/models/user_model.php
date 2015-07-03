@@ -671,8 +671,8 @@ public function sendnotification($content, $user) {
 	public function getonlinestatusdropdown()
 	{
 		$onlinestatus= array(
-			 "1" => "online",
-			 "2" => "offline"
+			 "0" => "No",
+			 "1" => "Yes"
 			);
 		return $onlinestatus;
 	}

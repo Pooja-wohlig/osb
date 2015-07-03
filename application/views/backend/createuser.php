@@ -287,7 +287,7 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
 				</div>
 -->
 				<div class=" form-group">
-				  <label class="col-sm-2 control-label">Online Status</label>
+				  <label class="col-sm-2 control-label">Is New user</label>
 				  <div class="col-sm-4">
 					<?php
 						
