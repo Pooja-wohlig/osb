@@ -35,6 +35,7 @@ function drawtable(resultrow) {
 	if(resultrow.requeststatus==1)
 	{
 	resultrow.requeststatus="Pending";
+	var classvalue = 'highlight';
 	}
 	else if(resultrow.requeststatus==2)
 	{
@@ -44,7 +45,7 @@ function drawtable(resultrow) {
 	{
 	resultrow.requeststatus="Rejected";
 	}
-return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.userfrom + "</td><td>" + resultrow.userto + "</td><td>" + resultrow.requeststatus + "</td><td>" + resultrow.amount + "</td><td>" + resultrow.reason + "</td><td>" + resultrow.timestamp + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editrequest?id=');?>"+resultrow.id+"'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' onclick=\"return confirm('Are you sure you want to delete?');\" href='<?php echo site_url('site/deleterequest?id='); ?>"+resultrow.id+"'><i class='icon-trash '></i></a></td></tr>";
+return "<tr id='maintable' class='"+ classvalue +"'><td>" + resultrow.id + "</td><td>" + resultrow.userfrom + "</td><td>" + resultrow.userto + "</td><td>" + resultrow.requeststatus + "</td><td>" + resultrow.amount + "</td><td>" + resultrow.reason + "</td><td>" + resultrow.timestamp + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editrequest?id=');?>"+resultrow.id+"'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' onclick=\"return confirm('Are you sure you want to delete?');\" href='<?php echo site_url('site/deleterequest?id='); ?>"+resultrow.id+"'><i class='icon-trash '></i></a></td></tr>";
 }
 generatejquery("<?php echo $base_url;?>");
 </script>

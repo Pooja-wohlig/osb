@@ -3951,3 +3951,6 @@ span.customSelect.changed {
 .customSelectInner {
     background:url(../img/customSelect-arrow.gif) no-repeat center right;
 }
+.highlight td {
+    background-color: #ECFF68 !important;
+}
