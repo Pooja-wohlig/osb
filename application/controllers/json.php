@@ -1463,7 +1463,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $this->load->view("json2",$data); 
         }
        else
-{
+        {
 
         $obj = new stdClass();
         $obj->value=$this->upload->display_errors();
@@ -1472,5 +1472,15 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
 
 	   }
 
+ }
+ public function isnewuser(){
+	 $user=$this->input->get("user");
+		$data['message']=$this->restapi_model->isnewuser($user);
+		$this->load->view('json',$data);
+ }
+ public function isnewuserstatuschange(){
+	 $user=$this->input->get("user");
+		$data['message']=$this->restapi_model->isnewuserchangestatus($user);
+		$this->load->view('json',$data);
  }
 } ?>

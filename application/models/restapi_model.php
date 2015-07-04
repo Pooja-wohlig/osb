@@ -109,6 +109,7 @@ public function sellingapproval($user) {
                 $query = $useridquery->row();
                 $userid = $query->id;
                 $updatequery = $this->db->query("UPDATE `user` SET `password`='$newpassword' WHERE `id`='$userid'");
+                $updatequery = $this->db->query("UPDATE `user` SET `onlinestatus`=0 WHERE `id`='$id'");
                 return 1;
             }
         } else {
@@ -767,6 +768,14 @@ return  $id;
 		$query=$this->db->query("UPDATE `product` SET `image`='$imagename' WHERE `id`='$id'" );
 			return $imagename;
 			
+	}
+	public function isnewuser($user){
+	$query=$this->db->query("SELECT `onlinestatus` FROM `user` WHERE `id`='$user'")->row();
+		return $query;
+	}
+	public function isnewuserchangestatus($user){
+	$query=$this->db->query("UPDATE `user` SET `onlinestatus`=0 WHERE `id`='$user'" );
+		return 1;
 	}
 }
 ?>
