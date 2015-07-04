@@ -761,7 +761,7 @@ return  $id;
 		return $query;
 	}
 	public function getnotification($user){
-		$query=$this->db->query("SELECT `id`, `user`, `type`, DATE(`timestamp`) as `date`, `message` FROM `notification` WHERE `user`='$user'")->result();
+		$query=$this->db->query("SELECT `id`, `user`, `type`, DATE(`timestamp`) as `date`, `message` FROM `notification` WHERE `user`='$user' ORDER BY `id` DESC ")->result();
 		return $query;
 	}
 	public function addproductimage($id,$imagename) {

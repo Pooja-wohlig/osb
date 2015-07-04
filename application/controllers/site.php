@@ -37,6 +37,7 @@ class Site extends CI_Controller
 		$data[ 'logintype' ] =$this->user_model->getlogintypedropdown();	
 		$data[ 'area' ] =$this->area_model->getareadropdown();	
 		$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();	
+		$data[ 'shopstatus' ] =$this->user_model->getshopstatusdropdown();	
 //        $data['category']=$this->category_model->getcategorydropdown();
 		$data[ 'page' ] = 'createuser';
 		$data[ 'title' ] = 'Create User';
@@ -76,6 +77,7 @@ class Site extends CI_Controller
             $data[ 'area' ] =$this->area_model->getareadropdown();		
 			$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();	
             $data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
+			$data[ 'shopstatus' ] =$this->user_model->getshopstatusdropdown();	
             
 //            $data['category']=$this->category_model->getcategorydropdown();
             $data[ 'page' ] = 'createuser';
@@ -117,6 +119,7 @@ class Site extends CI_Controller
 			$shippingstate=$this->input->post('shippingstate');
 			$shippingpincode=$this->input->post('shippingpincode');
 			$onlinestatus=$this->input->post('onlinestatus');
+			$shopstatus=$this->input->post('shopstatus');
 //            $category=$this->input->post('category');
  			$data[ 'password' ] =$this->user_model->get_random_password();
 			$password=$data[ 'password' ];
@@ -195,7 +198,7 @@ class Site extends CI_Controller
                 
 			}
             
-		if($this->user_model->create($name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus)==0)
+		if($this->user_model->create($name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus)==0)
 		$data['alerterror']="New user could not be created.";
 			else
 			$data['alertsuccess']="User created Successfully.";
@@ -367,6 +370,7 @@ class Site extends CI_Controller
 		$data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
 		 $data[ 'area' ] =$this->area_model->getareadropdown();
 		$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();	
+		$data[ 'shopstatus' ] =$this->user_model->getshopstatusdropdown();	
 		$data['before']=$this->user_model->beforeedit($this->input->get('id'));
 		$data['page']='edituser';
 		$data['title']='Edit User';
@@ -406,6 +410,7 @@ class Site extends CI_Controller
             $data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
 			 $data[ 'area' ] =$this->area_model->getareadropdown();
 			$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();	
+			$data[ 'shopstatus' ] =$this->user_model->getshopstatusdropdown();	
 			$data['before']=$this->user_model->beforeedit($this->input->post('id'));
 			$data['page']='edituser';
 //			$data['page2']='block/userblock';
@@ -449,6 +454,7 @@ class Site extends CI_Controller
 			$shippingstate=$this->input->post('shippingstate');
 			$shippingpincode=$this->input->post('shippingpincode');
 			$onlinestatus=$this->input->post('onlinestatus');
+			$shopstatus=$this->input->post('shopstatus');
 //            $category=$this->input->get_post('category');
             
             $config['upload_path'] = './uploads/';
@@ -535,7 +541,7 @@ class Site extends CI_Controller
                // print_r($image);
                 $shoplogo=$shoplogo->image;
             }
-			if($this->user_model->edit($id,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus)==0)
+			if($this->user_model->edit($id,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus)==0)
 			$data['alerterror']="User Editing was unsuccesful";
 			else
 			$data['alertsuccess']="User edited Successfully.";

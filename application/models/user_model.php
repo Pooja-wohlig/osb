@@ -32,7 +32,7 @@ class User_model extends CI_Model
 	}
 
 
-	public function create($name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus)
+	public function create($name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus)
 	{
 		$data  = array(
 			'name' => $name,
@@ -69,7 +69,8 @@ class User_model extends CI_Model
 			'shippingcountry' => $shippingcountry,
 			'shippingstate' => $shippingstate,
 			'shippingpincode' => $shippingpincode,
-			'onlinestatus' => $onlinestatus
+			'onlinestatus' => $onlinestatus,
+			'shopstatus' => $shopstatus
 		);
 		$query=$this->db->insert( 'user', $data );
 		$id=$this->db->insert_id();
@@ -136,7 +137,7 @@ class User_model extends CI_Model
 		return $query;
 	}
 
-	public function edit($id,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus)
+	public function edit($id,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus)
 	{
 		$data  = array(
 			'name' => $name,
@@ -172,7 +173,8 @@ class User_model extends CI_Model
 			'shippingcountry' => $shippingcountry,
 			'shippingstate' => $shippingstate,
 			'shippingpincode' => $shippingpincode,
-			'onlinestatus' => $onlinestatus
+			'onlinestatus' => $onlinestatus,
+			'shopstatus' => $shopstatus
 		);
 		if($password != "")
 			$data['password'] =md5($password);
@@ -670,11 +672,20 @@ public function sendnotification($content, $user) {
     }
 	public function getonlinestatusdropdown()
 	{
-		$onlinestatus= array(
-			 "0" => "No",
-			 "1" => "Yes"
+		$onlinestatus= array(		 
+			 "1" => "Yes",
+			"0" => "No"
 			);
 		return $onlinestatus;
+	}
+	public function getshopstatusdropdown()
+	{
+		$shopstatus= array(
+			 "0" => "Online",
+			 "1" => "Offline",
+			 "2" => "Both"
+			);
+		return $shopstatus;
 	}
 }
 ?>
