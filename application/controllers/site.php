@@ -1932,13 +1932,13 @@ $elements[0]->alias="id";
 $elements[1]=new stdClass();
 $elements[1]->field="`tab1`.`name`";
 $elements[1]->sort="1";
-$elements[1]->header="Seller";
+$elements[1]->header="Buyer";
 $elements[1]->alias="userto";
 	
 $elements[2]=new stdClass();
 $elements[2]->field="`tab2`.`name`";
 $elements[2]->sort="1";
-$elements[2]->header="Buyer";
+$elements[2]->header="Seller";
 $elements[2]->alias="userfrom";
 	
 //$elements[3]=new stdClass();
@@ -3425,6 +3425,137 @@ $this->load->view("redirect",$data);
 		$data['redirect']="site/viewregister";
 		$this->load->view("redirect",$data);
 	}
+	// SUGGESTIONS STARTS
+	public function viewsuggestion()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $data["page"]="viewsuggestion";
+        $data[ 'user' ] =$this->user_model->getuserdropdown();
+        $data["base_url"]=site_url("site/viewsuggestionjson");
+        $data["title"]="View suggestion";
+        $this->load->view("template",$data);
+    }
+    function viewsuggestionjson()
+    {
+        $elements=array();
+        $elements[0]=new stdClass();
+        $elements[0]->field="`suggestion`.`id`";
+        $elements[0]->sort="1";
+        $elements[0]->header="ID";
+        $elements[0]->alias="id";
+		
+        $elements[1]=new stdClass();
+        $elements[1]->field="`user`.`name`";
+        $elements[1]->sort="1";
+        $elements[1]->header="User";
+        $elements[1]->alias="user";
+		
+		$elements[2]=new stdClass();
+        $elements[2]->field="`suggestion`.`timestamp`";
+        $elements[2]->sort="1";
+        $elements[2]->header="Timestamp";
+        $elements[2]->alias="timestamp";
+       
+        $search=$this->input->get_post("search");
+        $pageno=$this->input->get_post("pageno");
+        $orderby=$this->input->get_post("orderby");
+        $orderorder=$this->input->get_post("orderorder");
+        $maxrow=$this->input->get_post("maxrow");
+        if($maxrow=="")
+        {
+        $maxrow=20;
+        }
+        if($orderby=="")
+        {
+        $orderby="id";
+        $orderorder="ASC";
+        }
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `suggestion` LEFT OUTER JOIN `user` ON `suggestion`.`user`=`user`.`id` ");
+        $this->load->view("json",$data);
+    }
+
+    public function createsuggestion()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $data[ 'user' ] =$this->user_model->getuserdropdown();
+        $data["page"]="createsuggestion";
+        $data["title"]="Create suggestion";
+        $this->load->view("template",$data);
+    }
+    public function createsuggestionsubmit() 
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $this->form_validation->set_rules("message","Message","trim");
+        if($this->form_validation->run()==FALSE)
+        {
+            $data["alerterror"]=validation_errors();
+            $data[ 'user' ] =$this->user_model->getuserdropdown();
+            $data["page"]="createsuggestion";
+            $data["title"]="Create suggestion";
+            $this->load->view("template",$data);
+        }
+        else
+        {
+            $user=$this->input->get_post("user");
+            $message=$this->input->get_post("message");
+            if($this->suggestion_model->create($user,$message)==0)
+            $data["alerterror"]="New suggestion could not be created.";
+            else
+            $data["alertsuccess"]="Suggestion created Successfully.";
+            $data["redirect"]="site/viewsuggestion";
+            $this->load->view("redirect",$data);
+        }
+    }
+    public function editsuggestion()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $data[ 'user' ] =$this->user_model->getuserdropdown();
+        $data["page"]="editsuggestion";
+        $data["title"]="Edit Suggestion";
+        $data["before"]=$this->suggestion_model->beforeedit($this->input->get("id"));
+        $this->load->view("template",$data);
+    }
+    public function editsuggestionsubmit()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $this->form_validation->set_rules("id","ID","trim");
+        $this->form_validation->set_rules("message","Message","trim");
+        if($this->form_validation->run()==FALSE)
+        {
+            $data["alerterror"]=validation_errors();
+            $data[ 'user' ] =$this->user_model->getuserdropdown();
+            $data["page"]="editsuggestion";
+            $data["title"]="Edit suggestion";
+            $data["before"]=$this->suggestion_model->beforeedit($this->input->get("id"));
+            $this->load->view("template",$data);
+        }
+        else
+        {
+            $id=$this->input->get_post("id");
+            $user=$this->input->get_post("user");
+            $message=$this->input->get_post("message");
+            $timestamp=$this->input->get_post("timestamp");
+            if($this->suggestion_model->edit($id,$user,$timestamp,$message)==0)
+            $data["alerterror"]="New suggestion could not be Updated.";
+            else
+            $data["alertsuccess"]="suggestion Updated Successfully.";
+            $data["redirect"]="site/viewsuggestion";
+            $this->load->view("redirect",$data);
+        }
+    }
+    public function deletesuggestion()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $this->suggestion_model->delete($this->input->get("id"));
+        $data["redirect"]="site/viewsuggestion";
+        $this->load->view("redirect",$data);
+    }
     
 }
 ?>
