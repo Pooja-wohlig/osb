@@ -30,7 +30,7 @@ class Site extends CI_Controller
 	}
 	public function createuser()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$data['accesslevel']=$this->user_model->getaccesslevels();
 		$data[ 'status' ] =$this->user_model->getstatusdropdown();
@@ -45,7 +45,7 @@ class Site extends CI_Controller
 	}
 	function createusersubmit()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$this->form_validation->set_rules('name','Name','trim|required|max_length[30]');
 		$this->form_validation->set_rules('email','Email','trim|required|valid_email|is_unique[user.email]');
@@ -208,7 +208,7 @@ class Site extends CI_Controller
 		   }
     function viewusers()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$data['page']='viewusers';
         $data['base_url'] = site_url("site/viewusersjson");
@@ -218,7 +218,7 @@ class Site extends CI_Controller
 	} 
     function viewusersjson()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
         
         
@@ -362,7 +362,7 @@ class Site extends CI_Controller
     
 	function edituser()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$data["page2"]="block/userblock";
 		$data[ 'status' ] =$this->user_model->getstatusdropdown();
@@ -378,7 +378,7 @@ class Site extends CI_Controller
 	}
 	function editusersubmit()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		
 		$this->form_validation->set_rules('name','Name','trim|required|max_length[30]');
@@ -555,7 +555,7 @@ class Site extends CI_Controller
 	
 	function deleteuser()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$this->user_model->deleteuser($this->input->get('id'));
 //		$data['table']=$this->user_model->viewusers();
@@ -566,7 +566,7 @@ class Site extends CI_Controller
 	}
 	function changeuserstatus()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$this->user_model->changestatus($this->input->get('id'));
 		$data['table']=$this->user_model->viewusers();
@@ -580,7 +580,7 @@ class Site extends CI_Controller
     
     public function viewshopproductphoto()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="viewshopproductphoto";
 $data["userid"]=$this->input->get('id');
@@ -637,7 +637,7 @@ $this->load->view("template",$data);
 }
 public function createshopproductphotosubmit() 
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->form_validation->set_rules("user","User","trim");
 //$this->form_validation->set_rules("photo","Photo","trim");
@@ -696,7 +696,7 @@ $this->load->view("redirect2",$data);
 }
 public function editshopproductphoto()
 {
-	$access=array("1");
+	$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="editshopproductphoto";
 $data['user']=$this->shopproductphoto_model->getuserdropdown();
@@ -708,7 +708,7 @@ $this->load->view("template",$data);
 }
 public function editshopproductphotosubmit()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->form_validation->set_rules("id","ID","trim");
 $this->form_validation->set_rules("user","User","trim");
@@ -780,7 +780,7 @@ $this->load->view("redirect2",$data);
 }
 public function deleteshopproductphoto()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->shopproductphoto_model->delete($this->input->get("prodid"));
 $data["redirect"]="site/viewshopproductphoto?id=".$this->input->get('id');
@@ -789,7 +789,7 @@ $this->load->view("redirect2",$data);
 
 public function viewshopphoto()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="viewshopphoto";
 $data['userid']=$this->input->get('id');
@@ -839,7 +839,7 @@ $this->load->view("json",$data);
 // 
 public function createshopphoto()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="createshopphoto";
 $data['user']=$this->shopproductphoto_model->getuserdropdown();
@@ -849,7 +849,7 @@ $this->load->view("template",$data);
 }
 public function createshopphotosubmit() 
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->form_validation->set_rules("user","User","trim");
 //$this->form_validation->set_rules("photo","Photo","trim");
@@ -912,7 +912,7 @@ $this->load->view("redirect2",$data);
 
 public function editshopphoto()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="editshopphoto";
 $data['user']=$this->shopproductphoto_model->getuserdropdown();
@@ -924,7 +924,7 @@ $this->load->view("template",$data);
 }
 public function editshopphotosubmit()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->form_validation->set_rules("id","ID","trim");
 $this->form_validation->set_rules("user","User","trim");
@@ -998,7 +998,7 @@ $this->load->view("redirect2",$data);
 }
 public function deleteshopphoto()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 //		   $data['userid']=$this->input->get('id');
 //        $data['shopphotoid']=$this->input->get('shopphotoid');
@@ -1011,7 +1011,7 @@ $this->load->view("redirect2",$data);
 	
 	public function viewusercategory()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="viewusercategory";
 $data['userid']=$this->input->get('id');
@@ -1070,7 +1070,7 @@ $this->load->view("json",$data);
 
 public function createusercategory()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="createusercategory";
 $data['user']=$this->shopproductphoto_model->getuserdropdown();
@@ -1081,7 +1081,7 @@ $this->load->view("template",$data);
 }
 public function createusercategorysubmit() 
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->form_validation->set_rules("user","User","trim");
 $this->form_validation->set_rules("category","Category","trim");
@@ -1110,7 +1110,7 @@ $this->load->view("redirect",$data);
 
 public function editusercategory()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="editusercategory";
 $data['user']=$this->shopproductphoto_model->getuserdropdown();
@@ -1123,7 +1123,7 @@ $this->load->view("template",$data);
 }
 public function editusercategorysubmit()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->form_validation->set_rules("id","ID","trim");
 $this->form_validation->set_rules("user","User","trim");
@@ -1155,7 +1155,7 @@ $this->load->view("redirect",$data);
 }
 public function deleteusercategory()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 //		   $data['userid']=$this->input->get('id');
 //        $data['shopphotoid']=$this->input->get('shopphotoid');
@@ -1166,7 +1166,7 @@ $this->load->view("redirect",$data);
 //	user_category ends------------------------------------------------------------------------------------------------------------------
 public function viewcategory()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="viewcategory";
 $data["base_url"]=site_url("site/viewcategoryjson");
@@ -1225,7 +1225,7 @@ $this->load->view("json",$data);
 
 public function createcategory()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="createcategory";
 $data[ 'status' ] =$this->user_model->getstatusdropdown();
@@ -1235,7 +1235,7 @@ $this->load->view("template",$data);
 }
 public function createcategorysubmit() 
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->form_validation->set_rules("order","Order","trim");
 $this->form_validation->set_rules("status","Status","trim");
@@ -1265,7 +1265,7 @@ $this->load->view("redirect",$data);
 }
 public function editcategory()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="editcategory";
 $data[ 'status' ] =$this->user_model->getstatusdropdown();
@@ -1276,7 +1276,7 @@ $this->load->view("template",$data);
 }
 public function editcategorysubmit()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->form_validation->set_rules("id","ID","trim");
 $this->form_validation->set_rules("order","Order","trim");
@@ -1309,7 +1309,7 @@ $this->load->view("redirect",$data);
 }
 public function deletecategory()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->category_model->delete($this->input->get("id"));
 $data["redirect"]="site/viewcategory";
@@ -1318,7 +1318,7 @@ $this->load->view("redirect",$data);
 	
 public function viewarea()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="viewarea";
 $data[ 'status' ] =$this->user_model->getstatusdropdown();
@@ -1369,7 +1369,7 @@ $this->load->view("json",$data);
 
 public function createarea()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data[ 'status' ] =$this->user_model->getstatusdropdown();
 $data["page"]="createarea";
@@ -1378,7 +1378,7 @@ $this->load->view("template",$data);
 }
 public function createareasubmit() 
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->form_validation->set_rules("order","Order","trim");
 $this->form_validation->set_rules("status","Status","trim");
@@ -1406,7 +1406,7 @@ $this->load->view("redirect",$data);
 }
 public function editarea()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data[ 'status' ] =$this->user_model->getstatusdropdown();
 $data["page"]="editarea";
@@ -1416,7 +1416,7 @@ $this->load->view("template",$data);
 }
 public function editareasubmit()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->form_validation->set_rules("id","ID","trim");
 $this->form_validation->set_rules("order","Order","trim");
@@ -1447,7 +1447,7 @@ $this->load->view("redirect",$data);
 }
 public function deletearea()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->area_model->delete($this->input->get("id"));
 $data["redirect"]="site/viewarea";
@@ -1459,7 +1459,7 @@ $this->load->view("redirect",$data);
 	
 	public function viewrequestadmin()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data['requeststatus']=$this->requeststatus_model->getrequeststatusdropdown();
 $data['userto']=$this->user_model->getuserdropdown();
@@ -1477,36 +1477,36 @@ $elements[0]->field="`osb_request`.`id`";
 $elements[0]->sort="1";
 $elements[0]->header="ID";
 $elements[0]->alias="id";
+	
 $elements[1]=new stdClass();
 $elements[1]->field="`tab2`.`name`";
 $elements[1]->sort="1";
 $elements[1]->header="Buyer";
 $elements[1]->alias="userfrom";
+	
 $elements[2]=new stdClass();
 $elements[2]->field="`tab1`.`name`";
 $elements[2]->sort="1";
 $elements[2]->header="Seller";
 $elements[2]->alias="userto";
+	
 $elements[3]=new stdClass();
 $elements[3]->field="`osb_request`.`requeststatus`";
 $elements[3]->sort="1";
 $elements[3]->header="Request Status";
 $elements[3]->alias="requeststatus";
+	
 $elements[4]=new stdClass();
 $elements[4]->field="`osb_request`.`amount`";
 $elements[4]->sort="1";
 $elements[4]->header="Amount";
 $elements[4]->alias="amount";
+
 $elements[5]=new stdClass();
-$elements[5]->field="`osb_request`.`reason`";
+$elements[5]->field="`osb_request`.`timestamp`";
 $elements[5]->sort="1";
-$elements[5]->header="Reason";
-$elements[5]->alias="reason";
-$elements[6]=new stdClass();
-$elements[6]->field="`osb_request`.`timestamp`";
-$elements[6]->sort="1";
-$elements[6]->header="Time stamp";
-$elements[6]->alias="timestamp";
+$elements[5]->header="Time stamp";
+$elements[5]->alias="timestamp";
 $search=$this->input->get_post("search");
 $pageno=$this->input->get_post("pageno");
 $orderby=$this->input->get_post("orderby");
@@ -1531,7 +1531,7 @@ $this->load->view("json",$data);
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 public function viewrequest()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data['requeststatus']=$this->requeststatus_model->getrequeststatusdropdown();
 $data['userto']=$this->user_model->getuserdropdown();
@@ -1599,7 +1599,7 @@ $this->load->view("json",$data);
 
 public function createrequest()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="createrequest";
 $data['requeststatus']=$this->requeststatus_model->getrequeststatusdropdown();
@@ -1610,7 +1610,7 @@ $this->load->view("template",$data);
 }
 public function createrequestsubmit() 
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->form_validation->set_rules("userfrom","User From","trim");
 $this->form_validation->set_rules("userto","User to","trim");
@@ -1648,7 +1648,7 @@ $this->load->view("redirect",$data);
 }
 public function editrequest()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="editrequest";
 $data['requeststatus']=$this->requeststatus_model->getrequeststatusdropdown();
@@ -1660,7 +1660,7 @@ $this->load->view("template",$data);
 }
 public function editrequestsubmit()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->form_validation->set_rules("id","ID","trim");
 $this->form_validation->set_rules("userfrom","User From","trim");
@@ -1705,7 +1705,7 @@ $this->load->view("redirect",$data);
 }
 public function deleterequest()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->request_model->delete($this->input->get("id"));
 $data["redirect"]="site/viewrequest";
@@ -1713,7 +1713,7 @@ $this->load->view("redirect",$data);
 }
 public function viewrequeststatus()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="viewrequeststatus";
 $data["base_url"]=site_url("site/viewrequeststatusjson");
@@ -1753,7 +1753,7 @@ $this->load->view("json",$data);
 
 public function createrequeststatus()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="createrequeststatus";
 $data["title"]="Create requeststatus";
@@ -1761,7 +1761,7 @@ $this->load->view("template",$data);
 }
 public function createrequeststatussubmit() 
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->form_validation->set_rules("name","Name","trim");
 if($this->form_validation->run()==FALSE)
@@ -1784,7 +1784,7 @@ $this->load->view("redirect",$data);
 }
 public function editrequeststatus()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="editrequeststatus";
 $data["title"]="Edit requeststatus";
@@ -1793,7 +1793,7 @@ $this->load->view("template",$data);
 }
 public function editrequeststatussubmit()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->form_validation->set_rules("id","ID","trim");
 $this->form_validation->set_rules("name","Name","trim");
@@ -1819,7 +1819,7 @@ $this->load->view("redirect",$data);
 }
 public function deleterequeststatus()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->requeststatus_model->delete($this->input->get("id"));
 $data["redirect"]="site/viewrequeststatus";
@@ -1827,7 +1827,7 @@ $this->load->view("redirect",$data);
 }
 public function viewtransaction()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="viewtransaction";
 $data["base_url"]=site_url("site/viewtransactionjson");
@@ -1913,7 +1913,7 @@ $this->load->view("json",$data);
 	
 	public function viewtransactionadmin()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="viewtransaction";
 $data["base_url"]=site_url("site/viewtransactionadminjson");
@@ -1998,7 +1998,7 @@ $this->load->view("json",$data);
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 public function createtransaction()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="createtransaction";
 $data['userto']=$this->user_model->getuserdropdown();
@@ -2009,7 +2009,7 @@ $this->load->view("template",$data);
 }
 public function createtransactionsubmit() 
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->form_validation->set_rules("userto","User to","trim");
 $this->form_validation->set_rules("userfrom","User From","trim");
@@ -2047,7 +2047,7 @@ $this->load->view("redirect",$data);
 }
 public function edittransaction()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="edittransaction";
 $data['userto']=$this->user_model->getuserdropdown();
@@ -2059,7 +2059,7 @@ $this->load->view("template",$data);
 }
 public function edittransactionsubmit()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->form_validation->set_rules("id","ID","trim");
 $this->form_validation->set_rules("userto","User to","trim");
@@ -2100,7 +2100,7 @@ $this->load->view("redirect",$data);
 }
 public function deletetransaction()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->transaction_model->delete($this->input->get("id"));
 $data["redirect"]="site/viewtransaction";
@@ -2108,7 +2108,7 @@ $this->load->view("redirect",$data);
 }
 public function viewtransactionstatus()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="viewtransactionstatus";
 $data["base_url"]=site_url("site/viewtransactionstatusjson");
@@ -2148,7 +2148,7 @@ $this->load->view("json",$data);
 
 public function createtransactionstatus()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="createtransactionstatus";
 $data["title"]="Create transactionstatus";
@@ -2156,7 +2156,7 @@ $this->load->view("template",$data);
 }
 public function createtransactionstatussubmit() 
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->form_validation->set_rules("name","Name","trim");
 if($this->form_validation->run()==FALSE)
@@ -2179,7 +2179,7 @@ $this->load->view("redirect",$data);
 }
 public function edittransactionstatus()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="edittransactionstatus";
 $data["title"]="Edit transactionstatus";
@@ -2188,7 +2188,7 @@ $this->load->view("template",$data);
 }
 public function edittransactionstatussubmit()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->form_validation->set_rules("id","ID","trim");
 $this->form_validation->set_rules("name","Name","trim");
@@ -2214,7 +2214,7 @@ $this->load->view("redirect",$data);
 }
 public function deletetransactionstatus()
 {
-$access=array("1");
+$access=array("1","2");
 $this->checkaccess($access);
 $this->transactionstatus_model->delete($this->input->get("id"));
 $data["redirect"]="site/viewtransactionstatus";
@@ -2228,7 +2228,7 @@ $this->load->view("redirect",$data);
     //product
     public function viewproduct()
     {
-        $access=array("1");
+        $access=array("1","2");
         $this->checkaccess($access);
         $data["page"]="viewproduct";
         $data["base_url"]=site_url("site/viewproductjson");
@@ -2296,7 +2296,7 @@ $this->load->view("redirect",$data);
 
 	public function createproduct()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$data[ 'status' ] =$this->product_model->getstatusdropdown();
 		$data[ 'user' ] =$this->user_model->getuserdropdown();
@@ -2308,7 +2308,7 @@ $this->load->view("redirect",$data);
 	}
 	function createproductsubmit()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$this->form_validation->set_rules('name','Name','trim|required');
 		$this->form_validation->set_rules('sku','sku','trim|');
@@ -2387,7 +2387,7 @@ $this->load->view("redirect",$data);
     
 //	function viewproduct()
 //	{
-//		$access = array("1");
+//		$access = array("1","2");
 //		$this->checkaccess($access);
 //        $data['table']=$this->product_model->viewproduct();
 //		$data['page']='viewproduct';
@@ -2397,7 +2397,7 @@ $this->load->view("redirect",$data);
 
 	function editproduct()
 	{
-		$access = array("5","1");
+		$access = array("2","1");
 		$this->checkaccess($access);
 		$data[ 'user' ] =$this->user_model->getuserdropdown();
 		$data['before']=$this->product_model->beforeeditproduct($this->input->get('id'));
@@ -2498,7 +2498,7 @@ $this->load->view("redirect",$data);
 	}
 	function deleteproduct()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$this->product_model->deleteproduct($this->input->get('id'));
 		$data['table']=$this->product_model->viewproduct();
@@ -2514,7 +2514,7 @@ $this->load->view("redirect",$data);
     
 	function viewproductimages()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$data['table']=$this->product_model->viewproductimages($this->input->get('id'));
 //		$data['before']=$this->product_model->beforeedit($this->input->get('id'));
@@ -2527,7 +2527,7 @@ $this->load->view("redirect",$data);
     
 	public function createproductimages()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$data['product']=$this->input->get('id');
 //        $data['before']=$this->product_model->beforeedit($this->input->get('id'));
@@ -2541,14 +2541,14 @@ $this->load->view("redirect",$data);
     
 	function createproductimagessubmit()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$this->form_validation->set_rules('order','order','trim');
 		
 		if($this->form_validation->run() == FALSE)	
 		{
 			$data['alerterror'] = validation_errors();
-			$access = array("1");
+			$access = array("1","2");
             $this->checkaccess($access);
             $data['product']=$this->input->get('id');
             $data['before']=$this->product_model->beforeeditproduct($this->input->get_post('id'));
@@ -2585,7 +2585,7 @@ $this->load->view("redirect",$data);
     
 	public function editproductimages()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$data['product']=$this->input->get('productid');
 //        $data['before']=$this->product_model->beforeedit($this->input->get('productid'));
@@ -2600,7 +2600,7 @@ $this->load->view("redirect",$data);
     
 	function editproductimagessubmit()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$this->form_validation->set_rules('order','order','trim');
         
@@ -2655,7 +2655,7 @@ $this->load->view("redirect",$data);
     
 	function deleteproductimages()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$this->product_model->deleteproductimages($this->input->get('id'));
         $product=$this->input->get('productid');
@@ -2682,7 +2682,7 @@ $this->load->view("redirect",$data);
     
     public function vieworder()
     {
-        $access=array("1");
+        $access=array("1","2");
         $this->checkaccess($access);
         $data["page"]="vieworder";
         $data["base_url"]=site_url("site/vieworderjson");
@@ -2762,7 +2762,7 @@ $this->load->view("redirect",$data);
 
     function createorder()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		//$data[ 'category' ] =$this->order_model->getcategorydropdown();
 		$data[ 'user' ] =$this->order_model->getuser();
@@ -2776,7 +2776,7 @@ $this->load->view("redirect",$data);
 	}
 	function createordersubmit()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$this->form_validation->set_rules('orderstatus','orderstatus','trim|');
 		$this->form_validation->set_rules('firstname','Firstname','trim');
@@ -2843,7 +2843,7 @@ $this->load->view("redirect",$data);
     
 	function editorder()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		//$data[ 'category' ] =$this->order_model->getcategorydropdown();
 		$data[ 'user' ] =$this->order_model->getuser();
@@ -2857,7 +2857,7 @@ $this->load->view("redirect",$data);
 	}
 	function editordersubmit()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$this->form_validation->set_rules('orderstatus','orderstatus','trim|');
 		$this->form_validation->set_rules('firstname','Firstname','trim');
@@ -2942,7 +2942,7 @@ $this->load->view("redirect",$data);
     
 	function vieworderitems()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 //		$data[ 'category' ] =$this->category_model->getcategorydropdown();
 		$data[ 'table' ] =$this->order_model->getorderitem($this->input->get('id'));
@@ -2958,7 +2958,7 @@ $this->load->view("redirect",$data);
         
     public function createorderitems()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
         $id=$this->input->get('id');
 		$data['order']=$this->order_model->getorderitem($this->input->get('id'));
@@ -2972,7 +2972,7 @@ $this->load->view("redirect",$data);
 	}
     function createorderitemsubmit()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$this->form_validation->set_rules('product','Product','trim|');
 		$this->form_validation->set_rules('price','Price','trim');
@@ -3019,7 +3019,7 @@ $this->load->view("redirect",$data);
     
     function editorderitem()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
         $id=$this->input->get('id');
 		$data['order']=$this->order_model->getorderitem($this->input->get('order'));
@@ -3034,7 +3034,7 @@ $this->load->view("redirect",$data);
 	}
     function editorderitemsubmit()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$this->form_validation->set_rules('product','Product','trim|');
 		$this->form_validation->set_rules('price','Price','trim');
@@ -3081,7 +3081,7 @@ $this->load->view("redirect",$data);
     
     function deleteorderitem()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
         $order=$this->input->get('order');
 		$this->order_model->deleteorderitem($this->input->get('id'));
@@ -3096,7 +3096,7 @@ $this->load->view("redirect",$data);
 	
 	public function viewnotification()
     {
-        $access=array("1");
+        $access=array("1","2");
         $this->checkaccess($access);
         $data["page"]="viewnotification";
         $data[ 'user' ] =$this->user_model->getuserdropdown();
@@ -3153,7 +3153,7 @@ $this->load->view("redirect",$data);
 
     public function createnotification()
     {
-        $access=array("1");
+        $access=array("1","2");
         $this->checkaccess($access);
         $data[ 'user' ] =$this->user_model->getuserdropdown();
         $data[ 'type' ] =$this->notification_model->gettypedropdown();
@@ -3163,7 +3163,7 @@ $this->load->view("redirect",$data);
     }
     public function createnotificationsubmit() 
     {
-        $access=array("1");
+        $access=array("1","2");
         $this->checkaccess($access);
         $this->form_validation->set_rules("type","Type","trim");
         $this->form_validation->set_rules("message","Message","trim");
@@ -3191,7 +3191,7 @@ $this->load->view("redirect",$data);
     }
     public function editnotification()
     {
-        $access=array("1");
+        $access=array("1","2");
         $this->checkaccess($access);
         $data[ 'user' ] =$this->user_model->getuserdropdown();
         $data[ 'type' ] =$this->notification_model->gettypedropdown();
@@ -3202,7 +3202,7 @@ $this->load->view("redirect",$data);
     }
     public function editnotificationsubmit()
     {
-        $access=array("1");
+        $access=array("1","2");
         $this->checkaccess($access);
         $this->form_validation->set_rules("id","ID","trim");
         $this->form_validation->set_rules("type","Type","trim");
@@ -3234,7 +3234,7 @@ $this->load->view("redirect",$data);
     }
     public function deletenotification()
     {
-        $access=array("1");
+        $access=array("1","2");
         $this->checkaccess($access);
         $this->notification_model->delete($this->input->get("id"));
         $data["redirect"]="site/viewnotification";
@@ -3247,7 +3247,7 @@ $this->load->view("redirect",$data);
 	
 	public function createregister()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$data[ 'status' ] =$this->register_model->getregisterdropdown();
 		$data[ 'page' ] = 'createregister';
@@ -3256,7 +3256,7 @@ $this->load->view("redirect",$data);
 	}
 	function createregistersubmit()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$this->form_validation->set_rules('name','Name','trim|required|max_length[30]');
 		$this->form_validation->set_rules('email','Email','trim|required|valid_email|is_unique[user.email]');
@@ -3298,7 +3298,7 @@ $this->load->view("redirect",$data);
 	
     function viewregister()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$data['page']='viewregister';
         $data['base_url'] = site_url("site/viewregisterjson");
@@ -3308,7 +3308,7 @@ $this->load->view("redirect",$data);
 	} 
     function viewregisterjson()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
         
         
@@ -3368,7 +3368,7 @@ $this->load->view("redirect",$data);
     
 	function editregister()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$data["page2"]="block/userblock";
 		$data[ 'status' ] =$this->register_model->getregisterdropdown();
@@ -3379,7 +3379,7 @@ $this->load->view("redirect",$data);
 	}
 	function editregistersubmit()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		
 		$this->form_validation->set_rules('name','Name','trim|required|max_length[30]');
@@ -3417,7 +3417,7 @@ $this->load->view("redirect",$data);
 	
 	function deleteregister()
 	{
-		$access = array("1");
+		$access = array("1","2");
 		$this->checkaccess($access);
 		$this->register_model->deleteregister($this->input->get('id'));
 //		$data['table']=$this->user_model->viewusers();
@@ -3428,7 +3428,7 @@ $this->load->view("redirect",$data);
 	// SUGGESTIONS STARTS
 	public function viewsuggestion()
     {
-        $access=array("1");
+        $access=array("1","2");
         $this->checkaccess($access);
         $data["page"]="viewsuggestion";
         $data[ 'user' ] =$this->user_model->getuserdropdown();
@@ -3477,7 +3477,7 @@ $this->load->view("redirect",$data);
 
     public function createsuggestion()
     {
-        $access=array("1");
+        $access=array("1","2");
         $this->checkaccess($access);
         $data[ 'user' ] =$this->user_model->getuserdropdown();
         $data["page"]="createsuggestion";
@@ -3486,7 +3486,7 @@ $this->load->view("redirect",$data);
     }
     public function createsuggestionsubmit() 
     {
-        $access=array("1");
+        $access=array("1","2");
         $this->checkaccess($access);
         $this->form_validation->set_rules("message","Message","trim");
         if($this->form_validation->run()==FALSE)
@@ -3511,7 +3511,7 @@ $this->load->view("redirect",$data);
     }
     public function editsuggestion()
     {
-        $access=array("1");
+        $access=array("1","2");
         $this->checkaccess($access);
         $data[ 'user' ] =$this->user_model->getuserdropdown();
         $data["page"]="editsuggestion";
@@ -3521,7 +3521,7 @@ $this->load->view("redirect",$data);
     }
     public function editsuggestionsubmit()
     {
-        $access=array("1");
+        $access=array("1","2");
         $this->checkaccess($access);
         $this->form_validation->set_rules("id","ID","trim");
         $this->form_validation->set_rules("message","Message","trim");
@@ -3550,7 +3550,7 @@ $this->load->view("redirect",$data);
     }
     public function deletesuggestion()
     {
-        $access=array("1");
+        $access=array("1","2");
         $this->checkaccess($access);
         $this->suggestion_model->delete($this->input->get("id"));
         $data["redirect"]="site/viewsuggestion";

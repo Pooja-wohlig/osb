@@ -39,8 +39,22 @@ class restapi_model extends CI_Model {
 		$query2= $this->db->query("SELECT `userfrom` from `osb_transaction` WHERE `userfrom`='$user'")->row();
 		$saleid=$query2->userfrom;
 		    $query['totalsales'] = $this->db->query("SELECT `salesbalance` FROM `user` WHERE `id`='$saleid'")->row();	
-        $query['purchased'] = $this->db->query("SELECT `user`.`shoplogo`,`user`.`purchasebalance`,`user`.`shopname`,`osb_transaction`.`amount`,`osb_transaction`.`id`,DATE(`osb_transaction`.`timestamp`) AS `date`,DATE_FORMAT(STR_TO_DATE(`osb_transaction`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `time` FROM `user` LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userfrom`=`user`.`id` WHERE `osb_transaction`.`userfrom`!=1 AND `osb_transaction`.`userto`='$user'")->result();
-        $query['sales'] = $this->db->query("SELECT `user`.`shoplogo`,`user`.`salesbalance`,`osb_transaction`.`id`,`user`.`shopname`,`osb_transaction`.`amount`,DATE(`osb_transaction`.`timestamp`) AS `date`,DATE_FORMAT(STR_TO_DATE(`osb_transaction`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `time` FROM `user` LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userto`=`user`.`id` WHERE `osb_transaction`.`userto`!=1 AND `osb_transaction`.`userfrom`='$user'")->result();
+		// this is sale
+        $query['purchased'] = $this->db->query("SELECT `user`.`shoplogo`,`user`.`purchasebalance`,`user`.`shopname`,`osb_transaction`.`amount`,`osb_transaction`.`reason`,`osb_transaction`.`id`,DATE(`osb_transaction`.`timestamp`) AS `date`,DATE_FORMAT(STR_TO_DATE(`osb_transaction`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `time`,`order`.`name`,`order`.`email` as `email1`,`orderitems`.`product`,`orderitems`.`quantity`,`orderitems`.`price`,`orderitems`.`finalprice`,`product`.`name`,`product`.`image`,`user`.`personalcontact`,`order`.`billingaddress`,DATE(`order`.`timestamp`) AS `orderdate`,DATE_FORMAT(STR_TO_DATE(`order`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `ordertime` FROM `user` 
+LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userfrom`=`user`.`id` 
+LEFT OUTER JOIN `order` ON `order`.`id`=`osb_transaction`.`orderid` 
+LEFT OUTER JOIN `orderitems` ON `orderitems`.`order`=`order`.`id` 
+LEFT OUTER JOIN `product` ON `product`.`id`=`orderitems`.`product`
+WHERE `osb_transaction`.`userfrom`!=1 AND `osb_transaction`.`userto`='$user'
+ORDER BY `osb_transaction`.`id` DESC")->result();
+		// this is purchase
+        $query['sales'] = $this->db->query("SELECT `user`.`shoplogo`,`user`.`salesbalance`,`osb_transaction`.`id`,`user`.`shopname`,`osb_transaction`.`amount`,`osb_transaction`.`reason`,DATE(`osb_transaction`.`timestamp`) AS `date`,DATE_FORMAT(STR_TO_DATE(`osb_transaction`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `time`,`order`.`name`,`order`.`email`,`orderitems`.`product`,`orderitems`.`quantity`,`orderitems`.`price`,`orderitems`.`finalprice`,`product`.`name`,`product`.`image`,`user`.`personalcontact`,`user`.`billingaddress`,`user`.`email` as `email1`,DATE_FORMAT(STR_TO_DATE(`order`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `ordertime`,DATE(`order`.`timestamp`) AS `orderdate` FROM `user` 
+LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userto`=`user`.`id` 
+LEFT OUTER JOIN `order` ON `order`.`id`=`osb_transaction`.`orderid` 
+LEFT OUTER JOIN `orderitems` ON `orderitems`.`order`=`order`.`id`
+LEFT OUTER JOIN `product` ON `product`.`id`=`orderitems`.`product`
+WHERE `osb_transaction`.`userto`!=1 AND `osb_transaction`.`userfrom`='$user'
+ORDER BY `osb_transaction`.`id` DESC")->result();
         $query['admin'] = $this->db->query("SELECT `osb_transaction`.`id`,`osb_transaction`. `userto`,`osb_transaction`. `userfrom`,`osb_transaction`. `reason`,`osb_transaction`. `amount`,`osb_transaction`. `payableamount`,DATE(`osb_transaction`.`timestamp`) AS `date`,DATE_FORMAT(STR_TO_DATE(`osb_transaction`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `time`,`osb_transaction`. `requestid` ,`osb_request`.`approvalreason` FROM `osb_transaction` LEFT OUTER JOIN `osb_request` ON `osb_transaction`.`requestid`=`osb_request`.`id` WHERE `osb_transaction`.`userfrom`=1 AND `osb_transaction`.`userto`='$user'")->result();
         $query['transaction'] = $this->db->query("SELECT `osb_transaction`.`id`, `osb_transaction`.`userto`,SUM(`osb_transaction`.`payableamount`) AS `totaltransaction`
 FROM `osb_transaction` 
@@ -62,7 +76,8 @@ public function sellingapproval($user) {
             $userfrom = $query->userfrom;
             $userto = $query->userto;
             $amount = $query->amount;
-            $data = array("userfrom" => $userfrom, "userto" => $userto, "amount" => $amount);
+				
+            $data = array("userfrom" => $userfrom, "userto" => $userto, "amount" => $amount, "reason" =>$reason);
             $query = $this->db->insert("osb_transaction", $data);
             $id = $this->db->insert_id();
             $query=$this->db->query("UPDATE `user` SET `user`.`purchasebalance`=`user`.`purchasebalance`-$amount WHERE `user`.`id`= '$userfrom'" );
@@ -248,6 +263,7 @@ $query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku
 	public function buyproduct($userid,$productid,$quantity,$name,$email,$contactno,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$logisticcharge,$sameas)
     {
         $getproductdetails=$this->db->query("SELECT * FROM `product` WHERE `id`='$productid'")->row();
+		$user=$getproductdetails->user;
         $price=$getproductdetails->price;
         $oldquantity=$getproductdetails->quantity;
         $finalprice=$price*$quantity;
@@ -277,8 +293,20 @@ $query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku
                 'finalprice' => $finalprice
             );
             $query=$this->db->insert( 'orderitems', $data );
+			// TRANSACTION
+			
+			 $data1  = array(
+                'userfrom' => $userid,
+                'userto' => $user,
+                'reason' => "ORDER ID: ".$order,
+                'amount' => $finalprice,
+                'orderid' => $order
+            );
+            $query=$this->db->insert( 'osb_transaction', $data1 );
+			
             $updateuserpurchasebalance=$this->db->query("UPDATE `user` SET `purchasebalance`='$newpurchasebalance' WHERE `id`='$userid'");
             $updateproductquantity=$this->db->query("UPDATE `product` SET `quantity`='$newproductquantity' WHERE `id`='$productid'");
+			
     //        $id=$this->db->insert_id();
             if(!$query)
                 return  0;
@@ -761,7 +789,7 @@ return  $id;
 		return $query;
 	}
 	public function getnotification($user){
-		$query=$this->db->query("SELECT `id`, `user`, `type`, DATE(`timestamp`) as `date`, `message` FROM `notification` WHERE `user`='$user' ORDER BY `id` DESC ")->result();
+		$query=$this->db->query("SELECT `id`, `user`, `type`, DATE(`timestamp`) as `date`,DATE_FORMAT(STR_TO_DATE(`notification`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i') as `time`, `message` FROM `notification` WHERE `user`='$user' ORDER BY `id` DESC ")->result();
 		return $query;
 	}
 	public function addproductimage($id,$imagename) {
@@ -776,6 +804,15 @@ return  $id;
 	public function isnewuserchangestatus($user){
 	$query=$this->db->query("UPDATE `user` SET `onlinestatus`=0 WHERE `id`='$user'" );
 		return 1;
+	}
+	public function submitsuggestion($user,$message){
+	$data=array("user" => $user,"message" => $message);
+$query=$this->db->insert( "suggestion", $data );
+$id=$this->db->insert_id();
+if(!$query)
+return  0;
+else
+return  $id;
 	}
 }
 ?>

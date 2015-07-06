@@ -1483,4 +1483,10 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
 		$data['message']=$this->restapi_model->isnewuserchangestatus($user);
 		$this->load->view('json',$data);
  }
+ public function submitsuggestion(){
+	 $user=$this->input->get("user");
+	 $message=$this->input->get("suggestion");
+		$data['message']=$this->restapi_model->submitsuggestion($user,$message);
+		$this->load->view('json',$data);
+ }
 } ?>

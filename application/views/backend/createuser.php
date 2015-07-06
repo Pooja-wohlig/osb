@@ -182,6 +182,11 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
 					<input type="email" id="normal-field" class="form-control" name="shopemail" value="<?php echo set_value('shopemail');?>">
 				  </div>
 				</div>
+				<?php
+					$accesslevel=$this->session->userdata('accesslevel');
+				  if($accesslevel==1)
+				  {
+				  ?>
 					<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">Purchase Balance</label>
 				  <div class="col-sm-4">
@@ -194,6 +199,8 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
 					<input type="text" id="normal-field" class="form-control" name="salesbalance" value="<?php echo set_value('salesbalance');?>">
 				  </div>
 				</div>
+				<?php }
+				  ?>
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">Shop Logo</label>
 				  <div class="col-sm-4">

@@ -14,7 +14,7 @@ class User_model extends CI_Model
 		$row =$this->db->query( $query );
 		if ( $row->num_rows() > 0 ) {
 			$row=$row->row();
-			$this->id       = $row->id;
+			$this->id = $row->id;
 			$this->name = $row->name;
 			$this->email = $row->email;
 			$newdata        = array(
