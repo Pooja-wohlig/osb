@@ -17,7 +17,7 @@ class restapi_model extends CI_Model {
         return $query;
     }
     public function shopprofilemem($mem) {
-        $query = $this->db->query("SELECT `id` FROM `user` WHERE `membershipno`='$mem' AND `shopstatus`!=0")->row();
+        $query = $this->db->query("SELECT `id` FROM `user` WHERE `membershipno`='$mem'")->row();
         return $query;
     }
     public function yourbalance($user) {
@@ -592,7 +592,7 @@ WHERE `orderitems`.`order`='$orderid'")->result();
         FROM `user` 
         LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` 
         LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` 
-        WHERE $areaquery AND $categoryquery AND $onlinequery AND `user`.`shopstatus`!=0 AND`user`.`salesbalance` > 0 ORDER BY `user`.`salesbalance` DESC")->result();
+        WHERE $areaquery AND $categoryquery AND $onlinequery AND`user`.`salesbalance` > 0 ORDER BY `user`.`salesbalance` DESC")->result();
         return $query;
     }
     
