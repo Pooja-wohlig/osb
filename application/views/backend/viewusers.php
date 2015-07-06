@@ -23,7 +23,7 @@
 <!--                        <th data-field="socialid">Socialid</th>-->
 <!--                        <th data-field="logintype">logintype</th>-->
 <!--                        <th data-field="json">json</th>-->
-<!--                        <th data-field="accesslevelname">accesslevel</th>-->
+                        <th data-field="accesslevelname">accesslevel</th>
 <!--                        <th data-field="status">status</th>-->
                         <th data-field="shopname">shopname</th>
                         <th data-field="membershipno">membershipno</th>
@@ -63,7 +63,7 @@
                 {
                     resultrow.json="";
                 }
-                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.name + "</td><td>" + resultrow.email + "</td><td>" + resultrow.shopname + "</td><td>" + resultrow.membershipno + "</td><td>" + resultrow.purchasebalance + "</td><td>" + resultrow.salesbalance + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/edituser?id=');?>"+resultrow.id +"'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' onclick=\"return confirm('Are you sure you want to delete?');\" href='<?php echo site_url('site/deleteuser?id='); ?>"+resultrow.id +"'><i class='icon-trash '></i></a></td><tr>";
+                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.name + "</td><td>" + resultrow.email + "</td><td>" + resultrow.accesslevelname + "</td><td>" + resultrow.shopname + "</td><td>" + resultrow.membershipno + "</td><td>" + resultrow.purchasebalance + "</td><td>" + resultrow.salesbalance + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/edituser?id=');?>"+resultrow.id +"'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' onclick=\"return confirm('Are you sure you want to delete?');\" href='<?php echo site_url('site/deleteuser?id='); ?>"+resultrow.id +"'><i class='icon-trash '></i></a></td><tr>";
             }
             generatejquery('<?php echo $base_url;?>');
         </script>

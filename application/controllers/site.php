@@ -243,10 +243,10 @@ class Site extends CI_Controller
         $elements[2]->alias="email";
         
         $elements[3]=new stdClass();
-        $elements[3]->field="`user`.`socialid`";
+        $elements[3]->field="`user`.`accesslevel`";
         $elements[3]->sort="1";
-        $elements[3]->header="SocialId";
-        $elements[3]->alias="socialid";
+        $elements[3]->header="Accesslevel";
+        $elements[3]->alias="accesslevel";
         
         $elements[4]=new stdClass();
         $elements[4]->field="`logintype`.`name`";
@@ -1481,13 +1481,13 @@ $elements[0]->alias="id";
 $elements[1]=new stdClass();
 $elements[1]->field="`tab2`.`name`";
 $elements[1]->sort="1";
-$elements[1]->header="Buyer";
+$elements[1]->header="Seller";
 $elements[1]->alias="userfrom";
 	
 $elements[2]=new stdClass();
 $elements[2]->field="`tab1`.`name`";
 $elements[2]->sort="1";
-$elements[2]->header="Seller";
+$elements[2]->header="Buyer";
 $elements[2]->alias="userto";
 	
 $elements[3]=new stdClass();
