@@ -1478,6 +1478,13 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
 		$data['message']=$this->restapi_model->isnewuser($user);
 		$this->load->view('json',$data);
  }
+ 
+ public function sendnotification () {
+    $data["message"]=$this->user_model->sendnotification($this->input->get('content'),$this->input->get("user"));
+     $this->load->view("json",$data);
+ }
+ 
+ 
  public function isnewuserstatuschange(){
 	 $user=$this->input->get("user");
 		$data['message']=$this->restapi_model->isnewuserchangestatus($user);
@@ -1537,4 +1544,4 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         
     }
     }
-} ?>
+} 
