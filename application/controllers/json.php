@@ -1517,7 +1517,8 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
 
       <body>
     <div style='text-align:center;   width: 50%; margin: 0 auto;'>
-        <h4 style='font-size:1.5em;padding-bottom: 5px;color: #e82a96;'>Your password is:</h4>
+        <h4 style='font-size:1.5em;padding-bottom: 5px;color: #e82a96;'>One Stop Barter</h4>
+        <p style='font-size: 1em;padding-bottom: 10px;'>Your password is:</p>
         <p style='font-size: 1em;padding-bottom: 10px;'>$randompassword</p>
     </div>
     <div style='text-align:center;position: relative;'>
