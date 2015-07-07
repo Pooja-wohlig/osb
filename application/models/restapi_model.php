@@ -83,10 +83,12 @@ public function sellingapproval($user) {
             $query=$this->db->query("UPDATE `user` SET `user`.`purchasebalance`=`user`.`purchasebalance`-$amount WHERE `user`.`id`= '$userfrom'" );
             $query=$this->db->query("UPDATE `user` SET `user`.`salesbalance`=`user`.`salesbalance`-$amount WHERE `user`.`id`= '$userto'" );
             $this->user_model->sendnotification("Your Purchase Request for Amount: $amount is accepted",$userfrom);
+			$query1=$this->db->query("SELECT `salesbalance` FROM `user` WHERE id='$userto'" )->row();
+			$salesbalance=$query1->salesbalance;
 //			$message="You have a new Purchase Request for Amount: ".$amount;
 			$message="Your Purchase Request for Amount:" .$amount. "is accepted";
 		    $this->user_model->addnotificationtodb($message,$userfrom);
-			if($query->salesbalance<1000){
+			if($salesbalance<1000){
 			  $this->user_model->sendnotification("Your Sell balance is too low please recharge your Account!!!",$userfrom);
 			 $message="Your Sell balance is too low please recharge your Account!!!";
 		     $this->user_model->addnotificationtodb($message,$userfrom);
