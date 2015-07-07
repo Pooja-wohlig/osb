@@ -17,7 +17,7 @@ class restapi_model extends CI_Model {
         return $query;
     }
     public function shopprofilemem($mem) {
-        $query = $this->db->query("SELECT `id` FROM `user` WHERE `membershipno`='$mem'")->row();
+        $query = $this->db->query("SELECT `id` FROM `user` WHERE `membershipno`='$mem' AND `shopstatus`!=0")->row();
         return $query;
     }
     public function yourbalance($user) {
@@ -40,7 +40,7 @@ class restapi_model extends CI_Model {
 		$saleid=$query2->userfrom;
 		    $query['totalsales'] = $this->db->query("SELECT `salesbalance` FROM `user` WHERE `id`='$saleid'")->row();	
 		// this is sale
-        $query['purchased'] = $this->db->query("SELECT `user`.`shoplogo`,`user`.`purchasebalance`,`user`.`shopname`,`osb_transaction`.`amount`,`osb_transaction`.`reason`,`osb_transaction`.`id`,DATE(`osb_transaction`.`timestamp`) AS `date`,DATE_FORMAT(STR_TO_DATE(`osb_transaction`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `time`,`order`.`name`,`order`.`email` as `email1`,`orderitems`.`product`,`orderitems`.`quantity`,`orderitems`.`price`,`orderitems`.`finalprice`,`product`.`name`,`product`.`image`,`user`.`personalcontact`,`order`.`billingaddress`,DATE(`order`.`timestamp`) AS `orderdate`,DATE_FORMAT(STR_TO_DATE(`order`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `ordertime` FROM `user` 
+        $query['purchased'] = $this->db->query("SELECT `user`.`shoplogo`,`user`.`purchasebalance`,`user`.`shopname`,`osb_transaction`.`amount`,`osb_transaction`.`reason`,`osb_transaction`.`id`,DATE(`osb_transaction`.`timestamp`) AS `date`,DATE_FORMAT(STR_TO_DATE(`osb_transaction`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `time`,`order`.`name`,`user`.`shopemail` as `email1`,`orderitems`.`product`,`orderitems`.`quantity`,`orderitems`.`price`,`orderitems`.`finalprice`,`product`.`name`,`product`.`image`,`user`.`shopcontact1` as `personalcontact`,`user`.`billingaddress` as `address`,DATE(`order`.`timestamp`) AS `orderdate`,DATE_FORMAT(STR_TO_DATE(`order`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `ordertime` FROM `user` 
 LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userfrom`=`user`.`id` 
 LEFT OUTER JOIN `order` ON `order`.`id`=`osb_transaction`.`orderid` 
 LEFT OUTER JOIN `orderitems` ON `orderitems`.`order`=`order`.`id` 
@@ -48,7 +48,7 @@ LEFT OUTER JOIN `product` ON `product`.`id`=`orderitems`.`product`
 WHERE `osb_transaction`.`userfrom`!=1 AND `osb_transaction`.`userto`='$user'
 ORDER BY `osb_transaction`.`id` DESC")->result();
 		// this is purchase
-        $query['sales'] = $this->db->query("SELECT `user`.`shoplogo`,`user`.`salesbalance`,`osb_transaction`.`id`,`user`.`shopname`,`osb_transaction`.`amount`,`osb_transaction`.`reason`,DATE(`osb_transaction`.`timestamp`) AS `date`,DATE_FORMAT(STR_TO_DATE(`osb_transaction`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `time`,`order`.`name`,`order`.`email`,`orderitems`.`product`,`orderitems`.`quantity`,`orderitems`.`price`,`orderitems`.`finalprice`,`product`.`name`,`product`.`image`,`user`.`personalcontact`,`user`.`billingaddress`,`user`.`email` as `email1`,DATE_FORMAT(STR_TO_DATE(`order`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `ordertime`,DATE(`order`.`timestamp`) AS `orderdate` FROM `user` 
+        $query['sales'] = $this->db->query("SELECT `user`.`shoplogo`,`user`.`salesbalance`,`osb_transaction`.`id`,`user`.`shopname`,`osb_transaction`.`amount`,`osb_transaction`.`reason`,DATE(`osb_transaction`.`timestamp`) AS `date`,DATE_FORMAT(STR_TO_DATE(`osb_transaction`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `time`,`order`.`name`,`order`.`email`,`orderitems`.`product`,`orderitems`.`quantity`,`orderitems`.`price`,`orderitems`.`finalprice`,`product`.`name`,`product`.`image`,`user`.`shopcontact1` as `personalcontact`,`user`.`billingaddress` as `address`,`user`.`shopemail` as `email1`,DATE_FORMAT(STR_TO_DATE(`order`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `ordertime`,DATE(`order`.`timestamp`) AS `orderdate` FROM `user` 
 LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userto`=`user`.`id` 
 LEFT OUTER JOIN `order` ON `order`.`id`=`osb_transaction`.`orderid` 
 LEFT OUTER JOIN `orderitems` ON `orderitems`.`order`=`order`.`id`
@@ -620,7 +620,7 @@ WHERE `orderitems`.`order`='$orderid'")->result();
         FROM `user` 
         LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` 
         LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` 
-        WHERE $areaquery AND $categoryquery AND $onlinequery AND`user`.`salesbalance` > 0 ORDER BY `user`.`salesbalance` DESC")->result();
+        WHERE $areaquery AND $categoryquery AND $onlinequery AND `user`.`shopstatus`!=0 AND `user`.`salesbalance` > 0 ORDER BY `user`.`salesbalance` DESC")->result();
         return $query;
     }
     

@@ -17,6 +17,7 @@ User Category Details
 <th data-field="id">ID</th>
 <th data-field="user">User</th>
 <th data-field="category">Category</th>
+<th data-field="action">Actions</th>
 </tr>
 </thead>
 <tbody>
