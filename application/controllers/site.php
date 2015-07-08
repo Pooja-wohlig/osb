@@ -3556,6 +3556,10 @@ $this->load->view("redirect",$data);
         $data["redirect"]="site/viewsuggestion";
         $this->load->view("redirect",$data);
     }
-    
+    public function exportexcelreport()
+    {
+		$this->user_model->exportexcelreport();
+            
+    }
 }
 ?>

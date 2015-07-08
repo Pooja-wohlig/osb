@@ -707,5 +707,27 @@ public function sendnotification($content, $user) {
 		else
 			return  1;
     }
+	function exportexcelreport()
+		{
+			$this->load->dbutil();
+			$query=$this->db->query("SELECT `osb_transaction`.`id` AS `id` , `tab1`.`name` AS `Seller` , `tab2`.`name` AS `Buyer` , `osb_transaction`.`reason` AS `reason` , `osb_transaction`.`amount` AS `Cash Amount` , `osb_transaction`.`payableamount` AS `Barter Amount` , `osb_transaction`.`timestamp` AS `timestamp` FROM `osb_transaction` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_transaction`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_transaction`.`userfrom` WHERE `osb_transaction`.`userfrom`!=1");
+
+		   $content= $this->dbutil->csv_from_result($query);
+			$timestamp=new DateTime();
+			$timestamp=$timestamp->format('Y-m-d_H.i.s');
+			//$data = 'Some file data';
+
+			if ( ! write_file("./uploads/transactionreport_$timestamp.csv", $content))
+			{
+				 echo 'Unable to write the file';
+			}
+			else
+			{
+				redirect(base_url("uploads/transactionreport_$timestamp.csv"), 'refresh');
+				 echo 'File written!';
+			}
+	//        file_put_contents("gs://toykraftdealer/retailerfilefromdashboard_$timestamp.csv", $content);
+	//		redirect("http://admin.toy-kraft.com/servepublic?name=retailerfilefromdashboard_$timestamp.csv", 'refresh');
+		}
 }
 ?>

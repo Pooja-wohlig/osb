@@ -6,6 +6,7 @@
 <div class="row">
 <div class="col-lg-12">
 <section class="panel">
+<a class="btn btn-default btn-labeled fa fa-plus margined pull-right" href="<?php echo site_url("site/exportexcelreport"); ?>">Export CSV</a>
 <header class="panel-heading">
 Transaction Details
 </header>
@@ -20,7 +21,7 @@ Transaction Details
 <!--<th data-field="transactionstatus">Transaction Status</th>-->
 <!--<th data-field="reason">Reason</th>-->
 <th data-field="amount">Amount</th>
-<!--<th data-field="payableamount">Payable Amount</th>-->
+<th data-field="payableamount">Payable Amount</th>
 <th data-field="timestamp">Time stamp</th>
 <th data-field="action">Actions</th>
 </tr>
@@ -33,7 +34,7 @@ Transaction Details
 </section>
 <script>
 function drawtable(resultrow) {
-return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.userto + "</td><td>" + resultrow.userfrom + "</td><td>" + resultrow.amount + "</td><td>" + resultrow.timestamp + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/edittransaction?id=');?>"+resultrow.id+"'><i class='icon-pencil'></i></a></td></tr>";
+return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.userto + "</td><td>" + resultrow.userfrom + "</td><td>" + resultrow.amount + "</td><td>" + resultrow.payableamount + "</td><td>" + resultrow.timestamp + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/edittransaction?id=');?>"+resultrow.id+"'><i class='icon-pencil'></i></a></td></tr>";
 }
 generatejquery("<?php echo $base_url;?>");
 </script>
