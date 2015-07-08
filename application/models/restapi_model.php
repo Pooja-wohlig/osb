@@ -311,8 +311,8 @@ $query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku
             $updateuserpurchasebalance=$this->db->query("UPDATE `user` SET `purchasebalance`='$newpurchasebalance' WHERE `id`='$userid'");
             $updateproductquantity=$this->db->query("UPDATE `product` SET `quantity`='$newproductquantity' WHERE `id`='$productid'");
 			 //send notification for buying product
-			$this->user_model->sendnotification("Your Product ".$productname." is purchased by".$shopname."<br>Quantity:".$quantity."<br>Order id:".$order,$user);
-			 $message="Your Product ".$productname." is purchased by".$shopname."<br>Quantity:".$quantity."<br>Order id:".$order;
+			$this->user_model->sendnotification("Your Product ".$productname." is purchased by ".$shopname."<br>Quantity : ".$quantity."<br>Order Id : ".$order,$user);
+			 $message="Your Product ".$productname." is purchased by ".$shopname."<br>Quantity : ".$quantity."<br>Order Id : ".$order;
 		     $this->user_model->addnotificationtodb($message,$user);			
 
     //        $id=$this->db->insert_id();
