@@ -266,6 +266,7 @@ $query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku
     {
         $getproductdetails=$this->db->query("SELECT * FROM `product` WHERE `id`='$productid'")->row();
 		$user=$getproductdetails->user;
+		$productname=$getproductdetails->name;
         $price=$getproductdetails->price;
         $oldquantity=$getproductdetails->quantity;
         $finalprice=$price*$quantity;
@@ -273,6 +274,7 @@ $query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku
         
         $getuserdetails=$this->db->query("SELECT * FROM `user` WHERE `id`='$userid'")->row();
         $purchasebalance=$getuserdetails->purchasebalance;
+        $shopname=$getuserdetails->shopname;
         $newpurchasebalance=$purchasebalance - $finalprice;
         
         if($quantity > $oldquantity)
@@ -308,7 +310,11 @@ $query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku
 			
             $updateuserpurchasebalance=$this->db->query("UPDATE `user` SET `purchasebalance`='$newpurchasebalance' WHERE `id`='$userid'");
             $updateproductquantity=$this->db->query("UPDATE `product` SET `quantity`='$newproductquantity' WHERE `id`='$productid'");
-			
+			 //send notification for buying product
+			$this->user_model->sendnotification("Your Product ".$productname." is purchased by".$shopname."<br>Quantity:".$quantity."<br>Order id:".$order,$user);
+			 $message="Your Product ".$productname." is purchased by".$shopname."<br>Quantity:".$quantity."<br>Order id:".$order;
+		     $this->user_model->addnotificationtodb($message,$user);			
+
     //        $id=$this->db->insert_id();
             if(!$query)
                 return  0;
