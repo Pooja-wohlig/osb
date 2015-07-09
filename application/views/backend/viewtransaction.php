@@ -6,12 +6,30 @@
 <div class="row">
 <div class="col-lg-12">
 <section class="panel">
-<a class="btn btn-default btn-labeled fa fa-plus margined pull-right" href="<?php echo site_url("site/exportexcelreport"); ?>">Export CSV</a>
 <header class="panel-heading">
 Transaction Details
 </header>
+
+ <form class='form-horizontal tasi-form' method='post' action='<?php echo site_url("site/viewtransactionadmin");?>' enctype= 'multipart/form-data'>
+  <div class="form-group">
+	  <label class="col-sm-2 control-label" for="normal-field"><strong>Start Date</strong></label>
+   <div class="col-sm-4">
+    <input type="date" id="normal-field" class="form-control" name="sd" value='<?php echo set_value(' sd ',$sd);?>'>
+      </div>
+          </div><?php echo $sd;?>
+    <div class="form-group">
+   <label class="col-sm-2 control-label" for="normal-field"><strong>End Date</strong></label>
+   <div class="col-sm-4">
+   <input type="date" id="normal-field" class="form-control" name="ed" value='<?php echo set_value(' ed ',$ed);?>'>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    
+	</form>
+<a class="btn btn-default btn-labeled fa fa-plus margined pull-right" href="<?php echo site_url("site/exportexcelreport?sd=".$sd."&ed=".$ed); ?>"target="_blank">Export CSV</a>
+
 <div class="drawchintantable">
-<?php $this->chintantable->createsearch("transaction List");?>
+<?php $this->chintantable->createsearch("Transaction List");?>
 <table class="table table-striped table-hover" id="" cellpadding="0" cellspacing="0" >
 <thead>
 <tr>
