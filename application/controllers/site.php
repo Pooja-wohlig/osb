@@ -1829,13 +1829,24 @@ public function viewtransaction()
 {
 $access=array("1","2");
 $this->checkaccess($access);
-$data["page"]="viewtransaction";
-$data["base_url"]=site_url("site/viewtransactionjson");
-$data["title"]="View transaction";
+$data["page"]="viewtransactionuser";
+$sd=$this->input->get_post("sd");
+$ed=$this->input->get_post("ed");
+	$data['sd']=$sd;
+	$data['ed']=$ed;
+$data["base_url"]=site_url("site/viewtransactionjson?sd=".$sd."&ed=".$ed);
+$data["title"]="View transaction user";
 $this->load->view("template",$data);
 }
 function viewtransactionjson()
 {
+	$sd=$this->input->get_post("sd");
+    $ed=$this->input->get_post("ed");
+	$where="";
+	if($sd!="" && $ed!="")
+	{
+	$where.=" AND `osb_transaction`.`timestamp` BETWEEN '$sd' AND '$ed'";
+	}
 $elements=array();
 $elements[0]=new stdClass();
 $elements[0]->field="`osb_transaction`.`id`";
@@ -1870,7 +1881,7 @@ $elements[3]->alias="reason";
 $elements[4]=new stdClass();
 $elements[4]->field="`osb_transaction`.`amount`";
 $elements[4]->sort="1";
-$elements[4]->header="Cash Amount";
+$elements[4]->header="Barter Amount";
 $elements[4]->alias="amount";
 
 $elements[5]=new stdClass();
@@ -1903,7 +1914,7 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_transaction` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_transaction`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_transaction`.`userfrom`","WHERE `osb_transaction`.`userfrom`!=1 ");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_transaction` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_transaction`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_transaction`.`userfrom`","WHERE `osb_transaction`.`userfrom`!=1 $where");
 $this->load->view("json",$data);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1916,12 +1927,23 @@ $this->load->view("json",$data);
 $access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="viewtransaction";
-$data["base_url"]=site_url("site/viewtransactionadminjson");
+$sd=$this->input->get_post("sd");
+$ed=$this->input->get_post("ed");
+$data['sd']=$sd;
+$data['ed']=$ed;
+$data["base_url"]=site_url("site/viewtransactionadminjson?sd=".$sd."&ed=".$ed);
 $data["title"]="View transaction";
 $this->load->view("template",$data);
 }
 function viewtransactionadminjson()
 {
+$sd=$this->input->get_post("sd");
+$ed=$this->input->get_post("ed");
+$where="";
+	if($sd!="" && $ed!="")
+	{
+	$where.=" AND `osb_transaction`.`timestamp` BETWEEN '$sd' AND '$ed'";
+	}
 $elements=array();
 $elements[0]=new stdClass();
 $elements[0]->field="`osb_transaction`.`id`";
@@ -1989,7 +2011,7 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_transaction` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_transaction`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_transaction`.`userfrom`","WHERE `osb_transaction`.`userfrom`=1");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_transaction` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_transaction`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_transaction`.`userfrom`","WHERE `osb_transaction`.`userfrom`=1 $where");
 $this->load->view("json",$data);
 }
 	
@@ -3558,7 +3580,16 @@ $this->load->view("redirect",$data);
     }
     public function exportexcelreport()
     {
-		$this->user_model->exportexcelreport();
+		$sd=$this->input->get_post("sd");
+        $ed=$this->input->get_post("ed");
+		$this->user_model->exportexcelreport($sd,$ed);
+            
+    }
+	    public function exportexcelreport1()
+    {
+		$sd=$this->input->get_post("sd");
+        $ed=$this->input->get_post("ed");
+		$this->user_model->exportexcelreport1($sd,$ed);
             
     }
 }

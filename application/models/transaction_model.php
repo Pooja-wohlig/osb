@@ -3,8 +3,8 @@ if ( !defined( "BASEPATH" ) )
 exit( "No direct script access allowed" );
 class transaction_model extends CI_Model
 {
-public function create($userto,$userfrom,$amount,$reason,$payableamount)
-{
+public function create($userto,$userfrom,$reason,$amount,$payableamount,$timestamp)
+{  
 $data=array("userto" => $userto,"userfrom" => $userfrom,"amount" => $amount,"reason" => $reason,"payableamount" => $payableamount);
 $query=$this->db->insert( "osb_transaction", $data );
 $id=$this->db->insert_id();
