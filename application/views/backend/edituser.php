@@ -169,9 +169,9 @@
 			<?php }
 				  ?>
 			<div class=" form-group">
-				<label class="col-sm-2 control-label" for="normal-field">Percent Payment</label>
+				<label class="col-sm-2 control-label" for="normal-field">Barter Percentage (in %)</label>
 				<div class="col-sm-4">
-					<input type="text" id="normal-field" class="form-control" name="percentpayment" value="<?php echo set_value('percentpayment',$before->percentpayment);?>">
+					<input type="text" id="normal-field" maxlength="3" class="form-control" name="percentpayment" value="<?php echo set_value('percentpayment',$before->percentpayment);?>">
 				</div>
 			</div>
 			<div class=" form-group">
