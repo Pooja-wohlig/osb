@@ -678,6 +678,14 @@ public function sendnotification($content, $user) {
 			);
 		return $onlinestatus;
 	}
+    public function getmoderateddropdown()
+	{
+		$moderated= array(		 
+			 "1" => "Yes",
+			"0" => "No"
+			);
+		return $moderated;
+	}
 	public function getshopstatusdropdown()
 	{
 		$shopstatus= array(

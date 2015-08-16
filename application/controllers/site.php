@@ -2329,6 +2329,7 @@ $this->load->view("redirect",$data);
 		$data[ 'user' ] =$this->user_model->getuserdropdown();
 		$data['category']=$this->product_model->getcategorydropdown();
 		$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();
+		$data[ 'moderated' ] =$this->user_model->getmoderateddropdown();
 		$data[ 'page' ] = 'createproduct';
 		$data[ 'title' ] = 'Create product';
 		$this->load->view( 'template', $data );	
@@ -2350,6 +2351,7 @@ $this->load->view("redirect",$data);
 			$data['category']=$this->product_model->getcategorydropdown();
 			$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();
             $data[ 'user' ] =$this->user_model->getuserdropdown();
+            $data[ 'moderated' ] =$this->user_model->getmoderateddropdown();
 			$data[ 'page' ] = 'createproduct';
 			$data[ 'title' ] = 'Create product';
 			$this->load->view('template',$data);
@@ -2365,6 +2367,7 @@ $this->load->view("redirect",$data);
 			$user=$this->input->post('user');
 			$quantity=$this->input->post('quantity');
 			$onlinestatus=$this->input->post('onlinestatus');
+			$moderated=$this->input->post('moderated');
 			
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -2401,7 +2404,7 @@ $this->load->view("redirect",$data);
                 
 			}
 			
-			$productid=$this->product_model->createproduct($name,$sku,$description,$price,$status,$category,$user,$quantity,$image,$onlinestatus);
+			$productid=$this->product_model->createproduct($name,$sku,$description,$price,$status,$category,$user,$quantity,$image,$onlinestatus,$moderated);
             if($productid==0)
 			$data['alerterror']="New product could not be created.";
 			else
@@ -2431,6 +2434,7 @@ $this->load->view("redirect",$data);
 		$data[ 'status' ] =$this->product_model->getstatusdropdown();
 		$data['category']=$this->product_model->getcategorydropdown();
 		$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();
+        $data[ 'moderated' ] =$this->user_model->getmoderateddropdown();
 		$data['page']='editproduct';
 		$data['page2']='block/productblock';
 		$data['title']='Edit product';
@@ -2451,6 +2455,7 @@ $this->load->view("redirect",$data);
 			$data[ 'status' ] =$this->product_model->getstatusdropdown();
 			$data['category']=$this->product_model->getcategorydropdown();
             $data[ 'user' ] =$this->user_model->getuserdropdown();
+            $data[ 'moderated' ] =$this->user_model->getmoderateddropdown();
 			$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();
 			$data['before']=$this->product_model->beforeeditproduct($this->input->post('id'));
 			$data['page']='editproduct';
@@ -2470,6 +2475,7 @@ $this->load->view("redirect",$data);
 			$user=$this->input->post('user');
 			$quantity=$this->input->post('quantity');
 			$onlinestatus=$this->input->post('onlinestatus');
+			$moderated=$this->input->post('moderated');
             
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -2514,7 +2520,7 @@ $this->load->view("redirect",$data);
             }
 //           
 			
-			if($this->product_model->editproduct($id,$name,$sku,$description,$price,$status,$category,$user,$quantity,$image,$onlinestatus)==0)
+			if($this->product_model->editproduct($id,$name,$sku,$description,$price,$status,$category,$user,$quantity,$image,$onlinestatus,$moderated)==0)
 			$data['alerterror']="product Editing was unsuccesful";
 			else
 			$data['alertsuccess']="product edited Successfully.";

@@ -734,7 +734,7 @@ else
 return  $id;
  }
 	public function viewmyproducts($user){
-	 $query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `status`, `user`, `quantity`, `image` FROM `product` WHERE `user`='$user'")->result();    
+	 $query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `status`, `user`, `quantity`, `image` FROM `product` WHERE `user`='$user' AND `moderated`=1")->result();    
         if(!$query)
         return  0;
         else
@@ -788,7 +788,7 @@ return  $id;
         }
 //        $queryforprinting="SELECT `product`.`id` as `productid`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` ,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE 1 $wherequery GROUP BY `product`.`id` $orderclause ";
 //		echo $queryforprinting;
-        $query = $this->db->query("SELECT `product`.`id` as `productid`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` ,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`quantity` > 0 AND `product`.`status`=1  $wherequery GROUP BY `product`.`id` $orderclause ")->result();
+        $query = $this->db->query("SELECT `product`.`id` as `productid`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` ,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`quantity` > 0 AND `product`.`status`=1 AND `product`.`moderated`=1  $wherequery GROUP BY `product`.`id` $orderclause ")->result();
         return $query;
     }
     

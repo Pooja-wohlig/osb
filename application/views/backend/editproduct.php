@@ -93,6 +93,15 @@
 						?>
 					  </div>
 					</div>
+                    <div class=" form-group">
+					  <label class="col-sm-2 control-label">Moderated</label>
+					  <div class="col-sm-4">
+						<?php
+							
+							echo form_dropdown('moderated',$moderated,set_value('moderated',$before['product']->moderated),'class="chzn-select form-control" 	data-placeholder="Choose a Accesslevel..."');
+						?>
+					  </div>
+					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-2 control-label">&nbsp;</label>
