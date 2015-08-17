@@ -2300,7 +2300,13 @@ $this->load->view("redirect",$data);
         $elements[5]->field="`product`.`status`";
         $elements[5]->sort="1";
         $elements[5]->header="Status";
-        $elements[5]->alias="status";
+        $elements[5]->alias="status"; 
+        
+        $elements[6]=new stdClass();
+        $elements[6]->field="`product`.`moderated`";
+        $elements[6]->sort="1";
+        $elements[6]->header="Moderated";
+        $elements[6]->alias="moderated";
         
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
@@ -2476,7 +2482,14 @@ $this->load->view("redirect",$data);
 			$quantity=$this->input->post('quantity');
 			$onlinestatus=$this->input->post('onlinestatus');
 			$moderated=$this->input->post('moderated');
-            
+            //send notification
+            $newprice=$price*$quantity;
+            if($moderated==0){
+    $this->product_model->getsalesbalance($id,$name,$sku,$description,$price,$status,$category,$user,$quantity,$image,$onlinestatus,$moderated);
+            }
+            else if($moderated==1){
+                 $this->product_model->approveproduct($id,$name,$sku,$description,$price,$status,$category,$user,$quantity,$image,$onlinestatus,$moderated); 
+            }
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
 			$this->load->library('upload', $config);

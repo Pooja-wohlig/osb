@@ -382,6 +382,7 @@ WHERE `orderitems`.`order`='$orderid'")->result();
             {
                 $changedsalesbalance=$salesbalance-$finalprice;
                 $queryupdatesalesbalance=$this->db->query("UPDATE `user` SET `salesbalance`='$changedsalesbalance' WHERE `id`='$user'");
+                 $this->user_model->sendnotification("Your Product is created of price: ".$price."<br> AND quantity".$quantity.". Please wait for approval",$user);
             }
             if(!$query)
             return  0;
