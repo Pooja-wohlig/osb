@@ -229,19 +229,39 @@ class Product_model extends CI_Model
         $newprice=$price*$quantity;
         $newfinalprice=$newprice+$salesbalance;
         $query1=$this->db->query("UPDATE `user` SET `salesbalance`='$newfinalprice' WHERE `id`='$user'");
-        $this->user_model->sendnotification("Your Product named as:".$name."<br>price: ".$price."<br> quantity ".$quantity." is rejected AND ".$newprice." is added to your sales balance",$user);
+        $query2=$this->db->query("DELETE FROM `product` WHERE `id`='$id'");
+        $this->user_model->sendnotification("Your Product named as:".$name."<br>price: ".$price."<br> quantity ".$quantity." is rejected and ".$newprice." is added to your sales balance",$user);
         if($query1)
             return 1;
         else 
             return 0;
     }
-    public function approveproduct($id,$name,$sku,$description,$price,$status,$category,$user,$quantity,$image,$onlinestatus,$moderated){
+//    public function approveproduct($id,$name,$sku,$description,$price,$status,$category,$user,$quantity,$image,$onlinestatus,$moderated){
+//        $query2=$this->db->query("SELECT `moderated` FROM `product` WHERE `id`='$id'")->row();
+//        $oldmoderated=$query2->moderated;
+////        echo $oldstatus;
+////        echo $status;
+//        $newprice=$price*$quantity;
+//        if($oldmoderated==0 && $moderated==1){
+//        $query=$this->db->query("SELECT `salesbalance` FROM `user` WHERE `id`='$user'")->row();
+//        $salesbalance=$query->salesbalance;
+//        $newfinalprice=$salesbalance-$newprice;
+//        $query1=$this->db->query("UPDATE `user` SET `salesbalance`='$newfinalprice' WHERE `id`='$user'");
+//         $this->user_model->sendnotification("Your Product named as: ".$name."<br>price: ".$price."<br>quantity ".$quantity." is approved & nwe balance is".$newfinalprice,$user);    
+//        }
+//        else{       
+//            $this->user_model->sendnotification("Your Product named as: ".$name."<br>price: ".$price."<br>quantity ".$quantity." is approved ".$newprice,$user);
+//        }
+//        if($query1)
+//            return 1;
+//        else 
+//            return 0;
+//    }
+     public function approveproduct($id,$name,$sku,$description,$price,$status,$category,$user,$quantity,$image,$onlinestatus,$moderated){
      $query=$this->db->query("SELECT `salesbalance` FROM `user` WHERE `id`='$user'")->row();
         $salesbalance=$query->salesbalance;
         $newprice=$price*$quantity;
-        $newfinalprice=$salesbalance-$newprice;
-        $query1=$this->db->query("UPDATE `user` SET `salesbalance`='$newfinalprice' WHERE `id`='$user'");
-        $this->user_model->sendnotification("Your Product named as: ".$name."<br>price: ".$price."<br>quantity ".$quantity." is approved AND ".$newprice." is deducted from your sales balance",$user);
+        $this->user_model->sendnotification("Your Product named as: ".$name."<br>price: ".$price."<br>quantity ".$quantity." is approved ".$newprice,$user);
         
         if($query1)
             return 1;

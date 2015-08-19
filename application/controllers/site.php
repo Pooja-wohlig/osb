@@ -2538,8 +2538,10 @@ $this->load->view("redirect",$data);
 			else
 			$data['alertsuccess']="product edited Successfully.";
             
-			$data['redirect']="site/editproduct?id=".$id;
-			$this->load->view("redirect2",$data);
+//			$data['redirect']="site/editproduct?id=".$id;
+			$data['redirect']="site/viewproduct";
+//			$this->load->view("redirect2",$data);
+			$this->load->view("redirect",$data);
 		}
 	}
 	function deleteproduct()
