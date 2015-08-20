@@ -2322,7 +2322,7 @@ $this->load->view("redirect",$data);
         if($orderby=="")
         {
             $orderby="id";
-            $orderorder="ASC";
+            $orderorder="DESC";
         }
         $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `product`");
         $this->load->view("json",$data);
