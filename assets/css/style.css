@@ -3954,3 +3954,9 @@ span.customSelect.changed {
 .highlight td {
     background-color: #ECFF68 !important;
 }
+.pendingclass{
+    font-size: 17px;
+    font-family: inherit;
+    color: black;
+    padding-left: 352px;
+}

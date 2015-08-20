@@ -2257,6 +2257,7 @@ $this->load->view("redirect",$data);
     {
         $access=array("1","2");
         $this->checkaccess($access);
+        $data['count']=$this->product_model->getcount();
         $data["page"]="viewproduct";
         $data["base_url"]=site_url("site/viewproductjson");
         $data["title"]="View product";

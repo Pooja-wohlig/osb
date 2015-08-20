@@ -230,7 +230,9 @@ class Product_model extends CI_Model
         $newfinalprice=$newprice+$salesbalance;
         $query1=$this->db->query("UPDATE `user` SET `salesbalance`='$newfinalprice' WHERE `id`='$user'");
         $query2=$this->db->query("DELETE FROM `product` WHERE `id`='$id'");
-        $this->user_model->sendnotification("Your Product named as:".$name."<br>price: ".$price."<br> quantity ".$quantity." is rejected and ".$newprice." is added to your sales balance",$user);
+        $this->user_model->sendnotification("Your Product named as:".$name." price: Rs ".$price." quantity ".$quantity." is rejected and ".$newprice." is added to your sales balance",$user);
+        $message="Your Product named as:".$name." price: Rs ".$price." quantity ".$quantity." is rejected and Rs. ".$newprice." is added to your sales balance";
+         $this->user_model->addnotificationtodb($message,$user);
         if($query1)
             return 1;
         else 
@@ -261,12 +263,18 @@ class Product_model extends CI_Model
      $query=$this->db->query("SELECT `salesbalance` FROM `user` WHERE `id`='$user'")->row();
         $salesbalance=$query->salesbalance;
         $newprice=$price*$quantity;
-        $this->user_model->sendnotification("Your Product named as: ".$name."<br>price: ".$price."<br>quantity ".$quantity." is approved ".$newprice,$user);
-        
+        $this->user_model->sendnotification("Your Product named as: ".$name." price: Rs ".$price." quantity ".$quantity." is approved ",$user);
+         $message="Your Product named as: ".$name." price: Rs ".$price." quantity ".$quantity." is approved ";
+         $this->user_model->addnotificationtodb($message,$user);
         if($query1)
             return 1;
         else 
             return 0;
+    }
+    public function getcount(){
+      $query=$this->db->query("SELECT COUNT(*) as `count` FROM `product` WHERE `moderated`=0")->row();   
+        $count=$query->count;
+        return $count;
     }
 }
 ?>

@@ -311,8 +311,8 @@ $query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku
             $updateuserpurchasebalance=$this->db->query("UPDATE `user` SET `purchasebalance`='$newpurchasebalance' WHERE `id`='$userid'");
             $updateproductquantity=$this->db->query("UPDATE `product` SET `quantity`='$newproductquantity' WHERE `id`='$productid'");
 			 //send notification for buying product
-			$this->user_model->sendnotification("Your Product ".$productname." is purchased by ".$shopname."<br>Quantity : ".$quantity."<br>Order Id : ".$order,$user);
-			 $message="Your Product ".$productname." is purchased by ".$shopname."<br>Quantity : ".$quantity."<br>Order Id : ".$order;
+			$this->user_model->sendnotification("Your Product ".$productname." is purchased by ".$shopname." Quantity : ".$quantity." Order Id : ".$order,$user);
+			 $message="Your Product ".$productname." is purchased by ".$shopname." Quantity : ".$quantity." Order Id : ".$order;
 		     $this->user_model->addnotificationtodb($message,$user);			
 
     //        $id=$this->db->insert_id();
@@ -734,7 +734,7 @@ else
 return  $id;
  }
 	public function viewmyproducts($user){
-	 $query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `status`, `user`, `quantity`, `image` FROM `product` WHERE `user`='$user' AND `moderated`=1")->result();    
+	 $query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `status`, `user`, `quantity`, `image`,`moderated` FROM `product` WHERE `user`='$user'")->result();    
         if(!$query)
         return  0;
         else
