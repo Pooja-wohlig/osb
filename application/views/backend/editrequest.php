@@ -5,10 +5,10 @@ Request Details
 <div class="panel-body">
 <form class='form-horizontal tasi-form' method='post' action='<?php echo site_url("site/editrequestsubmit");?>' enctype= 'multipart/form-data'>
 <input type="hidden" id="normal-field" class="form-control" name="id" value="<?php echo set_value('id',$before->id);?>" style="display:none;">
-<div class=" form-group" 'disabled="disabled"'>
+<div class=" form-group" >
 <label class="col-sm-2 control-label" for="normal-field">User From</label>
-<div class="col-sm-4" >
-<?php echo form_dropdown("userfrom",$userfrom,set_value('userfrom',$before->userfrom ),"class='chzn-select form-control'");?>
+<div class="col-sm-4"  >
+<?php echo form_dropdown("userfrom",$userfrom,set_value('userfrom',$before->userfrom),"class='chzn-select form-control'");?>
 </div>
 </div>
 <div class=" form-group">
@@ -19,7 +19,7 @@ Request Details
 </div>
 <div class=" form-group">
 <label class="col-sm-2 control-label" for="normal-field">Request Status</label>
-<div class="col-sm-4" readonly="true">
+<div class="col-sm-4">
 <?php echo form_dropdown("requeststatus",$requeststatus,set_value('requeststatus',$before->requeststatus),"class='chzn-select form-control'");?>
 </div>
 </div>
