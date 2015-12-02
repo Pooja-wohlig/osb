@@ -1519,7 +1519,7 @@ $maxrow=20;
 if($orderby=="")
 {
 $orderby="id";
-$orderorder="ASC";
+$orderorder="DESC";
 }
 $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_request` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_request`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_request`.`userfrom`","WHERE `osb_request`.`userfrom`=1 ");
 $this->load->view("json",$data);
