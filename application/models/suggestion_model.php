@@ -36,5 +36,24 @@ public function delete($id)
 $query=$this->db->query("DELETE FROM `suggestion` WHERE `id`='$id'");
 return $query;
 }
+    function exportsuggestioncsv()
+	{
+		$this->load->dbutil();
+		$query=$this->db->query("SELECT `suggestion`.`id`, `user`.`name` as `username`, `suggestion`.`message`, `suggestion`.`timestamp` FROM `suggestion` LEFT OUTER JOIN `user` ON `user`.`id`=`suggestion`.`user` WHERE 1");
+
+       $content= $this->dbutil->csv_from_result($query);
+        //$data = 'Some file data';
+$timestamp=new DateTime();
+        $timestamp=$timestamp->format('Y-m-d_H.i.s');
+        if ( ! write_file("./uploads/suggestion_$timestamp.csv", $content))
+        {
+             echo 'Unable to write the file';
+        }
+        else
+        {
+            redirect(base_url("uploads/suggestion_$timestamp.csv"), 'refresh');
+             echo 'File written!';
+        }
+	}
 }
 ?>

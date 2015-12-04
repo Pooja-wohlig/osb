@@ -418,28 +418,28 @@ class Order_model extends CI_Model
 		return $return;
 	}
     
-    function exportordercsv()
-	{
-		$this->load->dbutil();
-		$query=$this->db->query("SELECT `order`.`id` as `id`,`order`.`firstname` as `firstname`,`order`.`lastname` as `lastname`,`order`.`user` as `user`,`order`.`orderstatus` as `orderstatusid`,`orderstatus`.`name` as `orderstatus`,`order`.`totalamount`,`order`.`discountamount`,`order`.`finalamount`,`order`.`trackingcode`,`order`.`timestamp` FROM `order` 	
-		LEFT OUTER JOIN  `user` ON `user`.`id`=`order`.`user`
-		LEFT OUTER JOIN `orderstatus` ON `orderstatus`.`id`=`order`.`orderstatus`
-		LEFT OUTER JOIN `currency` ON `currency`.`id`=`order`.`currency`
-		ORDER BY `order`.`timestamp` DESC");
-
-       $content= $this->dbutil->csv_from_result($query);
-        //$data = 'Some file data';
-
-        if ( ! write_file('./csvgenerated/orderfile.csv', $content))
-        {
-             echo 'Unable to write the file';
-        }
-        else
-        {
-            redirect(base_url('csvgenerated/orderfile.csv'), 'refresh');
-             echo 'File written!';
-        }
-	}
+//    function exportordercsv()
+//	{
+//		$this->load->dbutil();
+//		$query=$this->db->query("SELECT `order`.`id` as `id`,`order`.`firstname` as `firstname`,`order`.`lastname` as `lastname`,`order`.`user` as `user`,`order`.`orderstatus` as `orderstatusid`,`orderstatus`.`name` as `orderstatus`,`order`.`totalamount`,`order`.`discountamount`,`order`.`finalamount`,`order`.`trackingcode`,`order`.`timestamp` FROM `order` 	
+//		LEFT OUTER JOIN  `user` ON `user`.`id`=`order`.`user`
+//		LEFT OUTER JOIN `orderstatus` ON `orderstatus`.`id`=`order`.`orderstatus`
+//		LEFT OUTER JOIN `currency` ON `currency`.`id`=`order`.`currency`
+//		ORDER BY `order`.`timestamp` DESC");
+//
+//       $content= $this->dbutil->csv_from_result($query);
+//        //$data = 'Some file data';
+//
+//        if ( ! write_file('./csvgenerated/orderfile.csv', $content))
+//        {
+//             echo 'Unable to write the file';
+//        }
+//        else
+//        {
+//            redirect(base_url('csvgenerated/orderfile.csv'), 'refresh');
+//             echo 'File written!';
+//        }
+//	}
     function exportorderitemcsv()
 	{
 		$this->load->dbutil();
@@ -546,6 +546,25 @@ WHERE DATE(`order`.`timestamp`) = '$date'")->result();
 		}
 
 		return $return;
+	}
+    function exportordercsv()
+	{
+		$this->load->dbutil();
+		$query=$this->db->query("SELECT `order`.`id`, `user`.`name` as `username`, `order`.`name`, `order`.`email`, `order`.`contactno`, `order`.`billingaddress`, `order`.`billingcity`, `order`.`billingstate`, `order`.`billingcountry`, `order`.`billingpincode`, `order`.`timestamp`,`product`.`name` as `Product Name`, `orderitems`.`quantity`, `orderitems`.`price`, `orderitems`.`finalprice` FROM `order` LEFT OUTER JOIN `user` ON `user`.`id`=`order`.`user` LEFT OUTER JOIN `orderitems` ON `orderitems`.`order`=`order`.`id` LEFT OUTER JOIN `product` ON `product`.`id`=`orderitems`.`product` WHERE 1");
+
+       $content= $this->dbutil->csv_from_result($query);
+        //$data = 'Some file data';
+$timestamp=new DateTime();
+        $timestamp=$timestamp->format('Y-m-d_H.i.s');
+        if ( ! write_file("./uploads/order_$timestamp.csv", $content))
+        {
+             echo 'Unable to write the file';
+        }
+        else
+        {
+            redirect(base_url("uploads/order_$timestamp.csv"), 'refresh');
+             echo 'File written!';
+        }
 	}
 }
 ?>

@@ -3,7 +3,7 @@
 	
 		<a class="btn btn-primary pull-right"  href="<?php echo site_url('site/createregister'); ?>"><i class="icon-plus"></i>Create </a> &nbsp; 
 	</div>
-	
+	<div><a class="btn btn-primary" href="<?php echo site_url('site/exportregistercsv'); ?>"target="_blank"><i class="icon-plus"></i>Export to CSV </a></div>
 </div>
 <div class="row">
 	<div class="col-lg-12">

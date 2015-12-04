@@ -49,5 +49,25 @@ return $query;
 		
 		return $return;
 	}
+    
+         function exportusercategorycsv()
+	{
+		$this->load->dbutil();
+		$query=$this->db->query("SELECT `user`.`name` as `Username`,`osb_category`.`name` as `Category` FROM `usercategory` LEFT OUTER JOIN `user` ON `user`.`id`=`usercategory`.`user` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE 1");
+
+       $content= $this->dbutil->csv_from_result($query);
+        //$data = 'Some file data';
+$timestamp=new DateTime();
+        $timestamp=$timestamp->format('Y-m-d_H.i.s');
+        if ( ! write_file("./uploads/usercategory_$timestamp.csv", $content))
+        {
+             echo 'Unable to write the file';
+        }
+        else
+        {
+            redirect(base_url("uploads/usercategory_$timestamp.csv"), 'refresh');
+             echo 'File written!';
+        }
+	}
 }
 ?>

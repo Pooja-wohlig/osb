@@ -770,5 +770,25 @@ public function sendnotification($content, $user) {
 	//        file_put_contents("gs://toykraftdealer/retailerfilefromdashboard_$timestamp.csv", $content);
 	//		redirect("http://admin.toy-kraft.com/servepublic?name=retailerfilefromdashboard_$timestamp.csv", 'refresh');
 		}
+     
+    function exportusercsv()
+	{
+		$this->load->dbutil();
+		$query=$this->db->query("SELECT `id`, `name` as `Name`, `email` as `Email`, `personalcontact` as `Contact`, `timestamp` as `Timestamp`, `shopname` AS `Shop Name`, `membershipno` as `Membership No.`, `address` as `Shop Address`, `website` as `Website`, `shopcontact1` as `Contact1`, `shopcontact2` as `Contact2`, `shopemail` as `Shop Email`, `purchasebalance` as `Purchase Balance`, `salesbalance` AS `Sales Balance`, `billingaddress` as `Address`, `billingcity` as `City`, `billingstate`as `State`, `billingcountry` as `Country`, `billingpincode` as `Pincode` FROM `user` WHERE 1");
+
+       $content= $this->dbutil->csv_from_result($query);
+        //$data = 'Some file data';
+$timestamp=new DateTime();
+        $timestamp=$timestamp->format('Y-m-d_H.i.s');
+        if ( ! write_file("./uploads/user_$timestamp.csv", $content))
+        {
+             echo 'Unable to write the file';
+        }
+        else
+        {
+            redirect(base_url("uploads/user_$timestamp.csv"), 'refresh');
+             echo 'File written!';
+        }
+	}
 }
 ?>

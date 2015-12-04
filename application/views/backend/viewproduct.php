@@ -3,7 +3,7 @@
         <a class="btn btn-primary pull-right" href="<?php echo site_url("site/createproduct"); ?>"><i class="icon-plus"></i>Create </a> &nbsp;
     </div>
     <span class="pendingclass"><b>Total no of pending requests: <?php echo $count?></b></span>
-    
+    <div><a class="btn btn-primary" href="<?php echo site_url('site/exportproductcsv'); ?>"target="_blank"><i class="icon-plus"></i>Export to CSV </a></div>
 </div>
 <div class="row">
     <div class="col-lg-12">

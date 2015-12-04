@@ -48,5 +48,24 @@ return $query;
 		
 		return $return;
 	}
+     function exportcategorycsv()
+	{
+		$this->load->dbutil();
+		$query=$this->db->query("SELECT `id`,`name` FROM `osb_category` WHERE 1");
+
+       $content= $this->dbutil->csv_from_result($query);
+        //$data = 'Some file data';
+$timestamp=new DateTime();
+        $timestamp=$timestamp->format('Y-m-d_H.i.s');
+        if ( ! write_file("./uploads/category_$timestamp.csv", $content))
+        {
+             echo 'Unable to write the file';
+        }
+        else
+        {
+            redirect(base_url("uploads/category_$timestamp.csv"), 'refresh');
+             echo 'File written!';
+        }
+	}
 }
 ?>

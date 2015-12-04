@@ -36,5 +36,33 @@ public function delete($id)
 $query=$this->db->query("DELETE FROM `osb_request` WHERE `id`='$id'");
 return $query;
 }
+    
+        function exportrequestcsv($checkadmin)
+	{
+            
+		$this->load->dbutil();
+            if($checkadmin==1){
+                
+$query=$this->db->query("SELECT `osb_request`.`id`, `tab2`.`name` as `Seller`, `tab1`.`name` as `Buyer`, `osb_requeststatus`.`name`, `osb_request`.`amount`, `osb_request`.`reason`, `osb_request`.`approvalreason`, `osb_request`.`timestamp` FROM `osb_request` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_request`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_request`.`userfrom` LEFT OUTER JOIN `osb_requeststatus` ON `osb_requeststatus`.`id`=`osb_request`.`requeststatus` WHERE `osb_request`.`userfrom`=1");
+            }
+            else if($checkadmin==2){
+		$query=$this->db->query("SELECT `osb_request`.`id`, `tab2`.`name` as `Seller`, `tab1`.`name` as `Buyer`, `osb_requeststatus`.`name`, `osb_request`.`amount`, `osb_request`.`reason`, `osb_request`.`approvalreason`, `osb_request`.`timestamp` FROM `osb_request` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_request`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_request`.`userfrom` LEFT OUTER JOIN `osb_requeststatus` ON `osb_requeststatus`.`id`=`osb_request`.`requeststatus` WHERE `osb_request`.`userfrom`<>1");
+                }
+
+       $content= $this->dbutil->csv_from_result($query);
+        
+        //$data = 'Some file data';
+$timestamp=new DateTime();
+        $timestamp=$timestamp->format('Y-m-d_H.i.s');
+        if ( ! write_file("./uploads/request_$timestamp.csv", $content))
+        {
+             echo 'Unable to write the file';
+        }
+        else
+        {
+            redirect(base_url("uploads/request_$timestamp.csv"), 'refresh');
+             echo 'File written!';
+        }
+	}
 }
 ?>

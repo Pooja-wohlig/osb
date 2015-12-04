@@ -44,5 +44,24 @@ return $query;
 			);
 		return $type;
 	}
+    function exportnotificationcsv()
+	{
+		$this->load->dbutil();
+		$query=$this->db->query("SELECT `notification`.`id`, `user`.`name` as `username`, `notification`.`timestamp`, `notification`.`message` FROM `notification` LEFT OUTER JOIN `user` ON `user`.`id`=`notification`.`user` WHERE 1");
+
+       $content= $this->dbutil->csv_from_result($query);
+        //$data = 'Some file data';
+$timestamp=new DateTime();
+        $timestamp=$timestamp->format('Y-m-d_H.i.s');
+        if ( ! write_file("./uploads/notification_$timestamp.csv", $content))
+        {
+             echo 'Unable to write the file';
+        }
+        else
+        {
+            redirect(base_url("uploads/notification_$timestamp.csv"), 'refresh');
+             echo 'File written!';
+        }
+	}
 }
 ?>

@@ -49,5 +49,24 @@ return $query;
 		
 		return $return;
 	}
+     function exportareacsv()
+	{
+		$this->load->dbutil();
+		$query=$this->db->query("SELECT `id`,  `name` FROM `osb_area` WHERE 1");
+
+       $content= $this->dbutil->csv_from_result($query);
+        //$data = 'Some file data';
+$timestamp=new DateTime();
+        $timestamp=$timestamp->format('Y-m-d_H.i.s');
+        if ( ! write_file("./uploads/area_$timestamp.csv", $content))
+        {
+             echo 'Unable to write the file';
+        }
+        else
+        {
+            redirect(base_url("uploads/area_$timestamp.csv"), 'refresh');
+             echo 'File written!';
+        }
+	}
 }
 ?>

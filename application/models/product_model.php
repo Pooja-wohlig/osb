@@ -276,5 +276,24 @@ class Product_model extends CI_Model
         $count=$query->count;
         return $count;
     }
+     function exportproductcsv()
+	{
+		$this->load->dbutil();
+		$query=$this->db->query("SELECT `product`.`id` as `Productid`, `product`.`name` as `Name`, `product`.`price` as `Price`,`product`.`description` as `Description`, `user`.`name` as `Username`, `product`.`quantity` as `Quantity`, `product`.`image` as `Image` FROM `product` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE 1");
+
+       $content= $this->dbutil->csv_from_result($query);
+        //$data = 'Some file data';
+$timestamp=new DateTime();
+        $timestamp=$timestamp->format('Y-m-d_H.i.s');
+        if ( ! write_file("./uploads/product_$timestamp.csv", $content))
+        {
+             echo 'Unable to write the file';
+        }
+        else
+        {
+            redirect(base_url("uploads/product_$timestamp.csv"), 'refresh');
+             echo 'File written!';
+        }
+	}
 }
 ?>

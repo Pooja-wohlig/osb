@@ -1461,6 +1461,7 @@ $this->load->view("redirect",$data);
 {
 $access=array("1","2");
 $this->checkaccess($access);
+$data['isadmin']=1;
 $data['requeststatus']=$this->requeststatus_model->getrequeststatusdropdown();
 $data['userto']=$this->user_model->getuserdropdown();
 $data['userfrom']=$this->user_model->getuserdropdown();
@@ -1533,6 +1534,7 @@ public function viewrequest()
 {
 $access=array("1","2");
 $this->checkaccess($access);
+$data['isadmin']=2;
 $data['requeststatus']=$this->requeststatus_model->getrequeststatusdropdown();
 $data['userto']=$this->user_model->getuserdropdown();
 $data['userfrom']=$this->user_model->getuserdropdown();
@@ -3619,5 +3621,87 @@ $this->load->view("redirect",$data);
 		$this->user_model->exportexcelreport1($sd,$ed);
             
     }
+    	public function exportusercsv()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->user_model->exportusercsv();
+        $data['redirect']="site/viewusers";
+        $this->load->view("redirect",$data);
+	}
+    public function exportareacsv()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->area_model->exportareacsv();
+        $data['redirect']="site/viewarea";
+        $this->load->view("redirect",$data);
+	} 
+    public function exportcategorycsv()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->category_model->exportcategorycsv();
+        $data['redirect']="site/viewcategory";
+        $this->load->view("redirect",$data);
+	}
+    public function exportusercategorycsv()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->usercategory_model->exportusercategorycsv();
+        $data['redirect']="site/viewusercategory";
+        $this->load->view("redirect",$data);
+	}
+    public function exportproductcsv()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->product_model->exportproductcsv();
+        $data['redirect']="site/viewproduct";
+        $this->load->view("redirect",$data);
+	}
+    public function exportregistercsv()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->register_model->exportregistercsv();
+        $data['redirect']="site/viewregister";
+        $this->load->view("redirect",$data);
+	}
+    public function exportordercsv()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->order_model->exportordercsv();
+        $data['redirect']="site/vieworder";
+        $this->load->view("redirect",$data);
+	}
+    public function exportnotificationcsv()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->notification_model->exportnotificationcsv();
+        $data['redirect']="site/viewnotification";
+        $this->load->view("redirect",$data);
+	}  
+    public function exportsuggestioncsv()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->suggestion_model->exportsuggestioncsv();
+        $data['redirect']="site/viewsuggestion";
+        $this->load->view("redirect",$data);
+	}
+    public function exportrequestcsv()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+        $checkadmin=$this->input->get('id');
+		$this->request_model->exportrequestcsv($checkadmin);
+        $data['redirect']="site/viewrequest";
+        $this->load->view("redirect",$data);
+	}
+   
 }
 ?>
