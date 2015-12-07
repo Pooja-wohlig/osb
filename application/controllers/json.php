@@ -1544,4 +1544,13 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         
     }
     }
+  public function sendNotification()
+    {
+        $title = $this->input->get_post('title');
+        $message = $this->input->get_post('message');
+        $image = $this->input->get_post('image');
+        $icon = $this->input->get_post('icon');
+        $this->restapi_model->sendNotificationAndroid($title, $message, $image, $icon);
+        $this->restapi_model->sendNotificationIos($title);
+    }
 } 
