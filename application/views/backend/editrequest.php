@@ -8,7 +8,7 @@ Request Details
 <div class=" form-group" >
 <label class="col-sm-2 control-label" for="normal-field">User From</label>
 <div class="col-sm-4"  >
-<?php echo form_dropdown("userfrom",$userfrom,set_value('userfrom',$before->userfrom),"class='chzn-select form-control' ");?>
+<?php echo form_dropdown("userfrom",$userfrom,set_value('userfrom',$before->userfrom),"class='chzn-select form-control' 'readonly'");?>
 </div>
 </div>
 <div class=" form-group">
