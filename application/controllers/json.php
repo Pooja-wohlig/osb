@@ -1479,10 +1479,10 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
 		$this->load->view('json',$data);
  }
  
- public function sendnotification () {
-    $data["message"]=$this->user_model->sendnotification($this->input->get('content'),$this->input->get("user"));
-     $this->load->view("json",$data);
- }
+// public function sendnotification () {
+//    $data["message"]=$this->user_model->sendnotification($this->input->get('content'),$this->input->get("user"));
+//     $this->load->view("json",$data);
+// }
  
  
  public function isnewuserstatuschange(){
@@ -1546,11 +1546,8 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
     }
   public function sendNotification()
     {
-        $title = $this->input->get_post('title');
-        $message = $this->input->get_post('message');
-        $image = $this->input->get_post('image');
-        $icon = $this->input->get_post('icon');
-        $this->restapi_model->sendNotificationAndroid($title, $message, $image, $icon);
-        $this->restapi_model->sendNotificationIos($title);
+        $content = $this->input->get_post('content');
+        $user = $this->input->get_post('id');
+        $this->user_model->sendnotification($content,$user);
     }
 } 

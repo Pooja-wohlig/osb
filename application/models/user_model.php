@@ -564,7 +564,7 @@ $this->email->send();
 //				}
 
 	}
-public function sendnotification($content, $user) {
+public function sendnotificationold($content, $user) {
 	$device=$this->db->query("SELECT `token` FROM `user` WHERE `id`='$user'")->row();
 	$device=$device->token;
 		$this->pwCall('createMessage', array(
@@ -580,6 +580,42 @@ public function sendnotification($content, $user) {
           )
       )
    );
+
+	}
+    public function sendnotification($content, $user) {
+       
+	$token=$this->db->query("SELECT `token` FROM `user` WHERE `id`='$user'")->row();
+
+        define('API_ACCESS_KEY', 'AIzaSyByFozf9MqBMNVVsqvVygA9_10IzHDIzns');
+        $registrationIds = array($token);
+        // prep the bundle
+        $msg = array(
+            'message' => $content,
+            'title' => 'One Stop Barter',
+            'vibrate' => 1,
+            'sound' => 1,
+            'icon' => base_url('uploads/icon.png')
+
+        );
+
+        $fields = array(
+            'registration_ids' => $registrationIds,
+            'data' => $msg,
+        );
+        $headers = array(
+            'Authorization: key='.API_ACCESS_KEY,
+            'Content-Type: application/json',
+        );
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://android.googleapis.com/gcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+        $result = curl_exec($ch);
+        curl_close($ch);
 
 	}
 
