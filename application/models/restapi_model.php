@@ -55,7 +55,7 @@ LEFT OUTER JOIN `orderitems` ON `orderitems`.`order`=`order`.`id`
 LEFT OUTER JOIN `product` ON `product`.`id`=`orderitems`.`product`
 WHERE `osb_transaction`.`userto`!=1 AND `osb_transaction`.`userfrom`='$user'
 ORDER BY `osb_transaction`.`id` DESC")->result();
-        $query['admin'] = $this->db->query("SELECT `osb_transaction`.`id`,`osb_transaction`. `userto`,`osb_transaction`. `userfrom`,`osb_transaction`. `reason`,`osb_transaction`. `amount`,`osb_transaction`. `payableamount`,DATE(`osb_transaction`.`timestamp`) AS `date`,DATE_FORMAT(STR_TO_DATE(`osb_transaction`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `time`,`osb_transaction`. `requestid` ,`osb_request`.`approvalreason` FROM `osb_transaction` LEFT OUTER JOIN `osb_request` ON `osb_transaction`.`requestid`=`osb_request`.`id` WHERE `osb_transaction`.`userfrom`=1 AND `osb_transaction`.`userto`='$user'")->result();
+        $query['admin'] = $this->db->query("SELECT `osb_transaction`.`id`,`osb_transaction`. `userto`,`osb_transaction`. `userfrom`,`osb_transaction`. `reason`,`osb_transaction`. `amount`,`osb_transaction`. `payableamount`,DATE(`osb_transaction`.`timestamp`) AS `date`,DATE_FORMAT(STR_TO_DATE(`osb_transaction`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `time`,`osb_transaction`. `requestid` ,`osb_request`.`approvalreason` FROM `osb_transaction` LEFT OUTER JOIN `osb_request` ON `osb_transaction`.`requestid`=`osb_request`.`id` WHERE `osb_transaction`.`userfrom`=1 AND `osb_transaction`.`userto`='$user' ORDER BY `osb_transaction`.`id` DESC")->result();
         $query['transaction'] = $this->db->query("SELECT `osb_transaction`.`id`, `osb_transaction`.`userto`,SUM(`osb_transaction`.`payableamount`) AS `totaltransaction`
 FROM `osb_transaction` 
 WHERE `osb_transaction`.`userfrom`=1 AND `osb_transaction`.`userto`='$user'")->row();
@@ -756,11 +756,7 @@ return  $id;
 		
 		if ($membershipno != "0" && $membershipno != "") 
 		{
-//			
-			$userquery=$this->db->query("SELECT `id` FROM `user` WHERE `shopname` LIKE '$membershipno'")->result();
-            
-            
-            $getproductids=$this->db->query("SELECT `id` FROM `product` WHERE `user` IN (SELECT `id` FROM `user` WHERE `shopname` LIKE '$membershipno')")->result();
+            $getproductids=$this->db->query("SELECT `id` FROM `product` WHERE `user` IN (SELECT `id` FROM `user` WHERE `shopname` LIKE '%$membershipno%')")->result();
              $productids="(";
             foreach($getproductids as $key=>$value){
 //            $catid=$row->id;
@@ -777,15 +773,8 @@ return  $id;
             if($productids=="()"){
              $productids="(0)";
             }
-            $wherequery.=" AND `product`.`id` IN '$productids'";
-			if(empty($userquery))
-			{
-				return -1;
-			}
-			else
-			{
-
-			}
+            $wherequery.=" AND `product`.`id` IN $productids";
+			
 		}
 		else
 		{
@@ -806,8 +795,6 @@ return  $id;
         {
             $orderclause .=" ORDER BY `product`.`price` DESC ";
         }
-//        $queryforprinting="SELECT `product`.`id` as `productid`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` ,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE 1 $wherequery GROUP BY `product`.`id` $orderclause ";
-//		echo $queryforprinting;
         $query = $this->db->query("SELECT `product`.`id` as `productid`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` ,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`quantity` > 0 AND `product`.`status`=1 AND `product`.`moderated`=1  $wherequery GROUP BY `product`.`id` $orderclause ")->result();
         return $query;
     }

@@ -413,7 +413,7 @@ $this->load->view("json",$data);
 
  public function test() {
 
-$this->user_model->sendnotification('test','296fbeb76f8709ce');
+$this->user_model->sendnotification('test','cN2DjPqa1Kk:APA91bHunRdiqHnY5eUTkFUKr-OO4Cth0_2cWaE_7rGdvJRQwDJQXlWtf0pxbKptayvnPsQr-Vu5Aa6zLFvcIxO5Q7Gm9Lo9yksVIqn7BdTUL7UgaeI5vE2ai31xLPLAPVAZYfwPKTcF');
 
  }
 

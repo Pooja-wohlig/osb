@@ -584,8 +584,8 @@ public function sendnotificationold($content, $user) {
 	}
     public function sendnotification($content, $user) {
        
-	$token=$this->db->query("SELECT `token` FROM `user` WHERE `id`='$user'")->row();
-
+	$gettoken=$this->db->query("SELECT `token` FROM `user` WHERE `id`='$user'")->row();
+            $token=$gettoken->token;
         define('API_ACCESS_KEY', 'AIzaSyByFozf9MqBMNVVsqvVygA9_10IzHDIzns');
         $registrationIds = array($token);
         // prep the bundle
