@@ -822,16 +822,6 @@ return  0;
 else
 return  $id;
 	}
-     public function sendNotificationAndroid($title, $message, $image, $icon)
-    {
-        $query = $this->db->query('SELECT * FROM `config` WHERE `id`=13')->row();
-        $gcm = $query->content;
-        $query1 = $this->db->query("SELECT * FROM `notificationtoken` WHERE `os`='Android'")->result();
-        foreach ($query1 as $row) {
-            $token = $row->token;
-            $this->chintantable->sendGcm($gcm, $token, $title, $message, $image, $icon);
-        }
-    }
     public function sendNotificationIos($title)
     {
         $query = $this->db->query('SELECT * FROM `config` WHERE `id`=13')->row();
@@ -842,6 +832,47 @@ return  $id;
             $token = $row->token;
             $this->chintantable->sendApns($pem, $passphase, $token, $title);
         }
+    }
+    public function sendGcm($token,$gcm)
+    {
+        define('API_ACCESS_KEY', $gcm);
+        $registrationIds = array($token);
+        // prep the bundle
+        $msg = array(
+            'message' => "Welcome to OSB",
+            'title' => 'One Stop Barter',
+            'vibrate' => 1,
+            'sound' => 1,
+
+        );
+//        if ($image != '') {
+//            $msg['image'] = $image;
+//            $msg['style'] = 'picture';
+//            $msg['picture'] = $image;
+//        }
+//        if ($icon != '') {
+//            $msg['icon'] = $icon;
+//        }
+
+        $fields = array(
+            'registration_ids' => $registrationIds,
+            'data' => $msg,
+        );
+        $headers = array(
+            'Authorization: key='.API_ACCESS_KEY,
+            'Content-Type: application/json',
+        );
+        
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://android.googleapis.com/gcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+        $result = curl_exec($ch);
+        curl_close($ch);
     }
 }
 ?>
