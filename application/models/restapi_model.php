@@ -756,15 +756,35 @@ return  $id;
 		
 		if ($membershipno != "0" && $membershipno != "") 
 		{
-			$wherequery.=" AND `user`.`membershipno`='$membershipno'";
-			$userquery=$this->db->query("SELECT * FROM `user` WHERE `membershipno`='$membershipno'")->row();
+//			
+			$userquery=$this->db->query("SELECT `id` FROM `user` WHERE `shopname` LIKE '$membershipno'")->result();
+            
+            
+            $getproductids=$this->db->query("SELECT `id` FROM `product` WHERE `user` IN (SELECT `id` FROM `user` WHERE `shopname` LIKE '$membershipno')")->result();
+             $productids="(";
+            foreach($getproductids as $key=>$value){
+//            $catid=$row->id;
+                if($key==0)
+                {
+                    $productids.=$value->id;
+                }
+                else
+                {
+                    $productids.=",".$value->id;
+                }
+            }
+            $productids.=")";
+            if($productids=="()"){
+             $productids="(0)";
+            }
+            $wherequery.=" AND `product`.`id` IN '$productids'";
 			if(empty($userquery))
 			{
 				return -1;
 			}
 			else
 			{
-			
+
 			}
 		}
 		else
@@ -833,46 +853,6 @@ return  $id;
             $this->chintantable->sendApns($pem, $passphase, $token, $title);
         }
     }
-    public function sendGcm($token,$gcm)
-    {
-        define('API_ACCESS_KEY', $gcm);
-        $registrationIds = array($token);
-        // prep the bundle
-        $msg = array(
-            'message' => "Welcome to OSB",
-            'title' => 'One Stop Barter',
-            'vibrate' => 1,
-            'sound' => 1,
-
-        );
-//        if ($image != '') {
-//            $msg['image'] = $image;
-//            $msg['style'] = 'picture';
-//            $msg['picture'] = $image;
-//        }
-//        if ($icon != '') {
-//            $msg['icon'] = $icon;
-//        }
-
-        $fields = array(
-            'registration_ids' => $registrationIds,
-            'data' => $msg,
-        );
-        $headers = array(
-            'Authorization: key='.API_ACCESS_KEY,
-            'Content-Type: application/json',
-        );
-        
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, 'https://android.googleapis.com/gcm/send');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-        $result = curl_exec($ch);
-        curl_close($ch);
-    }
+   
 }
 ?>
