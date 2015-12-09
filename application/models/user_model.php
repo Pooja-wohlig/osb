@@ -624,6 +624,7 @@ public function sendnotificationold($content, $user) {
         }
         else
             {
+                $pemfile= base_url('uploads/key.pem');
                       // Put your device token here (without spaces):
                 $deviceToken = $token;
 
@@ -636,15 +637,18 @@ public function sendnotificationold($content, $user) {
                 ////////////////////////////////////////////////////////////////////////////////
 
                 $ctx = stream_context_create();
-                stream_context_set_option($ctx, 'ssl', 'local_cert', FCPATH.'config/'.'key.pem');
+                stream_context_set_option($ctx, 'ssl', 'local_cert',$pemfile);
                 stream_context_set_option($ctx, 'ssl', 'passphrase', $passphrase);
 
                 // Open a connection to the APNS server
                 $fp = stream_socket_client(
                     'ssl://gateway.sandbox.push.apple.com:2195', $err,
                     $errstr, 60, STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT, $ctx);
-
+                echo $fp;
+                print_r($fp);
+                echo "@@@@@@@@@@@@@@@@@@2222222222";
                 if (!$fp) {
+                    echo "in error";
                     exit("Failed to connect: $err $errstr".PHP_EOL);
                 }
 

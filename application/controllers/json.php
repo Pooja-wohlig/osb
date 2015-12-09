@@ -414,7 +414,7 @@ $this->load->view("json",$data);
 
  public function test() {
 
-$this->user_model->sendnotification('test',34);
+$this->user_model->sendnotification('test',30);
 
  }
 
