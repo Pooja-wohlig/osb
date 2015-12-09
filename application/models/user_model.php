@@ -356,7 +356,7 @@ $this->email->send();
 
 
     }
-    function login($membershipno,$password,$token)
+    function login($membershipno,$password,$token,$os)
     {
 		$query1=$this->db->query("SELECT `token` FROM `user` WHERE `membershipno`='$membershipno'")->row();
 		
@@ -366,7 +366,7 @@ $this->email->send();
         {
             $user=$query->row();
             $user=$user->id;
-			$query2=$this->db->query("UPDATE `user` SET `token`='$token' WHERE `id`='$user'");
+			$query2=$this->db->query("UPDATE `user` SET `token`='$token',`os`='$os' WHERE `id`='$user'");
             $newdata = array(
                 'membershipno' => $membershipno,
                 'password' => $password,
@@ -584,9 +584,14 @@ public function sendnotificationold($content, $user) {
 	}
     public function sendnotification($content, $user) {
        
-	$gettoken=$this->db->query("SELECT `token` FROM `user` WHERE `id`='$user'")->row();
+	$gettoken=$this->db->query("SELECT `token`,`os` FROM `user` WHERE `id`='$user'")->row();
+        
             $token=$gettoken->token;
-        define('API_ACCESS_KEY', 'AIzaSyByFozf9MqBMNVVsqvVygA9_10IzHDIzns');
+            $os=$gettoken->os;
+        if($os=="Android")
+        {
+            
+            define('API_ACCESS_KEY', 'AIzaSyByFozf9MqBMNVVsqvVygA9_10IzHDIzns');
         $registrationIds = array($token);
         // prep the bundle
         $msg = array(
@@ -616,6 +621,55 @@ public function sendnotificationold($content, $user) {
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
         $result = curl_exec($ch);
         curl_close($ch);
+        }
+        else
+            {
+                      // Put your device token here (without spaces):
+                $deviceToken = $token;
+
+                // Put your private key's passphrase here:
+                $passphrase = '1234';
+
+                // Put your alert message here:
+                $message = $content;
+
+                ////////////////////////////////////////////////////////////////////////////////
+
+                $ctx = stream_context_create();
+                stream_context_set_option($ctx, 'ssl', 'local_cert', FCPATH.'config/'.'key.pem');
+                stream_context_set_option($ctx, 'ssl', 'passphrase', $passphrase);
+
+                // Open a connection to the APNS server
+                $fp = stream_socket_client(
+                    'ssl://gateway.sandbox.push.apple.com:2195', $err,
+                    $errstr, 60, STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT, $ctx);
+
+                if (!$fp) {
+                    exit("Failed to connect: $err $errstr".PHP_EOL);
+                }
+
+                //echo 'Connected to APNS' . PHP_EOL;
+
+                // Create the payload body
+                $body['aps'] = array(
+                    'alert' => $message,
+                    'sound' => 'default',
+                    );
+
+                // Encode the payload as JSON
+                $payload = json_encode($body);
+
+                // Build the binary notification
+                $msg = chr(0).pack('n', 32).pack('H*', $deviceToken).pack('n', strlen($payload)).$payload;
+
+                // Send it to the server
+                $result = fwrite($fp, $msg, strlen($msg));
+
+                // Close the connection to the server
+                fclose($fp);
+
+            }
+        
 
 	}
 
@@ -649,7 +703,7 @@ public function sendnotificationold($content, $user) {
 
 
 
-    function sociallogin($user_profile,$provider)
+    function sociallogin($user_profile,$provider,$os)
     {
         $query=$this->db->query("SELECT * FROM `user` WHERE `user`.`socialid`='$user_profile->identifier'");
         if($query->num_rows == 0)

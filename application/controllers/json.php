@@ -406,7 +406,8 @@ $this->load->view("json",$data);
   $membershipno=$this->input->get("membershipno");
         $password=$this->input->get("password");
         $token=$this->input->get("token");
-        $data['message']=$this->user_model->login($membershipno,$password,$token);
+        $os=$this->input->get("os");
+        $data['message']=$this->user_model->login($membershipno,$password,$token,$os);
         $this->load->view('json',$data);
  }
 
@@ -1296,11 +1297,12 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
 		$email=$data['email'];
 		$number=$data['number'];
 		$message=$data['message'];
+		$os=$data['os'];
 	    if(empty($data)){
 		$data['message']=0;
 		}
 	    else{
-		$data['message']=$this->restapi_model->becomeamember($name,$email,$number,$message);
+		$data['message']=$this->restapi_model->becomeamember($name,$email,$number,$message,$os);
 		}
 		$this->load->view('json',$data);
  }

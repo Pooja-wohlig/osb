@@ -724,7 +724,7 @@ $echo.= "done2";
         else
         return  $echo;
 	}
-	public function becomeamember($name,$email,$number,$message){
+	public function becomeamember($name,$email,$number,$message,$os){
 $data=array("name" => $name,"email" => $email,"personalcontact" => $number,"message" => $message,"status"=>2);
 $query=$this->db->insert( "register", $data );
 $id=$this->db->insert_id();
