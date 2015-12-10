@@ -1552,4 +1552,6 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $user = $this->input->get_post('id');
         $this->user_model->sendnotification($content,$user);
     }
+ 
+ 
 } 
