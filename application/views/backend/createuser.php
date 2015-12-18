@@ -34,7 +34,6 @@
 					<input type="email" id="normal-field" class="form-control" name="email" value="<?php echo set_value('email');?>">
 				  </div>
 				</div>
-<!--
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="description-field">Password</label>
 				  <div class="col-sm-4">
@@ -47,8 +46,7 @@
 					<input type="password" id="description-field" class="form-control" name="confirmpassword" value="">
 				  </div>
 				</div>
--->
-			<div class=" form-group">
+			<div class=" form-group" style="display:none">
 				  <label class="col-sm-2 control-label" for="normal-field">Message</label>
 				  <div class="col-sm-4">
 					  <textarea rows="4" cols="50" id="normal-field" class="form-control" name="message" value="<?php echo set_value('message');?>"></textarea>
@@ -60,13 +58,16 @@
 					<input type="text" id="normal-field" maxlength="10" class="form-control" name="personalcontact" value="<?php echo set_value('personalcontact');?>">
 				</div>
 			</div>
+<!--
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">SocialId</label>
 				  <div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="socialid" value="<?php echo set_value('socialid');?>">
 				  </div>
 				</div>
+-->
 				
+<!--
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label">logintype</label>
 				  <div class="col-sm-4">
@@ -76,6 +77,7 @@
 					?>
 				  </div>
 				</div>
+-->
 				
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label">Status</label>
@@ -114,12 +116,14 @@
 				</div>
 -->
 				
+<!--
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">json</label>
 				  <div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="json" value="<?php echo set_value('json');?>">
 				  </div>
 				</div>
+-->
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">Shopname</label>
 				  <div class="col-sm-4">

@@ -263,8 +263,8 @@ class Product_model extends CI_Model
      $query=$this->db->query("SELECT `salesbalance` FROM `user` WHERE `id`='$user'")->row();
         $salesbalance=$query->salesbalance;
         $newprice=$price*$quantity;
-        $this->user_model->sendnotification("Your Product named as: ".$name." price: Rs ".$price." quantity ".$quantity." is approved ",$user);
-         $message="Your Product named as: ".$name." price: Rs ".$price." quantity ".$quantity." is approved ";
+        $this->user_model->sendnotification("Your Product named as: ".$name." price: Rs ".$price." quantity ".$quantity." is approved by SWAPP",$user);
+         $message="Your Product named as: ".$name." price: Rs ".$price." quantity ".$quantity." is approved by SWAPP ";
          $this->user_model->addnotificationtodb($message,$user);
         if($query1)
             return 1;
