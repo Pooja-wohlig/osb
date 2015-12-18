@@ -588,6 +588,7 @@ public function sendnotificationold($content, $user) {
         
             $token=$gettoken->token;
             $os=$gettoken->os;
+        echo $token."          ";
         if($os=="Android")
         {
             
@@ -624,7 +625,8 @@ public function sendnotificationold($content, $user) {
         }
         else
             {
-                $pemfile= base_url('uploads/key.pem');
+                $pemfile='./uploads/key.pem';
+                $certi= './uploads/entrust_2048_ca.cer';
                       // Put your device token here (without spaces):
                 $deviceToken = $token;
 
@@ -633,11 +635,13 @@ public function sendnotificationold($content, $user) {
 
                 // Put your alert message here:
                 $message = $content;
-
+                echo $passphrase."         ";
+                echo $pemfile;
                 ////////////////////////////////////////////////////////////////////////////////
 
                 $ctx = stream_context_create();
                 stream_context_set_option($ctx, 'ssl', 'local_cert',$pemfile);
+                stream_context_set_option($ctx, 'ssl', 'local_cert',$certi);
                 stream_context_set_option($ctx, 'ssl', 'passphrase', $passphrase);
 
                 // Open a connection to the APNS server
@@ -656,15 +660,18 @@ public function sendnotificationold($content, $user) {
                     'alert' => $message,
                     'sound' => 'default',
                     );
-
+                print_r($body);
+            echo "             ";
                 // Encode the payload as JSON
                 $payload = json_encode($body);
-
+                print_r($payload);
                 // Build the binary notification
                 $msg = chr(0).pack('n', 32).pack('H*', $deviceToken).pack('n', strlen($payload)).$payload;
 
                 // Send it to the server
                 $result = fwrite($fp, $msg, strlen($msg));
+            print_r($result);
+            echo $result;
                 if (!$result)
     echo 'Message not delivered' . PHP_EOL;
 else
