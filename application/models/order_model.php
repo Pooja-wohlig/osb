@@ -343,6 +343,13 @@ class Order_model extends CI_Model
 	{
 		$query=$this->db->query("DELETE FROM `orderitems` WHERE `id`='$id'");
 	}
+    function getPendingOrderCount()
+	{
+		$query=$this->db->query("SELECT COUNT(*) as `ordercount` FROM `order` WHERE `orderstatus`=1")->row();
+        $queryorder=$query->ordercount;
+        return $queryorder;
+	}
+    
 	public function getuser()
 	{
 		$query=$this->db->query("SELECT * FROM `user` ORDER BY `name` ASC" )->result();

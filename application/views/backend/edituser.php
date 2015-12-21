@@ -160,13 +160,13 @@
 				  if($accesslevel==1)
 				  {
 				  ?>
-			<div class=" form-group">
+			<div class=" form-group" style="display:none">
 				<label class="col-sm-2 control-label" for="normal-field">Purchase Balance</label>
 				<div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="purchasebalance" value="<?php echo set_value('purchasebalance',$before->purchasebalance);?>">
 				</div>
 			</div>
-			<div class=" form-group">
+			<div class=" form-group" style="display:none">
 				<label class="col-sm-2 control-label" for="normal-field">Sales Balance</label>
 				<div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="salesbalance" value="<?php echo set_value('salesbalance',$before->salesbalance);?>">

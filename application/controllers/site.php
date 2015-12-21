@@ -25,6 +25,9 @@ class Site extends CI_Controller
 		$access = array("1","2");
 		$this->checkaccess($access);
 		$data[ 'page' ] = 'dashboard';
+//        $data['order']=$this->order_model->getPendingOrderCount();
+//        $data['product']=$this->product_model->getPendingProductCount();
+//        $data['product']=$this->product_model->getPendingAdminRequestCount();
 		$data[ 'title' ] = 'Welcome';
 		$this->load->view( 'template', $data );	
 	}
