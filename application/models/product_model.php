@@ -271,6 +271,12 @@ class Product_model extends CI_Model
         else 
             return 0;
     }
+       public function getPendingProductCount()
+{
+    $query=$this->db->query("SELECT COUNT(*) as `pendingproduct` FROM `product` WHERE `moderated`=0")->row();
+    $pendingproduct=$query->pendingproduct;
+    return $pendingproduct;
+}
     public function getcount(){
       $query=$this->db->query("SELECT COUNT(*) as `count` FROM `product` WHERE `moderated`=0")->row();   
         $count=$query->count;

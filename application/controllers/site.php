@@ -25,9 +25,9 @@ class Site extends CI_Controller
 		$access = array("1","2");
 		$this->checkaccess($access);
 		$data[ 'page' ] = 'dashboard';
-//        $data['order']=$this->order_model->getPendingOrderCount();
-//        $data['product']=$this->product_model->getPendingProductCount();
-//        $data['product']=$this->product_model->getPendingAdminRequestCount();
+        $data['order']=$this->order_model->getPendingOrderCount();
+        $data['product']=$this->product_model->getPendingProductCount();
+        $data['adminrequest']=$this->request_model->getPendingAdminRequestCount();
 		$data[ 'title' ] = 'Welcome';
 		$this->load->view( 'template', $data );	
 	}
@@ -1657,10 +1657,14 @@ $access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="editrequest";
 $data['requeststatus']=$this->requeststatus_model->getrequeststatusdropdown();
-$data['userto']=$this->user_model->getuserdropdown();
-$data['userfrom']=$this->user_model->getuserdropdown();
 $data["title"]="Edit request";
 $data["before"]=$this->request_model->beforeedit($this->input->get("id"));
+    $userfromid=$data['before']->userfrom;
+    $usertoid=$data['before']->userto;
+    
+        $data['userto']=$this->user_model->getname($usertoid);
+        $data['userfrom']=$this->user_model->getname($userfromid);
+    
 $this->load->view("template",$data);
 }
 public function editrequestsubmit()
@@ -1962,7 +1966,7 @@ $elements[0]->header="ID";
 $elements[0]->alias="id";
 	
 $elements[1]=new stdClass();
-$elements[1]->field="`tab1`.`name`";
+$elements[1]->field="`tab1`.`membershipno`";
 $elements[1]->sort="1";
 $elements[1]->header="Buyer";
 $elements[1]->alias="userto";
@@ -2082,11 +2086,21 @@ public function edittransaction()
 $access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="edittransaction";
-$data['userto']=$this->user_model->getuserdropdown();
 $data['userfrom']=$this->user_model->getuserdropdown();
 //$data['transactionstatus']=$this->transactionstatus_model->gettransactionstatusdropdown();
 $data["title"]="Edit transaction";
 $data["before"]=$this->transaction_model->beforeedit($this->input->get("id"));
+$userto=$data["before"]->userto;
+   // if admin
+  $userfrom=$data["before"]->userfrom;  
+    if($userfrom==1)
+    {
+         $data['userto']=$this->user_model->getmembershipno($userto);
+    }
+    else
+    {
+        $data['userto']=$this->user_model->getuserdropdown();
+    }
 $this->load->view("template",$data);
 }
 public function edittransactionsubmit()
@@ -2894,16 +2908,18 @@ $this->load->view("redirect",$data);
 			
 	}
     
-    
 	function editorder()
 	{
 		$access = array("1","2");
 		$this->checkaccess($access);
 		//$data[ 'category' ] =$this->order_model->getcategorydropdown();
-		$data[ 'user' ] =$this->order_model->getuser();
+//		$data[ 'user' ] =$this->order_model->getuser();
 		$data[ 'country' ] =$this->order_model->getcountry();
 		$data[ 'orderstatus' ] =$this->order_model->getorderstatus();
 		$data['before']=$this->order_model->beforeedit($this->input->get('id'));
+        $user=$data['before']->user;
+        $data[ 'userfrom' ] =$this->order_model->getuserfrom($this->input->get('id')); 
+        $data[ 'userto' ] =$this->order_model->getuserto($user);
 		$data['page']='editorder';
 		$data['page2']='block/orderblock';
 		$data['title']='Edit order';

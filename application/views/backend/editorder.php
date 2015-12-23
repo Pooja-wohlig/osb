@@ -1,18 +1,34 @@
 <?php error_reporting(E_ALL);
 ini_set('display_errors', 1);?>
-	    <section class="panel">
-		    <header class="panel-heading">
-				 Edit Order Details
-			</header>
-			<div class="panel-body">
-			    <form class="form-horizontal tasi-form" method="post" action="<?php echo site_url('site/editordersubmit');?>" >
-					<div class="amount-message alert alert-danger" style="display:none;"></div>
-					<input type="hidden" id="normal-field" class="form-control" name="id" value="<?php echo set_value('id',$before['order']->id);?>" style="display:none;">
-					
+    <section class="panel">
+        <header class="panel-heading">
+            Edit Order Details
+        </header>
+        <div class="panel-body">
+            <form class="form-horizontal tasi-form" method="post" action="<?php echo site_url('site/editordersubmit');?>">
+                <div class="amount-message alert alert-danger" style="display:none;"></div>
+                <input type="hidden" id="normal-field" class="form-control" name="id" value="<?php echo set_value('id',$before['order']->id);?>" style="display:none;">
+                <div class="row">
+                    <div>
+                        <!--                        //user from-->
+                        <label class="col-sm-2 control-label">Buyer</label>
+                        <div class="col-sm-4">
+                        </div>
+                    </div>
+                    <div>
+                        <!--                        user to-->
+                        <label class="col-sm-2 control-label">Seller</label>
+                        <div class="col-sm-4">
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--
 					<div class="form-group">
 						<label class="col-sm-2 control-label">User</label>
 						<div class="col-sm-4">
-						  <?php 	 echo form_dropdown('user',$user,set_value('user',$before['order']->user),'class="chzn-select form-control user  populate placeholder select2-offscreen" id="select3" 	'); ?>
+						  <?php echo form_dropdown('user',$user,set_value('user',$before['order']->user),'class="chzn-select form-control user  populate placeholder select2-offscreen" id="select3" 	'); ?>
 						</div>
 					</div>
 					<div class="form-group">
@@ -21,14 +37,6 @@ ini_set('display_errors', 1);?>
 						  <input type="text" id="normal-field" class="form-control" name="firstname" value="<?php echo set_value('firstname',$before['order']->name);?>">
 						</div>
 					</div>
-<!--
-					 <div class="form-group">
-						<label class="col-sm-2 control-label">Last Name</label>
-						<div class="col-sm-4">
-						  <input type="text" id="normal-field" class="form-control" name="lastname" value="<?php echo set_value('lastname',$before['order']->lastname);?>">
-						</div>
-					</div>
--->
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Email</label>
 						<div class="col-sm-4">
@@ -72,16 +80,13 @@ ini_set('display_errors', 1);?>
 						  <textarea name="shippingaddress" class="form-control"><?php 
                                 if($before['order']->shippingaddress=="")
                                 {
-//                                    $before['order']->billingaddress)?
                                         echo set_value('shippingaddress',$before['order']->billingaddress);
                                 }
                                 else
                                 {
-//                                    $before['order']->shippingaddress)
                                     echo set_value('shippingaddress',$before['order']->shippingaddress);
                                 }
 
-//echo set_value('shippingaddress',$before['order']->shippingaddress);
                               ?></textarea>
 						</div>
 					</div>
@@ -120,7 +125,6 @@ ini_set('display_errors', 1);?>
                                     echo form_dropdown('shippingcountry',$country,set_value('shippingcountry',$before['order']->shippingcountry),'id="select2" class="chzn-select form-control" 	data-placeholder="Choose a country..."');
                                 }
 
-//echo set_value('shippingcountry',$before['order']->shippingaddress);
                               ?>
 						
 						</div>
@@ -143,54 +147,7 @@ ini_set('display_errors', 1);?>
 						  <input type="text" id="" name="logisticcharge" class="form-control" value="<?php echo set_value('logisticcharge',$before['order']->logisticcharge); ?>">
 						</div>
 					</div>
-<!--
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Shipping Method</label>
-                        <div class="col-sm-4">
-                          
-<?php
-//echo $before['order']->shippingmethod;
-$check=$before['order']->shippingmethod;
 
-
-if($check=="1")
-{
-echo "Free UK Delivery £ 0.00";
-}
-if($check=="2")
-{
-echo "Standard Delivery £ 3.00";
-}
-if($check=="3")
-{
-echo "Next Day UK Delivery £ 5.00";
-}
-if($check=="4")
-{
-echo "Free International Delivery £ 0.00";
-}
-if($check=="5")
-{
-echo "International Delivery £ 5.00";
-}
-if($check=="6")
-{
-echo "Free Delivery £ 0.00";
-}
-if($check=="7")
-{
-echo "Express International Delivery £ 10.00";
-}
-
-
-?>
-                            
-
-                            
-                        </div>
-                    </div>
--->
-                
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Transaction Id</label>
 						<div class="col-sm-4">
@@ -200,16 +157,16 @@ echo "Express International Delivery £ 10.00";
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Order Status</label>
 						<div class="col-sm-4">
-						  <?php 	 echo form_dropdown('orderstatus',$orderstatus,set_value('orderstatus',$before['order']->orderstatus),'class="chzn-select orderstatus form-control" 	'); ?>
+						  <?php echo form_dropdown('orderstatus',$orderstatus,set_value('orderstatus',$before['order']->orderstatus),'class="chzn-select orderstatus form-control"'); ?>
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="col-sm-2 control-label">&nbsp;</label>
-						<div class="col-sm-4">	
-							<button type="submit" class="btn btn-info finalsubmit">Submit</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</section>
-    
+-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">&nbsp;</label>
+                    <div class="col-sm-4">
+                        <button type="submit" class="btn btn-info finalsubmit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>

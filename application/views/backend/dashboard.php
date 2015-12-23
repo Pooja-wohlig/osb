@@ -6,11 +6,11 @@ echo getconfig("projectname");
         <div class="col-lg-3 col-sm-3">
             <section class="panel">
                 <div class="symbol terques">
-                    <i class="icon-building"></i>
+                    <i class="icon-user"></i>
                 </div>
                 <div class="value">
                     <p>Pending Requests To Admin </p>
-                    <h1><?php  echo 1; ?></h1>
+                    <h1><?php  echo $adminrequest; ?></h1>
 
                 </div>
 
@@ -20,11 +20,11 @@ echo getconfig("projectname");
         <div class="col-lg-3 col-sm-3">
             <section class="panel">
                 <div class="symbol terques">
-                    <i class="icon-book"></i>
+                    <i class="icon-shopping-cart"></i>
                 </div>
                 <div class="value">
                     <p>Products </p>
-                    <h1><?php  echo 2; ?></h1>
+                    <h1><?php  echo $product; ?></h1>
 
                 </div>
 
@@ -33,11 +33,11 @@ echo getconfig("projectname");
         <div class="col-lg-3 col-sm-3">
             <section class="panel">
                 <div class="symbol terques">
-                    <i class="icon-book"></i>
+                    <i class="icon-list"></i>
                 </div>
                 <div class="value">
                     <p>Pending Orders Count </p>
-                    <h1 class="totalstudentsfilter"><?php  echo 3; ?></h1>
+                    <h1 class="totalstudentsfilter"><?php  echo $order; ?></h1>
 
                 </div>
 

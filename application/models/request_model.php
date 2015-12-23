@@ -36,6 +36,12 @@ public function delete($id)
 $query=$this->db->query("DELETE FROM `osb_request` WHERE `id`='$id'");
 return $query;
 }
+    public function getPendingAdminRequestCount()
+{
+    $query=$this->db->query("SELECT COUNT(*) as `pendingrequest` FROM `osb_request` WHERE `userfrom`=1 AND `requeststatus`=1")->row();
+    $pendingrequest=$query->pendingrequest;
+    return $pendingrequest;
+}
     
         function exportrequestcsv($checkadmin)
 	{

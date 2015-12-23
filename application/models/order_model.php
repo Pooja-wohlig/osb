@@ -363,6 +363,18 @@ class Order_model extends CI_Model
 		}
 		return $return;
 	}
+    public function getuserfrom($id)
+	{
+		$query=$this->db->query("SELECT * FROM `orderitems` WHERE `order`='$id'" )->row();
+		$product=$query->product;
+		$query1=$this->db->query("SELECT * FROM `user` WHERE `id`=(SELECT `user` FROM `product` WHERE `id`='$product')" )->row();
+        return $query1;
+	}
+    public function getuserto($id)
+	{
+		$query=$this->db->query("SELECT * FROM `user` WHERE `id`='$id'")->row();
+        return $query;
+	}
 	public function getorderstatus()
 	{
 		$query=$this->db->query("SELECT * FROM `orderstatus` ORDER BY `name` ASC" )->result();

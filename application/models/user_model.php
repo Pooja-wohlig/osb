@@ -136,6 +136,18 @@ class User_model extends CI_Model
 		$query=$this->db->get( 'user' )->row();
 		return $query;
 	}
+    public function getmembershipno($id)
+	{
+		$query=$this->db->query("SELECT `membershipno` FROM `user` WHERE `id`='$id'")->row();
+        $membershipno=$query->membershipno;
+		return $membershipno;
+	} 
+    public function getname($id)
+	{
+		$query=$this->db->query("SELECT `name` FROM `user` WHERE `id`='$id'")->row();
+        $name=$query->name;
+		return $name;
+	}
 
 	public function edit($id,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus)
 	{
