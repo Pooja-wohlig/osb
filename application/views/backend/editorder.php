@@ -12,26 +12,70 @@ ini_set('display_errors', 1);?>
                     <div class="col-md-6">
                         <!--                        //user from-->
                         <p class="text-center">Buyer</p>
-                        <div class="col-sm-12 text-center">
+                        <!-- <div class="col-sm-12 text-center">
                             <div class=""><span>Name :- </span><?php echo $userto->name?></div>
                             <div class=""><span>Shop Name :- </span><?php echo $userto->shopname?></div>
                             <div class=""><span>Email :- </span><?php echo $userto->email?></div>
                             <div class=""><span>Membership No :-</span> <?php echo $userto->membershipno?></div>
                             <div class=""><span>Address :- </span><?php echo $userto->billingaddress?><br><?php echo $userto->billingcity?><br><?php echo $userto->billingstate?><br><?php echo $userto->billingcountry?><br><?php echo $userto->billingpincode?></div>
-                        </div>
+                        </div> -->
+                        <table class="text-left" style="width: 70%; margin: 0 auto;">
+                          <tr>
+                            <td style="font-weight: bold;">Name</td>
+                            <td><?php echo $userto->name?></td>
+                          </tr>
+                          <tr>
+                            <td style="font-weight: bold;">Shop Name</td>
+                            <td><?php echo $userto->shopname?></td>
+                          </tr>
+                          <tr>
+                            <td style="font-weight: bold;">Email</td>
+                            <td><?php echo $userto->email?></td>
+                          </tr>
+                          <tr>
+                            <td style="font-weight: bold;">Membership No</td>
+                            <td><?php echo $userto->membershipno?></td>
+                          </tr>
+                          <tr>
+                            <td style="font-weight: bold;">Address</td>
+                            <td><?php echo $userto->billingaddress?><br><?php echo $userto->billingcity?><br><?php echo $userto->billingstate?><br><?php echo $userto->billingcountry?><br><?php echo $userto->billingpincode?></td>
+                          </tr>
+                        </table>
                     </div>
                     <div>
                         <!--                        //user from-->
                         <div class="col-md-6">
-                        <p class="text-center">Seller</p>
-                        <div class="col-sm-12 text-center">
-                            <div class=""><span>Name :- </span><?php echo $userfrom->name?></div>
-                            <div class=""><span>Shop Name :- </span><?php echo $userfrom->shopname?></div>
-                            <div class=""><span>Email :- </span><?php echo $userfrom->email?></div>
-                            <div class=""><span>Membership No :-</span> <?php echo $userfrom->membershipno?></div>
-                            <div class=""><span>Address :- </span><?php echo $userfrom->billingaddress?><br><?php echo $userfrom->billingcity?><br><?php echo $userfrom->billingstate?><br><?php echo $userfrom->billingcountry?><br><?php echo $userfrom->billingpincode?></div>
+                          <p class="text-center">Seller</p>
+                          <!-- <div class="col-sm-12 text-center">
+                              <div class=""><span>Name :- </span><?php echo $userfrom->name?></div>
+                              <div class=""><span>Shop Name :- </span><?php echo $userfrom->shopname?></div>
+                              <div class=""><span>Email :- </span><?php echo $userfrom->email?></div>
+                              <div class=""><span>Membership No :-</span> <?php echo $userfrom->membershipno?></div>
+                              <div class=""><span>Address :- </span><?php echo $userfrom->billingaddress?><br><?php echo $userfrom->billingcity?><br><?php echo $userfrom->billingstate?><br><?php echo $userfrom->billingcountry?><br><?php echo $userfrom->billingpincode?></div>
+                          </div> -->
+                          <table class="text-left" style="width: 70%; margin: 0 auto;">
+                            <tr>
+                              <td style="font-weight: bold;">Name</td>
+                              <td><?php echo $userfrom->name?></td>
+                            </tr>
+                            <tr>
+                              <td style="font-weight: bold;">Shop Name</td>
+                              <td><?php echo $userfrom->shopname?></td>
+                            </tr>
+                            <tr>
+                              <td style="font-weight: bold;">Email</td>
+                              <td><?php echo $userfrom->email?></td>
+                            </tr>
+                            <tr>
+                              <td style="font-weight: bold;">Membership No</td>
+                              <td><?php echo $userfrom->membershipno?></td>
+                            </tr>
+                            <tr>
+                              <td style="font-weight: bold;">Address</td>
+                              <td><?php echo $userfrom->billingaddress?><br><?php echo $userfrom->billingcity?><br><?php echo $userfrom->billingstate?><br><?php echo $userfrom->billingcountry?><br><?php echo $userfrom->billingpincode?></td>
+                            </tr>
+                          </table>
                         </div>
-                            </div>
                     </div>
                     <div>
 
@@ -196,8 +240,7 @@ ini_set('display_errors', 1);?>
 					</div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">&nbsp;</label>
-                    <div class="col-sm-4">
+                    <div class="col-sm-12 text-center">
                         <button type="submit" class="btn btn-info finalsubmit">Submit</button>
                     </div>
                 </div>
