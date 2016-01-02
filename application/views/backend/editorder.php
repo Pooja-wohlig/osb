@@ -2,35 +2,43 @@
 ini_set('display_errors', 1);?>
     <section class="panel">
         <header class="panel-heading">
-            Edit Order Details
+            Order Details
         </header>
         <div class="panel-body">
             <form class="form-horizontal tasi-form" method="post" action="<?php echo site_url('site/editordersubmit');?>">
                 <div class="amount-message alert alert-danger" style="display:none;"></div>
                 <input type="hidden" id="normal-field" class="form-control" name="id" value="<?php echo set_value('id',$before['order']->id);?>" style="display:none;">
                 <div class="row">
+                    <div class="col-md-6">
+                        <!--                        //user from-->
+                        <p class="text-center">Buyer</p>
+                        <div class="col-sm-4 text-center">
+                            <div class=""><span>Name :- </span><?php echo $userto->name?></div>
+                            <div class=""><span>Shop Name :- </span><?php echo $userto->shopname?></div>
+                            <div class=""><span>Email :- </span><?php echo $userto->email?></div>
+                            <div class=""><span>Membership No :-</span> <?php echo $userto->membershipno?></div>
+                            <div class=""><span>Address :- </span><?php echo $userto->billingaddress?><?php echo $userto->billingcity?><?php echo $userto->billingstate?><?php echo $userto->billingcountry?><?php echo $userto->billingpincode?></div>
+                        </div>
+                    </div>
                     <div>
                         <!--                        //user from-->
-                        <label class="col-sm-2 control-label">Buyer</label>
-                        <div class="col-sm-4">
-                            <br><br><br><span>Shop Name :- </span><?php echo $userto->shopname?><br><br>
-                            <span>Membership No :- </span><?php echo $userto->membershipno?><br><br>
-                            <span>Address :- </span><?php echo $userto->address?><br><br>
+                        <div class="col-md-6">
+                        <p class="text-center">Seller</p>
+                        <div class="col-sm-4 text-center">
+                            <div class=""><span>Name :- </span><?php echo $userfrom->name?></div>
+                            <div class=""><span>Shop Name :- </span><?php echo $userfrom->shopname?></div>
+                            <div class=""><span>Email :- </span><?php echo $userfrom->email?></div>
+                            <div class=""><span>Membership No :-</span> <?php echo $userfrom->membershipno?></div>
+                            <div class=""><span>Address :- </span><?php echo $userfrom->billingaddress?><?php echo $userfrom->billingcity?><?php echo $userfrom->billingstate?><?php echo $userfrom->billingcountry?><?php echo $userfrom->billingpincode?></div>
                         </div>
+                            </div>
                     </div>
                     <div>
-                        <!--                        user to-->
-                        <label class="col-sm-2 control-label">Seller</label>
-                        <div class="col-sm-4">
-                             <br><br><br><span>Shop Name :- </span><?php echo $userfrom->shopname?><br><br>
-                            <span>Membership No :- </span><?php echo $userfrom->membershipno?><br><br>
-                            <span>Address :- </span><?php echo $userfrom->address?><br><br>
-                        </div>
-                    </div>
+            
                 </div>
 
-                
-<!--
+
+                <!--
 					<div class="form-group">
 						<label class="col-sm-2 control-label">User</label>
 						<div class="col-sm-4">
@@ -161,11 +169,30 @@ ini_set('display_errors', 1);?>
 						</div>
 					</div>
 -->
-					<div class="form-group">
-						<label class="col-sm-2 control-label">Order Status</label>
-						<div class="col-sm-4">
-						  <?php echo form_dropdown('orderstatus',$orderstatus,set_value('orderstatus',$before['order']->orderstatus),'class="chzn-select orderstatus form-control"'); ?>
+<!--
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-4">
+                        <div class="form-group">
+                            <label class="col-sm-6 control-label" style="margin-right: -131px;">Status</label>
+                            <div class="col-sm-6">
+                                <?php echo form_dropdown('orderstatus',$orderstatus,set_value('orderstatus',$before['order']->orderstatus),'class="chzn-select orderstatus form-control"'); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+-->
+                <div class="form-group">
+						<label class="col-sm-12 text-center">Status</label>
+                    <div class="row">
+                    <div class="col-md-offset-5 col-md-2">
+                         <?php echo form_dropdown('orderstatus',$orderstatus,set_value('orderstatus',$before['order']->orderstatus),'class="chzn-select orderstatus form-control"'); ?>
+                        </div>
+                    </div>
+<!--
+						<div class="col-sm-3">
+						    <?php echo form_dropdown('orderstatus',$orderstatus,set_value('orderstatus',$before['order']->orderstatus),'class="chzn-select orderstatus form-control"'); ?>
 						</div>
+-->
 					</div>
 
                 <div class="form-group">
@@ -178,44 +205,44 @@ ini_set('display_errors', 1);?>
         </div>
     </section>
 
-<div class="row" style="padding:1% 0">
-    <div class="col-md-12">
-        <a class="btn btn-primary pull-right" href="<?php echo site_url("site/createorderitem"); ?>"><i class="icon-plus"></i>Create </a> &nbsp;
+<!--
+    <div class="row" style="padding:1% 0">
+        <div class="col-md-12">
+            <a class="btn btn-primary pull-right" href="<?php echo site_url(" site/createorderitem "); ?>"><i class="icon-plus"></i>Create </a> &nbsp;
+        </div>
+
     </div>
-   
-</div>
-<div class="row">
-    <div class="col-lg-12">
-        <section class="panel">
-            <header class="panel-heading">
-                Ordered Items
-            </header>
-            <div class="drawchintantable">
-                <?php $this->chintantable->createsearch("");?>
-                <table class="table table-striped table-hover" id="" cellpadding="0" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th data-field="id">ID</th>
-                            <th data-field="product">product</th>
-                            <th data-field="quantity">quantity</th>
-                            <th data-field="price">price</th>
-                            <th data-field="finalprice">finalprice</th>
-                            <th data-field="Action">Action</th>
-                      
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-                <?php $this->chintantable->createpagination();?>
-            </div>
-        </section>
-        <script>
-            function drawtable(resultrow) {
-                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.product + "</td><td>" + resultrow.quantity + "</td><td>" + resultrow.price + "</td><td>" + resultrow.finalprice + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editorderitem?id=');?>" + resultrow.id + "'><i class='icon-pencil'></i></a></td></tr>";
-            }
-            generatejquery("<?php echo $base_url;?>");
-        </script>
+-->
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    Ordered Items
+                </header>
+                <div class="drawchintantable">
+                    <?php $this->chintantable->createsearch("");?>
+                        <table class="table table-striped table-hover" id="" cellpadding="0" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th data-field="id">ID</th>
+                                    <th data-field="product">product</th>
+                                    <th data-field="quantity">quantity</th>
+                                    <th data-field="price">price</th>
+                                    <th data-field="finalprice">finalprice</th>
+                                    <th data-field="Action">Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                </div>
+            </section>
+            <script>
+                function drawtable(resultrow) {
+                    return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.product + "</td><td>" + resultrow.quantity + "</td><td>" + resultrow.price + "</td><td>" + resultrow.finalprice + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editorderitem?id=');?>" + resultrow.id + "'><i class='icon-pencil'></i></a></td></tr>";
+                }
+                generatejquery("<?php echo $base_url;?>");
+            </script>
+        </div>
     </div>
-</div>
-			  
