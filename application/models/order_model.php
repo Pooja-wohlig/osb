@@ -372,8 +372,10 @@ class Order_model extends CI_Model
 	}
     public function getuserto($id)
 	{
-		$query=$this->db->query("SELECT * FROM `user` WHERE `id`='$id'")->row();
-        return $query;
+		$query=$this->db->query("SELECT * FROM `order` WHERE `id`='$id'" )->row();
+        $user=$query->user;
+		$query1=$this->db->query("SELECT * FROM `user` WHERE `id`='$user'")->row();
+        return $query1;
 	}
 	public function getorderstatus()
 	{
@@ -409,16 +411,8 @@ class Order_model extends CI_Model
     
 	function getorderitem($id)
 	{
-//        echo $id;
-        $query=$this->db->query("SELECT `orderitems`.`id`,`order`.`name`,`orderitems`.`order`,`orderitems`.`product`,`product`.`name` AS `productname`,`product`.`sku`, `orderitems`.`quantity`,`orderitems`.`price`,`orderitems`.`discount`,`orderitems`.`finalprice` ,`productimage`.`image`
-        
-        FROM `orderitems`
-		LEFT OUTER JOIN `order` ON `order`.`id`=`orderitems`.`order` 
-		LEFT OUTER JOIN `product` ON `product`.`id`=`orderitems`.`product`
-		LEFT OUTER JOIN `productimage` ON `productimage`.`product`=`orderitems`.`product`
-        WHERE `orderitems`.`order`='$id'
-        " )->result();
-		
+        $query=$this->db->query("SELECT `orderitems`.`id`,`order`.`name`,`orderitems`.`order`,`orderitems`.`product`,`product`.`name` AS `productname`,`product`.`sku`,`orderitems`.`quantity`,`orderitems`.`price`,`orderitems`.`discount`,`orderitems`.`finalprice`,`productimage`.`image`FROM `orderitems` LEFT OUTER JOIN `order` ON `order`.`id`=`orderitems`.`order` LEFT OUTER JOIN `product` ON `product`.`id`=`orderitems`.`product` LEFT OUTER JOIN `productimage` ON `productimage`.`product`=`orderitems`.`product`
+WHERE `orderitems`.`order`='$id'")->row();
 		return $query;
 	}
     

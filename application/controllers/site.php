@@ -2912,18 +2912,19 @@ $this->load->view("redirect",$data);
 	{
 		$access = array("1","2");
 		$this->checkaccess($access);
-		//$data[ 'category' ] =$this->order_model->getcategorydropdown();
-//		$data[ 'user' ] =$this->order_model->getuser();
 		$data[ 'country' ] =$this->order_model->getcountry();
 		$data[ 'orderstatus' ] =$this->order_model->getorderstatus();
 		$data['before']=$this->order_model->beforeedit($this->input->get('id'));
-        $user=$data['before']->user;
         $data[ 'userfrom' ] =$this->order_model->getuserfrom($this->input->get('id')); 
-        $data[ 'userto' ] =$this->order_model->getuserto($user);
+        $data[ 'userto' ] =$this->order_model->getuserto($this->input->get('id'));
+        echo $this->input->get('id');
+        $data[ 'table' ] =$this->order_model->getorderitem($this->input->get('id'));
+        print_r($data[ 'table' ]);
+         $data['id']=$this->input->get('id');
 		$data['page']='editorder';
 		$data['page2']='block/orderblock';
 		$data['title']='Edit order';
-		$this->load->view('templatewith2',$data);
+		$this->load->view('template',$data);
 	}
 	function editordersubmit()
 	{
@@ -3012,19 +3013,71 @@ $this->load->view("redirect",$data);
     
 	function vieworderitems()
 	{
-		$access = array("1","2");
-		$this->checkaccess($access);
-//		$data[ 'category' ] =$this->category_model->getcategorydropdown();
-		$data[ 'table' ] =$this->order_model->getorderitem($this->input->get('id'));
-		$data['before']=$this->order_model->beforeedit($this->input->get('id'));
-        $data['id']=$this->input->get('id');
-		$data['page']='vieworderitems';
-		$data['page2']='block/orderblock';
-		$data['title']='Edit order items';
-		$this->load->view('templatewith2',$data);
+//		$access = array("1","2");
+//		$this->checkaccess($access);
+////		$data[ 'category' ] =$this->category_model->getcategorydropdown();
+//		$data[ 'table' ] =$this->order_model->getorderitem($this->input->get('id'));
+//		$data['before']=$this->order_model->beforeedit($this->input->get('id'));
+//        $data['id']=$this->input->get('id');
+//		$data['page']='vieworderitems';
+//		$data['page2']='block/orderblock';
+//		$data['title']='Edit order items';
+//		$this->load->view('templatewith2',$data);
+          $access=array("1","2");
+        $this->checkaccess($access);
+        $data["page"]="vieworderitems";
+        $data["base_url"]=site_url("site/vieworderitemsjson");
+        $data["title"]="View order";
+        $this->load->view("template",$data);
 	}
     
-    
+     function vieworderitemsjson()
+    {
+        $elements=array();
+        
+        $elements[0]=new stdClass();
+        $elements[0]->field="`order`.`id`";
+        $elements[0]->sort="1";
+        $elements[0]->header="ID";
+        $elements[0]->alias="id";
+        
+        $elements[1]=new stdClass();
+        $elements[1]->field="`order`.`name`";
+        $elements[1]->sort="1";
+        $elements[1]->header="User Name";
+        $elements[1]->alias="name";
+        
+        $elements[2]=new stdClass();
+        $elements[2]->field="`order`.`email`";
+        $elements[2]->sort="1";
+        $elements[2]->header="Email";
+        $elements[2]->alias="email";
+        
+        $elements[3]=new stdClass();
+        $elements[3]->field="`order`.`transactionid`";
+        $elements[3]->sort="1";
+        $elements[3]->header="Transaction Id";
+        $elements[3]->alias="transactionid";
+        
+        $search=$this->input->get_post("search");
+        $pageno=$this->input->get_post("pageno");
+        $orderby=$this->input->get_post("orderby");
+        $orderorder=$this->input->get_post("orderorder");
+        $maxrow=$this->input->get_post("maxrow");
+        
+        if($maxrow=="")
+        {
+            $maxrow=20;
+        }
+        if($orderby=="")
+        {
+            $orderby="id";
+            $orderorder="ASC";
+        }
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `orderitem`","WHERE `orderitem`.`order`='$id'");
+        $this->load->view("json",$data);
+    }
+
         
     public function createorderitems()
 	{
@@ -3096,7 +3149,7 @@ $this->load->view("redirect",$data);
 		$data['before']=$this->order_model->beforeedititem($this->input->get('id'));
 		$data[ 'product' ] =$this->product_model->getproductdropdown();
 //		$data[ 'category' ] =$this->category_model->getcategorydropdown();
-		$data[ 'table' ] =$this->order_model->getorderitem();
+		$data[ 'table' ] =$this->order_model->getorderitem($this->input->get('id'));
 		$data['page']='editorderitem';
 		$data['page2']='block/orderblock';
 		$data['title']='Edit order item';

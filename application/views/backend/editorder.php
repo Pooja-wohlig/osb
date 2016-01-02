@@ -13,18 +13,24 @@ ini_set('display_errors', 1);?>
                         <!--                        //user from-->
                         <label class="col-sm-2 control-label">Buyer</label>
                         <div class="col-sm-4">
+                            <br><br><br><span>Shop Name :- </span><?php echo $userto->shopname?><br><br>
+                            <span>Membership No :- </span><?php echo $userto->membershipno?><br><br>
+                            <span>Address :- </span><?php echo $userto->address?><br><br>
                         </div>
                     </div>
                     <div>
                         <!--                        user to-->
                         <label class="col-sm-2 control-label">Seller</label>
                         <div class="col-sm-4">
-
+                             <br><br><br><span>Shop Name :- </span><?php echo $userfrom->shopname?><br><br>
+                            <span>Membership No :- </span><?php echo $userfrom->membershipno?><br><br>
+                            <span>Address :- </span><?php echo $userfrom->address?><br><br>
                         </div>
                     </div>
                 </div>
 
-                <!--
+                
+<!--
 					<div class="form-group">
 						<label class="col-sm-2 control-label">User</label>
 						<div class="col-sm-4">
@@ -154,13 +160,14 @@ ini_set('display_errors', 1);?>
 						  <input type="text" id="" name="transactionid" class="form-control" value="<?php echo set_value('transactionid',$before['order']->transactionid); ?>">
 						</div>
 					</div>
+-->
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Order Status</label>
 						<div class="col-sm-4">
 						  <?php echo form_dropdown('orderstatus',$orderstatus,set_value('orderstatus',$before['order']->orderstatus),'class="chzn-select orderstatus form-control"'); ?>
 						</div>
 					</div>
--->
+
                 <div class="form-group">
                     <label class="col-sm-2 control-label">&nbsp;</label>
                     <div class="col-sm-4">
@@ -170,3 +177,51 @@ ini_set('display_errors', 1);?>
             </form>
         </div>
     </section>
+
+
+
+
+	    <section class="panel">
+		    <header class="panel-heading">
+				 Order Items Details
+			</header>
+			<div class="panel-body">
+          <?php
+$order=$this->input->get('id');
+?>
+           <div class=" pull-right createbtn" ><a class="btn btn-primary" href="<?php echo site_url('site/createorderitems?id='.$this->input->get('id')); ?>"><i class="icon-plus"></i>Create </a></div>
+            <div>
+                <table class="table table-striped table-hover border-top " cellpadding="0" cellspacing="0" >
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>product</th>
+					<th>quantity</th>
+					<th> price </th>
+					<th> finalprice </th>
+					<th> Actions </th>
+				</tr>
+			</thead>
+			<tbody>
+			   <?php foreach($table as $row) { ?>
+                <?php print_r($row);?>
+					<tr >
+						<td class="id"><?php echo $row->id; ?></td>
+						<td><?php echo $row->productname; ?></td>
+						<td><?php echo $row->quantity; ?></td>
+						<td><?php echo $row->price; ?></td>
+						<td><?php echo $row->finalprice; ?></td>
+						<td> <a class="btn btn-primary btn-xs" href="<?php echo site_url('site/editorderitem?id=').$row->id.'&order='.$order;?>"><i class="icon-pencil"></i></a>
+						<a href="<?php echo site_url('site/deleteorderitem?id=').$row->id.'&order='.$order; ?>" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this item?');">
+								<i class="icon-trash "></i>
+							</a> 
+					  </td>
+					</tr>
+					<?php } ?>
+			</tbody>
+			</table>
+               <br></br>
+                
+            </div>
+</section>
+			  
