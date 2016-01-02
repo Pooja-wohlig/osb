@@ -2917,9 +2917,7 @@ $this->load->view("redirect",$data);
 		$data['before']=$this->order_model->beforeedit($this->input->get('id'));
         $data[ 'userfrom' ] =$this->order_model->getuserfrom($this->input->get('id')); 
         $data[ 'userto' ] =$this->order_model->getuserto($this->input->get('id'));
-        echo $this->input->get('id');
-        $data[ 'table' ] =$this->order_model->getorderitem($this->input->get('id'));
-        print_r($data[ 'table' ]);
+        $data["base_url"]=site_url("site/vieworderitemsjson");
          $data['id']=$this->input->get('id');
 		$data['page']='editorder';
 		$data['page2']='block/orderblock';
@@ -3036,28 +3034,46 @@ $this->load->view("redirect",$data);
         $elements=array();
         
         $elements[0]=new stdClass();
-        $elements[0]->field="`order`.`id`";
+        $elements[0]->field="`orderitems`.`id`";
         $elements[0]->sort="1";
         $elements[0]->header="ID";
         $elements[0]->alias="id";
         
         $elements[1]=new stdClass();
-        $elements[1]->field="`order`.`name`";
+        $elements[1]->field="`orderitems`.`order`";
         $elements[1]->sort="1";
         $elements[1]->header="User Name";
         $elements[1]->alias="name";
         
         $elements[2]=new stdClass();
-        $elements[2]->field="`order`.`email`";
+        $elements[2]->field="`orderitems`.`product`";
         $elements[2]->sort="1";
         $elements[2]->header="Email";
         $elements[2]->alias="email";
         
         $elements[3]=new stdClass();
-        $elements[3]->field="`order`.`transactionid`";
+        $elements[3]->field="`orderitems`.`quantity`";
         $elements[3]->sort="1";
         $elements[3]->header="Transaction Id";
         $elements[3]->alias="transactionid";
+         
+        $elements[3]=new stdClass();
+        $elements[3]->field="`orderitems`.`price`";
+        $elements[3]->sort="1";
+        $elements[3]->header="Transaction Id";
+        $elements[3]->alias="transactionid";
+         
+        $elements[4]=new stdClass();
+        $elements[4]->field="`orderitems`.`discount`";
+        $elements[4]->sort="1";
+        $elements[4]->header="Transaction Id";
+        $elements[4]->alias="transactionid";
+         
+        $elements[5]=new stdClass();
+        $elements[5]->field="`orderitems`.`finalprice`";
+        $elements[5]->sort="1";
+        $elements[5]->header="Transaction Id";
+        $elements[5]->alias="transactionid";
         
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
@@ -3074,7 +3090,7 @@ $this->load->view("redirect",$data);
             $orderby="id";
             $orderorder="ASC";
         }
-        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `orderitem`","WHERE `orderitem`.`order`='$id'");
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `orderitems`","WHERE `orderitems`.`order`='$id'");
         $this->load->view("json",$data);
     }
 
