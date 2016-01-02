@@ -12,29 +12,29 @@ ini_set('display_errors', 1);?>
                     <div class="col-md-6">
                         <!--                        //user from-->
                         <p class="text-center">Buyer</p>
-                        <div class="col-sm-4 text-center">
+                        <div class="col-sm-12 text-center">
                             <div class=""><span>Name :- </span><?php echo $userto->name?></div>
                             <div class=""><span>Shop Name :- </span><?php echo $userto->shopname?></div>
                             <div class=""><span>Email :- </span><?php echo $userto->email?></div>
                             <div class=""><span>Membership No :-</span> <?php echo $userto->membershipno?></div>
-                            <div class=""><span>Address :- </span><?php echo $userto->billingaddress?><?php echo $userto->billingcity?><?php echo $userto->billingstate?><?php echo $userto->billingcountry?><?php echo $userto->billingpincode?></div>
+                            <div class=""><span>Address :- </span><?php echo $userto->billingaddress?><br><?php echo $userto->billingcity?><br><?php echo $userto->billingstate?><br><?php echo $userto->billingcountry?><br><?php echo $userto->billingpincode?></div>
                         </div>
                     </div>
                     <div>
                         <!--                        //user from-->
                         <div class="col-md-6">
                         <p class="text-center">Seller</p>
-                        <div class="col-sm-4 text-center">
+                        <div class="col-sm-12 text-center">
                             <div class=""><span>Name :- </span><?php echo $userfrom->name?></div>
                             <div class=""><span>Shop Name :- </span><?php echo $userfrom->shopname?></div>
                             <div class=""><span>Email :- </span><?php echo $userfrom->email?></div>
                             <div class=""><span>Membership No :-</span> <?php echo $userfrom->membershipno?></div>
-                            <div class=""><span>Address :- </span><?php echo $userfrom->billingaddress?><?php echo $userfrom->billingcity?><?php echo $userfrom->billingstate?><?php echo $userfrom->billingcountry?><?php echo $userfrom->billingpincode?></div>
+                            <div class=""><span>Address :- </span><?php echo $userfrom->billingaddress?><br><?php echo $userfrom->billingcity?><br><?php echo $userfrom->billingstate?><br><?php echo $userfrom->billingcountry?><br><?php echo $userfrom->billingpincode?></div>
                         </div>
                             </div>
                     </div>
                     <div>
-            
+
                 </div>
 
 
@@ -91,7 +91,7 @@ ini_set('display_errors', 1);?>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Shipping Address</label>
 						<div class="col-sm-4">
-						  <textarea name="shippingaddress" class="form-control"><?php 
+						  <textarea name="shippingaddress" class="form-control"><?php
                                 if($before['order']->shippingaddress=="")
                                 {
                                         echo set_value('shippingaddress',$before['order']->billingaddress);
@@ -129,7 +129,7 @@ ini_set('display_errors', 1);?>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Shipping Country</label>
 						<div class="col-sm-4">
-						<?php 
+						<?php
                                 if($before['order']->shippingcountry=="")
                                 {
                                     echo form_dropdown('shippingcountry',$country,set_value('shippingcountry',$before['order']->billingcountry),'id="select2" class="chzn-select form-control" 	data-placeholder="Choose a country..."');
@@ -140,7 +140,7 @@ ini_set('display_errors', 1);?>
                                 }
 
                               ?>
-						
+
 						</div>
 					</div>
 					<div class="form-group">
