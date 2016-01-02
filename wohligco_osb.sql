@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 30, 2015 at 08:56 AM
+-- Generation Time: Jan 02, 2016 at 10:19 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.4.23
 
@@ -435,7 +435,7 @@ CREATE TABLE IF NOT EXISTS `notification` (
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `message` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=200 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=294 ;
 
 --
 -- Dumping data for table `notification`
@@ -621,7 +621,101 @@ INSERT INTO `notification` (`id`, `user`, `type`, `timestamp`, `message`) VALUES
 (196, 35, '2', '2015-11-30 06:28:15', 'Your Product 9000 is purchased by Vijay Communication Center Quantity : 1 Order Id : 172'),
 (197, 35, '2', '2015-11-30 06:33:35', 'You have a new Purchase Request for Amount: 5000'),
 (198, 34, '2', '2015-11-30 06:34:11', 'Your Purchase Request for Amount:5000is accepted'),
-(199, 35, '2', '2015-11-30 06:42:57', 'You have a new Purchase Request for Amount: 5000');
+(199, 35, '2', '2015-11-30 06:42:57', 'You have a new Purchase Request for Amount: 5000'),
+(200, 35, '2', '2015-12-01 13:35:12', 'Your request is accepted by admin of amount5000'),
+(201, 35, '2', '2015-12-01 13:36:43', 'Your request is accepted by admin of amount100000'),
+(202, 35, '2', '2015-12-01 13:37:00', 'Your request is accepted by admin of amount100000'),
+(203, 35, '2', '2015-12-01 13:38:03', 'Your request is accepted by admin of amount100000'),
+(204, 35, '2', '2015-12-01 13:38:16', 'Your request is accepted by admin of amount100000'),
+(205, 35, '2', '2015-12-01 13:40:43', 'Your request is accepted by admin of amount100000'),
+(206, 35, '2', '2015-12-01 13:41:45', 'Your request is accepted by admin of amount100000'),
+(207, 35, '2', '2015-12-01 13:43:19', 'Your request is accepted by admin of amount100000'),
+(208, 30, '2', '2015-12-02 06:58:14', 'Your Purchase Request for Amount:2000is accepted'),
+(209, 47, '2', '2015-12-02 07:01:22', 'You have a new Purchase Request for Amount: 5200'),
+(210, 47, '2', '2015-12-02 07:01:56', 'You have a new Purchase Request for Amount: 5200'),
+(211, 47, '2', '2015-12-02 07:02:33', 'You have a new Purchase Request for Amount: 200'),
+(212, 35, '2', '2015-12-02 07:04:36', 'You have a new Purchase Request for Amount: 200'),
+(213, 35, '2', '2015-12-02 07:06:11', 'You have a new Purchase Request for Amount: 200'),
+(214, 35, '2', '2015-12-03 13:34:23', 'Your request is accepted by admin of amount100000'),
+(215, 30, '2', '2015-12-03 13:36:11', 'Your request is accepted by admin of amount100000'),
+(216, 30, '2', '2015-12-03 13:36:13', 'Your request is accepted by admin of amount100000'),
+(217, 34, '2', '2015-12-03 13:36:36', 'Your request is accepted by admin of amount100000'),
+(218, 37, '2', '2015-12-03 13:45:46', 'Your Product 43000 is purchased by Vijay Communication Center Quantity : 1 Order Id : 173'),
+(219, 34, '2', '2015-12-03 13:51:13', 'You have a new Purchase Request for Amount: 5000'),
+(220, 30, '2', '2015-12-03 13:51:27', 'Your Purchase Request for Amount:5000is accepted'),
+(221, 37, '2', '2015-12-03 13:57:01', 'Your Product Apple is purchased by Croma Quantity : 1 Order Id : 174'),
+(222, 43, '2', '2015-12-03 14:04:23', 'Your Product check note is purchased by Croma Quantity : 1 Order Id : 175'),
+(223, 47, '2', '2015-12-04 04:55:13', 'You have a new Purchase Request for Amount: NaN'),
+(224, 43, '2', '2015-12-04 05:35:54', 'Your Product nexus is purchased by My Shop Quantity : 1 Order Id : 176'),
+(225, 40, '2', '2015-12-04 07:25:20', 'You have a new Purchase Request for Amount: 0'),
+(226, 30, '2', '2015-12-04 09:49:38', 'Your Product named as: Sagar price: Rs 2000 quantity 10 is approved '),
+(227, 34, '2', '2015-12-04 13:26:41', 'Your Product named as: Iphone price: Rs 50000 quantity 10 is approved '),
+(228, 35, '2', '2015-12-04 13:28:13', 'Your Product named as: iPhone 6 price: Rs 50000 quantity 1 is approved '),
+(229, 35, '2', '2015-12-04 13:28:51', 'Your Product iPhone 6 is purchased by SR Communication Center Quantity : 1 Order Id : 177'),
+(230, 30, '2', '2015-12-05 06:44:48', 'Your request is accepted by admin of amount10000'),
+(231, 37, '2', '2015-12-08 08:10:28', 'You have a new Purchase Request for Amount: 10000'),
+(232, 35, '2', '2015-12-08 08:10:45', 'Your Purchase Request for Amount:10000is accepted'),
+(233, 34, '2', '2015-12-08 09:58:04', 'Your request is accepted by admin of amount1000'),
+(234, 30, '2', '2015-12-08 10:27:37', 'Your request is accepted by admin of amount28000'),
+(235, 30, '2', '2015-12-08 11:09:41', 'Your request is accepted by admin of amount68700'),
+(236, 34, '2', '2015-12-08 11:20:08', 'Your Purchase Request for Amount:5000is accepted'),
+(237, 34, '2', '2015-12-08 11:22:38', 'Your Purchase Request for Amount:200is accepted'),
+(238, 34, '2', '2015-12-08 11:25:31', 'Your Purchase Request for Amount:200is accepted'),
+(239, 34, '2', '2015-12-08 11:27:32', 'Your Product named as: Notification Test price: Rs 100 quantity 1 is approved '),
+(240, 35, '2', '2015-12-08 11:40:01', 'Your Product named as: Android Test price: Rs 1500 quantity 10 is approved '),
+(241, 35, '2', '2015-12-08 11:40:36', 'Your Product named as: Image Test price: Rs 400 quantity 10 is approved '),
+(242, 30, '2', '2015-12-08 12:14:20', 'You have a new Purchase Request for Amount: 2000'),
+(243, 30, '2', '2015-12-08 12:16:44', 'You have a new Purchase Request for Amount: 2000'),
+(244, 33, '2', '2015-12-15 10:31:40', 'You have a new Purchase Request for Amount: 100'),
+(245, 34, '2', '2015-12-15 10:33:24', 'You have a new Purchase Request for Amount: 1200'),
+(246, 31, '2', '2015-12-15 10:33:54', 'Your Purchase Request for Amount:1200is accepted'),
+(247, 31, '2', '2015-12-15 10:36:49', 'Your request is accepted by admin of amount1000000'),
+(248, 34, '2', '2015-12-15 10:39:46', 'Your Product My first Product is purchased by My Holiday Quantity : 1 Order Id : 178'),
+(249, 31, '2', '2015-12-17 07:19:03', 'You have a new Purchase Request for Amount: 50000'),
+(250, 34, '2', '2015-12-17 07:19:34', 'Your Purchase Request for Amount:50000is accepted'),
+(251, 34, '2', '2015-12-17 07:20:47', 'You have a new Purchase Request for Amount: 5000'),
+(252, 48, '2', '2015-12-17 07:34:57', 'You have a new Purchase Request for Amount: 5000'),
+(253, 49, '2', '2015-12-17 07:35:45', 'Your Purchase Request for Amount:5000is accepted'),
+(254, 48, '2', '2015-12-17 07:37:24', 'You have a new Purchase Request for Amount: 95000'),
+(255, 49, '2', '2015-12-17 07:42:25', 'Your Product named as: Watch price: Rs 25000 quantity 2 is approved '),
+(256, 49, '2', '2015-12-17 07:43:46', 'Your Product named as:Aaaaa price: Rs 5000 quantity 2 is rejected and Rs. 10000 is added to your sales balance'),
+(257, 49, '2', '2015-12-17 07:46:00', 'Your Product Watch is purchased by ABCD Quantity : 2 Order Id : 179'),
+(258, 49, '2', '2015-12-17 07:50:38', 'Your request is accepted by admin of amount200000'),
+(259, 35, '2', '2015-12-17 08:28:15', 'You have a new Purchase Request for Amount: 99'),
+(260, 49, '2', '2015-12-18 07:29:09', 'Your Purchase Request for Amount:95000is accepted'),
+(261, 49, '2', '2015-12-18 07:29:09', 'Your Sell balance is too low please recharge your Account!!!'),
+(262, 48, '2', '2015-12-18 07:31:27', 'You have a new Purchase Request for Amount: 100000'),
+(263, 49, '2', '2015-12-18 07:43:31', 'Your Purchase Request for Amount:100000is accepted'),
+(264, 49, '2', '2015-12-18 07:43:32', 'Your Sell balance is too low please recharge your Account!!!'),
+(265, 49, '2', '2015-12-18 07:48:02', 'You have a new Purchase Request for Amount: 50000'),
+(266, 48, '2', '2015-12-18 07:53:17', 'Your Purchase Request for Amount:50000is accepted'),
+(267, 49, '2', '2015-12-18 07:55:01', 'You have a new Purchase Request for Amount: 10000'),
+(268, 48, '2', '2015-12-18 07:55:39', 'Your Purchase Request for Amount:10000is accepted'),
+(269, 48, '2', '2015-12-18 07:55:39', 'Your Sell balance is too low please recharge your Account!!!'),
+(270, 48, '2', '2015-12-18 08:07:43', 'You have a new Purchase Request for Amount: 50000'),
+(271, 49, '2', '2015-12-18 08:08:26', 'Your Purchase Request for Amount:50000is accepted'),
+(272, 49, '2', '2015-12-18 08:08:26', 'Your Sell balance is too low please recharge your Account!!!'),
+(273, 48, '2', '2015-12-18 08:09:41', 'You have a new Purchase Request for Amount: 50000'),
+(274, 49, '2', '2015-12-18 08:11:51', 'Your Purchase Request for Amount:50000is accepted'),
+(275, 49, '2', '2015-12-18 10:20:05', 'You have a new Purchase Request for Amount: 1000'),
+(276, 48, '2', '2015-12-18 10:20:21', 'Your Purchase Request for Amount:1000is accepted'),
+(277, 49, '2', '2015-12-18 10:22:04', 'Your Product named as: One Plus price: Rs 17000 quantity 2 is approved by SWAPP '),
+(278, 49, '2', '2015-12-18 10:22:33', 'Your Product named as: One Plus price: Rs 17000 quantity 2 is approved by SWAPP '),
+(279, 49, '2', '2015-12-18 10:22:39', 'Your Product named as: One Plus price: Rs 17000 quantity 2 is approved by SWAPP '),
+(280, 49, '2', '2015-12-18 10:25:02', 'Your Product One Plus is purchased by ABCD Quantity : 1 Order Id : 180'),
+(281, 34, '2', '2015-12-18 10:31:45', 'Your Product My first Product is purchased by 1234 Quantity : 1 Order Id : 181'),
+(282, 49, '2', '2015-12-18 10:39:54', 'Your Product One Plus is purchased by ABCD Quantity : 1 Order Id : 182'),
+(283, 49, '2', '2015-12-18 12:25:23', 'You have a new Purchase Request for Amount: 4000'),
+(284, 48, '2', '2015-12-18 12:25:53', 'Your Purchase Request for Amount:4000is accepted'),
+(285, 48, '2', '2015-12-18 12:31:01', 'Your Product named as: Cassandra price: Rs 5000 quantity 15 is approved by SWAPP '),
+(286, 49, '2', '2015-12-18 12:35:24', 'Your Product named as: Phone 75 price: Rs 5000 quantity 10 is approved by SWAPP '),
+(287, 49, '2', '2015-12-18 12:36:55', 'Your Product Phone 75 is purchased by ABCD Quantity : 2 Order Id : 183'),
+(288, 48, '1', '2015-12-18 12:41:20', 'cnwljncjwjcw'),
+(289, 1, '1', '2015-12-18 12:42:02', 'fernernjvnejrgve'),
+(290, 44, '1', '2015-12-18 12:43:01', 'fervreveve'),
+(291, 30, '1', '2015-12-19 05:15:12', 'Hello!'),
+(292, 31, '2', '2015-12-19 18:00:45', 'Your Purchase Request for Amount:5000is accepted'),
+(293, 43, '2', '2015-12-23 06:25:48', 'Your Product nexus is purchased by ABCD Quantity : 1 Order Id : 184');
 
 -- --------------------------------------------------------
 
@@ -651,7 +745,7 @@ CREATE TABLE IF NOT EXISTS `order` (
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `logisticcharge` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=173 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=185 ;
 
 --
 -- Dumping data for table `order`
@@ -680,7 +774,19 @@ INSERT INTO `order` (`id`, `user`, `name`, `email`, `contactno`, `billingaddress
 (169, 37, 'Dhaval', 'dhavalwohlig@gmail.com', 2147483647, 'Nerul', 'Navi Mumbai', 'Maharashtra', 'India', '400056', '', '', '', '', '', '', '', '1', '2015-11-27 13:59:44', ''),
 (170, 35, 'Croma Shop', 'pooja.wohlig@gmail.com', 2147483647, 'Chembur', 'Mumbai', 'Maharashtra', 'India', '400322', '', '', '', '', '', '', '', '1', '2015-11-30 06:22:20', '10'),
 (171, 35, 'Croma Shop', 'pooja.wohlig@gmail.com', 2147483647, 'Chembur', 'Mumbai', 'Maharashtra', 'India', '400322', '', '', '', '', '', '', '', '1', '2015-11-30 06:26:15', '0'),
-(172, 34, 'Vijay Communication Center', 'sr2@gmail.com', 2147483647, 'kalyan west', 'Mumbai', 'Maharashtra', 'India', '400745', '', '', '', '', '', '', '', '1', '2015-11-30 06:28:15', '0');
+(172, 34, 'Vijay Communication Center', 'sr2@gmail.com', 2147483647, 'kalyan west', 'Mumbai', 'Maharashtra', 'India', '400745', '', '', '', '', '', '', '', '1', '2015-11-30 06:28:15', '0'),
+(173, 34, 'Vijay Communication Center', 'sr2@gmail.com', 2147483647, 'kalyan west', 'Mumbai', 'Maharashtra', 'India', '400745', '', '', '', '', '', '', '', '1', '2015-12-03 13:45:45', ''),
+(174, 35, 'Croma Shop', 'pooja.wohlig@gmail.com', 2147483647, 'Chembur', 'Mumbai', 'Maharashtra', 'India', '400322', '', '', '', '', '', '', '', '1', '2015-12-03 13:57:00', ''),
+(175, 35, 'Croma Shop', 'pooja.wohlig@gmail.com', 2147483647, 'Chembur', 'Mumbai', 'Maharashtra', 'India', '400322', '', '', '', '', '', '', '', '1', '2015-12-03 14:04:23', ''),
+(176, 37, 'Dhaval', 'dhavalwohlig@gmail.com', 2147483647, 'Nerul', 'Navi Mumbai', 'Maharashtra', 'India', '400056', '', '', '', '', '', '', '', '1', '2015-12-04 05:35:53', '0'),
+(177, 33, 'SR Communication Center', 'sr@gmail.com', 2147483647, 'Grant Road', 'Mumbai', 'Maharashtra', 'India', '400415', '', '', '', '', '', '', '', '1', '2015-12-04 13:28:51', '0'),
+(178, 31, 'My Holiday', 'myholiday@gmail.com', 2147483647, 'Chembur', 'Mumbai', 'Maharashtra', 'India', '400745', '', '', '', '', '', '', '', '1', '2015-12-15 10:39:46', '0'),
+(179, 48, 'Dhaval', 'aaa@gmail.com', 999999999, 'Gain', 'Mumbsi', 'Mah', '', '400007', 'Gain', 'Mumbsi', '', 'Mah', '', '', '', '2', '2015-12-17 07:47:32', '0'),
+(180, 48, 'Dhaval', 'aaa@gmail.com', 999999999, 'G', 'Gg', 'Hhhh', 'Gggg', '400022', '', '', '', '', '', '', '', '1', '2015-12-18 10:25:01', ''),
+(181, 49, 'Chirag Shah', 'abab@gmail.com', 999999999, 'dvdsfas', 'DFVSACX', 'GBDXA', 'tdrfgyhs', 'GBDSDV', '', '', '', '', '', '', '', '1', '2015-12-18 10:31:44', ''),
+(182, 48, 'Dhaval', 'aaa@gmail.com', 999999999, 'Gwaghfg', 'Wgwgw', 'Wgrwrg', 'Wgerwgrwg', 'gwrrwg', '', '', '', '', '', '', '', '1', '2015-12-18 10:39:53', ''),
+(183, 48, 'Dhaval', 'aaa@gmail.com', 999999999, 'Hhjjj', 'Bhnjjbhj', 'Hhjjj', '', '400081', 'Hhjjj', 'Bhnjjbhj', '', 'Hhjjj', '', '', '', '3', '2015-12-18 12:40:23', ''),
+(184, 48, 'Dhaval', 'aaa@gmail.com', 999999999, 'Airoli', 'Mumbai', 'Maharashtra', 'India', '400708', '', '', '', '', '', '', '', '1', '2015-12-23 06:25:48', '20');
 
 -- --------------------------------------------------------
 
@@ -697,7 +803,7 @@ CREATE TABLE IF NOT EXISTS `orderitems` (
   `discount` float NOT NULL,
   `finalprice` float NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=134 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=146 ;
 
 --
 -- Dumping data for table `orderitems`
@@ -726,7 +832,19 @@ INSERT INTO `orderitems` (`id`, `order`, `product`, `quantity`, `price`, `discou
 (130, 169, 84, 1, 100, 0, 100),
 (131, 170, 100, 1, 1000, 0, 1000),
 (132, 171, 99, 98, 1000, 0, 98000),
-(133, 172, 95, 1, 9000, 0, 9000);
+(133, 172, 95, 1, 9000, 0, 9000),
+(134, 173, 94, 1, 3000, 0, 3000),
+(135, 174, 75, 1, 500, 0, 500),
+(136, 175, 81, 1, 500, 0, 500),
+(137, 176, 78, 1, 150, 0, 150),
+(138, 177, 109, 1, 50000, 0, 50000),
+(139, 178, 99, 1, 1000, 0, 1000),
+(140, 179, 113, 2, 25000, 0, 50000),
+(141, 180, 116, 1, 17000, 0, 17000),
+(142, 181, 99, 1, 1000, 0, 1000),
+(143, 182, 116, 1, 17000, 0, 17000),
+(144, 183, 118, 2, 5000, 0, 10000),
+(145, 184, 78, 1, 150, 0, 150);
 
 -- --------------------------------------------------------
 
@@ -833,7 +951,7 @@ CREATE TABLE IF NOT EXISTS `osb_request` (
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `requestid` int(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=412 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=462 ;
 
 --
 -- Dumping data for table `osb_request`
@@ -877,7 +995,57 @@ INSERT INTO `osb_request` (`id`, `userfrom`, `userto`, `requeststatus`, `amount`
 (408, 1, 34, 2, '20000', 'Test', 'Approved', '2015-11-28 13:20:42', 0),
 (409, 1, 34, 2, '5000', 'Test', 'Le le', '2015-11-28 13:30:58', 0),
 (410, 34, 35, 2, '5000', 'Test', 'Accept', '2015-11-30 06:34:11', 0),
-(411, 34, 35, 1, '5000', 'Badge', '', '2015-11-30 06:42:57', 0);
+(411, 34, 35, 2, '5000', 'Badge', 'Accept', '2015-12-08 11:20:08', 0),
+(412, 1, 34, 1, '5000', '', '', '2015-11-30 09:07:05', 0),
+(413, 1, 35, 2, '5000', '', '', '2015-12-01 13:33:26', 0),
+(414, 1, 35, 2, '100000', '', '', '2015-12-01 13:35:59', 0),
+(415, 1, 35, 2, '100000', '', '', '2015-12-01 13:36:03', 0),
+(416, 1, 35, 2, '100000', '', '', '2015-12-01 13:36:06', 0),
+(417, 1, 35, 2, '100000', '', '', '2015-12-01 13:42:20', 0),
+(418, 0, 0, 2, '100000', 'svadv', 'avds', '2015-12-01 13:45:17', 0),
+(419, 1, 34, 1, '10000', '', '', '2015-12-02 06:45:55', 0),
+(420, 1, 34, 1, '5000', 'grerg', '', '2015-12-02 06:51:46', 0),
+(421, 30, 34, 2, '2000', 'Test', 'mg', '2015-12-02 06:58:13', 0),
+(422, 34, 47, 1, '5200', '', '', '2015-12-02 07:01:21', 0),
+(423, 34, 47, 1, '5200', '', '', '2015-12-02 07:01:56', 0),
+(424, 34, 47, 1, '200', '', '', '2015-12-02 07:02:33', 0),
+(425, 34, 35, 2, '200', 'rgerg', 'Noti', '2015-12-08 11:22:38', 0),
+(426, 34, 35, 2, '200', 'uydghtb', 'noti icon', '2015-12-08 11:25:31', 0),
+(427, 0, 0, 3, '20000', '', '', '2015-12-03 13:27:42', 0),
+(428, 0, 0, 2, '100000', '', '', '2015-12-03 13:28:58', 0),
+(429, 0, 0, 2, '10000', '', '', '2015-12-03 13:30:21', 0),
+(430, 0, 0, 2, '100000', '', '', '2015-12-03 13:30:33', 0),
+(431, 0, 0, 2, '10000', '', '', '2015-12-03 13:30:34', 0),
+(432, 1, 30, 1, '10000', '', '', '2015-12-03 13:32:09', 0),
+(433, 1, 30, 2, '100000', '', '', '2015-12-03 13:35:57', 0),
+(434, 1, 34, 2, '100000', '', '', '2015-12-03 13:35:57', 0),
+(435, 30, 34, 2, '5000', 'Shirt', '', '2015-12-03 13:51:26', 0),
+(436, 37, 47, 1, 'NaN', '', '', '2015-12-04 04:55:12', 0),
+(437, 30, 40, 1, '0', '', '', '2015-12-04 07:25:20', 0),
+(438, 1, 30, 2, '10000', 'Done', '', '2015-12-05 06:31:22', 0),
+(439, 35, 37, 2, '10000', '', 'Ydyfuuf', '2015-12-08 08:10:44', 0),
+(440, 1, 34, 2, '1000', 'kpokpk', '', '2015-12-08 09:55:47', 0),
+(441, 1, 37, 1, '100000', '', '', '2015-12-08 10:05:09', 0),
+(442, 1, 30, 2, '28000', 'Want balance', 'ok jst tk it', '2015-12-08 10:26:42', 0),
+(443, 1, 30, 2, '68700', 'Heyyyyy gv me balnace', 'tk ittttttttttttttt', '2015-12-08 11:09:11', 0),
+(444, 35, 30, 1, '2000', 'Notification test', '', '2015-12-08 12:14:19', 0),
+(445, 35, 30, 1, '2000', 'Hshs', '', '2015-12-08 12:16:44', 0),
+(446, 31, 33, 1, '100', 'Gsggd', '', '2015-12-15 10:31:38', 0),
+(447, 31, 34, 2, '1200', 'Ask', 'He''ll', '2015-12-15 10:33:53', 0),
+(448, 1, 31, 2, '1000000', 'Dummy', 'le le', '2015-12-15 10:34:52', 0),
+(449, 34, 31, 2, '50000', '', 'Dn', '2015-12-17 07:19:34', 0),
+(450, 31, 34, 2, '5000', '', '', '2015-12-19 18:00:44', 0),
+(451, 49, 48, 2, '5000', '', '', '2015-12-17 07:35:45', 0),
+(452, 49, 48, 2, '95000', '', '', '2015-12-18 07:29:09', 0),
+(453, 1, 49, 2, '200000', '', '', '2015-12-17 07:50:19', 0),
+(454, 31, 35, 1, '99', '', '', '2015-12-17 08:28:15', 0),
+(455, 49, 48, 2, '100000', 'My', '', '2015-12-18 07:43:31', 0),
+(456, 48, 49, 2, '50000', '', '', '2015-12-18 07:53:16', 0),
+(457, 48, 49, 2, '10000', '', '', '2015-12-18 07:55:39', 0),
+(458, 49, 48, 2, '50000', '', '', '2015-12-18 08:08:25', 0),
+(459, 49, 48, 2, '50000', '', '', '2015-12-18 08:11:51', 0),
+(460, 48, 49, 2, '1000', '', '', '2015-12-18 10:20:21', 0),
+(461, 48, 49, 2, '4000', 'Mobile', '', '2015-12-18 12:25:52', 0);
 
 -- --------------------------------------------------------
 
@@ -911,7 +1079,7 @@ CREATE TABLE IF NOT EXISTS `osb_shopphoto` (
   `user` int(11) NOT NULL,
   `photo` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `osb_shopphoto`
@@ -921,9 +1089,9 @@ INSERT INTO `osb_shopphoto` (`id`, `user`, `photo`) VALUES
 (1, 43, 'image-89788-43-1435992876.jpg'),
 (2, 43, 'image-29354-43-1435992880.jpg'),
 (3, 43, 'image-78150-43-1435992883.jpg'),
-(4, 35, 'image-40050-35-1435994142.jpg'),
-(5, 35, 'image-31071-35-1435994151.jpg'),
-(6, 35, 'image-39402-35-1435994170.jpg'),
+(4, 35, 'image-47183-35-1448954686.jpg'),
+(5, 35, 'image-16078-35-1448954721.jpg'),
+(6, 35, 'image-15314-35-1448954733.jpg'),
 (7, 30, 'image-65591-30-1448272531.jpg'),
 (8, 30, 'image-34146-30-1448272547.jpg'),
 (9, 30, 'image-26916-30-1448272577.jpg'),
@@ -931,7 +1099,10 @@ INSERT INTO `osb_shopphoto` (`id`, `user`, `photo`) VALUES
 (11, 45, 'images_(1)14.jpg'),
 (12, 45, 'images_(2)11.jpg'),
 (13, 45, 'images_(3)3.jpg'),
-(14, 34, 'image-79355-34-1448861491.jpg');
+(14, 34, 'image-79355-34-1448861491.jpg'),
+(15, 37, 'image-99298-37-1448958098.jpg'),
+(16, 37, 'image-9976-37-1448958057.jpg'),
+(17, 37, 'image-400-37-1448954239.jpg');
 
 -- --------------------------------------------------------
 
@@ -944,7 +1115,7 @@ CREATE TABLE IF NOT EXISTS `osb_shopproductphoto` (
   `user` int(11) NOT NULL,
   `photo` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `osb_shopproductphoto`
@@ -954,13 +1125,16 @@ INSERT INTO `osb_shopproductphoto` (`id`, `user`, `photo`) VALUES
 (1, 43, 'image-41884-43-1435992887.jpg'),
 (2, 43, 'image-45693-43-1435992891.jpg'),
 (3, 43, 'image-40684-43-1435992894.jpg'),
-(4, 35, 'image-47708-35-1435994155.jpg'),
-(5, 35, 'image-65273-35-1435994158.jpg'),
-(6, 35, 'image-94294-35-1435994166.jpg'),
+(4, 35, 'image-10566-35-1448955175.jpg'),
+(5, 35, 'image-95978-35-1448955180.jpg'),
+(6, 35, 'image-4828-35-1448955184.jpg'),
 (7, 45, 'lenovo-vibe-p1m-pa1g0034in-400x400-imaec3g3m9sfwdwj.jpeg'),
 (8, 45, 'mi-4i-mzb4343in-400x400-imae6zxfgr4xmme7.jpeg'),
 (9, 45, 'motorola-moto-g-2nd-gen-lte-xt1068-400x400-imaebywmj4avpjwq.jpeg'),
-(10, 34, 'image-39827-34-1448860487.jpg');
+(10, 34, 'image-39827-34-1448860487.jpg'),
+(11, 37, 'image-51564-37-1448955079.jpg'),
+(12, 37, 'image-84519-37-1448955090.jpg'),
+(13, 37, 'image-22936-37-1448955097.jpg');
 
 -- --------------------------------------------------------
 
@@ -979,7 +1153,7 @@ CREATE TABLE IF NOT EXISTS `osb_transaction` (
   `requestid` int(11) NOT NULL,
   `orderid` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=271 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=319 ;
 
 --
 -- Dumping data for table `osb_transaction`
@@ -1039,7 +1213,55 @@ INSERT INTO `osb_transaction` (`id`, `userto`, `userfrom`, `reason`, `amount`, `
 (267, 34, 35, 'ORDER ID: 170', '1000', '', '2015-11-30 06:22:20', 0, 170),
 (268, 34, 35, 'ORDER ID: 171', '98000', '', '2015-11-30 06:26:15', 0, 171),
 (269, 35, 34, 'ORDER ID: 172', '9000', '', '2015-11-30 06:28:15', 0, 172),
-(270, 35, 34, 'Accept', '5000', '', '2015-11-30 06:34:11', 0, 0);
+(270, 35, 34, 'Accept', '5000', '', '2015-11-30 06:34:11', 0, 0),
+(271, 35, 1, '', '500.0', '5000', '2015-12-01 13:35:12', 413, 0),
+(272, 35, 1, '', '10000.0', '100000', '2015-12-01 13:36:43', 414, 0),
+(273, 35, 1, '', '10000.0', '100000', '2015-12-01 13:37:00', 414, 0),
+(274, 35, 1, '', '10000.0', '100000', '2015-12-01 13:38:04', 414, 0),
+(275, 35, 1, '', '10000.0', '100000', '2015-12-01 13:38:17', 414, 0),
+(276, 35, 1, '', '10000.0', '100000', '2015-12-01 13:40:43', 415, 0),
+(277, 35, 1, '', '10000.0', '100000', '2015-12-01 13:41:45', 416, 0),
+(278, 35, 1, '', '10000.0', '100000', '2015-12-01 13:43:19', 417, 0),
+(279, 34, 30, 'mg', '2000', '', '2015-12-02 06:58:13', 0, 0),
+(280, 35, 1, '', '10000.0', '100000', '2015-12-03 13:34:23', 417, 0),
+(281, 30, 1, '', '10000.0', '100000', '2015-12-03 13:36:11', 433, 0),
+(282, 30, 1, '', '10000.0', '100000', '2015-12-03 13:36:13', 433, 0),
+(283, 34, 1, '', '10000.0', '100000', '2015-12-03 13:36:36', 434, 0),
+(284, 37, 34, 'ORDER ID: 173', '3000', '', '2015-12-03 13:45:45', 0, 173),
+(285, 34, 30, '', '5000', '', '2015-12-03 13:51:26', 0, 0),
+(286, 37, 35, 'ORDER ID: 174', '500', '', '2015-12-03 13:57:00', 0, 174),
+(287, 43, 35, 'ORDER ID: 175', '500', '', '2015-12-03 14:04:23', 0, 175),
+(288, 43, 37, 'ORDER ID: 176', '150', '', '2015-12-04 05:35:53', 0, 176),
+(289, 35, 33, 'ORDER ID: 177', '50000', '', '2015-12-04 13:28:51', 0, 177),
+(290, 30, 1, '', '1000.0', '10000', '2015-12-05 06:44:48', 438, 0),
+(291, 37, 35, 'Ydyfuuf', '10000', '', '2015-12-08 08:10:44', 0, 0),
+(292, 34, 1, '', '100.0', '1000', '2015-12-08 09:58:04', 440, 0),
+(293, 30, 1, '', '2800.0', '28000', '2015-12-08 10:27:37', 442, 0),
+(294, 30, 1, '', '6870.0', '68700', '2015-12-08 11:09:41', 443, 0),
+(295, 35, 34, 'Accept', '5000', '', '2015-12-08 11:20:08', 0, 0),
+(296, 35, 34, 'Noti', '200', '', '2015-12-08 11:22:38', 0, 0),
+(297, 35, 34, 'noti icon', '200', '', '2015-12-08 11:25:31', 0, 0),
+(298, 34, 31, 'He''ll', '1200', '', '2015-12-15 10:33:53', 0, 0),
+(299, 31, 1, '', '100000.0', '1000000', '2015-12-15 10:36:49', 448, 0),
+(300, 34, 31, 'ORDER ID: 178', '1000', '', '2015-12-15 10:39:46', 0, 178),
+(301, 31, 34, 'Dn', '50000', '', '2015-12-17 07:19:34', 0, 0),
+(302, 48, 49, '', '5000', '', '2015-12-17 07:35:45', 0, 0),
+(303, 49, 48, 'ORDER ID: 179', '50000', '', '2015-12-17 07:46:00', 0, 179),
+(304, 49, 1, '', '10000.00', '200000', '2015-12-17 07:50:38', 453, 0),
+(305, 48, 49, '', '95000', '', '2015-12-18 07:29:09', 0, 0),
+(306, 48, 49, '', '100000', '', '2015-12-18 07:43:31', 0, 0),
+(307, 49, 48, '', '50000', '', '2015-12-18 07:53:16', 0, 0),
+(308, 49, 48, '', '10000', '', '2015-12-18 07:55:39', 0, 0),
+(309, 48, 49, '', '50000', '', '2015-12-18 08:08:25', 0, 0),
+(310, 48, 49, '', '50000', '', '2015-12-18 08:11:51', 0, 0),
+(311, 49, 48, '', '1000', '', '2015-12-18 10:20:21', 0, 0),
+(312, 49, 48, 'ORDER ID: 180', '17000', '', '2015-12-18 10:25:01', 0, 180),
+(313, 34, 49, 'ORDER ID: 181', '1000', '', '2015-12-18 10:31:44', 0, 181),
+(314, 49, 48, 'ORDER ID: 182', '17000', '', '2015-12-18 10:39:53', 0, 182),
+(315, 49, 48, '', '4000', '', '2015-12-18 12:25:52', 0, 0),
+(316, 49, 48, 'ORDER ID: 183', '10000', '', '2015-12-18 12:36:54', 0, 183),
+(317, 34, 31, '', '5000', '', '2015-12-19 18:00:44', 0, 0),
+(318, 43, 48, 'ORDER ID: 184', '150', '', '2015-12-23 06:25:48', 0, 184);
 
 -- --------------------------------------------------------
 
@@ -1080,43 +1302,53 @@ CREATE TABLE IF NOT EXISTS `product` (
   `onlinestatus` varchar(255) NOT NULL,
   `moderated` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=105 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=119 ;
 
 --
 -- Dumping data for table `product`
 --
 
 INSERT INTO `product` (`id`, `name`, `sku`, `price`, `description`, `status`, `user`, `quantity`, `image`, `onlinestatus`, `moderated`) VALUES
-(69, 'Trail', '', '2000', 'Lets try', 1, 33, 3, '', '', 0),
-(70, 'iPhone 5C', '', '10000', 'Awesome Condition', 1, 30, 0, '', '', 1),
-(71, 'Add me again', '', '500', 'description again', 1, 35, 1, 'image-27043--1448719304.jpg', '', 0),
-(72, 'New Product', '', '3000', 'New', 1, 33, 3, '', '', 0),
-(75, 'Apple', '', '500', 'dfghjk', 1, 37, 1, '', '', 1),
-(76, 'New mobile', '', '2000', 'Nice condition', 1, 30, 1, 'image-34624-30-1436261875.jpg', '', 0),
-(78, 'nexus', '', '150', 'nexus 6 by moto', 1, 43, 1, '', '1', 1),
-(79, 'Wohlig', '', '200', 'Wohlig description', 1, 37, 0, '', '1', 1),
-(80, 'Last search try', '', '130', 'Do DJ CH', 1, 37, 1, '', '1', 1),
-(81, 'check note', '', '500', 'hiii', 1, 43, 1, '', '1', 1),
-(82, 'Kenstar', '', '500', 'See Ifgg', 1, 37, 1, '', '1', 1),
-(83, 'Onida', '', '200', 'Fuhdbd', 1, 37, 1, '', '', 0),
-(84, 'Kirloskar', '', '100', 'drtgyh', 1, 43, 0, '', '1', 1),
-(86, 'Cell phone', '', '3870', 'Dygg', 1, 37, 1, '', '', 0),
-(87, 'Pop-up test', '', '500', 'Digging yay v', 1, 37, 1, '', '1', 0),
-(88, 'sssss', '', '12', 'dsdgfd', 1, 43, 1, '', '', 0),
-(89, 'Ushhs', '', '500', 'Tusvxu', 1, 37, 1, '', '1', 1),
-(90, 'Test product', '', '5000', 'Desc', 1, 37, 5, '', '1', 1),
-(91, 'Pd', '', '4000', 'Such that ettg', 1, 37, 1, '', '1', 1),
-(92, 'Try last', '', '1000', 'Do go tr', 1, 37, 1, '', '1', 0),
-(94, '43000', '', '3000', 'Fyjhehs', 1, 37, 1, '', '1', 1),
-(95, '9000', '', '9000', 'xrdtgh', 1, 35, 0, 'image-90614--1448719141.jpg', '1', 1),
-(97, 'Testing', '', '500', 'Ha n', 1, 37, 1, '', '', 0),
-(98, 'Gsjakq days', '', '500', 'Gajahaf', 1, 37, 1, '', '1', 1),
-(99, 'My first Product', '', '1000', 'kjksbwgjbsb', 1, 34, 2, '', '1', 1),
-(100, 'Pushwoosh', '', '1000', 'Sigh gdtgv', 1, 34, 0, '', '1', 1),
-(101, 'Sony Xperia z', '', '4000', 'Vvvvvv', 1, 47, 2, '', '1', 1),
-(102, 'Xiomi', '', '1000', 'Ybg', 1, 45, 40, '', '1', 1),
-(103, 'Test', '', '2000', 'Using', 1, 35, 2, 'image-57035--1448719360.jpg', '', 0),
-(104, 'Buy Now', '', '1000', 'HSBC an HD', 1, 35, 10, 'image-58119--1448865085.jpg', '', 0);
+(69, 'Trail', '', '2000', 'Lets try', 1, 33, 10, '', '', 0),
+(70, 'iPhone 5C', '', '10000', 'Awesome Condition', 1, 30, 10, '', '', 1),
+(71, 'Add me again', '', '500', 'description again', 1, 35, 10, 'image-58820--1448955836.jpg', '', 0),
+(72, 'New Product', '', '3000', 'New', 1, 33, 10, '', '', 0),
+(75, 'Apple', '', '500', 'dfghjk', 1, 37, 9, 'image-76915--1448955671.jpg', '', 1),
+(76, 'New mobile', '', '2000', 'Nice condition', 1, 30, 10, 'image-34624-30-1436261875.jpg', '', 0),
+(78, 'nexus', '', '150', 'nexus 6 by moto', 1, 43, 9, '', '1', 1),
+(79, 'Wohlig', '', '200', 'Wohlig description', 1, 37, 10, 'image-94163--1448958118.jpg', '1', 1),
+(80, 'Last search try', '', '130', 'Do DJ CH', 1, 37, 10, '', '1', 1),
+(81, 'check note', '', '500', 'hiii', 1, 43, 10, '', '1', 1),
+(82, 'Kenstar', '', '500', 'See Ifgg', 1, 37, 10, '', '1', 1),
+(83, 'Onida', '', '200', 'Fuhdbd', 1, 37, 10, '', '', 0),
+(84, 'Kirloskar', '', '100', 'drtgyh', 1, 43, 10, '', '1', 1),
+(86, 'Cell phone', '', '3870', 'Dygg', 1, 37, 10, '', '', 0),
+(87, 'Pop-up test', '', '500', 'Digging yay v', 1, 37, 10, '', '1', 0),
+(88, 'sssss', '', '12', 'dsdgfd', 1, 43, 10, '', '', 0),
+(89, 'Ushhs', '', '500', 'Tusvxu', 1, 37, 10, '', '1', 1),
+(90, 'Test product', '', '5000', 'Desc', 1, 37, 10, '', '1', 1),
+(91, 'Pd', '', '4000', 'Such that ettg', 1, 37, 10, '', '1', 1),
+(92, 'Try last', '', '1000', 'Do go tr', 1, 37, 10, '', '1', 0),
+(94, '43000', '', '3000', 'Fyjhehs', 1, 37, 10, '', '1', 1),
+(95, '9000', '', '9000', 'xrdtgh', 1, 35, 10, 'image-90614--1448719141.jpg', '1', 1),
+(97, 'Testing', '', '500', 'Ha n', 1, 37, 10, '', '', 0),
+(98, 'Gsjakq days', '', '500', 'Gajahaf', 1, 37, 10, '', '1', 1),
+(99, 'My first Product', '', '1000', 'kjksbwgjbsb', 1, 34, 8, '', '1', 1),
+(100, 'Pushwoosh', '', '1000', 'Sigh gdtgv', 1, 34, 10, '', '1', 1),
+(101, 'Sony Xperia z', '', '4000', 'Vvvvvv', 1, 47, 10, '', '1', 1),
+(102, 'Xiomi', '', '1000', 'Ybg', 1, 45, 10, '', '1', 1),
+(103, 'Test', '', '2000', 'Using', 1, 35, 10, 'image-57035--1448719360.jpg', '', 0),
+(104, 'Buy Now', '', '1000', 'HSBC an HD', 1, 35, 10, 'image-58119--1448865085.jpg', '', 0),
+(105, 'Image Test', '', '400', 'Dyfigyirtydutg', 1, 35, 10, 'image-69147--1448955736.jpg', '1', 1),
+(106, 'Android Test', '', '1500', 'Kal Seen', 1, 35, 10, 'image-70376--1448955891.jpg', '1', 1),
+(107, 'Iphone', '', '50000', 'Apple iphone', 0, 34, 10, '', '1', 1),
+(108, 'Sagar', '', '2000', 'Shirts', 1, 30, 10, '', '1', 1),
+(109, 'iPhone 6', '', '50000', 'Gold iphone 6', 1, 35, 0, '', '1', 1),
+(112, 'Dhaval', '', '200', 'Hshs', 1, 35, 1, '', '', 0),
+(113, 'Watch', '', '25000', 'I watch', 1, 49, 0, 'image-25696--1450338059.jpg', '1', 1),
+(116, 'One Plus', '', '17000', 'Fun', 1, 49, 0, 'image-92282--1450434064.jpg', '1', 1),
+(117, 'Cassandra', '', '5000', '28 pcs Dinner set', 0, 48, 10, 'image-39900--1450441781.jpg', '1', 1),
+(118, 'Phone 75', '', '5000', 'Buy it', 1, 49, 8, '', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -1129,7 +1361,7 @@ CREATE TABLE IF NOT EXISTS `productcategory` (
   `product` int(11) NOT NULL,
   `category` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=170 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=197 ;
 
 --
 -- Dumping data for table `productcategory`
@@ -1169,7 +1401,18 @@ INSERT INTO `productcategory` (`id`, `product`, `category`) VALUES
 (166, 102, 1),
 (167, 101, 1),
 (168, 103, 1),
-(169, 104, 1);
+(169, 104, 1),
+(174, 108, 8),
+(175, 107, 1),
+(177, 109, 1),
+(181, 106, 2),
+(182, 105, 2),
+(183, 112, 3),
+(185, 113, 1),
+(187, 114, 1),
+(192, 116, 1),
+(194, 117, 14),
+(196, 118, 1);
 
 -- --------------------------------------------------------
 
@@ -1199,7 +1442,7 @@ CREATE TABLE IF NOT EXISTS `register` (
   `personalcontact` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `status` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `register`
@@ -1209,7 +1452,8 @@ INSERT INTO `register` (`id`, `name`, `email`, `message`, `personalcontact`, `st
 (1, 'srdtyui', 'dsfdw@jgdh.dvcag', 'xdcfgvhbjn', '8789798789', '2'),
 (2, 'oiuyd', 'kjhgf@dfghj.gf', 'oiutrs', '9999999999', '2'),
 (3, 'Dhaval', 'dhaval@wohlig.com', 'Test', '9029145088', '2'),
-(5, 'Mahesh', 'mahesh@wohlig.com', 'M', '123456789', '1');
+(5, 'Mahesh', 'mahesh@wohlig.com', 'M', '123456789', '1'),
+(6, 'Dhaval', 'dhaval@wohlig.com', 'Hi', '9029145077', '1');
 
 -- --------------------------------------------------------
 
@@ -1228,8 +1472,8 @@ CREATE TABLE IF NOT EXISTS `statuses` (
 --
 
 INSERT INTO `statuses` (`id`, `name`) VALUES
-(1, 'inactive'),
-(2, 'Active');
+(1, 'Active'),
+(2, 'inactive');
 
 -- --------------------------------------------------------
 
@@ -1266,16 +1510,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   `name` varchar(255) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `message` text NOT NULL,
+  `message` text,
   `personalcontact` varchar(50) NOT NULL,
   `accesslevel` int(11) DEFAULT NULL,
   `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `status` int(11) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `username` varchar(255) NOT NULL,
-  `socialid` varchar(255) NOT NULL,
-  `logintype` int(11) NOT NULL,
-  `json` text NOT NULL,
+  `socialid` varchar(255) DEFAULT NULL,
+  `logintype` int(11) DEFAULT NULL,
+  `json` text,
   `shopname` varchar(255) NOT NULL,
   `membershipno` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
@@ -1302,28 +1546,32 @@ CREATE TABLE IF NOT EXISTS `user` (
   `shippingpincode` varchar(255) NOT NULL,
   `onlinestatus` varchar(255) NOT NULL,
   `shopstatus` varchar(50) NOT NULL,
+  `os` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=48 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=51 ;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `password`, `email`, `message`, `personalcontact`, `accesslevel`, `timestamp`, `status`, `image`, `username`, `socialid`, `logintype`, `json`, `shopname`, `membershipno`, `address`, `description`, `website`, `shopcontact1`, `shopcontact2`, `shopemail`, `purchasebalance`, `salesbalance`, `area`, `shoplogo`, `percentpayment`, `token`, `billingaddress`, `billingcity`, `billingstate`, `billingcountry`, `billingpincode`, `shippingaddress`, `shippingcity`, `shippingcountry`, `shippingstate`, `shippingpincode`, `onlinestatus`, `shopstatus`) VALUES
-(1, 'admin', '0192023a7bbd73250516f069df18b500', 'admin@admin.com', '', '9867451212', 1, '2015-07-01 08:59:41', 1, NULL, '', '', 1, '', 'Admin Shop', '100', '', '', '', '', '', '', '100000', 100000, 0, '', '5', '0', '', '', '', '', '', '', '', '', '', '', '1', '1'),
-(30, 'BBX', '81dc9bdb52d04dc20036dbd8313ed055', 'mumbaibbx@gmail.com', '', '9820035098', 2, '2015-07-01 09:14:21', 1, '', '', '', 1, '', 'BBX', '1234', 'Same as above', 'none', '', '655555554', '888888', 'bbx@gmail.com', '100000', 100000, 1, '', '10', 'null', 'Sion mumbai', 'Mumbai', 'Maharashtra', 'India', '400808', '', '', '', '', '', '0', '1'),
-(31, 'My Holiday', '6562c5c1f33db6e05a082a88cddab5ea', 'myholiday@gmail.com', '', '9898989898', 3, '2015-07-01 09:19:38', 2, '', '', '', 1, '', 'My Holiday', '4567', 'Chembur', 'none', '', '55555555', '64545547', 'myhoilday@gmail.com', '100000', 100000, 6, '', '10', '0', 'Chembur', 'Mumbai', 'Maharashtra', 'India', '400745', '', '', '', '', '', '0', '0'),
-(33, 'SR Communication Center', 'cdaeb1282d614772beb1e74c192bebda', 'sr@gmail.com', '', '9654873214', 3, '2015-07-01 09:21:55', 1, '', '', '', 1, '', 'SR Communication Center', '7890', 'Grant Road', 'none', '', '55555555', '64545547', 'sr@gmail.com', '100000', 100000, 1, '', '10', '0', 'Grant Road', 'Mumbai', 'Maharashtra', 'India', '400415', '', '', '', '', '', '0', '1'),
-(34, 'Vijay Communication Center', 'a9b7ba70783b617e9998dc4dd82eb3c5', 'sr2@gmail.com', '', '9654873214', 3, '2015-07-01 09:21:55', 1, '', '', '', 1, '', 'Vijay Communication Center', '1000', 'Kalyan', 'none', '', '55555555', '64545547', 'sr1@gmail.com', '111000', 25000, 1, 'image-43551-34-1448863735.jpg', '10', 'null', 'kalyan west', 'Mumbai', 'Maharashtra', 'India', '400745', '', '', '', '', '', '0', '0'),
-(35, 'Croma Shop', '08f90c1a417155361a5c4b8d297e0d78', 'pooja.wohlig@gmail.com', '', '9898989898', 3, '2015-07-01 09:19:38', 2, '', '', '', 1, '', 'Croma', '2000', 'Chembur', 'none', '', '55555555', '64545547', 'myhoilday@gmail.com', '1000', 81000, 1, '', '10', '0', 'Chembur', 'Mumbai', 'Maharashtra', 'India', '400322', '', '', '', '', '', '0', '1'),
-(37, 'Dhaval', '1bd69c7df3112fb9a584fbd9edfc6c90', 'dhavalwohlig@gmail.com', 'Test', '9029145077', 3, '2015-07-04 04:25:18', 2, '', '', '', 1, '', 'My Shop', '4000', 'Nerul', 'Test', 'www.dhavalwohlig.com', '23232323', '64545547', 'dhavalwohlig@gmail.com', '99900', 100000, 6, '', '10', '0', 'Nerul', 'Navi Mumbai', 'Maharashtra', 'India', '400056', '', '', '', '', '', '0', '2'),
-(40, 'asdfghj', 'a8b57189ddf86fb8b20bcafc00da3bec', 'avinash@wohlig.com', 'cvgbhjn', '89789789', 3, '2015-07-04 04:53:56', 1, '', '', '', 1, '', 'Triveni', '1245', '', '', '', '', '', '', '100000', 100000, 0, '', '50', '0', '', '', '', '', '', '', '', '', '', '', '0', '1'),
-(42, 'sneha', 'e93028bdc1aacdfb3687181f2031765d', 'sneha@gmail.com', 'xdcvghj', '9898798787', 3, '2015-07-04 05:35:30', 1, '', '', '', 1, '', 'Metro', '3000', '', '', '', '', '', '', '100000', 100000, 0, '', '10', '0', '', '', '', '', '', '', '', '', '', '', '0', '1'),
-(43, 'trail new', '3644a684f98ea8fe223c713b77189a77', 'pratik@wohlig.com', 'cvbhn', '84545', 3, '2015-07-04 05:55:00', 1, '', '', '', 1, '', 'Axis', '200', '', 'A very good shop', 'www.axis.com', '9875696969', '0228564976', 'support@axis.com', '100000', 100000, 1, '', '50', '0', 'Near sion Stn(east) Mumbai 400546', '', '', '', '', '', '', '', '', '', '0', '1'),
-(44, 'Chirag', '21218cca77804d2ba1922c33e0151105', 'chirag.9966@gmail.com', 'cwcbw', '999999999', 3, '2015-11-23 09:04:38', 2, '', '', '', 1, '', 'chirag', '8888', 'bhbhbc', 'bkhjbhb', '', '', '', '', '100000', 100000, 1, '', '', '61c5cdcba0c31c6f', '', '', '', '', '', '', '', '', '', '', '1', '2'),
-(45, 'Tushar', '202cb962ac59075b964b07152d234b70', 't@s.com', '', '1245346523', 1, '2015-11-25 10:59:58', 2, 'images13.jpg', '', '', 1, '', 'Mera Shop', '9811', '', '', '', '', '', '', '86800', 55000, 1, '', '', 'null', '', '', '', '', '', '', '', '', '', '', '1', '0'),
-(46, 'Mahesh', 'e10adc3949ba59abbe56e057f20f883e', 'mahesh@wohlig.com', '123', '12345678', 1, '2015-11-26 12:58:24', 1, 'banner2.jpg', '', '', 1, '', 'Mahesh Store', '8888', '', '', 'wohlig.com', '1234567', '1234567', 'mahesh@wohlig.com', '3000000', 3000, 0, 'banner2.jpg', '60', '4ed6e8f6c563c068', 'Sion West', 'Mumbai', 'Maharashtra', 'India', '400022', 'Mumbai sion', '', '', '', '', '1', '2'),
-(47, 'Harsh', 'e10adc3949ba59abbe56e057f20f883e', 'harsh@wohlig.in', '123', '9999999999', 1, '2015-11-26 13:19:11', 1, '', '', '', 1, '', 'Harsh Electronics', '5555', 'Dombivli', '', '', '', '', '', '99995000', 99959000, 1, '', '', '4ed6e8f6c563c068', 'Dombivli', 'Mumbai', '', '', '', '', 'Mumbai', '', '', '', '1', '2');
+INSERT INTO `user` (`id`, `name`, `password`, `email`, `message`, `personalcontact`, `accesslevel`, `timestamp`, `status`, `image`, `username`, `socialid`, `logintype`, `json`, `shopname`, `membershipno`, `address`, `description`, `website`, `shopcontact1`, `shopcontact2`, `shopemail`, `purchasebalance`, `salesbalance`, `area`, `shoplogo`, `percentpayment`, `token`, `billingaddress`, `billingcity`, `billingstate`, `billingcountry`, `billingpincode`, `shippingaddress`, `shippingcity`, `shippingcountry`, `shippingstate`, `shippingpincode`, `onlinestatus`, `shopstatus`, `os`) VALUES
+(1, 'admin', '0192023a7bbd73250516f069df18b500', 'admin@admin.com', '', '9867451212', 1, '2015-07-01 08:59:41', 1, NULL, '', '', 1, '', 'Admin Shop', '100', '', '', '', '', '', '', '100000', 100000, 0, '', '5', '0', '', '', '', '', '', '', '', '', '', '', '1', '1', ''),
+(30, 'BBX', '81dc9bdb52d04dc20036dbd8313ed055', 'mumbaibbx@gmail.com', '', '9820035098', 2, '2015-07-01 09:14:21', 1, '', '', '', 1, '', 'BBX', '1234', 'Same as above', 'none', '', '655555554', '888888', 'bbx@gmail.com', '100000', 100000, 1, '', '10', 'e7NslPxjmdo:APA91bF3f51W03Z-oZ2cDMTB1SJ0n5z9tRZH9C6dx0WmFTgwJB6-y1dl89P-IikhQjlbuC4xesyW7297uugwwWYl77bZPC76aI_mWKbAABY7mMr61TuwdevyWw1DV7Pgz_XF8XUGCBdT', 'Sion mumbai', 'Mumbai', 'Maharashtra', 'India', '400808', '', '', '', '', '', '0', '2', 'Android'),
+(31, 'My Holiday', '6562c5c1f33db6e05a082a88cddab5ea', 'myholiday@gmail.com', '', '9898989898', 3, '2015-07-01 09:19:38', 2, '', '', '', 1, '', 'My Holiday', '4567', 'Chembur', 'none', '', '55555555', '64545547', 'myhoilday@gmail.com', '1092800', 1049990, 6, '', '10', '0', 'Chembur', 'Mumbai', 'Maharashtra', 'India', '400745', '', '', '', '', '', '0', '2', 'null'),
+(33, 'SR Communication Center', 'cdaeb1282d614772beb1e74c192bebda', 'sr@gmail.com', '', '9654873214', 3, '2015-07-01 09:21:55', 1, '', '', '', 1, '', 'SR Communication Center', '7890', 'Grant Road', 'none', '', '55555555', '64545547', 'sr@gmail.com', '50000', 100000, 1, 'image-93947-33-1448885489.jpg', '10', 'cN2DjPqa1Kk:APA91bHunRdiqHnY5eUTkFUKr-OO4Cth0_2cWaE_7rGdvJRQwDJQXlWtf0pxbKptayvnPsQr-Vu5Aa6zLFvcIxO5Q7Gm9Lo9yksVIqn7BdTUL7UgaeI5vE2ai31xLPLAPVAZYfwPKTcF', 'Grant Road', 'Mumbai', 'Maharashtra', 'India', '400415', '', '', '', '', '', '0', '1', 'Android'),
+(34, 'Vijay Communication Center', 'a9b7ba70783b617e9998dc4dd82eb3c5', 'sr2@gmail.com', '', '9654873214', 3, '2015-07-01 09:21:55', 1, '', '', '', 1, '', 'Vijay Communication Center', '1000', 'Kalyan', 'none', '', '55555555', '64545547', 'sr1@gmail.com', '153600', 112800, 1, 'image-71084-34-1449979780.jpg', '10', 'ecc0247144b9d4338d07157a6162fc21e6e97c7661722462d7cb38af8b248310', 'kalyan west', 'Mumbai', 'Maharashtra', 'India', '400745', '', '', '', '', '', '0', '2', 'iOS'),
+(35, 'Croma Shop', '08f90c1a417155361a5c4b8d297e0d78', 'pooja.wohlig@gmail.com', '', '9898989898', 3, '2015-07-01 09:19:38', 2, '', '', '', 1, '', 'Croma', '2000', 'Chembur', 'none', '', '55555555', '64545547', 'myhoilday@gmail.com', '795000', 825900, 1, 'image-89554-35-1449558762.jpg', '10', 'cN2DjPqa1Kk:APA91bHunRdiqHnY5eUTkFUKr-OO4Cth0_2cWaE_7rGdvJRQwDJQXlWtf0pxbKptayvnPsQr-Vu5Aa6zLFvcIxO5Q7Gm9Lo9yksVIqn7BdTUL7UgaeI5vE2ai31xLPLAPVAZYfwPKTcF', 'Chembur', 'Mumbai', 'Maharashtra', 'India', '400322', '', '', '', '', '', '0', '2', 'Android'),
+(37, 'Dhaval', '1bd69c7df3112fb9a584fbd9edfc6c90', 'dhavalwohlig@gmail.com', 'Test', '9029145077', 3, '2015-07-04 04:25:18', 2, '', '', '', 1, '', 'My Shop', '4000', 'Nerul', 'Test', 'www.dhavalwohlig.com', '23232323', '64545547', 'dhavalwohlig@gmail.com', '99750', 90100, 6, 'image-91562-37-1448954247.jpg', '10', 'cABiMRVSVsU:APA91bFuilWpmBB2tnhLvQskGQxoofQeoX2vbv38KK-6BQzTw3XqngafBKVaWe-wgj9UoWyktEgTxTLSwWayIseyjcbLVusZs6kKdkKey7HKarlMVVhHpHgMTR5q0ZotwUBfjAePlXzI', 'Nerul', 'Navi Mumbai', 'Maharashtra', 'India', '400056', '', '', '', '', '', '0', '2', ''),
+(40, 'asdfghj', 'a8b57189ddf86fb8b20bcafc00da3bec', 'avinash@wohlig.com', 'cvgbhjn', '89789789', 3, '2015-07-04 04:53:56', 1, '', '', '', 1, '', 'Triveni', '1245', '', '', '', '', '', '', '100000', 100000, 0, '', '50', '0', '', '', '', '', '', '', '', '', '', '', '0', '1', ''),
+(42, 'sneha', 'e93028bdc1aacdfb3687181f2031765d', 'sneha@gmail.com', 'xdcvghj', '9898798787', 3, '2015-07-04 05:35:30', 1, '', '', '', 1, '', 'Metro', '3000', '', '', '', '', '', '', '100000', 100000, 0, '', '10', '0', '', '', '', '', '', '', '', '', '', '', '0', '1', 'Android'),
+(43, 'trail new', '3644a684f98ea8fe223c713b77189a77', 'pratik@wohlig.com', 'cvbhn', '84545', 3, '2015-07-04 05:55:00', 1, '', '', '', 1, '', 'Axis', '200', '', 'A very good shop', 'www.axis.com', '9875696969', '0228564976', 'support@axis.com', '100000', 100000, 1, '', '50', '6ad8edf213c4a508b0a4bfa94458c85f75599f47284908c70cc81c0c40026168', 'Near sion Stn(east) Mumbai 400546', '', '', '', '', '', '', '', '', '', '0', '1', 'iOS'),
+(44, 'Chirag', '21218cca77804d2ba1922c33e0151105', 'chirag.9966@gmail.com', 'cwcbw', '999999999', 3, '2015-11-23 09:04:38', 2, '', '', '', 1, '', 'chirag', '8888', 'bhbhbc', 'bkhjbhb', '', '', '', '', '100000', 100000, 1, '', '', 'null', '', '', '', '', '', '', '', '', '', '', '1', '2', ''),
+(45, 'Tushar', '202cb962ac59075b964b07152d234b70', 't@s.com', '', '1245346523', 1, '2015-11-25 10:59:58', 2, 'images13.jpg', '', '', 1, '', 'Mera Shop', '9811', '', '', '', '', '', '', '86800', 55000, 1, '', '', 'null', '', '', '', '', '', '', '', '', '', '', '1', '0', ''),
+(46, 'Mahesh', 'e10adc3949ba59abbe56e057f20f883e', 'mahesh@wohlig.com', '123', '12345678', 1, '2015-11-26 12:58:24', 1, 'banner2.jpg', '', '', 1, '', 'Mahesh Store', '8888', '', '', 'wohlig.com', '1234567', '1234567', 'mahesh@wohlig.com', '3000000', 3000, 0, 'banner2.jpg', '60', 'null', 'Sion West', 'Mumbai', 'Maharashtra', 'India', '400022', 'Mumbai sion', '', '', '', '', '1', '2', ''),
+(47, 'Harsh', 'e10adc3949ba59abbe56e057f20f883e', 'harsh@wohlig.in', '123', '9999999999', 1, '2015-11-26 13:19:11', 1, '', '', '', 1, '', 'Harsh Electronics', '5555', 'Dombivli', '', '', '', '', '', '99995000', 99959000, 1, '', '', '4ed6e8f6c563c068', 'Dombivli', 'Mumbai', '', '', '', '', 'Mumbai', '', '', '', '1', '2', ''),
+(48, 'Dhaval', 'd4a973e303ec37692cc8923e3148eef7', 'aaa@gmail.com', 'kjancjkc hbvjhsdbhvbs', '999999999', 3, '2015-12-17 07:30:06', 2, '', '', '0', 0, '0', 'ABCD', '8080', '', '', '', '', '', '', '50850', 100000, 0, 'image-60234-48-1450435702.jpg', '5', 'ecc0247144b9d4338d07157a6162fc21e6e97c7661722462d7cb38af8b248310', '', '', '', '', '', '', '', '', '', '', '0', '2', 'iOS'),
+(49, 'Chirag Shah', 'df780a97b7d6a8f779f14728bccd3c4c', 'abab@gmail.com', '', '999999999', 1, '2015-12-17 07:32:40', 2, '', '', '0', 0, '0', '1234', '9090', '', '', '', '', '', '', '99000', 11000, 0, '', '5', 'e7NslPxjmdo:APA91bF3f51W03Z-oZ2cDMTB1SJ0n5z9tRZH9C6dx0WmFTgwJB6-y1dl89P-IikhQjlbuC4xesyW7297uugwwWYl77bZPC76aI_mWKbAABY7mMr61TuwdevyWw1DV7Pgz_XF8XUGCBdT', '', '', '', '', '', '', '', '', '', '', '0', '2', 'Android'),
+(50, 'pooja', '4bcc674371a91bf32377cd878d754527', 'pooja@wohlig.com', '', '9594390024', 3, '2015-12-18 06:16:47', 1, 't5.jpg', '', '0', 0, '0', 'Hardwell', '5678', 'airoli', 'good', 'www.wohlig.com', '0227968451', '0227960000', 'abcsupport@email.com', '500', 700, 6, 't5.jpg', '10', '0', 'sec-4', 'navimumbai', 'maharashtra', 'india', '400708', 'aiorli', 'navimumbai', 'india', 'maharashtra', '400709', '1', '0', '');
 
 -- --------------------------------------------------------
 
