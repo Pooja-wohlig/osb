@@ -147,8 +147,8 @@ $(document).ready(function(){
 						$page2=$pieces[1];
 					$submenus = $this->menu_model->getsubmenus($row->id);
 					?>
-					<li class="<?php if($page==$page2 || $page == strtolower($row->name)) { echo 'active'; } //echo $page2;
-					if(count($submenus > 0)) 
+					<li class="<?php if( $activemenu == strtolower($row->name) || $page == strtolower($row->name)) { echo 'active'; } //echo $page2;
+                    if(count($submenus > 0)) 
 					{ 
 						$pages =  $this->menu_model->getpages($row->id);
 						//echo $page2; 

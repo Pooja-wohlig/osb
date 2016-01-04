@@ -25,6 +25,7 @@ class Site extends CI_Controller
 		$access = array("1","2");
 		$this->checkaccess($access);
 		$data[ 'page' ] = 'dashboard';
+        $data['activemenu'] = 'dashboard';
         $data['order']=$this->order_model->getPendingOrderCount();
         $data['product']=$this->product_model->getPendingProductCount();
         $data['adminrequest']=$this->request_model->getPendingAdminRequestCount();
@@ -215,7 +216,7 @@ class Site extends CI_Controller
 		$this->checkaccess($access);
 		$data['page']='viewusers';
         $data['base_url'] = site_url("site/viewusersjson");
-        
+        $data['activemenu'] = 'users';
 		$data['title']='View Users';
 		$this->load->view('template',$data);
 	} 
@@ -1020,6 +1021,7 @@ $data["page"]="viewusercategory";
 $data['userid']=$this->input->get('id');
 $data['before']=$this->user_model->beforeedit($this->input->get('id'));
 $userid=$this->input->get('id');
+$data['activemenu'] = 'user category';
 $data["base_url"]=site_url("site/viewusercategoryjson");
 $data["title"]="View usercategory";
 $this->load->view("template",$data);
@@ -1172,6 +1174,7 @@ public function viewcategory()
 $access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="viewcategory";
+$data['activemenu'] = 'category';
 $data["base_url"]=site_url("site/viewcategoryjson");
 $data["title"]="View category";
 $this->load->view("template",$data);
@@ -1324,6 +1327,7 @@ public function viewarea()
 $access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="viewarea";
+$data['activemenu'] = 'area';
 $data[ 'status' ] =$this->user_model->getstatusdropdown();
 $data["base_url"]=site_url("site/viewareajson");
 $data["title"]="View area";
@@ -1465,6 +1469,7 @@ $this->load->view("redirect",$data);
 $access=array("1","2");
 $this->checkaccess($access);
 $data['isadmin']=1;
+$data['activemenu'] = 'admin requests';
 $data['requeststatus']=$this->requeststatus_model->getrequeststatusdropdown();
 $data['userto']=$this->user_model->getuserdropdown();
 $data['userfrom']=$this->user_model->getuserdropdown();
@@ -1542,6 +1547,7 @@ $data['requeststatus']=$this->requeststatus_model->getrequeststatusdropdown();
 $data['userto']=$this->user_model->getuserdropdown();
 $data['userfrom']=$this->user_model->getuserdropdown();
 $data["page"]="viewrequest";
+$data['activemenu'] = 'user requests';
 $data["base_url"]=site_url("site/viewrequestjson");
 $data["title"]="View request";
 $this->load->view("template",$data);
@@ -1845,6 +1851,7 @@ $this->checkaccess($access);
 $data["page"]="viewtransactionuser";
 $sd=$this->input->get_post("sd");
 $ed=$this->input->get_post("ed");
+    $data['activemenu'] = 'user transactions';
 	$data['sd']=$sd;
 	$data['ed']=$ed;
 $data["base_url"]=site_url("site/viewtransactionjson?sd=".$sd."&ed=".$ed);
@@ -1944,6 +1951,7 @@ $sd=$this->input->get_post("sd");
 $ed=$this->input->get_post("ed");
 $data['sd']=$sd;
 $data['ed']=$ed;
+$data['activemenu'] = 'admin transactions';
 $data["base_url"]=site_url("site/viewtransactionadminjson?sd=".$sd."&ed=".$ed);
 $data["title"]="View transaction";
 $this->load->view("template",$data);
@@ -2277,6 +2285,7 @@ $this->load->view("redirect",$data);
         $this->checkaccess($access);
         $data['count']=$this->product_model->getcount();
         $data["page"]="viewproduct";
+        $data['activemenu'] = 'user product';
         $data["base_url"]=site_url("site/viewproductjson");
         $data["title"]="View product";
         $this->load->view("template",$data);
@@ -2752,6 +2761,7 @@ $this->load->view("redirect",$data);
         $access=array("1","2");
         $this->checkaccess($access);
         $data["page"]="vieworder";
+        $data['activemenu'] = 'user order';
         $data["base_url"]=site_url("site/vieworderjson");
         $data["title"]="View order";
         $this->load->view("template",$data);
@@ -3231,6 +3241,7 @@ $this->load->view("redirect",$data);
         $data[ 'user' ] =$this->user_model->getuserdropdown();
         $data[ 'type' ] =$this->notification_model->gettypedropdown();
         $data["base_url"]=site_url("site/viewnotificationjson");
+        $data['activemenu'] = 'user notification';
         $data["title"]="View notification";
         $this->load->view("template",$data);
     }
@@ -3431,7 +3442,7 @@ $this->load->view("redirect",$data);
 		$this->checkaccess($access);
 		$data['page']='viewregister';
         $data['base_url'] = site_url("site/viewregisterjson");
-        
+        $data['activemenu'] = 'register';
 		$data['title']='View Register';
 		$this->load->view('template',$data);
 	} 
@@ -3563,6 +3574,7 @@ $this->load->view("redirect",$data);
         $data[ 'user' ] =$this->user_model->getuserdropdown();
         $data["base_url"]=site_url("site/viewsuggestionjson");
         $data["title"]="View suggestion";
+        $data['activemenu'] = 'suggestion';
         $this->load->view("template",$data);
     }
     function viewsuggestionjson()
