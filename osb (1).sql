@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10.5
+-- version 4.3.11
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Jan 02, 2016 at 10:19 AM
--- Server version: 5.6.21
--- PHP Version: 5.4.23
+-- Host: 127.0.0.1
+-- Generation Time: Jan 09, 2016 at 05:45 AM
+-- Server version: 5.6.24
+-- PHP Version: 5.5.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `wohligco_osb`
+-- Database: `osb`
 --
 
 -- --------------------------------------------------------
@@ -27,11 +27,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `accesslevel` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `accesslevel`
@@ -49,15 +47,14 @@ INSERT INTO `accesslevel` (`id`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `country` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `iso` char(2) NOT NULL,
   `name` varchar(80) NOT NULL,
   `nicename` varchar(80) NOT NULL,
   `iso3` char(3) DEFAULT NULL,
   `numcode` smallint(6) DEFAULT NULL,
-  `phonecode` int(5) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=240 ;
+  `phonecode` int(5) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=240 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `country`
@@ -311,10 +308,9 @@ INSERT INTO `country` (`id`, `iso`, `name`, `nicename`, `iso3`, `numcode`, `phon
 --
 
 CREATE TABLE IF NOT EXISTS `logintype` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `logintype`
@@ -333,7 +329,7 @@ INSERT INTO `logintype` (`id`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `menu` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `keyword` varchar(255) NOT NULL,
@@ -342,9 +338,8 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `parent` int(11) NOT NULL,
   `isactive` int(11) NOT NULL,
   `order` int(11) NOT NULL,
-  `icon` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+  `icon` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `menu`
@@ -355,10 +350,10 @@ INSERT INTO `menu` (`id`, `name`, `description`, `keyword`, `url`, `linktype`, `
 (2, 'Dashboard', '', '', 'site/index', 1, 0, 1, 0, 'icon-dashboard'),
 (3, 'Category', '', '', 'site/viewcategory', 1, 0, 1, 2, 'icon-laptop'),
 (5, 'Area', '', '', 'site/viewarea', 1, 0, 1, 3, 'icon-map-marker'),
-(7, 'Request of admin', '', '', 'site/viewrequestadmin', 1, 0, 1, 4, 'icon-star'),
-(9, 'Transaction of admin', '', '', 'site/viewtransactionadmin', 1, 0, 1, 6, 'icon-dollar'),
-(10, 'Request of user', '', '', 'site/viewrequest', 1, 0, 1, 5, 'icon-spinner'),
-(11, 'Transaction of user', '', '', 'site/viewtransaction', 1, 0, 1, 7, 'icon-money'),
+(7, 'Admin Requests', '', '', 'site/viewrequestadmin', 1, 0, 1, 4, 'icon-star'),
+(9, 'Admin Transactions', '', '', 'site/viewtransactionadmin', 1, 0, 1, 6, 'icon-dollar'),
+(10, 'User Requests', '', '', 'site/viewrequest', 1, 0, 1, 5, 'icon-spinner'),
+(11, 'User Transactions', '', '', 'site/viewtransaction', 1, 0, 1, 7, 'icon-money'),
 (12, 'User Category', '', '', 'site/viewusercategory', 1, 0, 1, 8, 'icon-book'),
 (13, 'User Order', '', '', 'site/vieworder', 1, 0, 1, 9, 'icon-tasks'),
 (14, 'User Notification', '', '', 'site/viewnotification', 1, 0, 1, 10, 'icon-rocket'),
@@ -429,13 +424,12 @@ INSERT INTO `menuaccess` (`menu`, `access`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `notification` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `user` int(11) NOT NULL,
   `type` varchar(255) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `message` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=294 ;
+  `message` text NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=294 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `notification`
@@ -724,7 +718,7 @@ INSERT INTO `notification` (`id`, `user`, `type`, `timestamp`, `message`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `order` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `user` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -743,9 +737,8 @@ CREATE TABLE IF NOT EXISTS `order` (
   `trackingcode` varchar(255) NOT NULL,
   `orderstatus` varchar(255) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `logisticcharge` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=185 ;
+  `logisticcharge` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=185 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `order`
@@ -795,15 +788,14 @@ INSERT INTO `order` (`id`, `user`, `name`, `email`, `contactno`, `billingaddress
 --
 
 CREATE TABLE IF NOT EXISTS `orderitems` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `order` int(11) NOT NULL,
   `product` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `price` float NOT NULL,
   `discount` float NOT NULL,
-  `finalprice` float NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=146 ;
+  `finalprice` float NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=146 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `orderitems`
@@ -853,10 +845,9 @@ INSERT INTO `orderitems` (`id`, `order`, `product`, `quantity`, `price`, `discou
 --
 
 CREATE TABLE IF NOT EXISTS `orderstatus` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `orderstatus`
@@ -876,12 +867,11 @@ INSERT INTO `orderstatus` (`id`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `osb_area` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `order` int(11) NOT NULL,
   `status` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `osb_area`
@@ -898,13 +888,12 @@ INSERT INTO `osb_area` (`id`, `order`, `status`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `osb_category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `order` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `parent` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
+  `parent` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `osb_category`
@@ -941,7 +930,7 @@ INSERT INTO `osb_category` (`id`, `order`, `status`, `name`, `parent`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `osb_request` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `userfrom` int(11) NOT NULL,
   `userto` int(11) NOT NULL,
   `requeststatus` int(11) NOT NULL,
@@ -949,9 +938,8 @@ CREATE TABLE IF NOT EXISTS `osb_request` (
   `reason` varchar(255) NOT NULL,
   `approvalreason` varchar(255) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `requestid` int(20) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=462 ;
+  `requestid` int(20) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=462 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `osb_request`
@@ -1054,10 +1042,9 @@ INSERT INTO `osb_request` (`id`, `userfrom`, `userto`, `requeststatus`, `amount`
 --
 
 CREATE TABLE IF NOT EXISTS `osb_requeststatus` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `osb_requeststatus`
@@ -1075,11 +1062,10 @@ INSERT INTO `osb_requeststatus` (`id`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `osb_shopphoto` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `user` int(11) NOT NULL,
-  `photo` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+  `photo` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `osb_shopphoto`
@@ -1111,11 +1097,10 @@ INSERT INTO `osb_shopphoto` (`id`, `user`, `photo`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `osb_shopproductphoto` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `user` int(11) NOT NULL,
-  `photo` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+  `photo` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `osb_shopproductphoto`
@@ -1143,7 +1128,7 @@ INSERT INTO `osb_shopproductphoto` (`id`, `user`, `photo`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `osb_transaction` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `userto` int(11) NOT NULL,
   `userfrom` int(11) NOT NULL,
   `reason` varchar(255) NOT NULL,
@@ -1151,9 +1136,8 @@ CREATE TABLE IF NOT EXISTS `osb_transaction` (
   `payableamount` varchar(255) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `requestid` int(11) NOT NULL,
-  `orderid` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=319 ;
+  `orderid` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=319 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `osb_transaction`
@@ -1270,10 +1254,9 @@ INSERT INTO `osb_transaction` (`id`, `userto`, `userfrom`, `reason`, `amount`, `
 --
 
 CREATE TABLE IF NOT EXISTS `osb_transactionstatus` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `osb_transactionstatus`
@@ -1290,7 +1273,7 @@ INSERT INTO `osb_transactionstatus` (`id`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `product` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `sku` varchar(255) NOT NULL,
   `price` varchar(255) NOT NULL,
@@ -1300,9 +1283,8 @@ CREATE TABLE IF NOT EXISTS `product` (
   `quantity` int(11) NOT NULL,
   `image` varchar(255) NOT NULL,
   `onlinestatus` varchar(255) NOT NULL,
-  `moderated` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=119 ;
+  `moderated` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product`
@@ -1357,11 +1339,10 @@ INSERT INTO `product` (`id`, `name`, `sku`, `price`, `description`, `status`, `u
 --
 
 CREATE TABLE IF NOT EXISTS `productcategory` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `product` int(11) NOT NULL,
-  `category` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=197 ;
+  `category` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=197 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `productcategory`
@@ -1421,12 +1402,11 @@ INSERT INTO `productcategory` (`id`, `product`, `category`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `productimage` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `product` int(11) NOT NULL,
   `image` varchar(255) NOT NULL,
-  `order` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `order` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1435,14 +1415,13 @@ CREATE TABLE IF NOT EXISTS `productimage` (
 --
 
 CREATE TABLE IF NOT EXISTS `register` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `message` text COLLATE utf8_unicode_ci NOT NULL,
   `personalcontact` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `status` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+  `status` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `register`
@@ -1462,10 +1441,9 @@ INSERT INTO `register` (`id`, `name`, `email`, `message`, `personalcontact`, `st
 --
 
 CREATE TABLE IF NOT EXISTS `statuses` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `statuses`
@@ -1482,12 +1460,11 @@ INSERT INTO `statuses` (`id`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `suggestion` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `user` int(11) NOT NULL,
   `message` text COLLATE utf8_unicode_ci NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `suggestion`
@@ -1506,7 +1483,7 @@ INSERT INTO `suggestion` (`id`, `user`, `message`, `timestamp`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -1546,9 +1523,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `shippingpincode` varchar(255) NOT NULL,
   `onlinestatus` varchar(255) NOT NULL,
   `shopstatus` varchar(50) NOT NULL,
-  `os` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=51 ;
+  `os` varchar(50) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
@@ -1580,11 +1556,10 @@ INSERT INTO `user` (`id`, `name`, `password`, `email`, `message`, `personalconta
 --
 
 CREATE TABLE IF NOT EXISTS `usercategory` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `user` int(11) NOT NULL,
-  `category` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  `category` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `usercategory`
@@ -1602,14 +1577,296 @@ INSERT INTO `usercategory` (`id`, `user`, `category`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `userlog` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `onuser` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `accesslevel`
+--
+ALTER TABLE `accesslevel`
+  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `country`
+--
+ALTER TABLE `country`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `logintype`
+--
+ALTER TABLE `logintype`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `menu`
+--
+ALTER TABLE `menu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `notification`
+--
+ALTER TABLE `notification`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order`
+--
+ALTER TABLE `order`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orderitems`
+--
+ALTER TABLE `orderitems`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orderstatus`
+--
+ALTER TABLE `orderstatus`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `osb_area`
+--
+ALTER TABLE `osb_area`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `osb_category`
+--
+ALTER TABLE `osb_category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `osb_request`
+--
+ALTER TABLE `osb_request`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `osb_requeststatus`
+--
+ALTER TABLE `osb_requeststatus`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `osb_shopphoto`
+--
+ALTER TABLE `osb_shopphoto`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `osb_shopproductphoto`
+--
+ALTER TABLE `osb_shopproductphoto`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `osb_transaction`
+--
+ALTER TABLE `osb_transaction`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `osb_transactionstatus`
+--
+ALTER TABLE `osb_transactionstatus`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product`
+--
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `productcategory`
+--
+ALTER TABLE `productcategory`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `productimage`
+--
+ALTER TABLE `productimage`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `register`
+--
+ALTER TABLE `register`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `statuses`
+--
+ALTER TABLE `statuses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `suggestion`
+--
+ALTER TABLE `suggestion`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `usercategory`
+--
+ALTER TABLE `usercategory`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `userlog`
+--
+ALTER TABLE `userlog`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `accesslevel`
+--
+ALTER TABLE `accesslevel`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `country`
+--
+ALTER TABLE `country`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=240;
+--
+-- AUTO_INCREMENT for table `logintype`
+--
+ALTER TABLE `logintype`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `menu`
+--
+ALTER TABLE `menu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT for table `notification`
+--
+ALTER TABLE `notification`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=294;
+--
+-- AUTO_INCREMENT for table `order`
+--
+ALTER TABLE `order`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=185;
+--
+-- AUTO_INCREMENT for table `orderitems`
+--
+ALTER TABLE `orderitems`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=146;
+--
+-- AUTO_INCREMENT for table `orderstatus`
+--
+ALTER TABLE `orderstatus`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `osb_area`
+--
+ALTER TABLE `osb_area`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `osb_category`
+--
+ALTER TABLE `osb_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
+--
+-- AUTO_INCREMENT for table `osb_request`
+--
+ALTER TABLE `osb_request`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=462;
+--
+-- AUTO_INCREMENT for table `osb_requeststatus`
+--
+ALTER TABLE `osb_requeststatus`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `osb_shopphoto`
+--
+ALTER TABLE `osb_shopphoto`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT for table `osb_shopproductphoto`
+--
+ALTER TABLE `osb_shopproductphoto`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT for table `osb_transaction`
+--
+ALTER TABLE `osb_transaction`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=319;
+--
+-- AUTO_INCREMENT for table `osb_transactionstatus`
+--
+ALTER TABLE `osb_transactionstatus`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `product`
+--
+ALTER TABLE `product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=119;
+--
+-- AUTO_INCREMENT for table `productcategory`
+--
+ALTER TABLE `productcategory`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=197;
+--
+-- AUTO_INCREMENT for table `productimage`
+--
+ALTER TABLE `productimage`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `register`
+--
+ALTER TABLE `register`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `statuses`
+--
+ALTER TABLE `statuses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `suggestion`
+--
+ALTER TABLE `suggestion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=51;
+--
+-- AUTO_INCREMENT for table `usercategory`
+--
+ALTER TABLE `usercategory`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `userlog`
+--
+ALTER TABLE `userlog`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
