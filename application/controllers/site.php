@@ -1667,10 +1667,10 @@ $data["title"]="Edit request";
 $data["before"]=$this->request_model->beforeedit($this->input->get("id"));
 $data['userto']=$this->user_model->getuserdropdown();
 $data['userfrom']=$this->user_model->getuserdropdown();
-//    $userfromid=$data['before']->userfrom;
-//    $usertoid=$data['before']->userto;
-//        $data['userto']=$this->user_model->getname($usertoid);
-//        $data['userfrom']=$this->user_model->getname($userfromid);
+    $userfromid=$data['before']->userfrom;
+    $usertoid=$data['before']->userto;
+        $data['usertoname']=$this->user_model->getname($usertoid);
+        $data['userfromname']=$this->user_model->getname($userfromid);
     
 $this->load->view("template",$data);
 }
@@ -2099,8 +2099,13 @@ $data["page"]="edittransaction";
 //$data['transactionstatus']=$this->transactionstatus_model->gettransactionstatusdropdown();
     $data['userto']=$this->user_model->getuserdropdown();
 $data['userfrom']=$this->user_model->getuserdropdown();
+  
 $data["title"]="Edit transaction";
 $data["before"]=$this->transaction_model->beforeedit($this->input->get("id"));
+     $userfromid=$data['before']->userfrom;
+    $usertoid=$data['before']->userto;
+        $data['usertoname']=$this->user_model->getname($usertoid);
+        $data['userfromname']=$this->user_model->getname($userfromid);
 //$userto=$data["before"]->userto;
 //   // if admin
 //  $userfrom=$data["before"]->userfrom;  
