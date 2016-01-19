@@ -1665,10 +1665,12 @@ $data["page"]="editrequest";
 $data['requeststatus']=$this->requeststatus_model->getrequeststatusdropdown();
 $data["title"]="Edit request";
 $data["before"]=$this->request_model->beforeedit($this->input->get("id"));
-    $userfromid=$data['before']->userfrom;
-    $usertoid=$data['before']->userto;
-        $data['userto']=$this->user_model->getname($usertoid);
-        $data['userfrom']=$this->user_model->getname($userfromid);
+$data['userto']=$this->user_model->getuserdropdown();
+$data['userfrom']=$this->user_model->getuserdropdown();
+//    $userfromid=$data['before']->userfrom;
+//    $usertoid=$data['before']->userto;
+//        $data['userto']=$this->user_model->getname($usertoid);
+//        $data['userfrom']=$this->user_model->getname($userfromid);
     
 $this->load->view("template",$data);
 }
@@ -2093,21 +2095,23 @@ public function edittransaction()
 $access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="edittransaction";
-$data['userfrom']=$this->user_model->getuserdropdown();
+//$data['userfrom']=$this->user_model->getuserdropdown();
 //$data['transactionstatus']=$this->transactionstatus_model->gettransactionstatusdropdown();
+    $data['userto']=$this->user_model->getuserdropdown();
+$data['userfrom']=$this->user_model->getuserdropdown();
 $data["title"]="Edit transaction";
 $data["before"]=$this->transaction_model->beforeedit($this->input->get("id"));
-$userto=$data["before"]->userto;
-   // if admin
-  $userfrom=$data["before"]->userfrom;  
-    if($userfrom==1)
-    {
-         $data['userto']=$this->user_model->getmembershipno($userto);
-    }
-    else
-    {
-        $data['userto']=$this->user_model->getuserdropdown();
-    }
+//$userto=$data["before"]->userto;
+//   // if admin
+//  $userfrom=$data["before"]->userfrom;  
+//    if($userfrom==1)
+//    {
+//         $data['userto']=$this->user_model->getmembershipno($userto);
+//    }
+//    else
+//    {
+//        $data['userto']=$this->user_model->getuserdropdown();
+//    }
 $this->load->view("template",$data);
 }
 public function edittransactionsubmit()
