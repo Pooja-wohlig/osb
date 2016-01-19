@@ -734,7 +734,7 @@ else
 return  $id;
  }
 	public function viewmyproducts($user){
-	 $query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `status`, `user`, `quantity`, `image`,`moderated` FROM `product` WHERE `user`='$user'")->result();    
+	 $query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `status`, `user`, `quantity`, `image`,`moderated` FROM `product` WHERE `user`='$user' ORDER BY `id` DESC")->result();    
         if(!$query)
         return  0;
         else
