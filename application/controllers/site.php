@@ -1707,6 +1707,7 @@ $amount=$this->input->get_post("amount");
 $reason=$this->input->get_post("reason");
 $approvalreason=$this->input->get_post("approvalreason");
 $timestamp=$this->input->get_post("timestamp");
+//    print_r($_POST);
 	if($requeststatus=="3" && $userfrom=="1"){		
 	$this->user_model->sendnotification("Your request is rejected by admin of amount:$amount",$userto);
 	$message="Your request is rejected by admin of amount".$amount;

@@ -66,7 +66,13 @@
 				<div class="col-sm-4">
 					<?php echo $before->amount; ?>
 				</div>
-			</div>
+			</div>     
+		      <div class="form-group" style="display:none;">
+                            <label class="col-sm-2 control-label" for="normal-field">Amount</label>
+                            <div class="col-sm-4">
+                                <input type="text" id="normal-field" class="form-control" name="amount" value='<?php echo set_value(' amount ',$before->amount);?>'>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="normal-field">Reason</label>
                             <div class="col-sm-4">
