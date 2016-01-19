@@ -13,7 +13,7 @@ class restapi_model extends CI_Model {
     //	  return $query;
     //  }
     public function shopprofile($user) {
-        $query = $this->db->query("SELECT `user`.`shoplogo`,`user`.`purchasebalance`,`user`.`salesbalance`,`user`.`membershipno`, `user`.`id`,`user`.`shopname`,`user`.`billingaddress`,`user`.`description`,`user`.`website`,`user`.`shopcontact1`,`user`.`shopcontact2`,`user`.`shopemail`,`user`.`area` as `areaid`,`osb_area`.`name` as `area`,`osb_shopphoto`.`photo` as `shopphoto`,`osb_shopproductphoto`.`photo` as `productphoto`,`osb_category`.`id` as `categoryid`,`osb_category`.`name` as `category` FROM `user` LEFT OUTER JOIN `osb_shopphoto` ON `osb_shopphoto`.`user`=`user`.`id` LEFT OUTER JOIN `osb_shopproductphoto` ON `osb_shopproductphoto`.`user`=`user`.`id` LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_area` ON `osb_area`.`id`=`user`.`area` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE `user`.`id`='$user' GROUP BY `user`.`id`")->row();
+        $query = $this->db->query("SELECT `user`.`shoplogo`,`user`.`purchasebalance`,`user`.`salesbalance`,`user`.`membershipno`,`user`.`percentpayment`, `user`.`id`,`user`.`shopname`,`user`.`billingaddress`,`user`.`description`,`user`.`website`,`user`.`shopcontact1`,`user`.`shopcontact2`,`user`.`shopemail`,`user`.`area` as `areaid`,`osb_area`.`name` as `area`,`osb_shopphoto`.`photo` as `shopphoto`,`osb_shopproductphoto`.`photo` as `productphoto`,`osb_category`.`id` as `categoryid`,`osb_category`.`name` as `category` FROM `user` LEFT OUTER JOIN `osb_shopphoto` ON `osb_shopphoto`.`user`=`user`.`id` LEFT OUTER JOIN `osb_shopproductphoto` ON `osb_shopproductphoto`.`user`=`user`.`id` LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_area` ON `osb_area`.`id`=`user`.`area` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE `user`.`id`='$user' GROUP BY `user`.`id`")->row();
         return $query;
     }
     public function shopprofilemem($mem) {
@@ -82,7 +82,7 @@ public function sellingapproval($user) {
             $id = $this->db->insert_id();
             $query=$this->db->query("UPDATE `user` SET `user`.`purchasebalance`=`user`.`purchasebalance`-$amount WHERE `user`.`id`= '$userfrom'" );
             $query=$this->db->query("UPDATE `user` SET `user`.`salesbalance`=`user`.`salesbalance`-$amount WHERE `user`.`id`= '$userto'" );
-            $this->user_model->sendnotification("Your Purchase Request for Amount: $amount is accepted",$userfrom);
+            $this->user_model->sendnotification("Your Purchase Request for Amount: $amount is accepted AND transaction id is CONCAT(LPAD($id,6,0))",$userfrom);
 			$query1=$this->db->query("SELECT `salesbalance` FROM `user` WHERE id='$userto'" )->row();
 			$salesbalance=$query1->salesbalance;
 //			$message="You have a new Purchase Request for Amount: ".$amount;

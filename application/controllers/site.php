@@ -1871,7 +1871,7 @@ function viewtransactionjson()
 	}
 $elements=array();
 $elements[0]=new stdClass();
-$elements[0]->field="`osb_transaction`.`id`";
+$elements[0]->field="CONCAT(LPAD(`osb_transaction`.`id`,6,0))";
 $elements[0]->sort="1";
 $elements[0]->header="ID";
 $elements[0]->alias="id";
@@ -1969,7 +1969,7 @@ $where="";
 	}
 $elements=array();
 $elements[0]=new stdClass();
-$elements[0]->field="`osb_transaction`.`id`";
+$elements[0]->field="CONCAT(LPAD(`osb_transaction`.`id`,6,0))";
 $elements[0]->sort="1";
 $elements[0]->header="ID";
 $elements[0]->alias="id";

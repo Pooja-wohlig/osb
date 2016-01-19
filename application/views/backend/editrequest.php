@@ -28,7 +28,7 @@
                 <div class=" form-group" style="display:none;">
                     <label class="col-sm-2 control-label" for="normal-field">Buyer</label>
                     <div class="col-sm-4">
-                        <?php echo form_dropdown("userto",$userto,set_value('userto',$before->$userto),"class='chzn-select form-control'");?>
+                        <?php echo form_dropdown("userto",$userto,set_value('userto',$before->userto),"class='chzn-select form-control'");?>
                     </div>
                 </div>
                 <?php } else {?>
