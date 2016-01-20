@@ -32,9 +32,10 @@ class User_model extends CI_Model
 	}
 
 
-	public function create($name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus)
+	public function create($termsaccept,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus)
 	{
 		$data  = array(
+			'termsaccept' => $termsaccept,
 			'name' => $name,
 			'email' => $email,
 			'message' => $message,
@@ -141,7 +142,7 @@ class User_model extends CI_Model
 		$query=$this->db->query("SELECT `membershipno` FROM `user` WHERE `id`='$id'")->row();
         $membershipno=$query->membershipno;
 		return $membershipno;
-	} 
+	}
     public function getname($id)
 	{
 		$query=$this->db->query("SELECT `name` FROM `user` WHERE `id`='$id'")->row();
@@ -149,9 +150,10 @@ class User_model extends CI_Model
 		return $name;
 	}
 
-	public function edit($id,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus)
+	public function edit($termsaccept,$id,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus)
 	{
 		$data  = array(
+			'termsaccept' => $termsaccept,
 			'name' => $name,
 			'email' => $email,
 			'message' => $message,
@@ -371,7 +373,7 @@ $this->email->send();
     function login($membershipno,$password,$token,$os)
     {
 		$query1=$this->db->query("SELECT `token` FROM `user` WHERE `membershipno`='$membershipno'")->row();
-		
+
         $password=md5($password);
         $query=$this->db->query("SELECT `id` FROM `user` WHERE `membershipno`='$membershipno' AND `password`= '$password'");
         if($query->num_rows > 0)
@@ -400,7 +402,7 @@ $this->email->send();
         else {
         		return false;
 		}
-		
+
     }
 
     function authenticate() {
@@ -595,15 +597,15 @@ public function sendnotificationold($content, $user) {
 
 	}
     public function sendnotification($content, $user) {
-       
+
 	$gettoken=$this->db->query("SELECT `token`,`os` FROM `user` WHERE `id`='$user'")->row();
-        
+
             $token=$gettoken->token;
             $os=$gettoken->os;
         echo $token."          ";
         if($os=="Android")
         {
-            
+
             define('API_ACCESS_KEY', 'AIzaSyByFozf9MqBMNVVsqvVygA9_10IzHDIzns');
         $registrationIds = array($token);
         // prep the bundle
@@ -660,7 +662,7 @@ public function sendnotificationold($content, $user) {
                 $fp = stream_socket_client(
                     'ssl://gateway.sandbox.push.apple.com:2195', $err,
                     $errstr, 60, STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT, $ctx);
-              
+
 //                if (!$fp) {
 //                    exit("Failed to connect: $err $errstr".PHP_EOL);
 //                }
@@ -692,7 +694,7 @@ else
                 fclose($fp);
 
             }
-        
+
 
 	}
 
@@ -785,7 +787,7 @@ else
     }
 	public function getonlinestatusdropdown()
 	{
-		$onlinestatus= array(		 
+		$onlinestatus= array(
 			 "1" => "Yes",
 			"0" => "No"
 			);
@@ -793,7 +795,7 @@ else
 	}
     public function getmoderateddropdown()
 	{
-		$moderated= array(		 
+		$moderated= array(
 			 "1" => "Yes",
 			"0" => "No"
 			);
@@ -808,7 +810,7 @@ else
 			);
 		return $shopstatus;
 	}
-	  
+
 	function getidbyemail($useremail)
 	{
 		$query = $this->db->query("SELECT `id` FROM `user`
@@ -816,8 +818,8 @@ else
         $userid=$query->id;
 		return $userid;
 	}
-    
-    
+
+
     function forgotpasswordsubmit($password,$userid)
     {
         $password=md5($password);
@@ -829,8 +831,8 @@ else
 			return  1;
     }
 	function exportexcelreport($sd,$ed)
-		{   
-		
+		{
+
 		    $where="";
 			if($sd!="" && $ed!="")
 			{
@@ -883,7 +885,7 @@ else
 	//        file_put_contents("gs://toykraftdealer/retailerfilefromdashboard_$timestamp.csv", $content);
 	//		redirect("http://admin.toy-kraft.com/servepublic?name=retailerfilefromdashboard_$timestamp.csv", 'refresh');
 		}
-     
+
     function exportusercsv()
 	{
 		$this->load->dbutil();

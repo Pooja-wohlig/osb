@@ -1,10 +1,10 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Site extends CI_Controller 
+class Site extends CI_Controller
 {
 	public function __construct( )
 	{
 		parent::__construct();
-		
+
 		$this->is_logged_in();
 	}
 	function is_logged_in( )
@@ -30,7 +30,7 @@ class Site extends CI_Controller
         $data['product']=$this->product_model->getPendingProductCount();
         $data['adminrequest']=$this->request_model->getPendingAdminRequestCount();
 		$data[ 'title' ] = 'Welcome';
-		$this->load->view( 'template', $data );	
+		$this->load->view( 'template', $data );
 	}
 	public function createuser()
 	{
@@ -38,14 +38,14 @@ class Site extends CI_Controller
 		$this->checkaccess($access);
 		$data['accesslevel']=$this->user_model->getaccesslevels();
 		$data[ 'status' ] =$this->user_model->getstatusdropdown();
-		$data[ 'logintype' ] =$this->user_model->getlogintypedropdown();	
-		$data[ 'area' ] =$this->area_model->getareadropdown();	
-		$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();	
-		$data[ 'shopstatus' ] =$this->user_model->getshopstatusdropdown();	
+		$data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
+		$data[ 'area' ] =$this->area_model->getareadropdown();
+		$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();
+		$data[ 'shopstatus' ] =$this->user_model->getshopstatusdropdown();
 //        $data['category']=$this->category_model->getcategorydropdown();
 		$data[ 'page' ] = 'createuser';
 		$data[ 'title' ] = 'Create User';
-		$this->load->view( 'template', $data );	
+		$this->load->view( 'template', $data );
 	}
 	function createusersubmit()
 	{
@@ -73,20 +73,20 @@ class Site extends CI_Controller
 		$this->form_validation->set_rules('purchasebalance','purchasebalance','trim');
 		$this->form_validation->set_rules('salesbalance','salesbalance','trim');
 		$this->form_validation->set_rules('percentpayment','Percent Payment','trim');
-		if($this->form_validation->run() == FALSE)	
+		if($this->form_validation->run() == FALSE)
 		{
 			$data['alerterror'] = validation_errors();
 			$data['accesslevel']=$this->user_model->getaccesslevels();
             $data[ 'status' ] =$this->user_model->getstatusdropdown();
-            $data[ 'area' ] =$this->area_model->getareadropdown();		
-			$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();	
+            $data[ 'area' ] =$this->area_model->getareadropdown();
+			$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();
             $data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
-			$data[ 'shopstatus' ] =$this->user_model->getshopstatusdropdown();	
-            
+			$data[ 'shopstatus' ] =$this->user_model->getshopstatusdropdown();
+
 //            $data['category']=$this->category_model->getcategorydropdown();
             $data[ 'page' ] = 'createuser';
             $data[ 'title' ] = 'Create User';
-            $this->load->view( 'template', $data );	
+            $this->load->view( 'template', $data );
 		}
 		else
 		{
@@ -124,12 +124,13 @@ class Site extends CI_Controller
 			$shippingpincode=$this->input->post('shippingpincode');
 			$onlinestatus=$this->input->post('onlinestatus');
 			$shopstatus=$this->input->post('shopstatus');
+			$termsaccept=$this->input->post('termsaccept');
 //            $category=$this->input->post('category');
  			$data[ 'password' ] =$this->user_model->get_random_password();
 			$password=$data[ 'password' ];
 //			echo $password;
 			$this->user_model->sendemail($email,$membershipno,$password);
-   
+
 
 
             $config['upload_path'] = './uploads/';
@@ -141,7 +142,7 @@ class Site extends CI_Controller
 			{
 				$uploaddata = $this->upload->data();
 				$image=$uploaddata['file_name'];
-                
+
                 $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
                 $config_r['maintain_ratio'] = TRUE;
                 $config_t['create_thumb'] = FALSE;///add this
@@ -150,13 +151,13 @@ class Site extends CI_Controller
                 $config_r['quality']    = 100;
                 //end of configs
 
-                $this->load->library('image_lib', $config_r); 
+                $this->load->library('image_lib', $config_r);
                 $this->image_lib->initialize($config_r);
                 if(!$this->image_lib->resize())
                 {
                     echo "Failed." . $this->image_lib->display_errors();
                     //return false;
-                }  
+                }
                 else
                 {
                     //print_r($this->image_lib->dest_image);
@@ -164,9 +165,9 @@ class Site extends CI_Controller
                     $image=$this->image_lib->dest_image;
                     //return false;
                 }
-                
+
 			}
-			
+
 			$config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
 			$this->load->library('upload', $config);
@@ -176,7 +177,7 @@ class Site extends CI_Controller
 			{
 				$uploaddata = $this->upload->data();
 				$shoplogo=$uploaddata['file_name'];
-                
+
                 $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
                 $config_r['maintain_ratio'] = TRUE;
                 $config_t['create_thumb'] = FALSE;///add this
@@ -185,13 +186,13 @@ class Site extends CI_Controller
                 $config_r['quality']    = 100;
                 //end of configs
 
-                $this->load->library('image_lib', $config_r); 
+                $this->load->library('image_lib', $config_r);
                 $this->image_lib->initialize($config_r);
                 if(!$this->image_lib->resize())
                 {
                     echo "Failed." . $this->image_lib->display_errors();
                     //return false;
-                }  
+                }
                 else
                 {
                     //print_r($this->image_lib->dest_image);
@@ -199,15 +200,15 @@ class Site extends CI_Controller
                     $shoplogo=$this->image_lib->dest_image;
                     //return false;
                 }
-                
+
 			}
-            
-		if($this->user_model->create($name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus)==0)
+
+		if($this->user_model->create($termsaccept,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus)==0)
 		$data['alerterror']="New user could not be created.";
 			else
 			$data['alertsuccess']="User created Successfully.";
 			$data['redirect']="site/viewusers";
-			$this->load->view("redirect",$data);		   
+			$this->load->view("redirect",$data);
 		   }
 		   }
     function viewusers()
@@ -219,124 +220,124 @@ class Site extends CI_Controller
         $data['activemenu'] = 'users';
 		$data['title']='View Users';
 		$this->load->view('template',$data);
-	} 
+	}
     function viewusersjson()
 	{
 		$access = array("1","2");
 		$this->checkaccess($access);
-        
-        
+
+
         $elements=array();
         $elements[0]=new stdClass();
         $elements[0]->field="`user`.`id`";
         $elements[0]->sort="1";
         $elements[0]->header="ID";
         $elements[0]->alias="id";
-        
-        
+
+
         $elements[1]=new stdClass();
         $elements[1]->field="`user`.`name`";
         $elements[1]->sort="1";
         $elements[1]->header="Name";
         $elements[1]->alias="name";
-        
+
         $elements[2]=new stdClass();
         $elements[2]->field="`user`.`email`";
         $elements[2]->sort="1";
         $elements[2]->header="Email";
         $elements[2]->alias="email";
-        
+
         $elements[3]=new stdClass();
         $elements[3]->field="`user`.`accesslevel`";
         $elements[3]->sort="1";
         $elements[3]->header="Accesslevel";
         $elements[3]->alias="accesslevel";
-        
+
         $elements[4]=new stdClass();
         $elements[4]->field="`logintype`.`name`";
         $elements[4]->sort="1";
         $elements[4]->header="Logintype";
         $elements[4]->alias="logintype";
-        
+
         $elements[5]=new stdClass();
         $elements[5]->field="`user`.`json`";
         $elements[5]->sort="1";
         $elements[5]->header="Json";
         $elements[5]->alias="json";
-		
+
 		$elements[6]=new stdClass();
         $elements[6]->field="`user`.`shopname`";
         $elements[6]->sort="1";
         $elements[6]->header="Shopname";
         $elements[6]->alias="shopname";
-		
+
 		$elements[7]=new stdClass();
         $elements[7]->field="`user`.`membershipno`";
         $elements[7]->sort="1";
         $elements[7]->header="Membershipno";
         $elements[7]->alias="membershipno";
-		
+
 		$elements[8]=new stdClass();
         $elements[8]->field="`user`.`address`";
         $elements[8]->sort="1";
         $elements[8]->header="Address";
         $elements[8]->alias="address";
-		
+
 		$elements[9]=new stdClass();
         $elements[9]->field="`user`.`description`";
         $elements[9]->sort="1";
         $elements[9]->header="Description";
         $elements[9]->alias="description";
-		
+
 		$elements[10]=new stdClass();
         $elements[10]->field="`user`.`website`";
         $elements[10]->sort="1";
         $elements[10]->header="Website";
         $elements[10]->alias="website";
-		
+
 		$elements[11]=new stdClass();
         $elements[11]->field="`user`.`shopcontact1`";
         $elements[11]->sort="1";
         $elements[11]->header="Shopcontact1";
         $elements[11]->alias="shopcontact1";
-		
+
 		$elements[12]=new stdClass();
         $elements[12]->field="`user`.`shopcontact2`";
         $elements[12]->sort="1";
         $elements[12]->header="Shopcontact2";
         $elements[12]->alias="shopcontact2";
-		
+
 		$elements[13]=new stdClass();
         $elements[13]->field="`user`.`shopemail`";
         $elements[13]->sort="1";
         $elements[13]->header="Shopemail";
         $elements[13]->alias="shopemail";
-		
+
 		$elements[14]=new stdClass();
         $elements[14]->field="`user`.`purchasebalance`";
         $elements[14]->sort="1";
         $elements[14]->header="Purchasebalance";
         $elements[14]->alias="purchasebalance";
-		
+
 		$elements[15]=new stdClass();
         $elements[15]->field="`user`.`salesbalance`";
         $elements[15]->sort="1";
         $elements[15]->header="Salesbalance";
         $elements[15]->alias="salesbalance";
-		
-       
+
+
         $elements[16]=new stdClass();
         $elements[16]->field="`accesslevel`.`name`";
         $elements[16]->sort="1";
         $elements[16]->header="Accesslevel";
         $elements[16]->alias="accesslevelname";
-       
+
         $elements[17]=new stdClass();
         $elements[17]->field="`statuses`.`name`";
         $elements[17]->sort="1";
         $elements[17]->header="Status";
         $elements[17]->alias="status";
-       
+
         $elements[18]=new stdClass();
         $elements[18]->field="`osb_area`.`name`";
         $elements[18]->sort="1";
@@ -351,19 +352,19 @@ class Site extends CI_Controller
         {
             $maxrow=20;
         }
-        
+
         if($orderby=="")
         {
             $orderby="id";
             $orderorder="ASC";
         }
-       
+
         $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `user` LEFT OUTER JOIN `logintype` ON `logintype`.`id`=`user`.`logintype` LEFT OUTER JOIN `accesslevel` ON `accesslevel`.`id`=`user`.`accesslevel` LEFT OUTER JOIN `statuses` ON `statuses`.`id`=`user`.`status` LEFT OUTER JOIN `osb_area` ON `osb_area`.`id`=`user`.`area`");
-        
+
 		$this->load->view("json",$data);
-	} 
-    
-    
+	}
+
+
 	function edituser()
 	{
 		$access = array("1","2");
@@ -373,8 +374,8 @@ class Site extends CI_Controller
 		$data['accesslevel']=$this->user_model->getaccesslevels();
 		$data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
 		 $data[ 'area' ] =$this->area_model->getareadropdown();
-		$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();	
-		$data[ 'shopstatus' ] =$this->user_model->getshopstatusdropdown();	
+		$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();
+		$data[ 'shopstatus' ] =$this->user_model->getshopstatusdropdown();
 		$data['before']=$this->user_model->beforeedit($this->input->get('id'));
 		$data['page']='edituser';
 		$data['title']='Edit User';
@@ -384,7 +385,7 @@ class Site extends CI_Controller
 	{
 		$access = array("1","2");
 		$this->checkaccess($access);
-		
+
 		$this->form_validation->set_rules('name','Name','trim|required|max_length[30]');
 		$this->form_validation->set_rules('email','Email','trim|required|valid_email');
 		$this->form_validation->set_rules('password','Password','trim|min_length[6]|max_length[30]');
@@ -406,15 +407,15 @@ class Site extends CI_Controller
 		$this->form_validation->set_rules('purchasebalance','purchasebalance','trim');
 		$this->form_validation->set_rules('salesbalance','salesbalance','trim');
 		$this->form_validation->set_rules('percentpayment','Percent Payment','trim');
-		if($this->form_validation->run() == FALSE)	
+		if($this->form_validation->run() == FALSE)
 		{
 			$data['alerterror'] = validation_errors();
 			$data[ 'status' ] =$this->user_model->getstatusdropdown();
 			$data['accesslevel']=$this->user_model->getaccesslevels();
             $data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
 			 $data[ 'area' ] =$this->area_model->getareadropdown();
-			$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();	
-			$data[ 'shopstatus' ] =$this->user_model->getshopstatusdropdown();	
+			$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();
+			$data[ 'shopstatus' ] =$this->user_model->getshopstatusdropdown();
 			$data['before']=$this->user_model->beforeedit($this->input->post('id'));
 			$data['page']='edituser';
 //			$data['page2']='block/userblock';
@@ -423,7 +424,7 @@ class Site extends CI_Controller
 		}
 		else
 		{
-            
+
             $id=$this->input->get_post('id');
             $name=$this->input->get_post('name');
             $email=$this->input->get_post('email');
@@ -459,8 +460,9 @@ class Site extends CI_Controller
 			$shippingpincode=$this->input->post('shippingpincode');
 			$onlinestatus=$this->input->post('onlinestatus');
 			$shopstatus=$this->input->post('shopstatus');
+				$termsaccept=$this->input->post('termsaccept');
 //            $category=$this->input->get_post('category');
-            
+
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
 			$this->load->library('upload', $config);
@@ -470,7 +472,7 @@ class Site extends CI_Controller
 			{
 				$uploaddata = $this->upload->data();
 				$image=$uploaddata['file_name'];
-                
+
                 $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
                 $config_r['maintain_ratio'] = TRUE;
                 $config_t['create_thumb'] = FALSE;///add this
@@ -479,13 +481,13 @@ class Site extends CI_Controller
                 $config_r['quality']    = 100;
                 //end of configs
 
-                $this->load->library('image_lib', $config_r); 
+                $this->load->library('image_lib', $config_r);
                 $this->image_lib->initialize($config_r);
                 if(!$this->image_lib->resize())
                 {
                     echo "Failed." . $this->image_lib->display_errors();
                     //return false;
-                }  
+                }
                 else
                 {
                     //print_r($this->image_lib->dest_image);
@@ -493,17 +495,17 @@ class Site extends CI_Controller
                     $image=$this->image_lib->dest_image;
                     //return false;
                 }
-                
+
 			}
-            
+
             if($image=="")
             {
             $image=$this->user_model->getuserimagebyid($id);
                // print_r($image);
                 $image=$image->image;
             }
-//           
-			
+//
+
 			 $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
 			$this->load->library('upload', $config);
@@ -513,7 +515,7 @@ class Site extends CI_Controller
 			{
 				$uploaddata = $this->upload->data();
 				$shoplogo=$uploaddata['file_name'];
-                
+
                 $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
                 $config_r['maintain_ratio'] = TRUE;
                 $config_t['create_thumb'] = FALSE;///add this
@@ -522,13 +524,13 @@ class Site extends CI_Controller
                 $config_r['quality']    = 100;
                 //end of configs
 
-                $this->load->library('image_lib', $config_r); 
+                $this->load->library('image_lib', $config_r);
                 $this->image_lib->initialize($config_r);
                 if(!$this->image_lib->resize())
                 {
                     echo "Failed." . $this->image_lib->display_errors();
                     //return false;
-                }  
+                }
                 else
                 {
                     //print_r($this->image_lib->dest_image);
@@ -536,27 +538,27 @@ class Site extends CI_Controller
                     $image=$this->image_lib->dest_image;
                     //return false;
                 }
-                
+
 			}
-            
+
             if($shoplogo=="")
             {
             $shoplogo=$this->user_model->getuserimagebyid($id);
                // print_r($image);
                 $shoplogo=$shoplogo->image;
             }
-			if($this->user_model->edit($id,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus)==0)
+			if($this->user_model->edit($termsaccept,$id,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus)==0)
 			$data['alerterror']="User Editing was unsuccesful";
 			else
 			$data['alertsuccess']="User edited Successfully.";
-			
+
 			$data['redirect']="site/viewusers";
 			//$data['other']="template=$template";
 			$this->load->view("redirect",$data);
-			
+
 		}
 	}
-	
+
 	function deleteuser()
 	{
 		$access = array("1","2");
@@ -579,9 +581,9 @@ class Site extends CI_Controller
         $data['other']="template=$template";
         $this->load->view("redirect",$data);
 	}
-    
-    
-    
+
+
+
     public function viewshopproductphoto()
 {
 $access=array("1","2");
@@ -639,7 +641,7 @@ $data['user']=$this->shopproductphoto_model->getuserdropdown();
 $data["title"]="Create shopproductphoto";
 $this->load->view("template",$data);
 }
-public function createshopproductphotosubmit() 
+public function createshopproductphotosubmit()
 {
 $access=array("1","2");
 $this->checkaccess($access);
@@ -665,7 +667,7 @@ $config['upload_path'] = './uploads/';
 			{
 				$uploaddata = $this->upload->data();
 				$photo=$uploaddata['file_name'];
-                
+
                 $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
                 $config_r['maintain_ratio'] = TRUE;
                 $config_t['create_thumb'] = FALSE;///add this
@@ -674,20 +676,20 @@ $config['upload_path'] = './uploads/';
                 $config_r['quality']    = 100;
                 //end of configs
 
-                $this->load->library('image_lib', $config_r); 
+                $this->load->library('image_lib', $config_r);
                 $this->image_lib->initialize($config_r);
                 if(!$this->image_lib->resize())
                 {
                     echo "Failed." . $this->image_lib->display_errors();
                     //return false;
-                }  
+                }
                 else
                 {
                     //print_r($this->image_lib->dest_image);
                     //dest_image
                     $photo=$this->image_lib->dest_image;
                     //return false;
-                }         
+                }
 			}
 if($this->shopproductphoto_model->create($user,$photo)==0)
 $data["alerterror"]="New shopproductphoto could not be created.";
@@ -741,7 +743,7 @@ $user=$this->input->get_post("user");
 			{
 				$uploaddata = $this->upload->data();
 				$photo=$uploaddata['file_name'];
-                
+
                 $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
                 $config_r['maintain_ratio'] = TRUE;
                 $config_t['create_thumb'] = FALSE;///add this
@@ -750,13 +752,13 @@ $user=$this->input->get_post("user");
                 $config_r['quality']    = 100;
                 //end of configs
 
-                $this->load->library('image_lib', $config_r); 
+                $this->load->library('image_lib', $config_r);
                 $this->image_lib->initialize($config_r);
                 if(!$this->image_lib->resize())
                 {
                     echo "Failed." . $this->image_lib->display_errors();
                     //return false;
-                }  
+                }
                 else
                 {
                     //print_r($this->image_lib->dest_image);
@@ -764,9 +766,9 @@ $user=$this->input->get_post("user");
                     $photo=$this->image_lib->dest_image;
                     //return false;
                 }
-                
+
 			}
-            
+
             if($photo=="")
             {
             $photo=$this->shopphoto_model->getshopphotobyid($id);
@@ -779,7 +781,7 @@ else
 $data["alertsuccess"]="shopproductphoto Updated Successfully.";
 $data["redirect"]="site/viewshopproductphoto?id=".$user;
 $this->load->view("redirect2",$data);
-	
+
 }
 }
 public function deleteshopproductphoto()
@@ -840,18 +842,18 @@ $orderorder="ASC";
 $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_shopphoto` LEFT OUTER JOIN `user` ON `user`.`id`=`osb_shopphoto`.`user`","WHERE `osb_shopphoto`.`user`='$userid'");
 $this->load->view("json",$data);
 }
-// 
+//
 public function createshopphoto()
 {
 $access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="createshopphoto";
 $data['user']=$this->shopproductphoto_model->getuserdropdown();
-//$data['userid']=$this->input->get('id');	 
+//$data['userid']=$this->input->get('id');
 $data["title"]="Create shopphoto";
 $this->load->view("template",$data);
 }
-public function createshopphotosubmit() 
+public function createshopphotosubmit()
 {
 $access=array("1","2");
 $this->checkaccess($access);
@@ -861,7 +863,7 @@ if($this->form_validation->run()==FALSE)
 {
 $data["alerterror"]=validation_errors();
 $data['user']=$this->shopproductphoto_model->getuserdropdown();
-//$data['userid']=$this->input->post('user');	
+//$data['userid']=$this->input->post('user');
 $data["page"]="createshopphoto";
 $data["title"]="Create shopphoto";
 $this->load->view("template",$data);
@@ -878,7 +880,7 @@ $config['upload_path'] = './uploads/';
 			{
 				$uploaddata = $this->upload->data();
 				$photo=$uploaddata['file_name'];
-                
+
                 $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
                 $config_r['maintain_ratio'] = TRUE;
                 $config_t['create_thumb'] = FALSE;///add this
@@ -887,21 +889,21 @@ $config['upload_path'] = './uploads/';
                 $config_r['quality']    = 100;
                 //end of configs
 
-                $this->load->library('image_lib', $config_r); 
+                $this->load->library('image_lib', $config_r);
                 $this->image_lib->initialize($config_r);
                 if(!$this->image_lib->resize())
                 {
                     echo "Failed." . $this->image_lib->display_errors();
                     //return false;
-                }  
+                }
                 else
                 {
                     //print_r($this->image_lib->dest_image);
                     //dest_image
                     $photo=$this->image_lib->dest_image;
                     //return false;
-                }         
-			}            
+                }
+			}
 //	echo $user;
 //	echo $photo;
 if($this->shopphoto_model->create($user,$photo)==0)
@@ -921,7 +923,7 @@ $this->checkaccess($access);
 $data["page"]="editshopphoto";
 $data['user']=$this->shopproductphoto_model->getuserdropdown();
 $data['userid']=$this->input->get('id');
-$data['shopid']=$this->input->get('shopid');			
+$data['shopid']=$this->input->get('shopid');
 $data["title"]="Edit shopphoto";
 $data["before"]=$this->shopphoto_model->beforeedit($this->input->get("shopid"));
 $this->load->view("template",$data);
@@ -942,7 +944,7 @@ $data["title"]="Edit shopphoto";
    $data['userid']=$this->input->post('user');
  $data['shopid']=$this->input->post('id');
 $data["before"]=$this->shopphoto_model->beforeedit($this->input->get("id"));
-	
+
 $this->load->view("template",$data);
 }
 else
@@ -959,7 +961,7 @@ $config['upload_path'] = './uploads/';
 			{
 				$uploaddata = $this->upload->data();
 				$photo=$uploaddata['file_name'];
-                
+
                 $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
                 $config_r['maintain_ratio'] = TRUE;
                 $config_t['create_thumb'] = FALSE;///add this
@@ -968,13 +970,13 @@ $config['upload_path'] = './uploads/';
                 $config_r['quality']    = 100;
                 //end of configs
 
-                $this->load->library('image_lib', $config_r); 
+                $this->load->library('image_lib', $config_r);
                 $this->image_lib->initialize($config_r);
                 if(!$this->image_lib->resize())
                 {
                     echo "Failed." . $this->image_lib->display_errors();
                     //return false;
-                }  
+                }
                 else
                 {
                     //print_r($this->image_lib->dest_image);
@@ -982,16 +984,16 @@ $config['upload_path'] = './uploads/';
                     $photo=$this->image_lib->dest_image;
                     //return false;
                 }
-                
+
 			}
-            
+
             if($photo=="")
             {
             $photo=$this->shopphoto_model->getshopphotobyid($id);
                // print_r($image);
                 $photo=$photo->photo;
             }
-            
+
 if($this->shopphoto_model->edit($id,$user,$photo)==0)
 $data["alerterror"]="New shopphoto could not be Updated.";
 else
@@ -1010,9 +1012,9 @@ $this->shopphoto_model->delete($this->input->get("shopid"));
 $data["redirect"]="site/viewshopphoto?id=".$this->input->get('id');
 $this->load->view("redirect2",$data);
 }
-	
+
 //	user_category-------------------------------------------------------------------------------------------------------------------------
-	
+
 	public function viewusercategory()
 {
 $access=array("1","2");
@@ -1049,12 +1051,12 @@ $elements[3]=new stdClass();
 $elements[3]->field="`user`.`name`";
 $elements[3]->sort="1";
 $elements[3]->header="Name";
-$elements[3]->alias="name";	
+$elements[3]->alias="name";
 $elements[4]=new stdClass();
 $elements[4]->field="`osb_category`.`name`";
 $elements[4]->sort="1";
 $elements[4]->header="Name";
-$elements[4]->alias="name";	
+$elements[4]->alias="name";
 $search=$this->input->get_post("search");
 $pageno=$this->input->get_post("pageno");
 $orderby=$this->input->get_post("orderby");
@@ -1080,11 +1082,11 @@ $this->checkaccess($access);
 $data["page"]="createusercategory";
 $data['user']=$this->shopproductphoto_model->getuserdropdown();
 $data['category']=$this->usercategory_model->getcategorydropdown();
-//$data['userid']=$this->input->get('id');	 
+//$data['userid']=$this->input->get('id');
 $data["title"]="Create usercategory";
 $this->load->view("template",$data);
 }
-public function createusercategorysubmit() 
+public function createusercategorysubmit()
 {
 $access=array("1","2");
 $this->checkaccess($access);
@@ -1095,7 +1097,7 @@ if($this->form_validation->run()==FALSE)
 $data["alerterror"]=validation_errors();
 $data['user']=$this->shopproductphoto_model->getuserdropdown();
 $data['category']=$this->usercategory_model->getcategorydropdown();
-//$data['userid']=$this->input->post('user');	
+//$data['userid']=$this->input->post('user');
 $data["page"]="createusercategory";
 $data["title"]="Create usercategory";
 $this->load->view("template",$data);
@@ -1121,7 +1123,7 @@ $data["page"]="editusercategory";
 $data['user']=$this->shopproductphoto_model->getuserdropdown();
 $data['category']=$this->usercategory_model->getcategorydropdown();
 //$data['userid']=$this->input->get('id');
-//$data['shopphotoid']=$this->input->get('shopphotoid');			
+//$data['shopphotoid']=$this->input->get('shopphotoid');
 $data["title"]="Edit usercategory";
 $data["before"]=$this->usercategory_model->beforeedit($this->input->get("id"));
 $this->load->view("template",$data);
@@ -1222,7 +1224,7 @@ $orderby="id";
 $orderorder="ASC";
 }
 $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_category` LEFT OUTER JOIN `osb_category` as `tab1` ON `osb_category`.`parent`=`tab1`.`id`  LEFT OUTER JOIN `statuses` ON `osb_category`.`status`=`statuses`.`id`");
-	
+
 //	SELECT a.column_name, b.column_name...
 //FROM table1 a, table1 b
 //WHERE a.common_field = b.common_field;
@@ -1239,7 +1241,7 @@ $data[ 'parent' ] =$this->category_model->getparentdropdown();
 $data["title"]="Create category";
 $this->load->view("template",$data);
 }
-public function createcategorysubmit() 
+public function createcategorysubmit()
 {
 $access=array("1","2");
 $this->checkaccess($access);
@@ -1321,7 +1323,7 @@ $this->category_model->delete($this->input->get("id"));
 $data["redirect"]="site/viewcategory";
 $this->load->view("redirect",$data);
 }
-	
+
 public function viewarea()
 {
 $access=array("1","2");
@@ -1383,7 +1385,7 @@ $data["page"]="createarea";
 $data["title"]="Create area";
 $this->load->view("template",$data);
 }
-public function createareasubmit() 
+public function createareasubmit()
 {
 $access=array("1","2");
 $this->checkaccess($access);
@@ -1461,9 +1463,9 @@ $data["redirect"]="site/viewarea";
 $this->load->view("redirect",$data);
 }
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+
 	//ADMIN REQUESTS
-	
+
 	public function viewrequestadmin()
 {
 $access=array("1","2");
@@ -1486,25 +1488,25 @@ $elements[0]->field="`osb_request`.`id`";
 $elements[0]->sort="1";
 $elements[0]->header="ID";
 $elements[0]->alias="id";
-	
+
 $elements[1]=new stdClass();
 $elements[1]->field="`tab2`.`name`";
 $elements[1]->sort="1";
 $elements[1]->header="Seller";
 $elements[1]->alias="userfrom";
-	
+
 $elements[2]=new stdClass();
 $elements[2]->field="`tab1`.`name`";
 $elements[2]->sort="1";
 $elements[2]->header="Buyer";
 $elements[2]->alias="userto";
-	
+
 $elements[3]=new stdClass();
 $elements[3]->field="`osb_request`.`requeststatus`";
 $elements[3]->sort="1";
 $elements[3]->header="Request Status";
 $elements[3]->alias="requeststatus";
-	
+
 $elements[4]=new stdClass();
 $elements[4]->field="`osb_request`.`amount`";
 $elements[4]->sort="1";
@@ -1533,9 +1535,9 @@ $orderorder="DESC";
 $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_request` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_request`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_request`.`userfrom`","WHERE `osb_request`.`userfrom`=1 ");
 $this->load->view("json",$data);
 }
-	
-	
-	
+
+
+
 	//ADMIN REQUESTS END
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 public function viewrequest()
@@ -1619,7 +1621,7 @@ $data['userfrom']=$this->user_model->getuserdropdown();
 $data["title"]="Create request";
 $this->load->view("template",$data);
 }
-public function createrequestsubmit() 
+public function createrequestsubmit()
 {
 $access=array("1","2");
 $this->checkaccess($access);
@@ -1671,7 +1673,7 @@ $data['userfrom']=$this->user_model->getuserdropdown();
     $usertoid=$data['before']->userto;
         $data['usertoname']=$this->user_model->getname($usertoid);
         $data['userfromname']=$this->user_model->getname($userfromid);
-    
+
 $this->load->view("template",$data);
 }
 public function editrequestsubmit()
@@ -1708,12 +1710,12 @@ $reason=$this->input->get_post("reason");
 $approvalreason=$this->input->get_post("approvalreason");
 $timestamp=$this->input->get_post("timestamp");
 //    print_r($_POST);
-	if($requeststatus=="3" && $userfrom=="1"){		
+	if($requeststatus=="3" && $userfrom=="1"){
 	$this->user_model->sendnotification("Your request is rejected by admin of amount:$amount",$userto);
 	$message="Your request is rejected by admin of amount".$amount;
     $this->user_model->addnotificationtodb($message,$userto);
 	}
-	if($requeststatus=="2" && $userfrom=="1"){		
+	if($requeststatus=="2" && $userfrom=="1"){
 	$this->transaction_model->adminaccept($amount,$userto,$userfrom,$id);
 	}
 if($this->request_model->edit($id,$userfrom,$userto,$requeststatus,$amount,$reason,$approvalreason,$timestamp)==0)
@@ -1781,7 +1783,7 @@ $data["page"]="createrequeststatus";
 $data["title"]="Create requeststatus";
 $this->load->view("template",$data);
 }
-public function createrequeststatussubmit() 
+public function createrequeststatussubmit()
 {
 $access=array("1","2");
 $this->checkaccess($access);
@@ -1876,25 +1878,25 @@ $elements[0]->field="CONCAT(LPAD(`osb_transaction`.`id`,6,0))";
 $elements[0]->sort="1";
 $elements[0]->header="ID";
 $elements[0]->alias="id";
-	
+
 $elements[1]=new stdClass();
 $elements[1]->field="`tab1`.`name`";
 $elements[1]->sort="1";
 $elements[1]->header="Seller";
 $elements[1]->alias="userto";
-	
+
 $elements[2]=new stdClass();
 $elements[2]->field="`tab2`.`name`";
 $elements[2]->sort="1";
 $elements[2]->header="Buyer";
 $elements[2]->alias="userfrom";
-	
+
 //$elements[3]=new stdClass();
 //$elements[3]->field="`osb_transactionstatus`.`name`";
 //$elements[3]->sort="1";
 //$elements[3]->header="Transaction Status";
 //$elements[3]->alias="transactionstatus";
-	
+
 $elements[3]=new stdClass();
 $elements[3]->field="`osb_transaction`.`reason`";
 $elements[3]->sort="1";
@@ -1912,7 +1914,7 @@ $elements[5]->field="`osb_transaction`.`payableamount`";
 $elements[5]->sort="1";
 $elements[5]->header="Barter Amount";
 $elements[5]->alias="payableamount";
-	
+
 $elements[6]=new stdClass();
 $elements[6]->field="`osb_transaction`.`timestamp`";
 $elements[6]->sort="1";
@@ -1941,10 +1943,10 @@ $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder
 $this->load->view("json",$data);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	
+
+
 	//ADMIN TRANSACTIONS
-	
+
 	public function viewtransactionadmin()
 {
 $access=array("1","2");
@@ -1974,25 +1976,25 @@ $elements[0]->field="CONCAT(LPAD(`osb_transaction`.`id`,6,0))";
 $elements[0]->sort="1";
 $elements[0]->header="ID";
 $elements[0]->alias="id";
-	
+
 $elements[1]=new stdClass();
 $elements[1]->field="`tab1`.`membershipno`";
 $elements[1]->sort="1";
 $elements[1]->header="Buyer";
 $elements[1]->alias="userto";
-	
+
 $elements[2]=new stdClass();
 $elements[2]->field="`tab2`.`name`";
 $elements[2]->sort="1";
 $elements[2]->header="Seller";
 $elements[2]->alias="userfrom";
-	
+
 //$elements[3]=new stdClass();
 //$elements[3]->field="`osb_transactionstatus`.`name`";
 //$elements[3]->sort="1";
 //$elements[3]->header="Transaction Status";
 //$elements[3]->alias="transactionstatus";
-	
+
 $elements[3]=new stdClass();
 $elements[3]->field="`osb_transaction`.`reason`";
 $elements[3]->sort="1";
@@ -2010,7 +2012,7 @@ $elements[5]->field="`osb_transaction`.`payableamount`";
 $elements[5]->sort="1";
 $elements[5]->header="Barter Amount";
 $elements[5]->alias="payableamount";
-	
+
 $elements[6]=new stdClass();
 $elements[6]->field="`osb_transaction`.`timestamp`";
 $elements[6]->sort="1";
@@ -2038,9 +2040,9 @@ $orderorder="ASC";
 $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_transaction` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_transaction`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_transaction`.`userfrom`","WHERE `osb_transaction`.`userfrom`=1 $where");
 $this->load->view("json",$data);
 }
-	
+
 	//ADMIN TRANSACTIONS END
-	
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 public function createtransaction()
 {
@@ -2053,7 +2055,7 @@ $data['userfrom']=$this->user_model->getuserdropdown();
 $data["title"]="Create transaction";
 $this->load->view("template",$data);
 }
-public function createtransactionsubmit() 
+public function createtransactionsubmit()
 {
 $access=array("1","2");
 $this->checkaccess($access);
@@ -2100,7 +2102,7 @@ $data["page"]="edittransaction";
 //$data['transactionstatus']=$this->transactionstatus_model->gettransactionstatusdropdown();
     $data['userto']=$this->user_model->getuserdropdown();
 $data['userfrom']=$this->user_model->getuserdropdown();
-  
+
 $data["title"]="Edit transaction";
 $data["before"]=$this->transaction_model->beforeedit($this->input->get("id"));
      $userfromid=$data['before']->userfrom;
@@ -2109,7 +2111,7 @@ $data["before"]=$this->transaction_model->beforeedit($this->input->get("id"));
         $data['userfromname']=$this->user_model->getname($userfromid);
 //$userto=$data["before"]->userto;
 //   // if admin
-//  $userfrom=$data["before"]->userfrom;  
+//  $userfrom=$data["before"]->userfrom;
 //    if($userfrom==1)
 //    {
 //         $data['userto']=$this->user_model->getmembershipno($userto);
@@ -2217,7 +2219,7 @@ $data["page"]="createtransactionstatus";
 $data["title"]="Create transactionstatus";
 $this->load->view("template",$data);
 }
-public function createtransactionstatussubmit() 
+public function createtransactionstatussubmit()
 {
 $access=array("1","2");
 $this->checkaccess($access);
@@ -2284,9 +2286,9 @@ $data["redirect"]="site/viewtransactionstatus";
 $this->load->view("redirect",$data);
 }
 
-    
-    
-    
+
+
+
     //Changes By Avinash
     //product
     public function viewproduct()
@@ -2303,55 +2305,55 @@ $this->load->view("redirect",$data);
     function viewproductjson()
     {
         $elements=array();
-        
+
         $elements[0]=new stdClass();
         $elements[0]->field="`product`.`id`";
         $elements[0]->sort="1";
         $elements[0]->header="ID";
         $elements[0]->alias="id";
-        
+
         $elements[1]=new stdClass();
         $elements[1]->field="`product`.`name`";
         $elements[1]->sort="1";
         $elements[1]->header="Name";
         $elements[1]->alias="name";
-        
+
         $elements[2]=new stdClass();
         $elements[2]->field="`product`.`sku`";
         $elements[2]->sort="1";
         $elements[2]->header="Sku";
         $elements[2]->alias="sku";
-        
+
         $elements[3]=new stdClass();
         $elements[3]->field="`product`.`price`";
         $elements[3]->sort="1";
         $elements[3]->header="Price";
         $elements[3]->alias="price";
-        
+
         $elements[4]=new stdClass();
         $elements[4]->field="`product`.`description`";
         $elements[4]->sort="1";
         $elements[4]->header="Description";
         $elements[4]->alias="description";
-        
+
         $elements[5]=new stdClass();
         $elements[5]->field="`product`.`status`";
         $elements[5]->sort="1";
         $elements[5]->header="Status";
-        $elements[5]->alias="status"; 
-        
+        $elements[5]->alias="status";
+
         $elements[6]=new stdClass();
         $elements[6]->field="`product`.`moderated`";
         $elements[6]->sort="1";
         $elements[6]->header="Moderated";
         $elements[6]->alias="moderated";
-        
+
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
         $orderby=$this->input->get_post("orderby");
         $orderorder=$this->input->get_post("orderorder");
         $maxrow=$this->input->get_post("maxrow");
-        
+
         if($maxrow=="")
         {
             $maxrow=20;
@@ -2376,7 +2378,7 @@ $this->load->view("redirect",$data);
 		$data[ 'moderated' ] =$this->user_model->getmoderateddropdown();
 		$data[ 'page' ] = 'createproduct';
 		$data[ 'title' ] = 'Create product';
-		$this->load->view( 'template', $data );	
+		$this->load->view( 'template', $data );
 	}
 	function createproductsubmit()
 	{
@@ -2388,7 +2390,7 @@ $this->load->view("redirect",$data);
 		$this->form_validation->set_rules('description','description','trim|');
 		$this->form_validation->set_rules('price','price','trim|');
 		$this->form_validation->set_rules('quantity','quantity','trim|');
-		if($this->form_validation->run() == FALSE)	
+		if($this->form_validation->run() == FALSE)
 		{
 			$data['alerterror'] = validation_errors();
 			$data[ 'status' ] =$this->product_model->getstatusdropdown();
@@ -2412,7 +2414,7 @@ $this->load->view("redirect",$data);
 			$quantity=$this->input->post('quantity');
 			$onlinestatus=$this->input->post('onlinestatus');
 			$moderated=$this->input->post('moderated');
-			
+
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
 			$this->load->library('upload', $config);
@@ -2422,7 +2424,7 @@ $this->load->view("redirect",$data);
 			{
 				$uploaddata = $this->upload->data();
 				$image=$uploaddata['file_name'];
-                
+
                 $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
                 $config_r['maintain_ratio'] = TRUE;
                 $config_t['create_thumb'] = FALSE;///add this
@@ -2431,13 +2433,13 @@ $this->load->view("redirect",$data);
                 $config_r['quality']    = 100;
                 //end of configs
 
-                $this->load->library('image_lib', $config_r); 
+                $this->load->library('image_lib', $config_r);
                 $this->image_lib->initialize($config_r);
                 if(!$this->image_lib->resize())
                 {
                     echo "Failed." . $this->image_lib->display_errors();
                     //return false;
-                }  
+                }
                 else
                 {
                     //print_r($this->image_lib->dest_image);
@@ -2445,9 +2447,9 @@ $this->load->view("redirect",$data);
                     $image=$this->image_lib->dest_image;
                     //return false;
                 }
-                
+
 			}
-			
+
 			$productid=$this->product_model->createproduct($name,$sku,$description,$price,$status,$category,$user,$quantity,$image,$onlinestatus,$moderated);
             if($productid==0)
 			$data['alerterror']="New product could not be created.";
@@ -2458,7 +2460,7 @@ $this->load->view("redirect",$data);
 			$this->load->view("redirect",$data);
 		}
 	}
-    
+
 //	function viewproduct()
 //	{
 //		$access = array("1","2");
@@ -2492,8 +2494,8 @@ $this->load->view("redirect",$data);
 		$this->form_validation->set_rules('description','description','trim|');
 		$this->form_validation->set_rules('price','price','trim|');
 		$this->form_validation->set_rules('quantity','quantity','trim|');
-        
-		if($this->form_validation->run() == FALSE)	
+
+		if($this->form_validation->run() == FALSE)
 		{
 			$data['alerterror'] = validation_errors();
 			$data[ 'status' ] =$this->product_model->getstatusdropdown();
@@ -2526,7 +2528,7 @@ $this->load->view("redirect",$data);
     $this->product_model->getsalesbalance($id,$name,$sku,$description,$price,$status,$category,$user,$quantity,$image,$onlinestatus,$moderated);
             }
             else if($moderated==1){
-                 $this->product_model->approveproduct($id,$name,$sku,$description,$price,$status,$category,$user,$quantity,$image,$onlinestatus,$moderated); 
+                 $this->product_model->approveproduct($id,$name,$sku,$description,$price,$status,$category,$user,$quantity,$image,$onlinestatus,$moderated);
             }
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -2537,7 +2539,7 @@ $this->load->view("redirect",$data);
 			{
 				$uploaddata = $this->upload->data();
 				$image=$uploaddata['file_name'];
-                
+
                 $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
                 $config_r['maintain_ratio'] = TRUE;
                 $config_t['create_thumb'] = FALSE;///add this
@@ -2546,13 +2548,13 @@ $this->load->view("redirect",$data);
                 $config_r['quality']    = 100;
                 //end of configs
 
-                $this->load->library('image_lib', $config_r); 
+                $this->load->library('image_lib', $config_r);
                 $this->image_lib->initialize($config_r);
                 if(!$this->image_lib->resize())
                 {
                     echo "Failed." . $this->image_lib->display_errors();
                     //return false;
-                }  
+                }
                 else
                 {
                     //print_r($this->image_lib->dest_image);
@@ -2560,22 +2562,22 @@ $this->load->view("redirect",$data);
                     $image=$this->image_lib->dest_image;
                     //return false;
                 }
-                
+
 			}
-            
+
             if($image=="")
             {
             $image=$this->product_model->getproductimagebyid($id);
                // print_r($image);
                 $image=$image->image;
             }
-//           
-			
+//
+
 			if($this->product_model->editproduct($id,$name,$sku,$description,$price,$status,$category,$user,$quantity,$image,$onlinestatus,$moderated)==0)
 			$data['alerterror']="product Editing was unsuccesful";
 			else
 			$data['alertsuccess']="product edited Successfully.";
-            
+
 //			$data['redirect']="site/editproduct?id=".$id;
 			$data['redirect']="site/viewproduct";
 //			$this->load->view("redirect2",$data);
@@ -2593,11 +2595,11 @@ $this->load->view("redirect",$data);
         //$data['other']="template=$template";
         $this->load->view("redirect",$data);
 	}
-   
-    
-    
+
+
+
     //productimages
-    
+
 	function viewproductimages()
 	{
 		$access = array("1","2");
@@ -2610,7 +2612,7 @@ $this->load->view("redirect",$data);
 		$data['title']='View Product Images';
 		$this->load->view('templatewith2',$data);
 	}
-    
+
 	public function createproductimages()
 	{
 		$access = array("1","2");
@@ -2622,16 +2624,16 @@ $this->load->view("redirect",$data);
 		$data[ 'page' ] = 'createproductimages';
 		$data['page2']='block/productblock';
 		$data[ 'title' ] = 'Create productimage';
-		$this->load->view( 'templatewith2', $data );	
+		$this->load->view( 'templatewith2', $data );
 	}
-    
+
 	function createproductimagessubmit()
 	{
 		$access = array("1","2");
 		$this->checkaccess($access);
 		$this->form_validation->set_rules('order','order','trim');
-		
-		if($this->form_validation->run() == FALSE)	
+
+		if($this->form_validation->run() == FALSE)
 		{
 			$data['alerterror'] = validation_errors();
 			$access = array("1","2");
@@ -2640,13 +2642,13 @@ $this->load->view("redirect",$data);
             $data['before']=$this->product_model->beforeeditproduct($this->input->get_post('id'));
             $data[ 'page' ] = 'createproductimages';
             $data[ 'title' ] = 'Create productimage';
-            $this->load->view( 'template', $data );		
+            $this->load->view( 'template', $data );
 		}
 		else
 		{
             $order=$this->input->post('order');
             $product=$this->input->post('product');
-            
+
 			$config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
 			$this->load->library('upload', $config);
@@ -2662,13 +2664,13 @@ $this->load->view("redirect",$data);
 			$data['alerterror']="New Image could not be created.";
 			else
 			$data['alertsuccess']="Image created Successfully.";
-			
+
 			$data['table']=$this->product_model->viewproductimages($product);
             $data['redirect']="site/viewproductimages?id=".$product;
 			$this->load->view("redirect2",$data);
 		}
 	}
-    
+
 	public function editproductimages()
 	{
 		$access = array("1","2");
@@ -2681,16 +2683,16 @@ $this->load->view("redirect",$data);
 		$data[ 'page' ] = 'editproductimages';
 		$data['page2']='block/productblock';
 		$data[ 'title' ] = 'Create productimage';
-		$this->load->view( 'templatewith2', $data );	
+		$this->load->view( 'templatewith2', $data );
 	}
-    
+
 	function editproductimagessubmit()
 	{
 		$access = array("1","2");
 		$this->checkaccess($access);
 		$this->form_validation->set_rules('order','order','trim');
-        
-		if($this->form_validation->run() == FALSE)	
+
+		if($this->form_validation->run() == FALSE)
 		{
 			$data['alerterror'] = validation_errors();
 			$data['product']=$this->input->get('productid');
@@ -2709,7 +2711,7 @@ $this->load->view("redirect",$data);
             $order=$this->input->post('order');
             $product=$this->input->post('product');
 //            echo $product;
-            
+
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
 			$this->load->library('upload', $config);
@@ -2720,7 +2722,7 @@ $this->load->view("redirect",$data);
 				$uploaddata = $this->upload->data();
 				$image=$uploaddata['file_name'];
 			}
-            
+
             if($image=="")
             {
             $image=$this->product_model->getproductimagesbyid($id);
@@ -2731,14 +2733,14 @@ $this->load->view("redirect",$data);
 			$data['alerterror']="Image Editing was unsuccesful";
 			else
 			$data['alertsuccess']="Image edited Successfully.";
-			
+
 			$data['table']=$this->product_model->viewproductimages($product);
             $data['redirect']="site/viewproductimages?id=".$product;
 			$this->load->view("redirect2",$data);
-			
+
 		}
 	}
-    
+
 	function deleteproductimages()
 	{
 		$access = array("1","2");
@@ -2750,12 +2752,12 @@ $this->load->view("redirect",$data);
         $data['redirect']="site/viewproductimages?id=".$product;
         $this->load->view("redirect2",$data);
 	}
-    
-    
-    
+
+
+
     //Order
-    
-    
+
+
 //	function vieworder()
 //	{
 //        $access = array("1");
@@ -2765,7 +2767,7 @@ $this->load->view("redirect",$data);
 //		$data['title']='View order';
 //		$this->load->view('template',$data);
 //	}
-    
+
     public function vieworder()
     {
         $access=array("1","2");
@@ -2779,61 +2781,61 @@ $this->load->view("redirect",$data);
     function vieworderjson()
     {
         $elements=array();
-        
+
         $elements[0]=new stdClass();
         $elements[0]->field="`order`.`id`";
         $elements[0]->sort="1";
         $elements[0]->header="ID";
         $elements[0]->alias="id";
-        
+
         $elements[1]=new stdClass();
         $elements[1]->field="`order`.`name`";
         $elements[1]->sort="1";
         $elements[1]->header="User Name";
         $elements[1]->alias="name";
-        
+
         $elements[2]=new stdClass();
         $elements[2]->field="`order`.`email`";
         $elements[2]->sort="1";
         $elements[2]->header="Email";
         $elements[2]->alias="email";
-        
+
         $elements[3]=new stdClass();
         $elements[3]->field="`order`.`transactionid`";
         $elements[3]->sort="1";
         $elements[3]->header="Transaction Id";
         $elements[3]->alias="transactionid";
-        
+
         $elements[4]=new stdClass();
         $elements[4]->field="`order`.`trackingcode`";
         $elements[4]->sort="1";
         $elements[4]->header="Tracking Code";
         $elements[4]->alias="trackingcode";
-        
+
         $elements[5]=new stdClass();
         $elements[5]->field="`order`.`orderstatus`";
         $elements[5]->sort="1";
         $elements[5]->header="Order Status id";
         $elements[5]->alias="orderstatus";
-        
+
         $elements[6]=new stdClass();
         $elements[6]->field="`order`.`timestamp`";
         $elements[6]->sort="1";
         $elements[6]->header="Timestamp";
         $elements[6]->alias="timestamp";
-        
+
         $elements[7]=new stdClass();
         $elements[7]->field="`orderstatus`.`name`";
         $elements[7]->sort="1";
         $elements[7]->header="Status";
         $elements[7]->alias="orderstatusname";
-        
+
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
         $orderby=$this->input->get_post("orderby");
         $orderorder=$this->input->get_post("orderorder");
         $maxrow=$this->input->get_post("maxrow");
-        
+
         if($maxrow=="")
         {
             $maxrow=20;
@@ -2882,7 +2884,7 @@ $this->load->view("redirect",$data);
 		$this->form_validation->set_rules('transactionid','transactionid','trim');
 		$this->form_validation->set_rules('logisticcharge','logisticcharge','trim');
 //		$this->form_validation->set_rules('currency','currency','trim');
-		if($this->form_validation->run() == FALSE)	
+		if($this->form_validation->run() == FALSE)
 		{
 			$data['alerterror'] = validation_errors();
 			$data[ 'user' ] =$this->order_model->getuser();
@@ -2924,9 +2926,9 @@ $this->load->view("redirect",$data);
 			//$data['other']="template=$template";
 			$this->load->view("redirect",$data);
 		}
-			
+
 	}
-    
+
 	function editorder()
 	{
 		$access = array("1","2");
@@ -2934,7 +2936,7 @@ $this->load->view("redirect",$data);
 		$data[ 'country' ] =$this->order_model->getcountry();
 		$data[ 'orderstatus' ] =$this->order_model->getorderstatus();
 		$data['before']=$this->order_model->beforeedit($this->input->get('id'));
-        $data[ 'userfrom' ] =$this->order_model->getuserfrom($this->input->get('id')); 
+        $data[ 'userfrom' ] =$this->order_model->getuserfrom($this->input->get('id'));
         $data[ 'userto' ] =$this->order_model->getuserto($this->input->get('id'));
         $data["base_url"]=site_url("site/vieworderitemsjson?id=".$this->input->get('id'));
          $data['id']=$this->input->get('id');
@@ -2963,7 +2965,7 @@ $this->load->view("redirect",$data);
 		$this->form_validation->set_rules('shippingpincode','shippingpincode','trim');
 		$this->form_validation->set_rules('transactionid','transactionid','trim');
 		$this->form_validation->set_rules('logisticcharge','logisticcharge','trim');
-		if($this->form_validation->run() == FALSE)	
+		if($this->form_validation->run() == FALSE)
 		{
 			$data['alerterror'] = validation_errors();
 			$data[ 'user' ] =$this->order_model->getuser();
@@ -2978,7 +2980,7 @@ $this->load->view("redirect",$data);
 		}
 		else
 		{
-			
+
 			$id=$this->input->post('id');
 			$user=$this->input->post('user');
 			$firstname=$this->input->post('firstname');
@@ -3024,10 +3026,10 @@ $this->load->view("redirect",$data);
 			//$data['other']="template=$template";
 			$this->load->view("redirect",$data);
 		}
-			
+
 	}
-    
-    
+
+
 	function vieworderitems()
 	{
           $access=array("1","2");
@@ -3038,7 +3040,7 @@ $this->load->view("redirect",$data);
         $data["title"]="View order";
         $this->load->view("template",$data);
 	}
-    
+
      function vieworderitemsjson()
     {
          $id=$this->input->get('id');
@@ -3048,49 +3050,49 @@ $this->load->view("redirect",$data);
         $elements[0]->sort="1";
         $elements[0]->header="ID";
         $elements[0]->alias="id";
-        
+
         $elements[1]=new stdClass();
         $elements[1]->field="`orderitems`.`order`";
         $elements[1]->sort="1";
         $elements[1]->header="order";
         $elements[1]->alias="order";
-        
+
         $elements[2]=new stdClass();
         $elements[2]->field="`product`.`name`";
         $elements[2]->sort="1";
         $elements[2]->header="product";
         $elements[2]->alias="product";
-        
+
         $elements[3]=new stdClass();
         $elements[3]->field="`orderitems`.`quantity`";
         $elements[3]->sort="1";
         $elements[3]->header="quantity";
         $elements[3]->alias="quantity";
-         
+
         $elements[4]=new stdClass();
         $elements[4]->field="`orderitems`.`price`";
         $elements[4]->sort="1";
         $elements[4]->header="price";
         $elements[4]->alias="price";
-         
+
         $elements[5]=new stdClass();
         $elements[5]->field="`orderitems`.`discount`";
         $elements[5]->sort="1";
         $elements[5]->header="discount";
         $elements[5]->alias="discount";
-         
+
         $elements[6]=new stdClass();
         $elements[6]->field="`orderitems`.`finalprice`";
         $elements[6]->sort="1";
         $elements[6]->header="finalprice";
         $elements[6]->alias="finalprice";
-        
+
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
         $orderby=$this->input->get_post("orderby");
         $orderorder=$this->input->get_post("orderorder");
         $maxrow=$this->input->get_post("maxrow");
-        
+
         if($maxrow=="")
         {
             $maxrow=20;
@@ -3104,7 +3106,7 @@ $this->load->view("redirect",$data);
         $this->load->view("json",$data);
     }
 
-        
+
     public function createorderitems()
 	{
 		$access = array("1","2");
@@ -3117,7 +3119,7 @@ $this->load->view("redirect",$data);
 		$data[ 'page' ] = 'createorderitem';
 		$data['page2']='block/orderblock';
 		$data[ 'title' ] = 'Create Orderitem';
-		$this->load->view( 'template', $data );	
+		$this->load->view( 'template', $data );
 	}
     function createorderitemsubmit()
 	{
@@ -3128,7 +3130,7 @@ $this->load->view("redirect",$data);
 		$this->form_validation->set_rules('quantity','Lastname','trim');
 		$this->form_validation->set_rules('discount','Discount','trim');
 		$this->form_validation->set_rules('finalprice','Finalprice','trim');
-		if($this->form_validation->run() == FALSE)	
+		if($this->form_validation->run() == FALSE)
 		{
 			$data['alerterror'] = validation_errors();
         $id=$this->input->get('id');
@@ -3143,7 +3145,7 @@ $this->load->view("redirect",$data);
 		}
 		else
 		{
-			
+
 			$order=$this->input->get_post('id');
 			$product=$this->input->post('product');
 			$price=$this->input->post('price');
@@ -3163,9 +3165,9 @@ $this->load->view("redirect",$data);
 			//$data['other']="template=$template";
 			$this->load->view("redirect2",$data);
 		}
-			
+
 	}
-    
+
     function editorderitem()
 	{
 		$access = array("1","2");
@@ -3190,7 +3192,7 @@ $this->load->view("redirect",$data);
 		$this->form_validation->set_rules('quantity','Lastname','trim');
 		$this->form_validation->set_rules('discount','Discount','trim');
 		$this->form_validation->set_rules('finalprice','Finalprice','trim');
-		if($this->form_validation->run() == FALSE)	
+		if($this->form_validation->run() == FALSE)
 		{
 			$data['alerterror'] = validation_errors();
         $id=$this->input->get('id');
@@ -3215,7 +3217,7 @@ $this->load->view("redirect",$data);
 			$discount=$this->input->post('discount');
 			$finalprice=$this->input->post('finalprice');
             //echo $order;
-			
+
 			if(($this->order_model->updateorderitem($id,$order,$product,$price,$quantity,$discount,$finalprice))==0)
 				$data['alerterror']="Orderitem could not be Updated.";
 			else
@@ -3224,10 +3226,10 @@ $this->load->view("redirect",$data);
 //			$data['order']="id=$order";
 			$this->load->view("redirect2",$data);
 		}
-			
+
 	}
-    
-    
+
+
     function deleteorderitem()
 	{
 		$access = array("1","2");
@@ -3240,9 +3242,9 @@ $this->load->view("redirect",$data);
 //			$data['order']="id=$order";
         $this->load->view("redirect2",$data);
 	}
-    
+
 //notification starts
-	
+
 	public function viewnotification()
     {
         $access=array("1","2");
@@ -3311,7 +3313,7 @@ $this->load->view("redirect",$data);
         $data["title"]="Create Notification";
         $this->load->view("template",$data);
     }
-    public function createnotificationsubmit() 
+    public function createnotificationsubmit()
     {
         $access=array("1","2");
         $this->checkaccess($access);
@@ -3391,10 +3393,10 @@ $this->load->view("redirect",$data);
         $this->load->view("redirect",$data);
     }
 //	notification ends
-	
-	
+
+
 	// NEW REGISTER
-	
+
 	public function createregister()
 	{
 		$access = array("1","2");
@@ -3402,7 +3404,7 @@ $this->load->view("redirect",$data);
 		$data[ 'status' ] =$this->register_model->getregisterdropdown();
 		$data[ 'page' ] = 'createregister';
 		$data[ 'title' ] = 'Create Register';
-		$this->load->view( 'template', $data );	
+		$this->load->view( 'template', $data );
 	}
 	function createregistersubmit()
 	{
@@ -3413,14 +3415,14 @@ $this->load->view("redirect",$data);
 //		$this->form_validation->set_rules('password','Password','trim|required|min_length[6]|max_length[30]');
 	    $this->form_validation->set_rules('personalcontact','Personal Contact','trim|required|max_length[10]');
 		$this->form_validation->set_rules('status','status','trim|');
-		if($this->form_validation->run() == FALSE)	
+		if($this->form_validation->run() == FALSE)
 		{
 			$data['alerterror'] = validation_errors();
-            $data[ 'status' ] =$this->register_model->getregisterdropdown();          
+            $data[ 'status' ] =$this->register_model->getregisterdropdown();
 //            $data['category']=$this->category_model->getcategorydropdown();
             $data[ 'page' ] = 'createregister';
             $data[ 'title' ] = 'Create Register';
-            $this->load->view( 'template', $data );	
+            $this->load->view( 'template', $data );
 		}
 		else
 		{
@@ -3434,10 +3436,10 @@ $this->load->view("redirect",$data);
 			else
 			$data['alertsuccess']="Register created Successfully.";
 			$data['redirect']="site/viewregister";
-			$this->load->view("redirect",$data);		   
+			$this->load->view("redirect",$data);
 		   }
 		   }
-	
+
 //	if($this->request_model->create($userfrom,$userto,$requeststatus,$amount,$reason,$approvalreason,$timestamp)==0)
 //$data["alerterror"]="New request could not be created.";
 //else
@@ -3445,7 +3447,7 @@ $this->load->view("redirect",$data);
 //$data["redirect"]="site/viewrequest";
 //$this->load->view("redirect",$data);
 //}
-	
+
     function viewregister()
 	{
 		$access = array("1","2");
@@ -3455,45 +3457,45 @@ $this->load->view("redirect",$data);
         $data['activemenu'] = 'register';
 		$data['title']='View Register';
 		$this->load->view('template',$data);
-	} 
+	}
     function viewregisterjson()
 	{
 		$access = array("1","2");
 		$this->checkaccess($access);
-        
-        
+
+
         $elements=array();
         $elements[0]=new stdClass();
         $elements[0]->field="`register`.`id`";
         $elements[0]->sort="1";
         $elements[0]->header="ID";
         $elements[0]->alias="id";
-        
-        
+
+
         $elements[1]=new stdClass();
         $elements[1]->field="`register`.`name`";
         $elements[1]->sort="1";
         $elements[1]->header="Name";
         $elements[1]->alias="name";
-        
+
         $elements[2]=new stdClass();
         $elements[2]->field="`register`.`email`";
         $elements[2]->sort="1";
         $elements[2]->header="Email";
         $elements[2]->alias="email";
-        
+
         $elements[3]=new stdClass();
         $elements[3]->field="`register`.`personalcontact`";
         $elements[3]->sort="1";
         $elements[3]->header="Personal Contact";
         $elements[3]->alias="personalcontact";
-		
+
 		$elements[4]=new stdClass();
         $elements[4]->field="`register`.`status`";
         $elements[4]->sort="1";
         $elements[4]->header="Status";
         $elements[4]->alias="status";
-        
+
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
         $orderby=$this->input->get_post("orderby");
@@ -3503,19 +3505,19 @@ $this->load->view("redirect",$data);
         {
             $maxrow=20;
         }
-        
+
         if($orderby=="")
         {
             $orderby="id";
             $orderorder="ASC";
         }
-       
+
         $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `register`");
-        
+
 		$this->load->view("json",$data);
-	} 
-    
-    
+	}
+
+
 	function editregister()
 	{
 		$access = array("1","2");
@@ -3531,14 +3533,14 @@ $this->load->view("redirect",$data);
 	{
 		$access = array("1","2");
 		$this->checkaccess($access);
-		
+
 		$this->form_validation->set_rules('name','Name','trim|required|max_length[30]');
 		$this->form_validation->set_rules('email','Email','trim|required|valid_email');
 		$this->form_validation->set_rules('status','status','trim|');
-		if($this->form_validation->run() == FALSE)	
+		if($this->form_validation->run() == FALSE)
 		{
 			$data['alerterror'] = validation_errors();
-			$data[ 'status' ] =$this->register_model->getregisterdropdown();	
+			$data[ 'status' ] =$this->register_model->getregisterdropdown();
 			$data['before']=$this->register_model->beforeedit($this->input->post('id'));
 			$data['page']='editregister';
 //			$data['page2']='block/userblock';
@@ -3547,7 +3549,7 @@ $this->load->view("redirect",$data);
 		}
 		else
 		{
-            
+
             $id=$this->input->get_post('id');
             $name=$this->input->get_post('name');
             $email=$this->input->get_post('email');
@@ -3558,13 +3560,13 @@ $this->load->view("redirect",$data);
 			$data['alerterror']="New register editing was unsuccesful";
 			else
 			$data['alertsuccess']="New register edited Successfully.";
-			
+
 			$data['redirect']="site/viewregister";
 			$this->load->view("redirect",$data);
-			
+
 		}
 	}
-	
+
 	function deleteregister()
 	{
 		$access = array("1","2");
@@ -3595,19 +3597,19 @@ $this->load->view("redirect",$data);
         $elements[0]->sort="1";
         $elements[0]->header="ID";
         $elements[0]->alias="id";
-		
+
         $elements[1]=new stdClass();
         $elements[1]->field="`user`.`name`";
         $elements[1]->sort="1";
         $elements[1]->header="User";
         $elements[1]->alias="user";
-		
+
 		$elements[2]=new stdClass();
         $elements[2]->field="`suggestion`.`timestamp`";
         $elements[2]->sort="1";
         $elements[2]->header="Timestamp";
         $elements[2]->alias="timestamp";
-       
+
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
         $orderby=$this->input->get_post("orderby");
@@ -3635,7 +3637,7 @@ $this->load->view("redirect",$data);
         $data["title"]="Create suggestion";
         $this->load->view("template",$data);
     }
-    public function createsuggestionsubmit() 
+    public function createsuggestionsubmit()
     {
         $access=array("1","2");
         $this->checkaccess($access);
@@ -3712,14 +3714,14 @@ $this->load->view("redirect",$data);
 		$sd=$this->input->get_post("sd");
         $ed=$this->input->get_post("ed");
 		$this->user_model->exportexcelreport($sd,$ed);
-            
+
     }
 	    public function exportexcelreport1()
     {
 		$sd=$this->input->get_post("sd");
         $ed=$this->input->get_post("ed");
 		$this->user_model->exportexcelreport1($sd,$ed);
-            
+
     }
     	public function exportusercsv()
 	{
@@ -3736,7 +3738,7 @@ $this->load->view("redirect",$data);
 		$this->area_model->exportareacsv();
         $data['redirect']="site/viewarea";
         $this->load->view("redirect",$data);
-	} 
+	}
     public function exportcategorycsv()
 	{
 		$access = array("1");
@@ -3784,7 +3786,7 @@ $this->load->view("redirect",$data);
 		$this->notification_model->exportnotificationcsv();
         $data['redirect']="site/viewnotification";
         $this->load->view("redirect",$data);
-	}  
+	}
     public function exportsuggestioncsv()
 	{
 		$access = array("1");
@@ -3802,6 +3804,6 @@ $this->load->view("redirect",$data);
         $data['redirect']="site/viewrequest";
         $this->load->view("redirect",$data);
 	}
-   
+
 }
 ?>

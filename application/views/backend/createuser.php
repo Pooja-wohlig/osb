@@ -27,7 +27,7 @@
 				  </div>
 				</div>
 -->
-				
+
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">Email</label>
 				  <div class="col-sm-4">
@@ -66,36 +66,36 @@
 				  </div>
 				</div>
 -->
-				
+
 <!--
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label">logintype</label>
 				  <div class="col-sm-4">
 					<?php
-						
+
 						echo form_dropdown('logintype',$logintype,set_value('logintype'),'class="chzn-select form-control" 	data-placeholder="Choose a Logintype..."');
 					?>
 				  </div>
 				</div>
 -->
-				
+
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label">Status</label>
 				  <div class="col-sm-4">
 					<?php
-						
+
 						echo form_dropdown('status',$status,set_value('status'),'class="chzn-select form-control" 	data-placeholder="Choose a Accesslevel..."');
 					?>
 				  </div>
 				</div>
-				
+
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">Image</label>
 				  <div class="col-sm-4">
 					<input type="file" id="normal-field" class="form-control" name="image" value="<?php echo set_value('image');?>">
 				  </div>
 				</div>
-				
+
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label">Select Accesslevel</label>
 				  <div class="col-sm-4">
@@ -103,19 +103,19 @@
 					?>
 				  </div>
 				</div>
-				
+
 <!--
 				<div class=" form-group categoryclass" style="display:none;">
 				  <label class="col-sm-2 control-label">Category</label>
 				  <div class="col-sm-4">
 					<?php
-						
+
 						echo form_dropdown('category[]',$category,set_value('category'),'id="select10" class="chzn-select form-control" 	data-placeholder="Choose a category..." multiple');
 					?>
 				  </div>
 				</div>
 -->
-				
+
 <!--
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">json</label>
@@ -146,7 +146,7 @@
 				  <label class="col-sm-2 control-label">Area</label>
 				  <div class="col-sm-4">
 					<?php
-						
+
 						echo form_dropdown('area',$area,set_value('area'),'class="chzn-select form-control" 	data-placeholder="Choose a Accesslevel..."');
 					?>
 				  </div>
@@ -159,7 +159,7 @@
 				</div>
 <!--
 				<textarea rows="4" cols="50">
-At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies. 
+At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies.
 </textarea>
 -->
 					<div class=" form-group">
@@ -224,71 +224,71 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
 					  <textarea rows="4" cols="50" id="normal-field" class="form-control" name="billingaddress" value="<?php echo set_value('billingaddress');?>"></textarea>
 				  </div>
 				</div>
-				
+
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">Billing City</label>
 				  <div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="billingcity" value="<?php echo set_value('billingcity');?>">
 				  </div>
 				</div>
-				
+
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">Billing State</label>
 				  <div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="billingstate" value="<?php echo set_value('billingstate');?>">
 				  </div>
 				</div>
-				
+
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">Billing Country</label>
 				  <div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="billingcountry" value="<?php echo set_value('billingcountry');?>">
 				  </div>
 				</div>
-				
-				
+
+
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">Billing Pincode</label>
 				  <div class="col-sm-4">
 					<input type="text" id="normal-field" maxlength="6" class="form-control" name="billingpincode" value="<?php echo set_value('billingpincode');?>">
 				  </div>
 				</div>
-				
+
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">Shipping Address</label>
 				  <div class="col-sm-4">
 					  <textarea rows="4" cols="50" id="normal-field" class="form-control" name="shippingaddress" value="<?php echo set_value('shippingaddress');?>"></textarea>
 				  </div>
 				</div>
-				
+
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">Shipping City</label>
 				  <div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="shippingcity" value="<?php echo set_value('shippingcity');?>">
 				  </div>
 				</div>
-				
+
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">shippingcountry</label>
 				  <div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="shippingcountry" value="<?php echo set_value('shippingcountry');?>">
 				  </div>
 				</div>
-				
+
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">Shipping State</label>
 				  <div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="shippingstate" value="<?php echo set_value('shippingstate');?>">
 				  </div>
 				</div>
-				
+
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">Shipping Pincode</label>
 				  <div class="col-sm-4">
 					<input type="text" id="normal-field" maxlength="6" class="form-control" name="shippingpincode" value="<?php echo set_value('shippingpincode');?>">
 				  </div>
 				</div>
-				
+
 <!--
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">Online Status</label>
@@ -301,7 +301,7 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
 				  <label class="col-sm-2 control-label">Is New user</label>
 				  <div class="col-sm-4">
 					<?php
-						
+
 						echo form_dropdown('onlinestatus',$onlinestatus,set_value('onlinestatus'),'class="chzn-select form-control" 	data-placeholder="Choose a Accesslevel..."');
 					?>
 				  </div>
@@ -310,11 +310,24 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
 				  <label class="col-sm-2 control-label">Shop Status</label>
 				  <div class="col-sm-4">
 					<?php
-						
+
 						echo form_dropdown('shopstatus',$shopstatus,set_value('shopstatus'),'class="chzn-select form-control" 	data-placeholder="Choose a Accesslevel..."');
 					?>
 				  </div>
 				</div>
+
+
+				<div class=" form-group">
+					<label class="col-sm-2 control-label">Terms</label>
+					<div class="col-sm-4">
+				<select class="chzn-select form-control" name="termsaccept">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</select>
+					</div>
+				</div>
+
+
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label">&nbsp;</label>
 				  <div class="col-sm-4">
@@ -334,11 +347,11 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
         {
             $( ".categoryclass" ).show();
         }
-       
+
         else
         {
             $( ".categoryclass" ).hide();
         }
-       
+
     }
 </script>
