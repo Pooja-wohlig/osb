@@ -80,37 +80,39 @@ public function sellingapproval($user) {
               // print_r($query);
               return false;
           }
+            
+else 
+{
+             echo'insert query';
+            //update query for osb_request
+            $data = array('approvalreason' => $reason, 'requeststatus' => 2);
+            $this->db->where('id', $id);
+            $this->db->update('osb_request', $data);
 
-else {
- echo'insert query';
-//update query for osb_request
-$data = array('approvalreason' => $reason, 'requeststatus' => 2);
-$this->db->where('id', $id);
-$this->db->update('osb_request', $data);
+            //slect query from osb_request
+             $query = $this->db->query("SELECT `userfrom`,`userto`,`amount`,`reason` FROM `osb_request` WHERE id='$id'")->row();
+             $userfrom = $query->userfrom;
+             $userto = $query->userto;
+             $amount = $query->amount;
 
-//slect query from osb_request
- $query = $this->db->query("SELECT `userfrom`,`userto`,`amount`,`reason` FROM `osb_request` WHERE id='$id'")->row();
- $userfrom = $query->userfrom;
- $userto = $query->userto;
- $amount = $query->amount;
-
-//insert query osb_transaction
-$data = array("userfrom" => $userfrom, "userto" => $userto, "amount" => $amount, "reason" =>$reason,"requestid" =>$id);
-        $query = $this->db->insert("osb_transaction", $data);
-        $id = $this->db->insert_id();
+            //insert query osb_transaction
+            $data = array("userfrom" => $userfrom, "userto" => $userto, "amount" => $amount, "reason" =>$reason,"requestid" =>$id);
+                    $query = $this->db->insert("osb_transaction", $data);
+                    $id = $this->db->insert_id();
 
 
-//update user balance
-$query=$this->db->query("UPDATE `user` SET `user`.`purchasebalance`=`user`.`purchasebalance`-$amount WHERE `user`.`id`= '$userfrom'" );
-            $query=$this->db->query("UPDATE `user` SET `user`.`salesbalance`=`user`.`salesbalance`-$amount WHERE `user`.`id`= '$userto'" );
-            $gettransactionid=$this->db->query("SELECT CONCAT(LPAD(`id`,6,0)) as `concatedid` FROM `osb_transaction` WHERE id='$id'" )->row();
-            $concatedid=$gettransactionid->concatedid;
-        //notifications
-        $this->user_model->sendnotification("Your Purchase Request for Amount: $amount is accepted AND transaction id is '$concatedid')",$userfrom);
+            //update user balance
+            $query=$this->db->query("UPDATE `user` SET `user`.`purchasebalance`=`user`.`purchasebalance`-$amount WHERE `user`.`id`= '$userfrom'" );
+                        $query=$this->db->query("UPDATE `user` SET `user`.`salesbalance`=`user`.`salesbalance`-$amount WHERE `user`.`id`= '$userto'" );
+//                        $gettransactionid=$this->db->query("SELECT CONCAT(LPAD(`id`,6,0)) as `concatedid` FROM `osb_transaction` WHERE id='$id'" )->row();
+//                        $concatedid=$gettransactionid->concatedid;
+                    //notifications
+//                    $this->user_model->sendnotification("Your Purchase Request for Amount: $amount is accepted AND transaction id is '$concatedid'",$userfrom);
+    $this->user_model->sendnotification("Your Purchase Request for Amount: $amount is accepted",$userfrom);
                    $query1=$this->db->query("SELECT `salesbalance` FROM `user` WHERE id='$userto'" )->row();
                    $salesbalance=$query1->salesbalance;
        // 	$message="You have a new Purchase Request for Amount: ".$amount;
-                   $message="Your Purchase Request for Amount:" .$amount. " is accepted AND transaction id is '$concatedid')";
+                   $message="Your Purchase Request for Amount:" .$amount. " is accepted";
                    $this->user_model->addnotificationtodb($message,$userfrom);
                    if($salesbalance<1000){
                      $this->user_model->sendnotification("Your Sell balance is too low please recharge your Account!!!",$userfrom);
@@ -120,72 +122,8 @@ $query=$this->db->query("UPDATE `user` SET `user`.`purchasebalance`=`user`.`purc
                    return $id;
 
 }
-            // $data = array('approvalreason' => $reason, 'requeststatus' => 2);
-            // $this->db->where('id', $id);
-            // $this->db->update('osb_request', $data);
-            // $query = $this->db->query("SELECT `userfrom`,`userto`,`amount`,`reason` FROM `osb_request` WHERE id='$id'")->row();
-            // $userfrom = $query->userfrom;
-            // $userto = $query->userto;
-            // $amount = $query->amount;
-            //
-            //     // TRANSATIONS
-            // $querytransaction=$this->db->query("SELECT * FROM `osb_transaction` WHERE `userfrom`='$userfrom' AND `userto`='$userto' AND `amount`='$amount' AND `reason`='$reason' ORDER BY `id` DESC");
-            //     if ($querytransaction->num_rows() == 0)
-            //     {
-            //         $data = array("userfrom" => $userfrom, "userto" => $userto, "amount" => $amount, "reason" =>$reason);
-            //         $query = $this->db->insert("osb_transaction", $data);
-            //         $id = $this->db->insert_id();
-            //     }
-            //     else
-            //     {
-            //     $timestampoldtransaction=$querytransaction->timestamp;
-            //     $transactiontimestamparr=explode(" ",$timestampoldtransaction);
-            //
-            //     //timestamps date and time
-            //
-            //     $transactiondate=$transactiontimestamparr[0];
-            //     $transactiontime=$transactiontimestamparr[1];
-            //
-            //         $transactiontimearr=explode(":",$transactiontime);
-            //         // TRANSACTION MINS
-            //         $transactiontimemin=$transactiontimearr[1];
-            //
-            //         $checktodaysmin=$todaystimearr[1];
-            //     // todays date and time
-            //
-            //     $todaysdate=date("Y-m-d");
-            //     $todaystime = date("H:i:s");
-            //         $todaystimearr=explode(":",$todaystime);
-            //         // TODAYS MINS
-            //         $checktodaysmin=$todaystimearr[1];
-            //         if($todaysdate==$transactiondate && $transactiontimemin==($checktodaysmin-1)){
-            //
-            //         }
-            //         else{
-            //             $data = array("userfrom" => $userfrom, "userto" => $userto, "amount" => $amount, "reason" =>$reason);
-            //             $query = $this->db->insert("osb_transaction", $data);
-            //             $id = $this->db->insert_id();
-            //             $query=$this->db->query("UPDATE `user` SET `user`.`purchasebalance`=`user`.`purchasebalance`-$amount WHERE `user`.`id`= '$userfrom'" );
-            //             $query=$this->db->query("UPDATE `user` SET `user`.`salesbalance`=`user`.`salesbalance`-$amount WHERE `user`.`id`= '$userto'" );
-            //             $this->user_model->sendnotification("Your Purchase Request for Amount: $amount is accepted AND transaction id is CONCAT(LPAD($id,6,0))",$userfrom);
-            //             $query1=$this->db->query("SELECT `salesbalance` FROM `user` WHERE id='$userto'" )->row();
-            //             $salesbalance=$query1->salesbalance;
-            // //			$message="You have a new Purchase Request for Amount: ".$amount;
-            //             $message="Your Purchase Request for Amount:" .$amount. "is accepted";
-            //             $this->user_model->addnotificationtodb($message,$userfrom);
-            //             if($salesbalance<1000){
-            //               $this->user_model->sendnotification("Your Sell balance is too low please recharge your Account!!!",$userfrom);
-            //              $message="Your Sell balance is too low please recharge your Account!!!";
-            //              $this->user_model->addnotificationtodb($message,$userfrom);
-            //             }
-            //             return $id;
-            //         }
-            //     }
-
-
-
-
-        } else if ($status == "2") {
+            }
+         else if ($status == "2") {
           $query = $this->db->query("SELECT `userfrom`,`userto`,`amount`,`reason` FROM `osb_request` WHERE id='$id'")->row();
           $userfrom = $query->userfrom;
           $userto = $query->userto;
