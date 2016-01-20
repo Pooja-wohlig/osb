@@ -508,7 +508,7 @@ $this->load->view('json',$data);
 
  public function updateprofile(){
 $data = json_decode(file_get_contents('php://input'), true);
-$id=$data['id'];
+$id=$data['id'];``
 $shopname=$data['shopname'];
 $address=$data['address'];
 $description=$data['description'];

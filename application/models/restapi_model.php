@@ -103,12 +103,14 @@ $data = array("userfrom" => $userfrom, "userto" => $userto, "amount" => $amount,
 //update user balance
 $query=$this->db->query("UPDATE `user` SET `user`.`purchasebalance`=`user`.`purchasebalance`-$amount WHERE `user`.`id`= '$userfrom'" );
             $query=$this->db->query("UPDATE `user` SET `user`.`salesbalance`=`user`.`salesbalance`-$amount WHERE `user`.`id`= '$userto'" );
+            $gettransactionid=$this->db->query("SELECT CONCAT(LPAD(`id`,6,0)) as `concatedid` FROM `osb_transaction` WHERE id='$id'" )->row();
+            $concatedid=$gettransactionid->concatedid;
         //notifications
-        $this->user_model->sendnotification("Your Purchase Request for Amount: $amount is accepted AND transaction id is CONCAT(LPAD($id,6,0))",$userfrom);
+        $this->user_model->sendnotification("Your Purchase Request for Amount: $amount is accepted AND transaction id is '$concatedid')",$userfrom);
                    $query1=$this->db->query("SELECT `salesbalance` FROM `user` WHERE id='$userto'" )->row();
                    $salesbalance=$query1->salesbalance;
        // 	$message="You have a new Purchase Request for Amount: ".$amount;
-                   $message="Your Purchase Request for Amount:" .$amount. " is accepted";
+                   $message="Your Purchase Request for Amount:" .$amount. " is accepted AND transaction id is '$concatedid')";
                    $this->user_model->addnotificationtodb($message,$userfrom);
                    if($salesbalance<1000){
                      $this->user_model->sendnotification("Your Sell balance is too low please recharge your Account!!!",$userfrom);
