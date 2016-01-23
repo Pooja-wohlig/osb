@@ -797,7 +797,8 @@ else
 	{
 		$moderated= array(
 			 "1" => "Yes",
-			"0" => "No"
+			"0" => "No",
+			"2" => "Rejected"
 			);
 		return $moderated;
 	}
