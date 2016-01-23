@@ -40,7 +40,7 @@ class Product_model extends CI_Model
 		ORDER BY `product`.`id` ASC")->result();
 		return $query;
 	}
-    
+
 	public function beforeeditproduct( $id )
 	{
 		$this->db->where( 'id', $id );
@@ -100,7 +100,7 @@ class Product_model extends CI_Model
 		$query=$this->db->query("DELETE FROM `product` WHERE `id`='$id'");
 		$this->db->query("DELETE FROM `productcategory` WHERE `product`='$id'");
 	}
-    
+
 	public function getcategorydropdown()
 	{
 		$query=$this->db->query("SELECT * FROM `osb_category`  ORDER BY `id` ASC")->result();
@@ -136,13 +136,13 @@ class Product_model extends CI_Model
 			);
 		return $status;
 	}
-	
+
 	function viewallimages($id)
 	{
 		$query=$this->db->query(" SELECT `productimage`.`id` as `id`, `productimage`.`image` as `productimage`,`productimage`.`product` as `productid`,`productimage`.`is_default` as `is_default`,`productimage`.`order` as `order`  FROM `productimage` WHERE `productimage`.`product`='$id' ORDER BY `productimage`.`order` ")->result();
 		return $query;
 	}
-	
+
 	function deleteimage($productimageid,$id)
 	{
 		$query=$this->db->query("DELETE FROM `productimage` WHERE `product`='$id' AND `id`='$productimageid'");
@@ -151,7 +151,7 @@ class Product_model extends CI_Model
 			$this->saveproductlog($id,"Product Image Deleted");
 		}
 	}
-	
+
 	function changeorder($productimageid,$order,$product)
 	{
 		$query=$this->db->query("UPDATE `productimage` SET `order`='$order' WHERE `id`='$productimageid' ");
@@ -160,18 +160,18 @@ class Product_model extends CI_Model
 			$this->saveproductlog($product,"Product Image Order Edited");
 		}
 	}
-    
-    
+
+
 	function viewproductimages($id)
 	{
 		$query="SELECT `id`, `product`, `image`, `order`
-        FROM `productimage` 
+        FROM `productimage`
         WHERE `product`='$id'";
-	   
+
 		$query=$this->db->query($query)->result();
 		return $query;
 	}
-	
+
     public function createproductimages($product,$order,$image)
 	{
 		$data  = array(
@@ -185,20 +185,20 @@ class Product_model extends CI_Model
 		else
 			return  1;
 	}
-    
+
 	public function beforeeditproductimages( $id )
 	{
 		$this->db->where( 'id', $id );
 		$query=$this->db->get( 'productimage' )->row();
 		return $query;
 	}
-    
+
 	public function getproductimagesbyid($id)
 	{
 		$query=$this->db->query("SELECT `image` FROM `productimage` WHERE `id`='$id'")->row();
 		return $query;
 	}
-     
+
 	public function editproductimages($id,$order,$image,$product)
 	{
 		$data  = array(
@@ -206,18 +206,18 @@ class Product_model extends CI_Model
 			'image' => $image,
 			'order' => $order
 		);
-		
+
 		$this->db->where( 'id', $id );
 		$query=$this->db->update( 'productimage', $data );
-        
+
 		return 1;
 	}
-    
+
 	function deleteproductimages($id)
 	{
 		$query=$this->db->query("DELETE FROM `productimage` WHERE `id`='$id'");
 	}
-    
+
 	public function getproductimagebyid($id)
 	{
 		$query=$this->db->query("SELECT `image` FROM `product` WHERE `id`='$id'")->row();
@@ -229,13 +229,13 @@ class Product_model extends CI_Model
         $newprice=$price*$quantity;
         $newfinalprice=$newprice+$salesbalance;
         $query1=$this->db->query("UPDATE `user` SET `salesbalance`='$newfinalprice' WHERE `id`='$user'");
-        $query2=$this->db->query("DELETE FROM `product` WHERE `id`='$id'");
-        $this->user_model->sendnotification("Your Product named as:".$name." price: Rs ".$price." quantity ".$quantity." is rejected and ".$newprice." is added to your sales balance",$user);
-        $message="Your Product named as:".$name." price: Rs ".$price." quantity ".$quantity." is rejected and Rs. ".$newprice." is added to your sales balance";
+        $query2=$this->db->query("UPDATE `product` SET 'status'='3' WHERE `id`='$id'");
+        $this->user_model->sendnotification("Your product is rejected by SWAAP",$user);
+        $message="Your Product named as ".$name." price : Rs ".$price." quantity ".$quantity." is rejected and Rs.  ".$newprice." is added to your sales balance";
          $this->user_model->addnotificationtodb($message,$user);
         if($query1)
             return 1;
-        else 
+        else
             return 0;
     }
 //    public function approveproduct($id,$name,$sku,$description,$price,$status,$category,$user,$quantity,$image,$onlinestatus,$moderated){
@@ -249,26 +249,26 @@ class Product_model extends CI_Model
 //        $salesbalance=$query->salesbalance;
 //        $newfinalprice=$salesbalance-$newprice;
 //        $query1=$this->db->query("UPDATE `user` SET `salesbalance`='$newfinalprice' WHERE `id`='$user'");
-//         $this->user_model->sendnotification("Your Product named as: ".$name."<br>price: ".$price."<br>quantity ".$quantity." is approved & nwe balance is".$newfinalprice,$user);    
+//         $this->user_model->sendnotification("Your Product named as: ".$name."<br>price: ".$price."<br>quantity ".$quantity." is approved & nwe balance is".$newfinalprice,$user);
 //        }
-//        else{       
+//        else{
 //            $this->user_model->sendnotification("Your Product named as: ".$name."<br>price: ".$price."<br>quantity ".$quantity." is approved ".$newprice,$user);
 //        }
 //        if($query1)
 //            return 1;
-//        else 
+//        else
 //            return 0;
 //    }
      public function approveproduct($id,$name,$sku,$description,$price,$status,$category,$user,$quantity,$image,$onlinestatus,$moderated){
      $query=$this->db->query("SELECT `salesbalance` FROM `user` WHERE `id`='$user'")->row();
         $salesbalance=$query->salesbalance;
         $newprice=$price*$quantity;
-        $this->user_model->sendnotification("Your Product named as: ".$name." price: Rs ".$price." quantity ".$quantity." is approved by SWAPP",$user);
-         $message="Your Product named as: ".$name." price: Rs ".$price." quantity ".$quantity." is approved by SWAPP ";
+        $this->user_model->sendnotification("Your product is approved by SWAPP",$user);
+         $message="Your product named as: ".$name." price: Rs ".$price." quantity ".$quantity." is approved by SWAPP ";
          $this->user_model->addnotificationtodb($message,$user);
         if($query1)
             return 1;
-        else 
+        else
             return 0;
     }
        public function getPendingProductCount()
@@ -278,7 +278,7 @@ class Product_model extends CI_Model
     return $pendingproduct;
 }
     public function getcount(){
-      $query=$this->db->query("SELECT COUNT(*) as `count` FROM `product` WHERE `moderated`=0")->row();   
+      $query=$this->db->query("SELECT COUNT(*) as `count` FROM `product` WHERE `moderated`=0")->row();
         $count=$query->count;
         return $count;
     }
