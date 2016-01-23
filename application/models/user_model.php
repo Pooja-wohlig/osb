@@ -792,8 +792,8 @@ else
     public function getmoderateddropdown()
 	{
 		$moderated= array(
-			 "1" => "Yes",
-			 "0" => "No",
+			 "1" => "Accepted",
+			 "0" => "Pending",
                          "2" => "Rejected"
 			);
 		return $moderated;
