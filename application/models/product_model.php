@@ -229,11 +229,11 @@ class Product_model extends CI_Model
         $newprice=$price*$quantity;
         $newfinalprice=$newprice+$salesbalance;
         $query1=$this->db->query("UPDATE `user` SET `salesbalance`='$newfinalprice' WHERE `id`='$user'");
-        $query2=$this->db->query("UPDATE `product` SET 'status'='3' WHERE `id`='$id'");
+        $query2=$this->db->query("UPDATE `product` SET `sku`='3' WHERE `id`='$id'");
         $this->user_model->sendnotification("Your product is rejected by SWAAP",$user);
         $message="Your Product named as ".$name." price : Rs ".$price." quantity ".$quantity." is rejected and Rs.  ".$newprice." is added to your sales balance";
          $this->user_model->addnotificationtodb($message,$user);
-        if($query1)
+        if($query2)
             return 1;
         else
             return 0;
@@ -260,9 +260,17 @@ class Product_model extends CI_Model
 //            return 0;
 //    }
      public function approveproduct($id,$name,$sku,$description,$price,$status,$category,$user,$quantity,$image,$onlinestatus,$moderated){
-     $query=$this->db->query("SELECT `salesbalance` FROM `user` WHERE `id`='$user'")->row();
+        $query=$this->db->query("SELECT `salesbalance` FROM `user` WHERE `id`='$user'")->row();
         $salesbalance=$query->salesbalance;
         $newprice=$price*$quantity;
+        $querymod=$this->db->query("SELECT `moderated` FROM `product` WHERE `id`='$id'")->row();
+        $oldmoderated=$querymod->moderated;
+        $newfinalprice=$salesbalance-$newprice;
+        if($oldmoderated==2 && $moderated==1)
+        {
+           $q=$this->db->query("UPDATE `user` SET `salesbalance`='$newfinalprice' WHERE `id`='$user'");
+        }
+
         $this->user_model->sendnotification("Your product is approved by SWAPP",$user);
          $message="Your product named as: ".$name." price: Rs ".$price." quantity ".$quantity." is approved by SWAPP ";
          $this->user_model->addnotificationtodb($message,$user);
