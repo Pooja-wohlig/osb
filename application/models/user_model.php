@@ -611,11 +611,7 @@ public function sendnotificationold($content, $user) {
         // prep the bundle
         $msg = array(
             'message' => $content,
-            'title' => 'One Stop Barter',
-            'vibrate' => 1,
-            'sound' => 1,
-            'icon' => base_url('uploads/icon.png')
-
+            'title' => 'SWAAP'
         );
 
         $fields = array(
@@ -797,8 +793,8 @@ else
 	{
 		$moderated= array(
 			 "1" => "Yes",
-			"0" => "No",
-			"2" => "Rejected"
+			 "0" => "No",
+                         "2" => "Rejected"
 			);
 		return $moderated;
 	}

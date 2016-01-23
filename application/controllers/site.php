@@ -2524,7 +2524,7 @@ $this->load->view("redirect",$data);
 			$moderated=$this->input->post('moderated');
             //send notification
             $newprice=$price*$quantity;
-            if($moderated==0){
+            if($moderated==2){
     $this->product_model->getsalesbalance($id,$name,$sku,$description,$price,$status,$category,$user,$quantity,$image,$onlinestatus,$moderated);
             }
             else if($moderated==1){
