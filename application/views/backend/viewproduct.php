@@ -44,11 +44,15 @@
                 }
                 if(resultrow.moderated==1)
                 {
-                    resultrow.moderated="Yes";
+                    resultrow.moderated="Accepted";
+                }
+                else if(resultrow.moderated==2)
+                {
+                    resultrow.moderated="Rejected";
                 }
                 else
                 {
-                    resultrow.moderated="No";
+                    resultrow.moderated="Pending";
                     var classvalue = 'highlight';
                 }
                 return "<tr id='maintable' class='"+ classvalue +"'><td>" + resultrow.id + "</td><td>" + resultrow.name + "</td><td>" + resultrow.price + "</td><td>" + resultrow.status + "</td><td>" + resultrow.moderated + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editproduct?id=');?>" + resultrow.id + "'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' onclick=\"return confirm('Are you sure you want to delete?');\" href='<?php echo site_url('site/deleteproduct?id='); ?>" + resultrow.id + "'><i class='icon-trash '></i></a></td></tr>";
