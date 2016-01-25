@@ -94,7 +94,7 @@ class Site extends CI_Controller
             $email=$this->input->post('email');
             $message=$this->input->post('message');
             $personalcontact=$this->input->post('personalcontact');
-//            $password=$this->input->post('password');
+            $password=$this->input->post('password');
             $accesslevel=$this->input->post('accesslevel');
             $status=$this->input->post('status');
             $socialid=$this->input->post('socialid');
@@ -126,10 +126,7 @@ class Site extends CI_Controller
 			$shopstatus=$this->input->post('shopstatus');
 			$termsaccept=$this->input->post('termsaccept');
 //            $category=$this->input->post('category');
- 			$data[ 'password' ] =$this->user_model->get_random_password();
-			$password=$data[ 'password' ];
-//			echo $password;
-			$this->user_model->sendemail($email,$membershipno,$password);
+ 			
 
 
 
