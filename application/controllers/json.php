@@ -587,7 +587,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $obj = new stdClass();
         $obj->value=$image;
         $data["message"]=$obj;
-        $this->load->view("json2",$data); 
+        $this->load->view("json2",$data);
         }
        else
 {
@@ -595,7 +595,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $obj = new stdClass();
         $obj->value=$this->upload->display_errors();
         $data["message"]=$obj;
-        $this->load->view("json2",$data); 
+        $this->load->view("json2",$data);
 
 }
     }
@@ -621,7 +621,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $obj->value=$image;
 		$obj->value=$this->user_model->changeshopimage($user,$image,$id);
         $data["message"]=$obj;
-        $this->load->view("json2",$data); 
+        $this->load->view("json2",$data);
         }
        else
 {
@@ -629,7 +629,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $obj = new stdClass();
         $obj->value=$this->upload->display_errors();
         $data["message"]=$obj;
-        $this->load->view("json2",$data); 
+        $this->load->view("json2",$data);
 
 }
 //        $config['upload_path'] = './uploads/';
@@ -671,7 +671,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
     }
 
     public function imageuploadproduct() {
-		
+
 				$user=$this->input->get_post("user");
 		$id=$this->input->get_post("id");
 $date = new DateTime();
@@ -689,10 +689,10 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
             $image=$uploaddata['file_name'];
 
         $obj = new stdClass();
-        $obj->value=$image;		
+        $obj->value=$image;
 		$obj->value=$this->user_model->changeproductimage($user,$image,$id);
         $data["message"]=$obj;
-        $this->load->view("json2",$data); 
+        $this->load->view("json2",$data);
         }
        else
 {
@@ -700,7 +700,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $obj = new stdClass();
         $obj->value=$this->upload->display_errors();
         $data["message"]=$obj;
-        $this->load->view("json2",$data); 
+        $this->load->view("json2",$data);
 
 }
 //        $config['upload_path'] = './uploads/';
@@ -753,7 +753,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
      $data['message']=$this->restapi_model->checkorderstatus($orderid);
 	 $this->load->view('json',$data);
  }
- 
+
  //
     public function getsingleproduct()
     {
@@ -761,11 +761,11 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $data['message']=$this->restapi_model->getsingleproduct($id);
         $this->load->view('json',$data);
     }
- 
- 
+
+
     public function buyproduct()
     {
-        $data = json_decode(file_get_contents('php://input'), true);	
+        $data = json_decode(file_get_contents('php://input'), true);
         $userid=$data['userid'];
         $productid=$data['productid'];
         $quantity=$data['quantity'];
@@ -794,134 +794,134 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
 		}
         $this->load->view('json',$data);
     }
- 
+
  function viewallorders()
     {
        $data = json_decode(file_get_contents('php://input'), true);
         $userid=$data['userid'];
-     
+
         $elements=array();
-        
+
         $elements[0]=new stdClass();
         $elements[0]->field="`order`.`id`";
         $elements[0]->sort="1";
         $elements[0]->header="ID";
         $elements[0]->alias="id";
-        
+
         $elements[1]=new stdClass();
         $elements[1]->field="`order`.`name`";
         $elements[1]->sort="1";
         $elements[1]->header="User Name";
         $elements[1]->alias="name";
-        
+
         $elements[2]=new stdClass();
         $elements[2]->field="`order`.`email`";
         $elements[2]->sort="1";
         $elements[2]->header="Email";
         $elements[2]->alias="email";
-        
+
         $elements[3]=new stdClass();
         $elements[3]->field="`order`.`transactionid`";
         $elements[3]->sort="1";
         $elements[3]->header="Transaction Id";
         $elements[3]->alias="transactionid";
-        
+
         $elements[4]=new stdClass();
         $elements[4]->field="`order`.`trackingcode`";
         $elements[4]->sort="1";
         $elements[4]->header="Tracking Code";
         $elements[4]->alias="trackingcode";
-        
+
         $elements[5]=new stdClass();
         $elements[5]->field="`order`.`orderstatus`";
         $elements[5]->sort="1";
         $elements[5]->header="Order Status id";
         $elements[5]->alias="orderstatus";
-        
+
         $elements[6]=new stdClass();
         $elements[6]->field="DATE(`order`.`timestamp`)";
         $elements[6]->sort="1";
         $elements[6]->header="Timestamp";
         $elements[6]->alias="timestamp";
-        
+
         $elements[7]=new stdClass();
         $elements[7]->field="`orderstatus`.`name`";
         $elements[7]->sort="1";
         $elements[7]->header="Status";
         $elements[7]->alias="orderstatusname";
-        
+
         $elements[8]=new stdClass();
         $elements[8]->field="`orderitems`.`product`";
         $elements[8]->sort="1";
         $elements[8]->header="Productid";
         $elements[8]->alias="productid";
-        
+
         $elements[9]=new stdClass();
         $elements[9]->field="`orderitems`.`quantity`";
         $elements[9]->sort="1";
         $elements[9]->header="Quantity";
         $elements[9]->alias="quantity";
-        
+
         $elements[10]=new stdClass();
         $elements[10]->field="`orderitems`.`price`";
         $elements[10]->sort="1";
         $elements[10]->header="Price";
         $elements[10]->alias="price";
-        
+
         $elements[11]=new stdClass();
         $elements[11]->field="`orderitems`.`finalprice`";
         $elements[11]->sort="1";
         $elements[11]->header="Final Price";
         $elements[11]->alias="finalprice";
-        
+
         $elements[12]=new stdClass();
         $elements[12]->field="`product`.`name`";
         $elements[12]->sort="1";
         $elements[12]->header="Product name";
         $elements[12]->alias="productname";
-        
+
         $elements[13]=new stdClass();
         $elements[13]->field="`product`.`sku`";
         $elements[13]->sort="1";
         $elements[13]->header="Product SKU";
         $elements[13]->alias="productsku";
-	    
+
 	    $elements[14]=new stdClass();
         $elements[14]->field="`product`.`image`";
         $elements[14]->sort="1";
         $elements[14]->header="Product Image";
         $elements[14]->alias="productimage";
-	 
+
 	    $elements[15]=new stdClass();
         $elements[15]->field="`user`.`shopname`";
         $elements[15]->sort="1";
         $elements[15]->header="Shop Name";
         $elements[15]->alias="shopname";
-	 
+
 	    $elements[16]=new stdClass();
         $elements[16]->field="`user`.`shopemail`";
         $elements[16]->sort="1";
         $elements[16]->header="User Email";
         $elements[16]->alias="shopemail";
-	 
+
 	 	$elements[17]=new stdClass();
         $elements[17]->field="`user`.`billingaddress`";
         $elements[17]->sort="1";
         $elements[17]->header="User Address";
         $elements[17]->alias="billingaddress";
-	 
+
 	    $elements[18]=new stdClass();
         $elements[18]->field="`user`.`shopcontact1`";
         $elements[18]->sort="1";
         $elements[18]->header="Personal Contact";
         $elements[18]->alias="shopcontact1";
-        
+
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
         $orderby=$this->input->get_post("orderby");
         $orderorder=$this->input->get_post("orderorder");
         $maxrow=$this->input->get_post("maxrow");
-        
+
         if($maxrow=="")
         {
             $maxrow=20;
@@ -965,7 +965,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
 		}
         $this->load->view('json',$data);
     }
- 
+
     public function editproduct()
     {
         $data = json_decode(file_get_contents('php://input'), true);
@@ -1044,7 +1044,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `product`","WHERE `product`.`status`=1");
         $this->load->view("json",$data);
     }
- 
+
     public function deleteproduct()
     {
         $data = json_decode(file_get_contents('php://input'), true);
@@ -1059,10 +1059,10 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         	$data['message']=$this->restapi_model->deleteproduct($productid,$user);
 		}
         	$this->load->view('json',$data);
-		
+
     }
 
- 
+
     public function searchresult()
     {
         $area=$this->input->get('area');
@@ -1072,8 +1072,8 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $data['message']=$this->restapi_model->searchresult($area,$category,$online,$offline);
         $this->load->view('json',$data);
     }
- 
- 
+
+
     public function editprofilesubmit()
     {
         $data = json_decode(file_get_contents('php://input'), true);
@@ -1108,13 +1108,13 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $data['message']=$this->restapi_model->editprofile($userid,$name,$email,$message,$image,$username,$shopname,$membershipnumber,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$area,$shoplogo,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$password);
         $this->load->view('json',$data);
     }
- 
- 
+
+
  function viewmyproductorders()
     {
         $data = json_decode(file_get_contents('php://input'), true);
         $userid=$data['userid'];
-        
+
         $products=$this->db->query("SELECT * FROM `product` WHERE `user`='$userid'")->result();
 //        print_r($products);
      if(empty($products))
@@ -1139,127 +1139,127 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
      }
 //     echo $productid;
         $elements=array();
-        
+
         $elements[0]=new stdClass();
         $elements[0]->field="`order`.`id`";
         $elements[0]->sort="1";
         $elements[0]->header="ID";
         $elements[0]->alias="id";
-        
+
         $elements[1]=new stdClass();
         $elements[1]->field="`order`.`name`";
         $elements[1]->sort="1";
         $elements[1]->header="User Name";
         $elements[1]->alias="name";
-        
+
         $elements[2]=new stdClass();
         $elements[2]->field="`order`.`email`";
         $elements[2]->sort="1";
         $elements[2]->header="Email";
         $elements[2]->alias="email";
-        
+
         $elements[3]=new stdClass();
         $elements[3]->field="`order`.`transactionid`";
         $elements[3]->sort="1";
         $elements[3]->header="Transaction Id";
         $elements[3]->alias="transactionid";
-        
+
         $elements[4]=new stdClass();
         $elements[4]->field="`order`.`trackingcode`";
         $elements[4]->sort="1";
         $elements[4]->header="Tracking Code";
         $elements[4]->alias="trackingcode";
-        
+
         $elements[5]=new stdClass();
         $elements[5]->field="`order`.`orderstatus`";
         $elements[5]->sort="1";
         $elements[5]->header="Order Status id";
         $elements[5]->alias="orderstatus";
-        
+
         $elements[6]=new stdClass();
         $elements[6]->field="DATE(`order`.`timestamp`)";
         $elements[6]->sort="1";
         $elements[6]->header="Timestamp";
         $elements[6]->alias="timestamp";
-        
+
         $elements[7]=new stdClass();
         $elements[7]->field="`orderstatus`.`name`";
         $elements[7]->sort="1";
         $elements[7]->header="Status";
         $elements[7]->alias="orderstatusname";
-        
+
         $elements[8]=new stdClass();
         $elements[8]->field="`orderitems`.`product`";
         $elements[8]->sort="1";
         $elements[8]->header="Productid";
         $elements[8]->alias="productid";
-        
+
         $elements[9]=new stdClass();
         $elements[9]->field="`orderitems`.`quantity`";
         $elements[9]->sort="1";
         $elements[9]->header="Quantity";
         $elements[9]->alias="quantity";
-        
+
         $elements[10]=new stdClass();
         $elements[10]->field="`orderitems`.`price`";
         $elements[10]->sort="1";
         $elements[10]->header="Price";
         $elements[10]->alias="price";
-        
+
         $elements[11]=new stdClass();
         $elements[11]->field="`orderitems`.`finalprice`";
         $elements[11]->sort="1";
         $elements[11]->header="Final Price";
         $elements[11]->alias="finalprice";
-        
+
         $elements[12]=new stdClass();
         $elements[12]->field="`product`.`name`";
         $elements[12]->sort="1";
         $elements[12]->header="Product name";
         $elements[12]->alias="productname";
-        
+
         $elements[13]=new stdClass();
         $elements[13]->field="`product`.`sku`";
         $elements[13]->sort="1";
         $elements[13]->header="Product SKU";
         $elements[13]->alias="productsku";
-        
+
 	    $elements[14]=new stdClass();
         $elements[14]->field="`product`.`image`";
         $elements[14]->sort="1";
         $elements[14]->header="Product Image";
         $elements[14]->alias="productimage";
-	 
+
 	    $elements[15]=new stdClass();
         $elements[15]->field="`user`.`shopname`";
         $elements[15]->sort="1";
         $elements[15]->header="Shop Name";
         $elements[15]->alias="shopname";
-	 
+
 	    $elements[16]=new stdClass();
         $elements[16]->field="`user`.`shopemail`";
         $elements[16]->sort="1";
         $elements[16]->header="User Email";
         $elements[16]->alias="shopemail";
-	 
+
 	 	$elements[17]=new stdClass();
         $elements[17]->field="`user`.`billingaddress`";
         $elements[17]->sort="1";
         $elements[17]->header="User Address";
         $elements[17]->alias="billingaddress";
-	 
+
 	    $elements[18]=new stdClass();
         $elements[18]->field="`user`.`shopcontact1`";
         $elements[18]->sort="1";
         $elements[18]->header="Personal Contact";
         $elements[18]->alias="shopcontact1";
-	 
+
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
         $orderby=$this->input->get_post("orderby");
         $orderorder=$this->input->get_post("orderorder");
         $maxrow=$this->input->get_post("maxrow");
-        
+
         if($maxrow=="")
         {
             $maxrow=20;
@@ -1273,7 +1273,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
 //	  $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `orderitems` LEFT OUTER JOIN `order` ON `orderitems`.`order`=`order`.`id` LEFT OUTER JOIN `orderstatus` ON `orderstatus`.`id`=`order`.`orderstatus` LEFT OUTER JOIN `product` ON `orderitems`.`product`=`product`.`id`","WHERE `orderitems`.`product` IN $productid");
         $this->load->view("json",$data);
     }
- 
+
     function viewmysingleorder()
     {
         $data = json_decode(file_get_contents('php://input'), true);
@@ -1330,7 +1330,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $obj = new stdClass();
         $obj->value=$image;
         $data["message"]=$obj;
-        $this->load->view("json2",$data); 
+        $this->load->view("json2",$data);
         }
        else
 {
@@ -1338,7 +1338,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $obj = new stdClass();
         $obj->value=$this->upload->display_errors();
         $data["message"]=$obj;
-        $this->load->view("json2",$data); 
+        $this->load->view("json2",$data);
 
 }
  }
@@ -1351,74 +1351,74 @@ $sort=$this->input->get_post('sortid');
 	 $data['message']=$this->restapi_model->searchproduct($product,$membershipno,$category,$sort);
 	 $this->load->view('json',$data);
 }
- 
+
      public function getalluserproducts()
      {
          $data = json_decode(file_get_contents('php://input'), true);
          $userid=$data['userid'];
-         
+
         $elements=array();
-        
+
         $elements[0]=new stdClass();
         $elements[0]->field="`product`.`id`";
         $elements[0]->sort="1";
         $elements[0]->header="ID";
         $elements[0]->alias="id";
-        
+
         $elements[1]=new stdClass();
         $elements[1]->field="`product`.`name`";
         $elements[1]->sort="1";
         $elements[1]->header="Name";
         $elements[1]->alias="name";
-        
+
         $elements[2]=new stdClass();
         $elements[2]->field="`product`.`sku`";
         $elements[2]->sort="1";
         $elements[2]->header="Sku";
         $elements[2]->alias="sku";
-        
+
         $elements[3]=new stdClass();
         $elements[3]->field="`product`.`price`";
         $elements[3]->sort="1";
         $elements[3]->header="Price";
         $elements[3]->alias="price";
-        
+
         $elements[4]=new stdClass();
         $elements[4]->field="`product`.`description`";
         $elements[4]->sort="1";
         $elements[4]->header="Description";
         $elements[4]->alias="description";
-        
+
         $elements[5]=new stdClass();
         $elements[5]->field="`product`.`status`";
         $elements[5]->sort="1";
         $elements[5]->header="Status";
         $elements[5]->alias="status";
-        
+
         $elements[6]=new stdClass();
         $elements[6]->field="`product`.`quantity`";
         $elements[6]->sort="1";
         $elements[6]->header="Quantity";
         $elements[6]->alias="quantity";
-        
+
         $elements[7]=new stdClass();
         $elements[7]->field="`product`.`image`";
         $elements[7]->sort="1";
         $elements[7]->header="Image";
         $elements[7]->alias="image";
-		 
+
 		$elements[8]=new stdClass();
         $elements[8]->field="`user`.`shopname`";
         $elements[8]->sort="1";
         $elements[8]->header="Shopname";
         $elements[8]->alias="shopname";
-        
+
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
         $orderby=$this->input->get_post("orderby");
         $orderorder=$this->input->get_post("orderorder");
         $maxrow=$this->input->get_post("maxrow");
-        
+
         if($maxrow=="")
         {
             $maxrow=20;
@@ -1462,7 +1462,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $obj = new stdClass();
         $obj->value=$image;
         $data["message"]=$obj;
-        $this->load->view("json2",$data); 
+        $this->load->view("json2",$data);
         }
        else
         {
@@ -1470,7 +1470,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $obj = new stdClass();
         $obj->value=$this->upload->display_errors();
         $data["message"]=$obj;
-        $this->load->view("json2",$data); 
+        $this->load->view("json2",$data);
 
 	   }
 
@@ -1480,13 +1480,13 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
 		$data['message']=$this->restapi_model->isnewuser($user);
 		$this->load->view('json',$data);
  }
- 
+
 // public function sendnotification () {
 //    $data["message"]=$this->user_model->sendnotification($this->input->get('content'),$this->input->get("user"));
 //     $this->load->view("json",$data);
 // }
- 
- 
+
+
  public function isnewuserstatuschange(){
 	 $user=$this->input->get("user");
 		$data['message']=$this->restapi_model->isnewuserchangestatus($user);
@@ -1500,7 +1500,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
  }
     public function forgotpassword()
     {
-        
+
         //set POST variables
         $email=$this->input->get_post('email');
         $userid=$this->user_model->getidbyemail($email);
@@ -1516,12 +1516,12 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         else
         {
 //        $link="<a href='http://magicmirror.com/#/resetpassword/$hashvalue'>Click here </a> To Reset Your Password.";
-            
+
         $this->load->library('email');
         $this->email->from('dhavalwohlig@gmail.com', 'One Stop Barter');
         $this->email->to($email);
-        $this->email->subject('Welcome to OSB');   
-            
+        $this->email->subject('Welcome to OSB');
+
         $message = "<html>
 
       <body>
@@ -1543,7 +1543,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
 //        $data["message"] = $this->email->print_debugger();
         $data["message"] = 'true';
         $this->load->view("json", $data);
-        
+
     }
     }
   public function sendNotification()
@@ -1553,11 +1553,24 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $this->user_model->sendnotification($content,$user);
     }
 
- public function updateterms(){
- $id=$this->input->get('id');
- $termsaccept=$this->input->get('termsaccept');
- $data['message']=$this->restapi_model->updateterms($id,$termsaccept);
- $this->load->view('json',$data);
- }
- 
-} 
+    public function updateterms(){
+       $id=$this->input->get('id');
+       $termsaccept=$this->input->get('termsaccept');
+       $data['message']=$this->restapi_model->updateterms($id,$termsaccept);
+       $this->load->view('json',$data);
+    }
+
+    public function responseCheck() {
+        $response = $_GET;
+        $data['message'] = $this->restapi_model->responseCheck($response);
+        // $data['message'] = $_GET;
+        $this->load->view('json',$data);
+    }
+
+    public function getTransactionStatus() {
+        $id = $this->input->get('id');
+        $data['message'] = $this->restapi_model->getTransactionStatus($id);
+        $this->load->view('json',$data);
+    }
+
+}

@@ -882,5 +882,24 @@ return  $id;
         }
     }
 
+    public function responseCheck($response)
+    {
+        $transid = $response['MerchantRefNo'];
+        $amount = $response['DeliveryPostalCode'];
+        if($response['ResponseMessage'] == "Transaction Successful" || $response['ResponseCode'] == 0){
+            $query1 = $this->db->query("UPDATE `osb_request` SET `requeststatus` = 2, `paymentstatus` = 1 WHERE `id` = $transid");
+            $userid = $this->db->query("SELECT `userto` FROM `osb_request` WHERE `id` = $transid")->row();
+            $updateid = $userid->userto;
+            $updatebal = $this->db->query("UPDATE `user` SET `purchasebalance` = `purchasebalance` + '$amount', `salesbalance` = `salesbalance` + '$amount' WHERE `id` = '$updateid'");
+        } else {
+            $query2 = $this->db->query("UPDATE `osb_request` SET `paymentstatus` = 2 WHERE `id` = $transid")->row();
+        }
+        return true;
+    }
+    public function getTransactionStatus($id)
+    {
+        $query = $this->db->query("SELECT `paymentstatus` FROM `osb_request` WHERE `id` = $id")->row();
+        return $query;
+    }
 }
 ?>
