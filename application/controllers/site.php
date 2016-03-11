@@ -1493,7 +1493,7 @@ $elements[1]->header="Seller";
 $elements[1]->alias="userfrom";
 
 $elements[2]=new stdClass();
-$elements[2]->field="`tab1`.`name`";
+$elements[2]->field="`tab1`.`shopname`";
 $elements[2]->sort="1";
 $elements[2]->header="Buyer";
 $elements[2]->alias="userto";
@@ -1560,7 +1560,7 @@ $elements[0]->sort="1";
 $elements[0]->header="ID";
 $elements[0]->alias="id";
 $elements[1]=new stdClass();
-$elements[1]->field="`tab2`.`name`";
+$elements[1]->field="`tab2`.`shopname`";
 $elements[1]->sort="1";
 $elements[1]->header="Buyer";
 $elements[1]->alias="userfrom";
@@ -1662,6 +1662,7 @@ $access=array("1","2");
 $this->checkaccess($access);
 $data["page"]="editrequest";
 $data['requeststatus']=$this->requeststatus_model->getrequeststatusdropdown();
+    $data['paymentstatus']=$this->requeststatus_model->getpaymentstatusdropdown();
 $data["title"]="Edit request";
 $data["before"]=$this->request_model->beforeedit($this->input->get("id"));
 $data['userto']=$this->user_model->getuserdropdown();
@@ -1689,6 +1690,7 @@ if($this->form_validation->run()==FALSE)
 {
 $data["alerterror"]=validation_errors();
 $data['requeststatus']=$this->requeststatus_model->getrequeststatusdropdown();
+$data['paymentstatus']=$this->requeststatus_model->getpaymentstatusdropdown();
 $data['userto']=$this->user_model->getuserdropdown();
 $data['userfrom']=$this->user_model->getuserdropdown();
 $data["page"]="editrequest";
@@ -1705,6 +1707,7 @@ $requeststatus=$this->input->get_post("requeststatus");
 $amount=$this->input->get_post("amount");
 $reason=$this->input->get_post("reason");
 $approvalreason=$this->input->get_post("approvalreason");
+$paymentstatus=$this->input->get_post("paymentstatus");
 $timestamp=$this->input->get_post("timestamp");
 //    print_r($_POST);
 	if($requeststatus=="3" && $userfrom=="1"){
@@ -1715,7 +1718,7 @@ $timestamp=$this->input->get_post("timestamp");
 	if($requeststatus=="2" && $userfrom=="1"){
 	$this->transaction_model->adminaccept($amount,$userto,$userfrom,$id);
 	}
-if($this->request_model->edit($id,$userfrom,$userto,$requeststatus,$amount,$reason,$approvalreason,$timestamp)==0)
+if($this->request_model->edit($id,$userfrom,$userto,$requeststatus,$amount,$reason,$approvalreason,$timestamp,$paymentstatus)==0)
 $data["alerterror"]="New request could not be Updated.";
 else
 $data["alertsuccess"]="request Updated Successfully.";
@@ -1877,13 +1880,13 @@ $elements[0]->header="ID";
 $elements[0]->alias="id";
 
 $elements[1]=new stdClass();
-$elements[1]->field="`tab1`.`name`";
+$elements[1]->field="`tab1`.`shopname`";
 $elements[1]->sort="1";
 $elements[1]->header="Seller";
 $elements[1]->alias="userto";
 
 $elements[2]=new stdClass();
-$elements[2]->field="`tab2`.`name`";
+$elements[2]->field="`tab2`.`shopname`";
 $elements[2]->sort="1";
 $elements[2]->header="Buyer";
 $elements[2]->alias="userfrom";
@@ -3263,7 +3266,7 @@ $this->load->view("redirect",$data);
         $elements[0]->header="ID";
         $elements[0]->alias="id";
         $elements[1]=new stdClass();
-        $elements[1]->field="`user`.`name`";
+        $elements[1]->field="`user`.`shopname`";
         $elements[1]->sort="1";
         $elements[1]->header="User";
         $elements[1]->alias="user";
@@ -3596,7 +3599,7 @@ $this->load->view("redirect",$data);
         $elements[0]->alias="id";
 
         $elements[1]=new stdClass();
-        $elements[1]->field="`user`.`name`";
+        $elements[1]->field="`user`.`shopname`";
         $elements[1]->sort="1";
         $elements[1]->header="User";
         $elements[1]->alias="user";
@@ -3801,6 +3804,158 @@ $this->load->view("redirect",$data);
         $data['redirect']="site/viewrequest";
         $this->load->view("redirect",$data);
 	}
+    
+    
+    // broadcast
+    
+    
+    public function viewbroadcast()
+    {
+        $access=array("1","2");
+        $this->checkaccess($access);
+        $data["page"]="viewbroadcast";
+        $data[ 'user' ] =$this->user_model->getuserdropdown();
+        $data["base_url"]=site_url("site/viewbroadcastjson");
+        $data["title"]="View broadcast";
+        $data['activemenu'] = 'broadcast';
+        $this->load->view("template",$data);
+    }
+    function viewbroadcastjson()
+    {
+        $elements=array();
+        $elements[0]=new stdClass();
+        $elements[0]->field="`broadcast`.`id`";
+        $elements[0]->sort="1";
+        $elements[0]->header="ID";
+        $elements[0]->alias="id";
+
+        $elements[1]=new stdClass();
+        $elements[1]->field="`broadcast`.`name`";
+        $elements[1]->sort="1";
+        $elements[1]->header="Name";
+        $elements[1]->alias="name";
+
+		$elements[2]=new stdClass();
+        $elements[2]->field="`broadcast`.`timestamp`";
+        $elements[2]->sort="1";
+        $elements[2]->header="Timestamp";
+        $elements[2]->alias="timestamp";
+
+        $search=$this->input->get_post("search");
+        $pageno=$this->input->get_post("pageno");
+        $orderby=$this->input->get_post("orderby");
+        $orderorder=$this->input->get_post("orderorder");
+        $maxrow=$this->input->get_post("maxrow");
+        if($maxrow=="")
+        {
+        $maxrow=20;
+        }
+        if($orderby=="")
+        {
+        $orderby="id";
+        $orderorder="ASC";
+        }
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `broadcast`");
+        $this->load->view("json",$data);
+    }
+
+    public function createbroadcast()
+    {
+        $access=array("1","2");
+        $this->checkaccess($access);
+        $data[ 'user' ] =$this->user_model->getuserdropdown();
+        $data["page"]="createbroadcast";
+        $data["title"]="Create broadcast";
+        $this->load->view("template",$data);
+    }
+    public function createbroadcastsubmit()
+    {
+        $access=array("1","2");
+        $this->checkaccess($access);
+        $this->form_validation->set_rules("message","Message","trim");
+        if($this->form_validation->run()==FALSE)
+        {
+            $data["alerterror"]=validation_errors();
+            $data[ 'user' ] =$this->user_model->getuserdropdown();
+            $data["page"]="createbroadcast";
+            $data["title"]="Create broadcast";
+            $this->load->view("template",$data);
+        }
+        else
+        {
+            $name=$this->input->get_post("name");
+            $message=$this->input->get_post("message");
+            if($this->broadcast_model->create($name,$message)==0)
+            $data["alerterror"]="New broadcast could not be created.";
+            else
+            $data["alertsuccess"]="broadcast created Successfully.";
+            $data["redirect"]="site/viewbroadcast";
+            $this->load->view("redirect",$data);
+        }
+    }
+    public function editbroadcast()
+    {
+        $access=array("1","2");
+        $this->checkaccess($access);
+        $data[ 'user' ] =$this->user_model->getuserdropdown();
+        $data["page"]="editbroadcast";
+        $data["title"]="Edit broadcast";
+        $data["before"]=$this->broadcast_model->beforeedit($this->input->get("id"));
+        $this->load->view("template",$data);
+    }
+    public function editbroadcastsubmit()
+    {
+        $access=array("1","2");
+        $this->checkaccess($access);
+        $this->form_validation->set_rules("id","ID","trim");
+        $this->form_validation->set_rules("message","Message","trim");
+        if($this->form_validation->run()==FALSE)
+        {
+            $data["alerterror"]=validation_errors();
+            $data[ 'user' ] =$this->user_model->getuserdropdown();
+            $data["page"]="editbroadcast";
+            $data["title"]="Edit broadcast";
+            $data["before"]=$this->broadcast_model->beforeedit($this->input->get("id"));
+            $this->load->view("template",$data);
+        }
+        else
+        {
+            $id=$this->input->get_post("id");
+            $name=$this->input->get_post("name");
+            $message=$this->input->get_post("message");
+            $timestamp=$this->input->get_post("timestamp");
+            if($this->broadcast_model->edit($id,$name,$timestamp,$message)==0)
+            $data["alerterror"]="New broadcast could not be Updated.";
+            else
+            $data["alertsuccess"]="broadcast Updated Successfully.";
+            $data["redirect"]="site/viewbroadcast";
+            $this->load->view("redirect",$data);
+        }
+    }
+    public function deletebroadcast()
+    {
+        $access=array("1","2");
+        $this->checkaccess($access);
+        $this->broadcast_model->delete($this->input->get("id"));
+        $data["redirect"]="site/viewbroadcast";
+        $this->load->view("redirect",$data);
+    }
+    
+    public function sendmessagetoall()
+    {
+        $access=array("1","2");
+        $id=$this->input->get("id");
+        $query=$this->db->query("SELECT * FROM `user` WHERE `accesslevel`=3")->result();
+        $notification=$this->db->query("SELECT * FROM `broadcast` WHERE `id`='$id'")->row();
+        $title=$notification->name;
+        $message=$notification->message;
+        foreach($query as $row)
+        {
+            $this->user_model->sendnotification($message,$row->id);
+        }
+        $data["redirect"]="site/viewbroadcast";
+        $this->load->view("redirect",$data);
+    }
 
 }
 ?>

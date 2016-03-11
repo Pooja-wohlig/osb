@@ -58,11 +58,18 @@
                     </div>
                     <?php }?>
 
-
+          <?php  if($before->userfrom==1){ ?>
+                          <div class=" form-group">
+                            <label class="col-sm-2 control-label" for="normal-field">Cash Amount</label>
+                            <div class="col-sm-4">
+                                  <?php echo $before->cashamount; ?>
+                            </div>
+                        </div>
+                   <?php }?>  
 
 
                         <div class="form-group">
-				<label class="col-sm-2 control-label" for="normal-field">Amount</label>
+				<label class="col-sm-2 control-label" for="normal-field">Barter Amount</label>
 				<div class="col-sm-4">
 					<?php echo $before->amount; ?>
 				</div>
@@ -97,6 +104,15 @@
                                 <?php echo form_dropdown("requeststatus",$requeststatus,set_value('requeststatus',$before->requeststatus),"class='chzn-select form-control'");?>
                             </div>
                         </div>
+                        <?php  if($before->userfrom==1){ ?>
+                          <div class=" form-group">
+                            <label class="col-sm-2 control-label" for="normal-field">Payment Status</label>
+                            <div class="col-sm-4">
+                                <?php echo form_dropdown("paymentstatus",$paymentstatus,set_value('paymentstatus',$before->paymentstatus),"class='chzn-select form-control'");?>
+                            </div>
+                        </div>
+                   <?php }?>       
+                           
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="normal-field">&nbsp;</label>
                             <div class="col-sm-4">

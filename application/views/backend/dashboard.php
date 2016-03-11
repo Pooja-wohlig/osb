@@ -3,7 +3,7 @@ echo getconfig("projectname");
 ?>
 
     <div class="row state-overview">
-        <div class="col-lg-3 col-sm-3">
+        <a href="<?php echo site_url("site/viewrequestadmin");?>"><div class="col-lg-3 col-sm-3">
             <section class="panel">
                 <div class="symbol terques">
                     <i class="icon-user"></i>
@@ -12,12 +12,12 @@ echo getconfig("projectname");
                     <p>Pending Requests To Admin </p>
                     <h1><?php  echo $adminrequest; ?></h1>
 
-                </div>
+                </div></a>
 
             </section>
         </div>
 
-        <div class="col-lg-3 col-sm-3">
+        <a href="<?php echo site_url("site/viewproduct");?>"><div class="col-lg-3 col-sm-3">
             <section class="panel">
                 <div class="symbol terques">
                     <i class="icon-shopping-cart"></i>
@@ -29,8 +29,8 @@ echo getconfig("projectname");
                 </div>
 
             </section>
-        </div>
-        <div class="col-lg-3 col-sm-3">
+            </div></a>
+         <a href="<?php echo site_url("site/vieworder");?>"><div class="col-lg-3 col-sm-3">
             <section class="panel">
                 <div class="symbol terques">
                     <i class="icon-list"></i>
@@ -42,5 +42,5 @@ echo getconfig("projectname");
                 </div>
 
             </section>
-        </div>
+             </div></a>
     </div>

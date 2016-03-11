@@ -24,9 +24,9 @@ $this->db->where("id",$id);
 $query=$this->db->get("osb_request")->row();
 return $query;
 }
-public function edit($id,$userfrom,$userto,$requeststatus,$amount,$reason,$approvalreason,$timestamp)
+public function edit($id,$userfrom,$userto,$requeststatus,$amount,$reason,$approvalreason,$timestamp,$paymentstatus)
 {
-$data=array("userfrom" => $userfrom,"userto" => $userto,"requeststatus" => $requeststatus,"amount" => $amount,"reason" => $reason,"approvalreason" => $approvalreason,"timestamp" => $timestamp);
+$data=array("userfrom" => $userfrom,"userto" => $userto,"requeststatus" => $requeststatus,"amount" => $amount,"reason" => $reason,"approvalreason" => $approvalreason,"timestamp" => $timestamp,"paymentstatus" => $paymentstatus);
 $this->db->where( "id", $id );
 $query=$this->db->update( "osb_request", $data );
 return 1;

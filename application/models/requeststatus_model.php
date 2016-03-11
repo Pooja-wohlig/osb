@@ -49,5 +49,15 @@ $query=$this->db->query("SELECT * FROM `osb_requeststatus`  ORDER BY `id` ASC")-
 		
 		return $return;
 }
+    public function getpaymentstatusdropdown()
+{
+		$return=array(
+		"" => "",
+		"0" => "Pending",
+		"1" => "Done"
+		);
+		
+		return $return;
+}
 }
 ?>
