@@ -117,7 +117,11 @@
                             <label class="col-sm-2 control-label" for="normal-field">&nbsp;</label>
                             <div class="col-sm-4">
                                 <button type="submit" class="btn btn-primary">Save</button>
-                                <a href='<?php echo site_url("site/viewrequest"); ?>' class='btn btn-secondary'>Cancel</a>
+                                 <?php  if($before->userfrom==1){ ?>
+                                <a href='<?php echo site_url("site/viewrequestadmin"); ?>' class='btn btn-secondary'>Cancel</a>
+                                  <?php } else {?>    
+                                         <a href='<?php echo site_url("site/viewrequest"); ?>' class='btn btn-secondary'>Cancel</a>
+                                  <?php } ?>       
                             </div>
                         </div>
         </form>
