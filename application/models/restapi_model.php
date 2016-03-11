@@ -891,6 +891,8 @@ return  $id;
             $userid = $this->db->query("SELECT `userto` FROM `osb_request` WHERE `id` = $transid")->row();
             $updateid = $userid->userto;
             $updatebal = $this->db->query("UPDATE `user` SET `purchasebalance` = `purchasebalance` + '$amount', `salesbalance` = `salesbalance` + '$amount' WHERE `id` = '$updateid'");
+            $this->load->model('transaction_model');
+            $this->transaction_model->adminaccept($amount,$updateid,1,$transid);
         } else {
             $query2 = $this->db->query("UPDATE `osb_request` SET `paymentstatus` = 2 WHERE `id` = $transid")->row();
         }
