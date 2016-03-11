@@ -508,7 +508,10 @@ $shopcontact2=$data['shopcontact2'];
 $shopemail=$data['shopemail'];
 $website=$data['website'];
 $shoplogo=$data['shoplogo'];
-$data['message']=$this->restapi_model->updateprofile($id,$shopname,$address,$description,$shopcontact1,$shopcontact2,$shopemail,$website,$shoplogo);
+$billingcity=$data['billingcity'];
+$billingstate=$data['billingstate'];
+$billingpincode=$data['billingpincode'];
+$data['message']=$this->restapi_model->updateprofile($id,$shopname,$address,$description,$shopcontact1,$shopcontact2,$shopemail,$website,$shoplogo,$billingcity,$billingstate,$billingpincode);
 $this->load->view('json',$data);
  }
 public function acceptreason(){
