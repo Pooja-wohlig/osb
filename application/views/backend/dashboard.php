@@ -15,6 +15,20 @@ echo getconfig("projectname");
                 </div></a>
 
             </section>
+        </div> 
+        <div class="row state-overview">
+        <a href="<?php echo site_url("site/viewrequestadmin");?>"><div class="col-lg-3 col-sm-3">
+            <section class="panel">
+                <div class="symbol terques">
+                    <i class="icon-money"></i>
+                </div>
+                <div class="value">
+                    <p>Pending Payments </p>
+                    <h1><?php  echo $paymentstatuscount; ?></h1>
+
+                </div></a>
+
+            </section>
         </div>
 
         <a href="<?php echo site_url("site/viewproduct");?>"><div class="col-lg-3 col-sm-3">

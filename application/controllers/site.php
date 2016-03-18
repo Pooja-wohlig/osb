@@ -28,6 +28,7 @@ class Site extends CI_Controller
         $data['activemenu'] = 'dashboard';
         $data['order']=$this->order_model->getPendingOrderCount();
         $data['product']=$this->product_model->getPendingProductCount();
+        $data['paymentstatuscount']=$this->product_model->getPaymentStatusCount();
         $data['adminrequest']=$this->request_model->getPendingAdminRequestCount();
 		$data[ 'title' ] = 'Welcome';
 		$this->load->view( 'template', $data );
@@ -3955,6 +3956,14 @@ $this->load->view("redirect",$data);
         }
         $data["redirect"]="site/viewbroadcast";
         $this->load->view("redirect",$data);
+    }
+    public function cleartoken(){
+        $id=$this->input->get('id');
+        // clear token
+        $cleartoken=$this->db->query("UPDATE `user` SET `token`='' WHERE `id`='$id'");
+         $data["redirect"]="site/viewusers";
+        $this->load->view("redirect",$data);
+        
     }
 
 }

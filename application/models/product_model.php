@@ -285,6 +285,12 @@ class Product_model extends CI_Model
     $pendingproduct=$query->pendingproduct;
     return $pendingproduct;
 }
+    public function getPaymentStatusCount()
+{
+    $query=$this->db->query("SELECT COUNT(*) as `paymentstatus` FROM `osb_request` WHERE `paymentstatus`=0")->row();
+    $paymentstatus=$query->paymentstatus;
+    return $paymentstatus;
+}
     public function getcount(){
       $query=$this->db->query("SELECT COUNT(*) as `count` FROM `product` WHERE `moderated`=0")->row();
         $count=$query->count;
