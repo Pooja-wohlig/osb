@@ -3960,7 +3960,7 @@ $this->load->view("redirect",$data);
     public function cleartoken(){
         $id=$this->input->get('id');
         // clear token
-        $cleartoken=$this->db->query("UPDATE `user` SET `token`='' WHERE `id`='$id'");
+        $cleartoken=$this->db->query("UPDATE `user` SET `token`='0' WHERE `id`='$id'");
          $data["redirect"]="site/viewusers";
         $this->load->view("redirect",$data);
         
