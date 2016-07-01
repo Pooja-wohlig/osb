@@ -40,13 +40,13 @@ return $query;
 	{
 		$query=$this->db->query("SELECT * FROM `osb_area`  ORDER BY `id` ASC")->result();
 		$return=array(
-		"" => ""
+		"0" => "Select"
 		);
 		foreach($query as $row)
 		{
 			$return[$row->id]=$row->name;
 		}
-		
+
 		return $return;
 	}
      function exportareacsv()
