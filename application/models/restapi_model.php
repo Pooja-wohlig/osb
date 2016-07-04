@@ -83,7 +83,6 @@ public function sellingapproval($user) {
 
           else
           {
-            echo'insert query';
             //update query for osb_request
             $data = array('approvalreason' => $reason, 'requeststatus' => 2);
             $this->db->where('id', $id);
@@ -303,7 +302,7 @@ $query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku
  }
 
 
-	public function buyproduct($userid,$productid,$quantity,$name,$email,$contactno,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$logisticcharge,$sameas)
+	public function buyproduct($userid,$productid,$quantity,$name,$email,$contactno,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode)
     {
         $getproductdetails=$this->db->query("SELECT * FROM `product` WHERE `id`='$productid'")->row();
 		$user=$getproductdetails->user;
@@ -328,7 +327,7 @@ $query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku
         }
         else
         {
-            $querycreateorder=$this->db->query("INSERT INTO `order`( `user`, `name`, `email`,`contactno`, `billingaddress`, `billingcity`, `billingstate`, `billingcountry`, `billingpincode`, `shippingaddress`, `shippingcity`, `shippingcountry`, `shippingstate`,`shippingpincode`,`logisticcharge`,`orderstatus`, `timestamp`) VALUES ('$userid','$name','$email','$contactno','$billingaddress','$billingcity','$billingstate','$billingcountry','$billingpincode','$shippingaddress','$shippingcity','$shippingcountry','$shippingstate','$shippingpincode','$logisticcharge','1',NULL)");
+            $querycreateorder=$this->db->query("INSERT INTO `order`( `user`, `name`, `email`,`contactno`, `billingaddress`, `billingcity`, `billingstate`, `billingcountry`, `billingpincode`, `shippingaddress`, `shippingcity`, `shippingcountry`, `shippingstate`,`shippingpincode`,`orderstatus`, `timestamp`) VALUES ('$userid','$name','$email','$contactno','$billingaddress','$billingcity','$billingstate','$billingcountry','$billingpincode','$shippingaddress','$shippingcity','$shippingcountry','$shippingstate','$shippingpincode','1',NULL)");
             $order=$this->db->insert_id();
             $data  = array(
                 'order' => $order,

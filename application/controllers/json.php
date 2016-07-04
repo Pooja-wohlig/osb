@@ -579,12 +579,12 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
             $object = new stdClass();
             $object->value = $imageName;
        		$data["message"]=$object;
-            	$this->load->view("json",$data); 
+            	$this->load->view("json",$data);
         }else{
         	$data["message"]="false";
-            	$this->load->view("json",$data); 
+            	$this->load->view("json",$data);
         }
-     
+
     }
 
     public function imageuploadshop() {
@@ -753,31 +753,32 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
     public function buyproduct()
     {
         $data = json_decode(file_get_contents('php://input'), true);
-        $userid=$data['userid'];
-        $productid=$data['productid'];
-        $quantity=$data['quantity'];
-        $name=$data['name'];
-        $email=$data['email'];
-        $contactno=$data['contactno'];
-        $billingaddress=$data['billingaddress'];
-        $billingcity=$data['billingcity'];
-        $billingstate=$data['billingstate'];
-        $billingcountry=$data['billingcountry'];
-        $billingpincode=$data['billingpincode'];
-        $shippingaddress=$data['shippingaddress'];
-        $shippingcity=$data['shippingcity'];
-        $shippingcountry=$data['shippingcountry'];
-        $shippingstate=$data['shippingstate'];
-        $shippingpincode=$data['shippingpincode'];
-        $logisticcharge=$data['logisticcharge'];
-        $sameas=$data['sameas'];
+
 		if(empty($data))
 		{
 		$data['message']=0;
 		}
 		else
 		{
-        $data['message']=$this->restapi_model->buyproduct($userid,$productid,$quantity,$name,$email,$contactno,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$logisticcharge,$sameas);
+      $userid=$data['userid'];
+      $productid=$data['productid'];
+      $quantity=$data['quantity'];
+      $name=$data['name'];
+      $email=$data['email'];
+      $contactno=$data['contactno'];
+      $billingaddress=$data['billingaddress'];
+      $billingcity=$data['billingcity'];
+      $billingstate=$data['billingstate'];
+      $billingcountry=$data['billingcountry'];
+      $billingpincode=$data['billingpincode'];
+      $shippingaddress=$data['shippingaddress'];
+      $shippingcity=$data['shippingcity'];
+      $shippingcountry=$data['shippingcountry'];
+      $shippingstate=$data['shippingstate'];
+      $shippingpincode=$data['shippingpincode'];
+      // $logisticcharge=$data['logisticcharge'];
+      // $sameas=$data['sameas'];
+        $data['message']=$this->restapi_model->buyproduct($userid,$productid,$quantity,$name,$email,$contactno,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode);
 		}
         $this->load->view('json',$data);
     }
