@@ -127,7 +127,7 @@ class Site extends CI_Controller
 			$shopstatus=$this->input->post('shopstatus');
 			$termsaccept=$this->input->post('termsaccept');
 //            $category=$this->input->post('category');
- 			
+
 
 
 
@@ -1512,7 +1512,7 @@ $elements[4]->header="Amount";
 $elements[4]->alias="amount";
 
 $elements[5]=new stdClass();
-$elements[5]->field="`osb_request`.`timestamp`";
+$elements[5]->field="ADDTIME(`osb_request`.`timestamp`,'0 05:30:00')";
 $elements[5]->sort="1";
 $elements[5]->header="Time stamp";
 $elements[5]->alias="timestamp";
@@ -1586,7 +1586,7 @@ $elements[5]->sort="1";
 $elements[5]->header="Reason";
 $elements[5]->alias="reason";
 $elements[6]=new stdClass();
-$elements[6]->field="`osb_request`.`timestamp`";
+$elements[6]->field="ADDTIME(`osb_request`.`timestamp`,'0 05:30:00')";
 $elements[6]->sort="1";
 $elements[6]->header="Time stamp";
 $elements[6]->alias="timestamp";
@@ -1917,7 +1917,7 @@ $elements[5]->header="Barter Amount";
 $elements[5]->alias="payableamount";
 
 $elements[6]=new stdClass();
-$elements[6]->field="`osb_transaction`.`timestamp`";
+$elements[6]->field="ADDTIME(`osb_transaction`.`timestamp`,'0 05:30:00')";
 $elements[6]->sort="1";
 $elements[6]->header="Time stamp";
 $elements[6]->alias="timestamp";
@@ -2015,7 +2015,7 @@ $elements[5]->header="Barter Amount";
 $elements[5]->alias="payableamount";
 
 $elements[6]=new stdClass();
-$elements[6]->field="`osb_transaction`.`timestamp`";
+$elements[6]->field="ADDTIME(`osb_transaction`.`timestamp`,'0 05:30:00')";
 $elements[6]->sort="1";
 $elements[6]->header="Time stamp";
 $elements[6]->alias="timestamp";
@@ -3272,7 +3272,7 @@ $this->load->view("redirect",$data);
         $elements[1]->header="User";
         $elements[1]->alias="user";
         $elements[2]=new stdClass();
-        $elements[2]->field="`notification`.`timestamp`";
+        $elements[2]->field="ADDTIME(`notification`.`timestamp`,'0 05:30:00')";
         $elements[2]->sort="1";
         $elements[2]->header="Timestamp";
         $elements[2]->alias="timestamp";
@@ -3606,7 +3606,7 @@ $this->load->view("redirect",$data);
         $elements[1]->alias="user";
 
 		$elements[2]=new stdClass();
-        $elements[2]->field="`suggestion`.`timestamp`";
+        $elements[2]->field="ADDTIME(`suggestion`.`timestamp`,'0 05:30:00')";
         $elements[2]->sort="1";
         $elements[2]->header="Timestamp";
         $elements[2]->alias="timestamp";
@@ -3805,11 +3805,11 @@ $this->load->view("redirect",$data);
         $data['redirect']="site/viewrequest";
         $this->load->view("redirect",$data);
 	}
-    
-    
+
+
     // broadcast
-    
-    
+
+
     public function viewbroadcast()
     {
         $access=array("1","2");
@@ -3837,7 +3837,7 @@ $this->load->view("redirect",$data);
         $elements[1]->alias="name";
 
 		$elements[2]=new stdClass();
-        $elements[2]->field="`broadcast`.`timestamp`";
+        $elements[2]->field="ADDTIME(`broadcast`.`timestamp`,'0 05:30:00')";
         $elements[2]->sort="1";
         $elements[2]->header="Timestamp";
         $elements[2]->alias="timestamp";
@@ -3941,7 +3941,7 @@ $this->load->view("redirect",$data);
         $data["redirect"]="site/viewbroadcast";
         $this->load->view("redirect",$data);
     }
-    
+
     public function sendmessagetoall()
     {
         $access=array("1","2");
@@ -3963,7 +3963,7 @@ $this->load->view("redirect",$data);
         $cleartoken=$this->db->query("UPDATE `user` SET `token`='0' WHERE `id`='$id'");
          $data["redirect"]="site/viewusers";
         $this->load->view("redirect",$data);
-        
+
     }
 
 }
