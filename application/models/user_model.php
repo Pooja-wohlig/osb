@@ -602,7 +602,6 @@ public function sendnotificationold($content, $user) {
 
             $token=$gettoken->token;
             $os=$gettoken->os;
-        echo $token."          ";
         if($os=="Android")
         {
 
