@@ -3002,25 +3002,12 @@ $this->load->view("redirect",$data);
 			$trackingcode=$this->input->post('trackingcode');
 			$transactionid=$this->input->post('transactionid');
 			$logisticcharge=$this->input->post('logisticcharge');
+			// print_r($_POST);
 			if(($this->order_model->edit($id,$user,$firstname,$email,$contactno,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid,$logisticcharge))==0)
 				$data['alerterror']="Order could not be edited.";
 			else
             {
 				$data['alertsuccess']="Order  edited Successfully.";
-//                $query1=$this->order_model->getorderstatus1($orderstatus);
-//                //echo $state=$query1;
-//                //$email=$this->input->get('email');
-//                $this->load->library('email');
-//                $email=$email;
-//                $this->email->from('lyla@lylaloves.co.uk', 'Lyla');
-//                $this->email->to($email);
-//                $this->email->cc('another@another-example.com');
-//                $this->email->bcc('them@their-example.com');
-//
-//                $this->email->subject('Welcome to Lyla');
-//                $this->email->message('<img src="http://lylaloves.co.uk/img/dispatchedbylyla.jpg" width="560px" height="398px"><br><b>YOUR ORDER IS '.$query1->name.'</b>');
-//
-//                $this->email->send();
 
             }
 			$data['redirect']="site/vieworder";
