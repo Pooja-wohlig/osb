@@ -83,7 +83,7 @@
 			<div class=" form-group">
 				<label class="col-sm-2 control-label" for="normal-field">Image</label>
 				<div class="col-sm-4">
-					<input type="file" id="normal-field" class="form-control" name="image" value="<?php echo set_value('image',$before->image);?>">
+					<input type="file" id="normal-field" class="form-control" name="image" value="<?php echo set_value('image',$before->image);?>" required>
 					<?php if($before->image == "") { } else { ?>
 					<img src="<?php echo base_url('uploads')." / ".$before->image; ?>" width="140px" height="140px">
 					<?php } ?>
@@ -160,13 +160,13 @@
 				  if($accesslevel==1)
 				  {
 				  ?>
-			<div class=" form-group" style="display:none">
+			<div class=" form-group">
 				<label class="col-sm-2 control-label" for="normal-field">Purchase Balance</label>
 				<div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="purchasebalance" value="<?php echo set_value('purchasebalance',$before->purchasebalance);?>">
 				</div>
 			</div>
-			<div class=" form-group" style="display:none">
+			<div class=" form-group">
 				<label class="col-sm-2 control-label" for="normal-field">Sales Balance</label>
 				<div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="salesbalance" value="<?php echo set_value('salesbalance',$before->salesbalance);?>">
@@ -183,7 +183,7 @@
 			<div class=" form-group">
 				<label class="col-sm-2 control-label" for="normal-field">Shop Logo</label>
 				<div class="col-sm-4">
-					<input type="file" id="normal-field" class="form-control" name="shoplogo" value="<?php echo set_value('shoplogo',$before->shoplogo);?>">
+					<input type="file" id="normal-field" class="form-control" name="shoplogo" value="<?php echo set_value('shoplogo',$before->shoplogo);?>" required>
 					<?php if($before->shoplogo == "") { } else { ?>
 					<img src="<?php echo base_url('uploads')." / ".$before->shoplogo; ?>" width="140px" height="140px">
 					<?php } ?>
