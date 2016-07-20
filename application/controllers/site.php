@@ -54,7 +54,7 @@ class Site extends CI_Controller
 		$this->checkaccess($access);
 		$this->form_validation->set_rules('name','Name','trim|required|max_length[30]');
 		$this->form_validation->set_rules('email','Email','trim|required|valid_email|is_unique[user.email]');
-		$this->form_validation->set_rules('password','Password','trim|required');
+		$this->form_validation->set_rules('password','Password','trim|required|max_length[6]');
 			$this->form_validation->set_rules('personalcontact','Personal Contact','trim|required|max_length[10]');
 		$this->form_validation->set_rules('confirmpassword','Confirm Password','trim|required|matches[password]');
 		$this->form_validation->set_rules('accesslevel','Accesslevel','trim|required');
