@@ -80,7 +80,7 @@
 				</div>
 			</div>
 
-			<div class=" form-group">
+			<!-- <div class=" form-group">
 				<label class="col-sm-3 control-label" for="normal-field">Image *</label>
 				<div class="col-sm-4">
 					<input type="file" id="normal-field" class="form-control" name="image" value="<?php echo set_value('image',$before->image);?>" required>
@@ -88,7 +88,7 @@
 					<img src="<?php echo base_url('uploads')."/".$before->image; ?>" width="140px" height="140px">
 					<?php } ?>
 				</div>
-			</div>
+			</div> -->
 
 <!--
 			<div class=" form-group">
@@ -111,7 +111,7 @@
 				</div>
 			</div>
 			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="normal-field">Address *</label>
+				<label class="col-sm-3 control-label" for="normal-field">Registered Address *</label>
 				<div class="col-sm-4">
 					<textarea type="text" id="normal-field" class="form-control" name="address" value="<?php echo set_value('address',$before->address);?>"><?php echo set_value('address',$before->address);?></textarea>
 				</div>
@@ -126,31 +126,31 @@
 				  </div>
 				</div>
 			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="normal-field">Description *</label>
+				<label class="col-sm-3 control-label" for="normal-field">Company / Product Description *</label>
 				<div class="col-sm-4">
 					<textarea rows="4" cols="50" id="normal-field" class="form-control" name="description" value="<?php echo set_value('description',$before->description);?>"><?php echo set_value('description',$before->description);?></textarea>
 				</div>
 			</div>
 			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="normal-field">Website *</label>
+				<label class="col-sm-3 control-label" for="normal-field">Website</label>
 				<div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="website" value="<?php echo set_value('website',$before->website);?>">
 				</div>
 			</div>
 			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="normal-field">Mobile Number *</label>
+				<label class="col-sm-3 control-label" for="normal-field">Mobile Number</label>
 				<div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="shopcontact1" value="<?php echo set_value('shopcontact1',$before->shopcontact1);?>">
 				</div>
 			</div>
 			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="normal-field">Landline Number *</label>
+				<label class="col-sm-3 control-label" for="normal-field">Landline Number</label>
 				<div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="shopcontact2" value="<?php echo set_value('shopcontact2',$before->shopcontact2);?>">
 				</div>
 			</div>
 			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="normal-field">Shop Email *</label>
+				<label class="col-sm-3 control-label" for="normal-field">Official Email ID *</label>
 				<div class="col-sm-4">
 					<input type="email" id="normal-field" class="form-control" name="shopemail" value="<?php echo set_value('shopemail',$before->shopemail);?>">
 				</div>
@@ -181,9 +181,9 @@
 				</div>
 			</div>
 			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="normal-field">Shop Logo *</label>
+				<label class="col-sm-3 control-label" for="normal-field">Company's Image / Logo *</label>
 				<div class="col-sm-4">
-					<input type="file" id="normal-field" class="form-control" name="shoplogo" value="<?php echo set_value('shoplogo',$before->shoplogo);?>" required>
+					<input type="file" id="normal-field" class="form-control" name="shoplogo" value="<?php echo set_value('shoplogo',$before->shoplogo);?>">
 					<?php if($before->shoplogo == "") { } else { ?>
 					<img src="<?php echo base_url('uploads')."/".$before->shoplogo; ?>" width="140px" height="140px">
 					<?php } ?>

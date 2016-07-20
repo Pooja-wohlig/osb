@@ -89,12 +89,12 @@
 				  </div>
 				</div>
 
-				<div class=" form-group">
+				<!-- <div class=" form-group">
 				  <label class="col-sm-3 control-label" for="normal-field">Image *</label>
 				  <div class="col-sm-4">
 					<input type="file" id="normal-field" class="form-control" name="image" value="<?php echo set_value('image');?>" required>
 				  </div>
-				</div>
+				</div> -->
 
 				<div class=" form-group">
 				  <label class="col-sm-3 control-label">Select Accesslevel *</label>
@@ -137,7 +137,7 @@
 				  </div>
 				</div>
 				<div class=" form-group">
-				  <label class="col-sm-3 control-label" for="normal-field">Address *</label>
+				  <label class="col-sm-3 control-label" for="normal-field">Registered Address *</label>
 				  <div class="col-sm-4">
 					<textarea rows="4" cols="50" id="normal-field" class="form-control" name="address" value="<?php echo set_value('address');?>"></textarea>
 				  </div>
@@ -152,7 +152,7 @@
 				  </div>
 				</div>
 				<div class=" form-group">
-				  <label class="col-sm-3 control-label" for="normal-field">Description *</label>
+				  <label class="col-sm-3 control-label" for="normal-field">Company / Product Description *</label>
 				  <div class="col-sm-4">
 					<textarea rows="4" cols="50" id="normal-field" class="form-control" name="description" value="<?php echo set_value('description');?>"></textarea>
 				  </div>
@@ -163,25 +163,25 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
 </textarea>
 -->
 					<div class=" form-group">
-				  <label class="col-sm-3 control-label" for="normal-field">Website *</label>
+				  <label class="col-sm-3 control-label" for="normal-field">Website</label>
 				  <div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="website" value="<?php echo set_value('website');?>">
 				  </div>
 				</div>
 					<div class=" form-group">
-				  <label class="col-sm-3 control-label" for="normal-field">Mobile Number *</label>
+				  <label class="col-sm-3 control-label" for="normal-field">Mobile Number</label>
 				  <div class="col-sm-4">
 					<input type="text" id="normal-field" maxlength="10" class="form-control" name="shopcontact1" value="<?php echo set_value('shopcontact1');?>">
 				  </div>
 				</div>
 				<div class=" form-group">
-				  <label class="col-sm-3 control-label" for="normal-field">Landline Number *</label>
+				  <label class="col-sm-3 control-label" for="normal-field">Landline Number</label>
 				  <div class="col-sm-4">
 					<input type="text" id="normal-field" maxlength="10" class="form-control" name="shopcontact2" value="<?php echo set_value('shopcontact2');?>">
 				  </div>
 				</div>
 				<div class=" form-group">
-				  <label class="col-sm-3 control-label" for="normal-field">Shop Email *</label>
+				  <label class="col-sm-3 control-label" for="normal-field">Official Email ID *</label>
 				  <div class="col-sm-4">
 					<input type="email" id="normal-field" class="form-control" name="shopemail" value="<?php echo set_value('shopemail');?>">
 				  </div>
@@ -206,9 +206,9 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
 				<?php }
 				  ?>
 				<div class=" form-group">
-				  <label class="col-sm-3 control-label" for="normal-field">Shop Logo *</label>
+				  <label class="col-sm-3 control-label" for="normal-field">Company's Image / Logo</label>
 				  <div class="col-sm-4">
-					<input type="file" id="normal-field" class="form-control" name="shoplogo" value="<?php echo set_value('shoplogo');?>" required>
+					<input type="file" id="normal-field" class="form-control" name="shoplogo" value="<?php echo set_value('shoplogo');?>">
 				  </div>
 				</div>
 				<div class=" form-group">
