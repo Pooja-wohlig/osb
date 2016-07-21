@@ -84,10 +84,7 @@ class Site extends CI_Controller
 		$this->form_validation->set_rules('onlinestatus','Is New User','trim|required');
 		$this->form_validation->set_rules('shopstatus','Shop Status','trim|required');
 		$this->form_validation->set_rules('termsaccept','Terms Accepted','trim|required');
-		if (empty($_FILES['userfile_2']['name']))
-			{
-			$this->form_validation->set_rules('userfile_2','Image 2','required');
-			}
+
 		if($this->form_validation->run() == FALSE)
 		{
 			$data['alerterror'] = validation_errors();
@@ -140,6 +137,7 @@ class Site extends CI_Controller
 			$onlinestatus=$this->input->post('onlinestatus');
 			$shopstatus=$this->input->post('shopstatus');
 			$termsaccept=$this->input->post('termsaccept');
+			$pan=$this->input->post('pan');
 //            $category=$this->input->post('category');
 
 
@@ -215,7 +213,7 @@ class Site extends CI_Controller
 
 			}
 
-		if($this->user_model->create($termsaccept,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus)==0)
+		if($this->user_model->create($termsaccept,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus,$pan)==0)
 		$data['alerterror']="New user could not be created.";
 			else
 			$data['alertsuccess']="User created Successfully.";
@@ -484,6 +482,7 @@ class Site extends CI_Controller
 			$onlinestatus=$this->input->post('onlinestatus');
 			$shopstatus=$this->input->post('shopstatus');
 				$termsaccept=$this->input->post('termsaccept');
+				$pan=$this->input->post('pan');
 //            $category=$this->input->get_post('category');
 
             $config['upload_path'] = './uploads/';
@@ -570,7 +569,7 @@ class Site extends CI_Controller
                // print_r($image);
                 $shoplogo=$shoplogo->image;
             }
-			if($this->user_model->edit($termsaccept,$id,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus)==0)
+			if($this->user_model->edit($termsaccept,$id,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus,$pan)==0)
 			$data['alerterror']="User Editing was unsuccesful";
 			else
 			$data['alertsuccess']="User edited Successfully.";

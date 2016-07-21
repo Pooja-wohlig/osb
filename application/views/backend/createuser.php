@@ -325,6 +325,13 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
 				</div>
 
 				<div class=" form-group">
+				<label class="col-sm-3 control-label" for="normal-field">Company Pancard no.</label>
+				<div class="col-sm-4">
+				<input type="text" id="normal-field" class="form-control" name="pan" value="<?php echo set_value('pan');?>">
+				</div>
+			</div>
+
+				<div class=" form-group">
 				  <label class="col-sm-3 control-label">&nbsp;</label>
 				  <div class="col-sm-4">
 				  <button type="submit" class="btn btn-primary">Save</button>

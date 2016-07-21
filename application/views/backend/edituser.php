@@ -262,6 +262,7 @@
 				  </div>
 				</div>
 
+
 <!--
 				<div class=" form-group">
 				  <label class="col-sm-3 control-label" for="normal-field">Online Status</label>
@@ -309,6 +310,13 @@
 										?>
 
 				</select>
+					</div>
+				</div>
+
+				<div class=" form-group">
+					<label class="col-sm-3 control-label" for="normal-field">Company Pancard no.</label>
+					<div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="pan" value="<?php echo set_value('pan',$before->pan);?>">
 					</div>
 				</div>
 
