@@ -5,49 +5,44 @@
 	<div class="panel-body">
 		<form class="form-horizontal tasi-form" method="post" action="<?php echo site_url('site/editusersubmit');?>" enctype="multipart/form-data">
 			<input type="hidden" id="normal-field" class="form-control" name="id" value="<?php echo set_value('id',$before->id);?>" style="display:none;">
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label class="col-sm-3 control-label" for="normal-field">Email</label>
 				<div class="col-sm-4">
 					<?php echo $before->email; ?>
 				</div>
+			</div> -->
+			<div class=" form-group">
+				<label class="col-sm-3 control-label" for="normal-field">Membership no *</label>
+				<div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="membershipno" value="<?php echo set_value('membershipno',$before->membershipno);?>">
+				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label" for="normal-field">Name *</label>
+				<label class="col-sm-3 control-label" for="normal-field">Owner Name *</label>
 				<div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="name" value="<?php echo set_value('name',$before->name);?>">
 				</div>
 			</div>
-
+			<div class=" form-group">
+				<label class="col-sm-3 control-label" for="normal-field">Company's Name *</label>
+				<div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="shopname" value="<?php echo set_value('shopname',$before->shopname);?>">
+				</div>
+			</div>
 			<div class=" form-group">
 				<label class="col-sm-3 control-label" for="normal-field">Email *</label>
 				<div class="col-sm-4">
 					<input type="email" id="normal-field" class="form-control" name="email" value="<?php echo set_value('email',$before->email);?>">
 				</div>
 			</div>
-			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="description-field">Password *</label>
-				<div class="col-sm-4">
-					<input type="password" id="description-field" class="form-control" name="password" value="">
-				</div>
-			</div>
-			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="description-field">Confirm Password *</label>
-				<div class="col-sm-4">
-					<input type="password" id="description-field" class="form-control" name="confirmpassword" value="">
-				</div>
-			</div>
+
 			<div class=" form-group" style="display:none">
 				  <label class="col-sm-3 control-label" for="normal-field">Message *</label>
 				  <div class="col-sm-4">
 					  <textarea rows="4" cols="50" id="normal-field" class="form-control" name="message" value="<?php echo set_value('message',$before->message);?>"><?php echo set_value('message',$before->message);?></textarea>
 				  </div>
 				</div>
-				<div class=" form-group">
-				<label class="col-sm-3 control-label" for="normal-field">Personal Contact *</label>
-				<div class="col-sm-4">
-					<input type="text" id="normal-field" class="form-control" name="personalcontact" value="<?php echo set_value('personalcontact',$before->personalcontact);?>">
-				</div>
-			</div>
+
 <!--
 			<div class=" form-group">
 				<label class="col-sm-3 control-label" for="normal-field">SocialId</label>
@@ -66,19 +61,9 @@
 			</div>
 -->
 
-			<div class=" form-group">
-				<label class="col-sm-3 control-label">Status *</label>
-				<div class="col-sm-4">
-					<?php echo form_dropdown( 'status',$status,set_value( 'status',$before->status),'class="chzn-select form-control" data-placeholder="Choose a Accesslevel..."'); ?>
-				</div>
-			</div>
 
-			<div class=" form-group">
-				<label class="col-sm-3 control-label">Select Accesslevel *</label>
-				<div class="col-sm-4">
-					<?php echo form_dropdown( 'accesslevel',$accesslevel,set_value( 'accesslevel',$before->accesslevel),'onchange="operatorcategories()"class="chzn-select form-control" data-placeholder="Choose a Accesslevel..."'); ?>
-				</div>
-			</div>
+
+
 
 			<!-- <div class=" form-group">
 				<label class="col-sm-3 control-label" for="normal-field">Image *</label>
@@ -98,16 +83,37 @@
 				</div>
 			</div>
 -->
+
+
+
 			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="normal-field">Shopname *</label>
+				<label class="col-sm-3 control-label" for="normal-field">Contact no. / Mobile no.</label>
 				<div class="col-sm-4">
-					<input type="text" id="normal-field" class="form-control" name="shopname" value="<?php echo set_value('shopname',$before->shopname);?>">
+					<input type="text" id="normal-field" class="form-control" name="shopcontact1" value="<?php echo set_value('shopcontact1',$before->shopcontact1);?>">
 				</div>
 			</div>
 			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="normal-field">Membership no *</label>
+				<label class="col-sm-3 control-label" for="normal-field">Landline.</label>
 				<div class="col-sm-4">
-					<input type="text" id="normal-field" class="form-control" name="membershipno" value="<?php echo set_value('membershipno',$before->membershipno);?>">
+					<input type="text" id="normal-field" class="form-control" name="shopcontact2" value="<?php echo set_value('shopcontact2',$before->shopcontact2);?>">
+				</div>
+			</div>
+			<div class=" form-group">
+				<label class="col-sm-3 control-label" for="normal-field">Official Email ID *</label>
+				<div class="col-sm-4">
+					<input type="email" id="normal-field" class="form-control" name="shopemail" value="<?php echo set_value('shopemail',$before->shopemail);?>">
+				</div>
+			</div>
+			<div class=" form-group">
+				<label class="col-sm-3 control-label" for="description-field">Password *</label>
+				<div class="col-sm-4">
+					<input type="password" id="description-field" class="form-control" name="password" value="">
+				</div>
+			</div>
+			<div class=" form-group">
+				<label class="col-sm-3 control-label" for="description-field">Confirm Password *</label>
+				<div class="col-sm-4">
+					<input type="password" id="description-field" class="form-control" name="confirmpassword" value="">
 				</div>
 			</div>
 			<div class=" form-group">
@@ -117,13 +123,13 @@
 				</div>
 			</div>
 			<div class=" form-group">
-				  <label class="col-sm-3 control-label">Area *</label>
-				  <div class="col-sm-4">
+					<label class="col-sm-3 control-label">Area *</label>
+					<div class="col-sm-4">
 					<?php
 
 						echo form_dropdown('area',$area,set_value('area',$before->area),'class="chzn-select form-control" 	data-placeholder="Choose a Accesslevel..."');
 					?>
-				  </div>
+					</div>
 				</div>
 			<div class=" form-group">
 				<label class="col-sm-3 control-label" for="normal-field">Company / Product Description *</label>
@@ -138,46 +144,9 @@
 				</div>
 			</div>
 			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="normal-field">Mobile Number</label>
+				<label class="col-sm-3 control-label" for="normal-field"> Company Pan Card no.</label>
 				<div class="col-sm-4">
-					<input type="text" id="normal-field" class="form-control" name="shopcontact1" value="<?php echo set_value('shopcontact1',$before->shopcontact1);?>">
-				</div>
-			</div>
-			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="normal-field">Landline Number</label>
-				<div class="col-sm-4">
-					<input type="text" id="normal-field" class="form-control" name="shopcontact2" value="<?php echo set_value('shopcontact2',$before->shopcontact2);?>">
-				</div>
-			</div>
-			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="normal-field">Official Email ID *</label>
-				<div class="col-sm-4">
-					<input type="email" id="normal-field" class="form-control" name="shopemail" value="<?php echo set_value('shopemail',$before->shopemail);?>">
-				</div>
-			</div>
-			<?php
-					$accesslevel=$this->session->userdata('accesslevel');
-				  if($accesslevel==1)
-				  {
-				  ?>
-			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="normal-field">Purchase Balance *</label>
-				<div class="col-sm-4">
-					<input type="text" id="normal-field" class="form-control" name="purchasebalance" value="<?php echo set_value('purchasebalance',$before->purchasebalance);?>">
-				</div>
-			</div>
-			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="normal-field">Sales Balance *</label>
-				<div class="col-sm-4">
-					<input type="text" id="normal-field" class="form-control" name="salesbalance" value="<?php echo set_value('salesbalance',$before->salesbalance);?>">
-				</div>
-			</div>
-			<?php }
-				  ?>
-			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="normal-field">Barter Percentage (in %) *</label>
-				<div class="col-sm-4">
-					<input type="text" id="normal-field" maxlength="3" class="form-control" name="percentpayment" value="<?php echo set_value('percentpayment',$before->percentpayment);?>">
+				<input type="text" id="normal-field" class="form-control" name="pan" value="<?php echo set_value('pan',$before->pan);?>">
 				</div>
 			</div>
 			<div class=" form-group">
@@ -189,6 +158,57 @@
 					<?php } ?>
 				</div>
 			</div>
+			<div class=" form-group">
+					<label class="col-sm-3 control-label">Is New User *</label>
+					<div class="col-sm-4">
+					<?php
+
+						echo form_dropdown('onlinestatus',$onlinestatus,set_value('onlinestatus',$before->onlinestatus),'class="chzn-select form-control" 	data-placeholder="Choose a Accesslevel..."');
+					?>
+					</div>
+				</div>
+				<div class=" form-group">
+					<label class="col-sm-3 control-label">Status *</label>
+					<div class="col-sm-4">
+						<?php echo form_dropdown( 'status',$status,set_value( 'status',$before->status),'class="chzn-select form-control" data-placeholder="Choose a Accesslevel..."'); ?>
+					</div>
+				</div>
+				<div class=" form-group">
+						<label class="col-sm-3 control-label">Company Status *</label>
+						<div class="col-sm-4">
+						<?php
+
+							echo form_dropdown('shopstatus',$shopstatus,set_value('shopstatus',$before->shopstatus),'class="chzn-select form-control" 	data-placeholder="Choose a Accesslevel..."');
+						?>
+						</div>
+					</div>
+					<?php
+							$accesslevel=$this->session->userdata('accesslevel');
+							if($accesslevel==1)
+							{
+							?>
+					<div class=" form-group">
+						<label class="col-sm-3 control-label" for="normal-field">Purchase Balance *</label>
+						<div class="col-sm-4">
+							<input type="text" id="normal-field" class="form-control" name="purchasebalance" value="<?php echo set_value('purchasebalance',$before->purchasebalance);?>">
+						</div>
+					</div>
+					<div class=" form-group">
+						<label class="col-sm-3 control-label" for="normal-field">Sales Balance *</label>
+						<div class="col-sm-4">
+							<input type="text" id="normal-field" class="form-control" name="salesbalance" value="<?php echo set_value('salesbalance',$before->salesbalance);?>">
+						</div>
+					</div>
+					<?php }
+							?>
+
+			<div class=" form-group">
+				<label class="col-sm-3 control-label" for="normal-field">Barter Percentage (in %) *</label>
+				<div class="col-sm-4">
+					<input type="text" id="normal-field" maxlength="3" class="form-control" name="percentpayment" value="<?php echo set_value('percentpayment',$before->percentpayment);?>">
+				</div>
+			</div>
+
 
 			<!--			shipping and billing-->
 				<div class=" form-group">
@@ -271,27 +291,11 @@
 				  </div>
 				</div>
 -->
-			<div class=" form-group">
-				  <label class="col-sm-3 control-label">Is New User *</label>
-				  <div class="col-sm-4">
-					<?php
 
-						echo form_dropdown('onlinestatus',$onlinestatus,set_value('onlinestatus',$before->onlinestatus),'class="chzn-select form-control" 	data-placeholder="Choose a Accesslevel..."');
-					?>
-				  </div>
-				</div>
-			<div class=" form-group">
-				  <label class="col-sm-3 control-label">Shop Status *</label>
-				  <div class="col-sm-4">
-					<?php
 
-						echo form_dropdown('shopstatus',$shopstatus,set_value('shopstatus',$before->shopstatus),'class="chzn-select form-control" 	data-placeholder="Choose a Accesslevel..."');
-					?>
-				  </div>
-				</div>
 
 				<div class=" form-group">
-					<label class="col-sm-3 control-label">Terms Accepted *</label>
+					<label class="col-sm-3 control-label">Terms *</label>
 					<div class="col-sm-4">
 				<select class="chzn-select form-control" name="termsaccept">
 					<?php
@@ -312,13 +316,14 @@
 				</select>
 					</div>
 				</div>
-
 				<div class=" form-group">
-					<label class="col-sm-3 control-label" for="normal-field">Company Pancard no.</label>
-					<div class="col-sm-4">
-					<input type="text" id="normal-field" class="form-control" name="pan" value="<?php echo set_value('pan',$before->pan);?>">
-					</div>
+				<label class="col-sm-3 control-label" for="normal-field">Personal Contact *</label>
+				<div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="personalcontact" value="<?php echo set_value('personalcontact',$before->personalcontact);?>">
 				</div>
+			</div>
+
+
 
 
 			<div class=" form-group">
