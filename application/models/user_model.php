@@ -32,7 +32,7 @@ class User_model extends CI_Model
 	}
 
 
-	public function create($termsaccept,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus,$pan)
+	public function create($termsaccept,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus,$pan,$city)
 	{
 		if($salesbalance==''){
 			$salesbalance=0;
@@ -86,7 +86,8 @@ class User_model extends CI_Model
 			'shippingpincode' => $shippingpincode,
 			'onlinestatus' => $onlinestatus,
 			'shopstatus' => $shopstatus,
-			'pan' => $pan
+			'pan' => $pan,
+			'city' => $city
 		);
 		$query=$this->db->insert( 'user', $data );
 		$id=$this->db->insert_id();
@@ -165,7 +166,7 @@ class User_model extends CI_Model
 		return $name;
 	}
 
-	public function edit($termsaccept,$id,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus,$pan)
+	public function edit($termsaccept,$id,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus,$pan,$city)
 	{
 		if($salesbalance==''){
 			$salesbalance=0;
@@ -219,7 +220,8 @@ class User_model extends CI_Model
 			'shippingpincode' => $shippingpincode,
 			'onlinestatus' => $onlinestatus,
 			'shopstatus' => $shopstatus,
-				'pan' => $pan
+				'pan' => $pan,
+					'city' => $city
 		);
 		if($password != "")
 			$data['password'] =md5($password);

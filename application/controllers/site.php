@@ -53,19 +53,19 @@ class Site extends CI_Controller
 		$access = array("1","2");
 		$this->checkaccess($access);
 		$this->form_validation->set_rules('name','Name','trim|required|max_length[30]');
-		$this->form_validation->set_rules('email','Email','trim|required|valid_email|is_unique[user.email]');
+		$this->form_validation->set_rules('email','Email','trim');
 		$this->form_validation->set_rules('password','Password','trim|required|max_length[6]');
-			$this->form_validation->set_rules('personalcontact','Personal Contact','trim|required|max_length[10]');
+			// $this->form_validation->set_rules('personalcontact','Personal Contact','trim|required|max_length[10]');
 		$this->form_validation->set_rules('confirmpassword','Confirm Password','trim|required|matches[password]');
 		$this->form_validation->set_rules('accesslevel','Accesslevel','trim|required');
 		$this->form_validation->set_rules('status','status','trim|required');
 		$this->form_validation->set_rules('area','area','trim|required');
 		$this->form_validation->set_rules('shopname','shopname','trim|required');
 		$this->form_validation->set_rules('membershipno','Membershipno','trim|required');
-		$this->form_validation->set_rules('address','address','trim|required');
+		// $this->form_validation->set_rules('address','address','trim|required');
 		$this->form_validation->set_rules('description','description','trim|required');
 		$this->form_validation->set_rules('website','website','trim');
-		$this->form_validation->set_rules('shopcontact1','shopcontact1','trim');
+		$this->form_validation->set_rules('shopcontact1','shopcontact1','trim|required');
 		$this->form_validation->set_rules('shopcontact2','shopcontact2','trim');
 		$this->form_validation->set_rules('shopemail','shopemail','trim|required');
 		$this->form_validation->set_rules('purchasebalance','purchasebalance','trim|required');
@@ -254,7 +254,7 @@ class Site extends CI_Controller
         $elements[1]->alias="name";
 
         $elements[2]=new stdClass();
-        $elements[2]->field="`user`.`email`";
+        $elements[2]->field="`user`.`shopemail`";
         $elements[2]->sort="1";
         $elements[2]->header="Email";
         $elements[2]->alias="email";
@@ -399,19 +399,19 @@ class Site extends CI_Controller
 		$this->checkaccess($access);
 
 		$this->form_validation->set_rules('name','Name','trim|required|max_length[30]');
-		$this->form_validation->set_rules('email','Email','trim|required|valid_email');
+		$this->form_validation->set_rules('email','Email','trim');
 		$this->form_validation->set_rules('password','Password','trim');
-			$this->form_validation->set_rules('personalcontact','Personal Contact','trim|required|max_length[10]');
+			// $this->form_validation->set_rules('personalcontact','Personal Contact','trim|required|max_length[10]');
 		$this->form_validation->set_rules('confirmpassword','Confirm Password','trim|matches[password]');
-		$this->form_validation->set_rules('accesslevel','Accesslevel','trim|required');
+		$this->form_validation->set_rules('accesslevel','Accesslevel','trim');
 		$this->form_validation->set_rules('status','status','trim|required');
 		$this->form_validation->set_rules('area','area','trim|required');
 		$this->form_validation->set_rules('shopname','shopname','trim|required');
 		$this->form_validation->set_rules('membershipno','Membershipno','trim|required');
-		$this->form_validation->set_rules('address','address','trim|required');
+		// $this->form_validation->set_rules('address','address','trim|required');
 		$this->form_validation->set_rules('description','description','trim|required');
 		$this->form_validation->set_rules('website','website','trim');
-		$this->form_validation->set_rules('shopcontact1','shopcontact1','trim');
+		$this->form_validation->set_rules('shopcontact1','shopcontact1','trim|required');
 		$this->form_validation->set_rules('shopcontact2','shopcontact2','trim');
 		$this->form_validation->set_rules('shopemail','shopemail','trim|required');
 		$this->form_validation->set_rules('purchasebalance','purchasebalance','trim|required');

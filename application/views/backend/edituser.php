@@ -29,13 +29,13 @@
 					<input type="text" id="normal-field" class="form-control" name="shopname" value="<?php echo set_value('shopname',$before->shopname);?>">
 				</div>
 			</div>
-			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="normal-field">Email *</label>
+
+			<div class=" form-group" style="display:none">
+				<label class="col-sm-3 control-label" for="normal-field">Admin Email</label>
 				<div class="col-sm-4">
 					<input type="email" id="normal-field" class="form-control" name="email" value="<?php echo set_value('email',$before->email);?>">
 				</div>
 			</div>
-
 			<div class=" form-group" style="display:none">
 				  <label class="col-sm-3 control-label" for="normal-field">Message *</label>
 				  <div class="col-sm-4">
@@ -87,7 +87,7 @@
 
 
 			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="normal-field">Contact no. / Mobile no.</label>
+				<label class="col-sm-3 control-label" for="normal-field">Contact no. / Mobile no. *</label>
 				<div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="shopcontact1" value="<?php echo set_value('shopcontact1',$before->shopcontact1);?>">
 				</div>
@@ -116,14 +116,20 @@
 					<input type="password" id="description-field" class="form-control" name="confirmpassword" value="">
 				</div>
 			</div>
-			<div class=" form-group">
+			<!-- <div class=" form-group">
 				<label class="col-sm-3 control-label" for="normal-field">Registered Address *</label>
 				<div class="col-sm-4">
 					<textarea type="text" id="normal-field" class="form-control" name="address" value="<?php echo set_value('address',$before->address);?>"><?php echo set_value('address',$before->address);?></textarea>
 				</div>
+			</div> -->
+			<div class=" form-group">
+				<label class="col-sm-3 control-label" for="normal-field">City *</label>
+				<div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="city" value="<?php echo set_value('city',$before->city);?>">
+				</div>
 			</div>
 			<div class=" form-group">
-					<label class="col-sm-3 control-label">Area *</label>
+					<label class="col-sm-3 control-label">State *</label>
 					<div class="col-sm-4">
 					<?php
 
@@ -205,7 +211,7 @@
 			<div class=" form-group">
 				<label class="col-sm-3 control-label" for="normal-field">Barter Percentage (in %) *</label>
 				<div class="col-sm-4">
-					<input type="text" id="normal-field" maxlength="3" class="form-control" name="percentpayment" value="<?php echo set_value('percentpayment',$before->percentpayment);?>">
+					<input type="number" id="normal-field" min="0" max="100" class="form-control" name="percentpayment" value="<?php echo set_value('percentpayment',$before->percentpayment);?>">
 				</div>
 			</div>
 
@@ -316,12 +322,12 @@
 				</select>
 					</div>
 				</div>
-				<div class=" form-group">
+				<!-- <div class=" form-group">
 				<label class="col-sm-3 control-label" for="normal-field">Personal Contact *</label>
 				<div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="personalcontact" value="<?php echo set_value('personalcontact',$before->personalcontact);?>">
 				</div>
-			</div>
+			</div> -->
 
 
 
