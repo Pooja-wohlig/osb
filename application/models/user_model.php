@@ -8,18 +8,18 @@ class User_model extends CI_Model
 	{
 
 		$password=md5($password);
-		$query ="SELECT `user`.`id`,`user`.`name` as `name`,`email`,`user`.`accesslevel`,`accesslevel`.`name` as `access` FROM `user`
+		$query ="SELECT `user`.`id`,`user`.`name` as `name`,`shopemail`,`user`.`accesslevel`,`accesslevel`.`name` as `access` FROM `user`
 		INNER JOIN `accesslevel` ON `user`.`accesslevel` = `accesslevel`.`id`
-		WHERE `email` LIKE '$username' AND `password` LIKE '$password' AND `accesslevel` IN (1,2) ";
+		WHERE `shopemail` LIKE '$username' AND `password` LIKE '$password' AND `accesslevel` IN (1,2) ";
 		$row =$this->db->query( $query );
 		if ( $row->num_rows() > 0 ) {
 			$row=$row->row();
 			$this->id = $row->id;
 			$this->name = $row->name;
-			$this->email = $row->email;
+			$this->shopemail = $row->shopemail;
 			$newdata        = array(
 				'id' => $this->id,
-				'email' => $this->email,
+				'shopemail' => $this->shopemail,
 				'name' => $this->name ,
 				'accesslevel' => $row->accesslevel ,
 				'logged_in' => 'true',
