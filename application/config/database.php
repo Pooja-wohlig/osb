@@ -55,9 +55,9 @@ $myserver=$_SERVER['SERVER_NAME'];
 if($myserver!="localhost")
 {
     $db['default']['hostname'] = 'localhost';
-    $db['default']['username'] = 'wohligco_osb';
-    $db['default']['password'] = 'osb123';
-    $db['default']['database'] = 'wohligco_osb';
+    $db['default']['username'] = 'swaap_osb';
+    $db['default']['password'] = 'wohlig123!@#';
+    $db['default']['database'] = 'swaap_osb';
     $db['default']['dbdriver'] = 'mysql';
     $db['default']['dbprefix'] = '';
     $db['default']['pconnect'] = TRUE;

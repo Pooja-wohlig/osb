@@ -214,13 +214,30 @@ class Site extends CI_Controller
                 }
 
 			}
+					if(preg_match('/^\d{10}$/',$shopcontact1)) // phone number is valid
+						{
+							$shopcontact1=$shopcontact1;
+							if($this->user_model->create($termsaccept,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus,$pan,$city)==0)
+							$data['alerterror']="New user could not be created.";
+							else
+							$data['alertsuccess']="User created Successfully.";
+							$data['redirect']="site/viewusers";
+							$this->load->view("redirect",$data);
+						}else{
+						$data['alerterror'] = "Contact no. / Mobile no. should be 10 digits";
+							$data['accesslevel']=$this->user_model->getaccesslevels();
+				            $data[ 'status' ] =$this->user_model->getstatusdropdown();
+				            $data[ 'area' ] =$this->area_model->getareadropdown();
+							$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();
+				            $data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
+							$data[ 'shopstatus' ] =$this->user_model->getshopstatusdropdown();
 
-		if($this->user_model->create($termsaccept,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus,$pan,$city)==0)
-		$data['alerterror']="New user could not be created.";
-			else
-			$data['alertsuccess']="User created Successfully.";
-			$data['redirect']="site/viewusers";
-			$this->load->view("redirect",$data);
+				//            $data['category']=$this->category_model->getcategorydropdown();
+				            $data[ 'page' ] = 'createuser';
+				            $data[ 'title' ] = 'Create User';
+				            $this->load->view( 'template', $data );
+						}
+
 		   }
 		   }
     function viewusers()
@@ -467,6 +484,8 @@ class Site extends CI_Controller
             $description=$this->input->post('description');
             $website=$this->input->post('website');
             $shopcontact1=$this->input->post('shopcontact1');
+
+
             $shopcontact2=$this->input->post('shopcontact2');
             $shopemail=$this->input->post('shopemail');
             $purchasebalance=$this->input->post('purchasebalance');
@@ -487,6 +506,8 @@ class Site extends CI_Controller
 				$termsaccept=$this->input->post('termsaccept');
 				$pan=$this->input->post('pan');
 				$city=$this->input->post('city');
+
+
 //            $category=$this->input->get_post('category');
 
             $config['upload_path'] = './uploads/';
@@ -573,14 +594,36 @@ class Site extends CI_Controller
                // print_r($image);
                 $shoplogo=$shoplogo->image;
             }
-			if($this->user_model->edit($termsaccept,$id,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus,$pan,$city)==0)
-			$data['alerterror']="User Editing was unsuccesful";
-			else
-			$data['alertsuccess']="User edited Successfully.";
+						if(preg_match('/^\d{10}$/',$shopcontact1)) // phone number is valid
+							{
+								$shopcontact1 =$shopcontact1;
+								if($this->user_model->edit($termsaccept,$id,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus,$pan,$city)==0)
+								$data['alerterror']="User Editing was unsuccesful";
+								else
+								$data['alertsuccess']="User edited Successfully.";
 
-			$data['redirect']="site/viewusers";
-			//$data['other']="template=$template";
-			$this->load->view("redirect",$data);
+								$data['redirect']="site/viewusers";
+								//$data['other']="template=$template";
+								$this->load->view("redirect",$data);
+
+								// your other code here
+							}
+							else // phone number is not valid
+							{
+										$data['alerterror'] = "Contact no. / Mobile no. should be 10 digits";
+										$data[ 'status' ] =$this->user_model->getstatusdropdown();
+										$data['accesslevel']=$this->user_model->getaccesslevels();
+													$data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
+										 $data[ 'area' ] =$this->area_model->getareadropdown();
+										$data[ 'onlinestatus' ] =$this->user_model->getonlinestatusdropdown();
+										$data[ 'shopstatus' ] =$this->user_model->getshopstatusdropdown();
+										$data['before']=$this->user_model->beforeedit($this->input->post('id'));
+										$data['page']='edituser';
+							//			$data['page2']='block/userblock';
+										$data['title']='Edit User';
+										$this->load->view('template',$data);
+							}
+
 
 		}
 	}
