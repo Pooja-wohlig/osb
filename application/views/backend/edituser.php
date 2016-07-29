@@ -116,12 +116,12 @@
 					<input type="password" id="description-field" class="form-control" name="confirmpassword" value="">
 				</div>
 			</div>
-			<!-- <div class=" form-group">
+			<div class=" form-group">
 				<label class="col-sm-3 control-label" for="normal-field">Registered Address *</label>
 				<div class="col-sm-4">
 					<textarea type="text" id="normal-field" class="form-control" name="address" value="<?php echo set_value('address',$before->address);?>"><?php echo set_value('address',$before->address);?></textarea>
 				</div>
-			</div> -->
+			</div>
 			<div class=" form-group">
 				<label class="col-sm-3 control-label" for="normal-field">City *</label>
 				<div class="col-sm-4">

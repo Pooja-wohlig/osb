@@ -62,7 +62,7 @@ class Site extends CI_Controller
 		$this->form_validation->set_rules('area','area','trim|required');
 		$this->form_validation->set_rules('shopname','shopname','trim|required');
 		$this->form_validation->set_rules('membershipno','Membershipno','trim|required');
-		// $this->form_validation->set_rules('address','address','trim|required');
+		$this->form_validation->set_rules('address','address','trim|required');
 		$this->form_validation->set_rules('description','description','trim|required');
 		$this->form_validation->set_rules('website','website','trim');
 		$this->form_validation->set_rules('shopcontact1','shopcontact1','trim|required');
@@ -425,7 +425,7 @@ class Site extends CI_Controller
 		$this->form_validation->set_rules('area','area','trim|required');
 		$this->form_validation->set_rules('shopname','shopname','trim|required');
 		$this->form_validation->set_rules('membershipno','Membershipno','trim|required');
-		// $this->form_validation->set_rules('address','address','trim|required');
+		$this->form_validation->set_rules('address','address','trim|required');
 		$this->form_validation->set_rules('description','description','trim|required');
 		$this->form_validation->set_rules('website','website','trim');
 		$this->form_validation->set_rules('shopcontact1','shopcontact1','trim|required');
