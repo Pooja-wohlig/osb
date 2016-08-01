@@ -1561,4 +1561,29 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $this->load->view('json',$data);
     }
 
+    // hotel submit
+
+    function hotelSubmit()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+        if(!empty($data)){
+          $user=$data['user'];
+          $country=$data['country'];
+          $city=$data['city'];
+          $hotelname=$data['hotelname'];
+          $checkin=$data['checkin'];
+          $checkout=$data['checkout'];
+          $room=$data['room'];
+          $adult=$data['adult'];
+          $children=$data['children'];
+            $data['message']=$this->restapi_model->hotelSubmit($user,$country,$city,$hotelname,$checkin,$checkout,$room,$adult,$children);
+        }
+        else{
+              $data['message']=0;
+        }
+
+
+        $this->load->view("json",$data);
+    }
+
 }

@@ -160,7 +160,7 @@ public function sellingapproval($user) {
             }
         } else {
 //            echo "New password and confirm password do not match!!!";
-			return -1;
+			          return -1;
         }
     }
     public function getareacategory($area, $category) {
@@ -176,6 +176,24 @@ public function sellingapproval($user) {
         $this->user_model->sendnotification("You have a new Purchase Request for Amount: $amount",$userto);
         if (!$query) return 0;
         else return $id;
+    }
+    public function hotelSubmit($user,$country,$city,$hotelname,$checkin,$checkout,$room,$adult,$children) {
+
+        $data = array("user" => $user, "country" => $country, "city" => $city, "hotelname" => $hotelname, "checkin" => $checkin, "checkout" => $checkout, "room" => $room, "adult" => $adult, "children" => $children);
+        $query = $this->db->insert("hotel", $data);
+        // $id = $this->db->insert_id();
+        // $this->user_model->sendnotification("You have a new Purchase Request for Amount: $amount",$userto);
+        if (!$query) {
+             $object = new stdClass();
+             $object->data = 'Problem';
+             $object->value = false;
+        }
+        else {
+            $object = new stdClass();
+            $object->data = 'Inserted';
+            $object->value = true;
+        }
+        return $object;
     }
     public function purchaserequest($userfrom, $userto, $amount, $reason) {
 
@@ -864,10 +882,14 @@ return  $id;
 	$data=array("user" => $user,"message" => $message);
 $query=$this->db->insert( "suggestion", $data );
 $id=$this->db->insert_id();
+$obj= new stdClass();
+
 if(!$query)
-return  0;
+$obj->data="Not Inserted";
+$obj->value=false;
 else
-return  $id;
+$obj->data="Inserted";
+$obj->value=true;
 	}
     public function sendNotificationIos($title)
     {

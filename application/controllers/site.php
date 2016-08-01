@@ -4024,5 +4024,151 @@ $this->load->view("redirect",$data);
 
     }
 
+
+
+		// hotel
+
+
+		public function viewhotel()
+		{
+				$access=array("1","2");
+				$this->checkaccess($access);
+				$data["page"]="viewhotel";
+				$data[ 'user' ] =$this->user_model->getuserdropdown();
+				$data["base_url"]=site_url("site/viewhoteljson");
+				$data["title"]="View hotel";
+				$data['activemenu'] = 'hotel';
+				$this->load->view("template",$data);
+		}
+		function viewhoteljson()
+		{
+				$elements=array();
+				$elements[0]=new stdClass();
+				$elements[0]->field="`hotel`.`id`";
+				$elements[0]->sort="1";
+				$elements[0]->header="ID";
+				$elements[0]->alias="id";
+
+				$elements[1]=new stdClass();
+				$elements[1]->field="`hotel`.`hotelname`";
+				$elements[1]->sort="1";
+				$elements[1]->header="Hotel Name";
+				$elements[1]->alias="hotelname";
+
+
+				$search=$this->input->get_post("search");
+				$pageno=$this->input->get_post("pageno");
+				$orderby=$this->input->get_post("orderby");
+				$orderorder=$this->input->get_post("orderorder");
+				$maxrow=$this->input->get_post("maxrow");
+				if($maxrow=="")
+				{
+				$maxrow=20;
+				}
+				if($orderby=="")
+				{
+				$orderby="id";
+				$orderorder="ASC";
+				}
+				$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `hotel`");
+				$this->load->view("json",$data);
+		}
+
+		public function createhotel()
+		{
+				$access=array("1","2");
+				$this->checkaccess($access);
+				$data[ 'user' ] =$this->user_model->getuserdropdown();
+				$data["page"]="createhotel";
+				$data["title"]="Create hotel";
+				$this->load->view("template",$data);
+		}
+		public function createhotelsubmit()
+		{
+				$access=array("1","2");
+				$this->checkaccess($access);
+				$this->form_validation->set_rules("message","Message","trim");
+				if($this->form_validation->run()==FALSE)
+				{
+						$data["alerterror"]=validation_errors();
+						$data[ 'user' ] =$this->user_model->getuserdropdown();
+						$data["page"]="createhotel";
+						$data["title"]="Create hotel";
+						$this->load->view("template",$data);
+				}
+				else
+				{
+					$country=$this->input->get_post("country");
+					$user=$this->input->get_post("user");
+					$city=$this->input->get_post("city");
+					$hotelname=$this->input->get_post("hotelname");
+					$checkin=$this->input->get_post("checkin");
+					$checkout=$this->input->get_post("checkout");
+					$room=$this->input->get_post("room");
+					$adult=$this->input->get_post("adult");
+					$children=$this->input->get_post("children");
+						if($this->hotel_model->create($user,$country,$city,$hotelname,$checkin,$checkout,$room,$adult,$children)==0)
+						$data["alerterror"]="New hotel could not be created.";
+						else
+						$data["alertsuccess"]="hotel created Successfully.";
+						$data["redirect"]="site/viewhotel";
+						$this->load->view("redirect",$data);
+				}
+		}
+		public function edithotel()
+		{
+				$access=array("1","2");
+				$this->checkaccess($access);
+				$data[ 'user' ] =$this->user_model->getuserdropdown();
+				$data["page"]="edithotel";
+				$data["title"]="Edit hotel";
+				$data["before"]=$this->hotel_model->beforeedit($this->input->get("id"));
+				$this->load->view("template",$data);
+		}
+		public function edithotelsubmit()
+		{
+				$access=array("1","2");
+				$this->checkaccess($access);
+				$this->form_validation->set_rules("id","ID","trim");
+				$this->form_validation->set_rules("message","Message","trim");
+				if($this->form_validation->run()==FALSE)
+				{
+						$data["alerterror"]=validation_errors();
+						$data[ 'user' ] =$this->user_model->getuserdropdown();
+						$data["page"]="edithotel";
+						$data["title"]="Edit hotel";
+						$data["before"]=$this->hotel_model->beforeedit($this->input->get("id"));
+						$this->load->view("template",$data);
+				}
+				else
+				{
+						$id=$this->input->get_post("id");
+						$country=$this->input->get_post("country");
+						$user=$this->input->get_post("user");
+						$city=$this->input->get_post("city");
+						$hotelname=$this->input->get_post("hotelname");
+						$checkin=$this->input->get_post("checkin");
+						$checkout=$this->input->get_post("checkout");
+						$room=$this->input->get_post("room");
+						$adult=$this->input->get_post("adult");
+						$children=$this->input->get_post("children");
+						$timestamp=$this->input->get_post("timestamp");
+						if($this->hotel_model->edit($id,$user,$country,$city,$hotelname,$checkin,$checkout,$room,$adult,$children,$timestamp)==0)
+						$data["alerterror"]="New hotel could not be Updated.";
+						else
+						$data["alertsuccess"]="hotel Updated Successfully.";
+						$data["redirect"]="site/viewhotel";
+						$this->load->view("redirect",$data);
+				}
+		}
+		public function deletehotel()
+		{
+				$access=array("1","2");
+				$this->checkaccess($access);
+				$this->hotel_model->delete($this->input->get("id"));
+				$data["redirect"]="site/viewhotel";
+				$this->load->view("redirect",$data);
+		}
+
 }
 ?>
