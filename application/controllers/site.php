@@ -4055,6 +4055,12 @@ $this->load->view("redirect",$data);
 				$elements[1]->header="Hotel Name";
 				$elements[1]->alias="hotelname";
 
+				$elements[2]=new stdClass();
+				$elements[2]->field="`hotel`.`timestamp`";
+				$elements[2]->sort="1";
+				$elements[2]->header="Timestamp";
+				$elements[2]->alias="timestamp";
+
 
 				$search=$this->input->get_post("search");
 				$pageno=$this->input->get_post("pageno");

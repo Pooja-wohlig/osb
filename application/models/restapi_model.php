@@ -181,14 +181,20 @@ public function sellingapproval($user) {
 
         $data = array("user" => $user, "country" => $country, "city" => $city, "hotelname" => $hotelname, "checkin" => $checkin, "checkout" => $checkout, "room" => $room, "adult" => $adult, "children" => $children);
         $query = $this->db->insert("hotel", $data);
-        // $id = $this->db->insert_id();
-        // $this->user_model->sendnotification("You have a new Purchase Request for Amount: $amount",$userto);
+        $id = $this->db->insert_id();
+
+        $data['hotel']= $this->db->query("SELECT `hotel`.`id`, `hotel`.`country`, `hotel`.`city`, `hotel`.`hotelname`, `hotel`.`checkin`, `hotel`.`checkout`, `hotel`.`room`, `hotel`.`adult`, `hotel`.`children`, `hotel`.`timestamp`, `hotel`.`user` ,`user`.`membershipno`,`user`.`shopname` FROM `hotel`
+INNER JOIN `user` ON `user`.`id`=`hotel`.`user`
+WHERE `hotel`.`id`='$id'")->row();
+
         if (!$query) {
              $object = new stdClass();
              $object->data = 'Problem';
              $object->value = false;
         }
         else {
+            $htmltext = $this->load->view('emailers/hotelinfo', $data, true);
+            $this->email_model->emailer($htmltext,'Hotel Form Submission','pooja@wohlig.com',"Sir/Madam");
             $object = new stdClass();
             $object->data = 'Inserted';
             $object->value = true;
@@ -884,12 +890,15 @@ $query=$this->db->insert( "suggestion", $data );
 $id=$this->db->insert_id();
 $obj= new stdClass();
 
-if(!$query)
-$obj->data="Not Inserted";
-$obj->value=false;
-else
-$obj->data="Inserted";
-$obj->value=true;
+    if(!$query){
+      $obj->data="Not Inserted";
+      $obj->value=false;
+    }
+    else{
+      $obj->data="Inserted";
+      $obj->value=true;
+    }
+
 	}
     public function sendNotificationIos($title)
     {
