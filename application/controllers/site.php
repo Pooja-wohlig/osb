@@ -23,7 +23,7 @@ class Site extends CI_Controller
 	public function index()
 	{
 		$access = array("1","2");
-		$this->checkaccess($access);                                                                                                           
+		$this->checkaccess($access);
 		$data[ 'page' ] = 'dashboard';
         $data['activemenu'] = 'dashboard';
         $data['order']=$this->order_model->getPendingOrderCount();
@@ -3660,8 +3660,14 @@ $this->load->view("redirect",$data);
         $elements[1]=new stdClass();
         $elements[1]->field="`user`.`shopname`";
         $elements[1]->sort="1";
-        $elements[1]->header="User";
-        $elements[1]->alias="user";
+        $elements[1]->header="Shopname";
+        $elements[1]->alias="userid";
+
+				$elements[3]=new stdClass();
+				$elements[3]->field="`suggestion`.`user`";
+				$elements[3]->sort="1";
+				$elements[3]->header="Email";
+				$elements[3]->alias="user";
 
 		$elements[2]=new stdClass();
         $elements[2]->field="ADDTIME(`suggestion`.`timestamp`,'0 05:30:00')";
@@ -3683,7 +3689,7 @@ $this->load->view("redirect",$data);
         $orderby="id";
         $orderorder="ASC";
         }
-        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `suggestion` LEFT OUTER JOIN `user` ON `suggestion`.`user`=`user`.`id` ");
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `suggestion` LEFT OUTER JOIN `user` ON `suggestion`.`userid`=`user`.`id` ");
         $this->load->view("json",$data);
     }
 
