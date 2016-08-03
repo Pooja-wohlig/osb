@@ -194,7 +194,7 @@ WHERE `hotel`.`id`='$id'")->row();
         }
         else {
             $htmltext = $this->load->view('emailers/hotelinfo', $data, true);
-            $this->email_model->emailer($htmltext,'Hotel Form Submission','pooja@wohlig.com',"Sir/Madam");
+            $this->email_model->emailer($htmltext,'Hotel Form Submission','swaapindia@gmail.com',"Sir/Madam");
             $object = new stdClass();
             $object->data = 'Inserted';
             $object->value = true;
@@ -901,7 +901,7 @@ WHERE `suggestion`.`id`='$id'")->row();
     }
     else{
       $htmltext = $this->load->view('emailers/faqinfo', $data, true);
-      $this->email_model->emailer($htmltext,'Faq Form Submission','pooja@wohlig.com',"Sir/Madam");
+      $this->email_model->emailer($htmltext,'Faq Form Submission','swaapindia@gmail.com',"Sir/Madam");
       $obj->data="Inserted";
       $obj->value=true;
     }

@@ -13,7 +13,7 @@ class email_model extends CI_Model
         $pass=base64_decode($password);
 				$json_string = array(
 					'to' => array(
-						'pooja@wohlig.com'
+						'swaapindia@gmail.com'
 						// 'vinodwohlig@gmail.com','rajwohlig@gmail.com'
 					),
 					'category' => 'test_category'
