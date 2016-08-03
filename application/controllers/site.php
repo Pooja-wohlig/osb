@@ -23,7 +23,7 @@ class Site extends CI_Controller
 	public function index()
 	{
 		$access = array("1","2");
-		$this->checkaccess($access);
+		$this->checkaccess($access);                                                                                                           
 		$data[ 'page' ] = 'dashboard';
         $data['activemenu'] = 'dashboard';
         $data['order']=$this->order_model->getPendingOrderCount();

@@ -1481,10 +1481,19 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
 		$this->load->view('json',$data);
  }
  public function submitsuggestion(){
-	 $user=$this->input->get("user");
-	 $message=$this->input->get("suggestion");
-		$data['message']=$this->restapi_model->submitsuggestion($user,$message);
-		$this->load->view('json',$data);
+      $data = json_decode(file_get_contents('php://input'), true);
+      if(!empty($data)){
+        $user=$data['user'];
+        $suggestion=$data['suggestion'];
+        $userid=$data['userid'];
+          $data['message']=$this->restapi_model->submitsuggestion($user,$suggestion,$userid);
+      }
+      else{
+            $data['message']=0;
+      }
+
+
+  $this->load->view("json",$data);
  }
     public function forgotpassword()
     {
@@ -1586,4 +1595,10 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $this->load->view("json",$data);
     }
 
-}
+    public function testing(){
+      for($i=1;$i<=100;$i++){
+          echo '<option value="'.$i.'">'.$i.'</option>';
+      }
+    }
+
+}?>

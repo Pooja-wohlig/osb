@@ -884,20 +884,28 @@ return  $id;
 	$query=$this->db->query("UPDATE `user` SET `onlinestatus`=0 WHERE `id`='$user'" );
 		return 1;
 	}
-	public function submitsuggestion($user,$message){
-	$data=array("user" => $user,"message" => $message);
-$query=$this->db->insert( "suggestion", $data );
-$id=$this->db->insert_id();
-$obj= new stdClass();
+	public function submitsuggestion($user,$message,$userid){
+	$data=array("user" => $user,"message" => $message,"userid" => $userid);
+  $query=$this->db->insert( "suggestion", $data );
+  $id=$this->db->insert_id();
+
+
+  $data['suggestion']= $this->db->query("SELECT `suggestion`.`id`, `suggestion`.`message`, `suggestion`.`user`,`user`.`membershipno`,`user`.`shopname` FROM `suggestion`
+INNER JOIN `user` ON `user`.`id`=`suggestion`.`userid`
+WHERE `suggestion`.`id`='$id'")->row();
+  $obj= new stdClass();
 
     if(!$query){
       $obj->data="Not Inserted";
       $obj->value=false;
     }
     else{
+      $htmltext = $this->load->view('emailers/faqinfo', $data, true);
+      $this->email_model->emailer($htmltext,'Faq Form Submission','pooja@wohlig.com',"Sir/Madam");
       $obj->data="Inserted";
       $obj->value=true;
     }
+    return $obj;
 
 	}
     public function sendNotificationIos($title)

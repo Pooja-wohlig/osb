@@ -5,7 +5,6 @@
 <span>
   <b>Shop Name :</b>
 </span>
-&nbps;&nbps;
 <span>
   <?php echo $hotel->shopname;?>
 </span>
@@ -16,7 +15,6 @@
 <span>
   <b>Membership No.:</b>
 </span>
-&nbps;&nbps;
 <span>
   <?php echo $hotel->membershipno;?>
 </span>
@@ -27,7 +25,6 @@
 <span>
   <b>Country:</b>
 </span>
-&nbps;&nbps;
 <span>
   <?php echo $hotel->country;?>
 </span>
@@ -37,7 +34,6 @@
 <span>
   <b>City:</b>
 </span>
-&nbps;&nbps;
 <span>
   <?php echo $hotel->city;?>
 </span>
@@ -47,7 +43,6 @@
 <span>
   <b>Hotels:</b>
 </span>
-&nbps;&nbps;
 <span>
   <?php echo $hotel->hotelname;?>
 </span>
@@ -57,7 +52,6 @@
 <span>
   <b>Check In Date:</b>
 </span>
-&nbps;&nbps;
 <span>
   <?php echo $hotel->checkin;?>
 </span>
@@ -67,7 +61,6 @@
 <span>
   <b>Check Out Date:</b>
 </span>
-&nbps;&nbps;
 <span>
   <?php echo $hotel->checkout;?>
 </span>
@@ -77,7 +70,6 @@
 <span>
   <b>Number of Rooms:</b>
 </span>
-&nbps;&nbps;
 <span>
   <?php echo $hotel->room;?>
 </span>
@@ -87,7 +79,6 @@
 <span>
   <b>Number of Adults:</b>
 </span>
-&nbps;&nbps;
 <span>
   <?php echo $hotel->adult;?>
 </span>
@@ -97,7 +88,6 @@
 <span>
   <b>Number of Childrens:</b>
 </span>
-&nbps;&nbps;
 <span>
   <?php echo $hotel->children;?>
 </span>
