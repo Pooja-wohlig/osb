@@ -1501,10 +1501,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         //set POST variables
         $email=$this->input->get_post('email');
         $userid=$this->user_model->getidbyemail($email);
-		$this->load->helper('string');
-        $randompassword=random_string('alnum',8);
-		$data['message']=$this->user_model->forgotpasswordsubmit($randompassword,$userid);
-//        echo "userid=".$userid."end";
+
         if($userid=="")
         {
             $data['message']="Not A Valid Email.";
@@ -1512,36 +1509,13 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         }
         else
         {
-//        $link="<a href='http://magicmirror.com/#/resetpassword/$hashvalue'>Click here </a> To Reset Your Password.";
-
-        $this->load->library('email');
-        $this->email->from('dhavalwohlig@gmail.com', 'One Stop Barter');
-        $this->email->to($email);
-        $this->email->subject('Welcome to OSB');
-
-        $message = "<html>
-
-      <body>
-    <div style='text-align:center;   width: 50%; margin: 0 auto;'>
-        <h4 style='font-size:1.5em;padding-bottom: 5px;color: #e82a96;'>One Stop Barter</h4>
-        <p style='font-size: 1em;padding-bottom: 10px;'>Your password is:</p>
-        <p style='font-size: 1em;padding-bottom: 10px;'>$randompassword</p>
-    </div>
-    <div style='text-align:center;position: relative;'>
-        <p style=' position: absolute; top: 8%;left: 50%; transform: translatex(-50%); font-size: 1em;margin: 0; letter-spacing:2px; font-weight: bold;'>
-            Thank You
-        </p>
-    </div>
-</body>
-
-</html>";
-        $this->email->message($message);
-        $this->email->send();
-//        $data["message"] = $this->email->print_debugger();
+          $this->load->helper('string');
+              $randompassword=random_string('alnum',8);
+          $data['message']=$this->user_model->forgotpasswordsubmit($randompassword,$userid);
         $data["message"] = 'true';
         $this->load->view("json", $data);
 
-    }
+        }
     }
   public function sendNotification()
     {

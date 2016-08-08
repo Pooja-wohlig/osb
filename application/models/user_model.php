@@ -843,7 +843,7 @@ else
 	function getidbyemail($useremail)
 	{
 		$query = $this->db->query("SELECT `id` FROM `user`
-		WHERE `email`='$useremail'")->row();
+		WHERE `membershipno`='$useremail'")->row();
         $userid=$query->id;
 		return $userid;
 	}
@@ -851,14 +851,22 @@ else
 
     function forgotpasswordsubmit($password,$userid)
     {
+				$getemail = $this->db->query("SELECT * FROM `user`
+				WHERE `id`='$userid'")->row();
+				$shopemail=$getemail->shopemail;
+				$newpassword=$password;
         $password=md5($password);
-        $query=$this->db->query("UPDATE `user` SET `password`='$password' WHERE `id`='$userid'");
 
-		if(!$query)
-			return  0;
-		else
-			return  1;
-    }
+        $data["newpassword"]=$newpassword;
+        $query=$this->db->query("UPDATE `user` SET `password`='$password' WHERE `id`='$userid'");
+				// send forgot password mail
+				$htmltext = $this->load->view('emailers/forgotpassword', $data, true);
+				$this->email_model->emailer($htmltext,'Forgot Password',$shopemail,"Sir/Madam");
+				if(!$query)
+					return  0;
+				else
+					return  1;
+		}
 	function exportexcelreport($sd,$ed)
 		{
 

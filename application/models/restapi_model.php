@@ -105,11 +105,6 @@ public function sellingapproval($user) {
               $query=$this->db->query("UPDATE `user` SET `user`.`purchasebalance`=`user`.`purchasebalance`-$amount WHERE `user`.`id`= '$userfrom'" );
               $query=$this->db->query("UPDATE `user` SET `user`.`salesbalance`=`user`.`salesbalance`-$amount WHERE `user`.`id`= '$userto'" );
 
-//                        $gettransactionid=$this->db->query("SELECT CONCAT(LPAD(`id`,6,0)) as `concatedid` FROM `osb_transaction` WHERE id='$id'" )->row();
-//                        $concatedid=$gettransactionid->concatedid;
-                    //notifications
-//                    $this->user_model->sendnotification("Your Purchase Request for Amount: $amount is accepted AND transaction id is '$concatedid'",$userfrom);
-
                 $this->user_model->sendnotification("Your Purchase Request for Amount : Rs. ".$amount." is accepted. Transaction Id : ".$transid ,$userfrom);
                 $query1=$this->db->query("SELECT `salesbalance` FROM `user` WHERE id='$userto'" )->row();
                 $salesbalance=$query1->salesbalance;
@@ -183,9 +178,9 @@ public function sellingapproval($user) {
         $query = $this->db->insert("hotel", $data);
         $id = $this->db->insert_id();
 
-        $data['hotel']= $this->db->query("SELECT `hotel`.`id`, `hotel`.`country`, `hotel`.`city`, `hotel`.`hotelname`, `hotel`.`checkin`, `hotel`.`checkout`, `hotel`.`room`, `hotel`.`adult`, `hotel`.`children`, `hotel`.`timestamp`, `hotel`.`user` ,`user`.`membershipno`,`user`.`shopname` FROM `hotel`
-INNER JOIN `user` ON `user`.`id`=`hotel`.`user`
-WHERE `hotel`.`id`='$id'")->row();
+        $data['hotel']= $this->db->query("SELECT `hotel`.`id`, `hotel`.`country`, `hotel`.`city`, `hotel`.`hotelname`,DATE_FORMAT(`hotel`.`checkin`,'%d-%m-%Y') as `checkin`,DATE_FORMAT(`hotel`.`checkout`,'%d-%m-%Y') as `checkout`, `hotel`.`room`, `hotel`.`adult`, `hotel`.`children`, `hotel`.`timestamp`, `hotel`.`user` ,`user`.`membershipno`,`user`.`shopname` FROM `hotel`
+          INNER JOIN `user` ON `user`.`id`=`hotel`.`user`
+          WHERE `hotel`.`id`='$id'")->row();
 
         if (!$query) {
              $object = new stdClass();
@@ -815,7 +810,7 @@ return  $id;
 
     public function searchproduct($product,$membershipno,$category,$priceorder)
     {
-		$wherequery="";
+		    $wherequery="";
         $orderclause="";
 
 		if ($membershipno != "0" && $membershipno != "")
@@ -844,7 +839,7 @@ return  $id;
 		{
 			if ($product != "0" && $product != "")
 			{
-				$wherequery .= " AND `product`.`name` LIKE '%$product%'";
+				$wherequery .= " AND (`product`.`name` LIKE '%$product%' OR `product`.`description` LIKE '%$product%')";
 			}
 			if ($category != "0" && $category != "")
 			{

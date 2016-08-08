@@ -11,18 +11,18 @@ class email_model extends CI_Model
         $url = 'https://api.sendgrid.com/';
         $user=base64_decode($username);
         $pass=base64_decode($password);
-				$json_string = array(
-					'to' => array(
-						'swaapindia@gmail.com'
-						// 'vinodwohlig@gmail.com','rajwohlig@gmail.com'
-					),
-					'category' => 'test_category'
-				);
+				// $json_string = array(
+				// 	'to' => array(
+				// 		'swaapindia@gmail.com'
+				// 		// 'vinodwohlig@gmail.com','rajwohlig@gmail.com'
+				// 	),
+				// 	'category' => 'test_category'
+				// );
 				// print_r($json_string);
         $params = array(
             'api_user'  => $user,
             'api_key'   => $pass,
-						'x-smtpapi' => json_encode($json_string),
+						// 'x-smtpapi' => json_encode($json_string),
             'to'        => $toemail,
             'subject'   => $subject,
             'html'      => $htmltext,

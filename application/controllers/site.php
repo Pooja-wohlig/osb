@@ -214,7 +214,7 @@ class Site extends CI_Controller
                 }
 
 			}
-					if(preg_match('/^\d{10}$/',$shopcontact1)) // phone number is valid
+					if(preg_match('/^\d{10}$/',$shopcontact1) && preg_match('/^\d{6}$/',$billingpincode) && preg_match('/^\d{6}$/',$shippingpincode)) // phone number is valid
 						{
 							$shopcontact1=$shopcontact1;
 							if($this->user_model->create($termsaccept,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus,$pan,$city)==0)
@@ -224,7 +224,7 @@ class Site extends CI_Controller
 							$data['redirect']="site/viewusers";
 							$this->load->view("redirect",$data);
 						}else{
-						$data['alerterror'] = "Contact no. / Mobile no. should be 10 digits";
+						$data['alerterror'] = "Contact no. / Mobile no. should be 10 digits and Pincode should be 6 digits";
 							$data['accesslevel']=$this->user_model->getaccesslevels();
 				            $data[ 'status' ] =$this->user_model->getstatusdropdown();
 				            $data[ 'area' ] =$this->area_model->getareadropdown();
@@ -594,7 +594,7 @@ class Site extends CI_Controller
                // print_r($image);
                 $shoplogo=$shoplogo->image;
             }
-						if(preg_match('/^\d{10}$/',$shopcontact1)) // phone number is valid
+						if(preg_match('/^\d{10}$/',$shopcontact1) && preg_match('/^\d{6}$/',$billingpincode) && preg_match('/^\d{6}$/',$shippingpincode)) // phone number is valid
 							{
 								$shopcontact1 =$shopcontact1;
 								if($this->user_model->edit($termsaccept,$id,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus,$pan,$city)==0)
@@ -610,7 +610,7 @@ class Site extends CI_Controller
 							}
 							else // phone number is not valid
 							{
-										$data['alerterror'] = "Contact no. / Mobile no. should be 10 digits";
+										$data['alerterror'] = "Contact no. / Mobile no. should be 10 digits and Pincode should be 6 digits";
 										$data[ 'status' ] =$this->user_model->getstatusdropdown();
 										$data['accesslevel']=$this->user_model->getaccesslevels();
 													$data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
@@ -1140,7 +1140,7 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `usercategory` LEFT OUTER JOIN `user` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_category` ON `usercategory`.`category`=`osb_category`.`id`");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `usercategory` LEFT OUTER JOIN `user` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_category` ON `usercategory`.`category`=`osb_category`.`id`","WHERE `usercategory`.`user` ='$userid'");
 $this->load->view("json",$data);
 }
 
@@ -1179,8 +1179,8 @@ if($this->usercategory_model->create($user,$category)==0)
 $data["alerterror"]="New usercategory could not be created.";
 else
 $data["alertsuccess"]="usercategory created Successfully.";
-$data["redirect"]="site/viewusercategory";
-$this->load->view("redirect",$data);
+$data["redirect"]="site/viewusercategory?id=".$user;
+$this->load->view("redirect2",$data);
 }
 }
 
