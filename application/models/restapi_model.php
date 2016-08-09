@@ -46,7 +46,11 @@ WHERE `user`.`id`='$user' GROUP BY `user`.`id`, `usercategory`.`user`")->row();
 		$query2= $this->db->query("SELECT `userfrom` from `osb_transaction` WHERE `userfrom`='$user'")->row();
 		$saleid=$query2->userfrom;
 		    $query['totalsales'] = $this->db->query("SELECT `salesbalance` FROM `user` WHERE `id`='$saleid'")->row();
+
+
 		// this is sale
+
+
         $query['purchased'] = $this->db->query("SELECT `user`.`shoplogo`,`user`.`purchasebalance`,`user`.`shopname`,`osb_transaction`.`amount`,`osb_transaction`.`reason`,`osb_transaction`.`id`,DATE(`osb_transaction`.`timestamp`) AS `date`,DATE_FORMAT(STR_TO_DATE(`osb_transaction`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `time`,`order`.`name`,`user`.`shopemail` as `email1`,`orderitems`.`product`,`orderitems`.`quantity`,`orderitems`.`price`,`orderitems`.`finalprice`,`product`.`name`,`product`.`image`,`user`.`shopcontact1` as `personalcontact`,`user`.`billingaddress` as `address`,DATE(`order`.`timestamp`) AS `orderdate`,DATE_FORMAT(STR_TO_DATE(`order`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `ordertime`,`osb_transaction`.`timestamp` as `timestamp` FROM `user`
 LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userfrom`=`user`.`id`
 LEFT OUTER JOIN `order` ON `order`.`id`=`osb_transaction`.`orderid`
@@ -54,14 +58,18 @@ LEFT OUTER JOIN `orderitems` ON `orderitems`.`order`=`order`.`id`
 LEFT OUTER JOIN `product` ON `product`.`id`=`orderitems`.`product`
 WHERE `osb_transaction`.`userfrom`!=1 AND `osb_transaction`.`userto`='$user'
 ORDER BY `osb_transaction`.`id` DESC")->result();
+
+
 		// this is purchase
+
+
         $query['sales'] = $this->db->query("SELECT `user`.`shoplogo`,`user`.`salesbalance`,`osb_transaction`.`id`,`user`.`shopname`,`osb_transaction`.`amount`,`osb_transaction`.`reason`,DATE(`osb_transaction`.`timestamp`) AS `date`,DATE_FORMAT(STR_TO_DATE(`osb_transaction`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `time`,`order`.`name`,`order`.`email`,`orderitems`.`product`,`orderitems`.`quantity`,`orderitems`.`price`,`orderitems`.`finalprice`,`product`.`name`,`product`.`image`,`user`.`shopcontact1` as `personalcontact`,`user`.`billingaddress` as `address`,`user`.`shopemail` as `email1`,DATE_FORMAT(STR_TO_DATE(`order`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `ordertime`,DATE(`order`.`timestamp`) AS `orderdate`,`osb_transaction`.`timestamp` as `timestamp` FROM `user`
-LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userto`=`user`.`id`
-LEFT OUTER JOIN `order` ON `order`.`id`=`osb_transaction`.`orderid`
-LEFT OUTER JOIN `orderitems` ON `orderitems`.`order`=`order`.`id`
-LEFT OUTER JOIN `product` ON `product`.`id`=`orderitems`.`product`
-WHERE `osb_transaction`.`userto`!=1 AND `osb_transaction`.`userfrom`='$user'
-ORDER BY `osb_transaction`.`id` DESC")->result();
+        LEFT OUTER JOIN `osb_transaction` ON `osb_transaction`.`userto`=`user`.`id`
+        LEFT OUTER JOIN `order` ON `order`.`id`=`osb_transaction`.`orderid`
+        LEFT OUTER JOIN `orderitems` ON `orderitems`.`order`=`order`.`id`
+        LEFT OUTER JOIN `product` ON `product`.`id`=`orderitems`.`product`
+        WHERE `osb_transaction`.`userto`!=1 AND `osb_transaction`.`userfrom`='$user'
+        ORDER BY `osb_transaction`.`id` DESC")->result();
         $query['admin'] = $this->db->query("SELECT `osb_transaction`.`id`,`osb_transaction`. `userto`,`osb_transaction`. `userfrom`,`osb_transaction`. `reason`,`osb_transaction`. `amount`,`osb_transaction`. `payableamount`,DATE(`osb_transaction`.`timestamp`) AS `date`,DATE_FORMAT(STR_TO_DATE(`osb_transaction`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i:%s') as `time`,`osb_transaction`. `requestid` ,`osb_request`.`approvalreason`,`osb_transaction`.`timestamp` as `timestamp` FROM `osb_transaction` LEFT OUTER JOIN `osb_request` ON `osb_transaction`.`requestid`=`osb_request`.`id` WHERE `osb_transaction`.`userfrom`=1 AND `osb_transaction`.`userto`='$user' ORDER BY `osb_transaction`.`id` DESC")->result();
         $query['transaction'] = $this->db->query("SELECT `osb_transaction`.`id`, `osb_transaction`.`userto`,SUM(`osb_transaction`.`payableamount`) AS `totaltransaction`
 FROM `osb_transaction`
@@ -515,6 +523,8 @@ WHERE `orderitems`.`order`='$orderid'")->result();
             }
             else if($status==0 && $oldstatus==1)
             {
+              //disabled product add balance
+
                 $lastsalesbalance=$oldsalesbalance+$oldfinalprice;
                 $queryupdatesalesbalance=$this->db->query("UPDATE `user` SET `salesbalance`='$lastsalesbalance' WHERE `id`='$user'");
 
@@ -524,6 +534,8 @@ WHERE `orderitems`.`order`='$orderid'")->result();
             }
             else if($status==1 && $oldstatus==0)
             {
+                //enable product add balance
+
                 $this->db->where('id', $id);
                 $this->db->update('product', $data);
                 $query=$this->db->query("UPDATE `productcategory` SET `category`='$category' WHERE `product`='$id'");
@@ -537,6 +549,9 @@ WHERE `orderitems`.`order`='$orderid'")->result();
                 $oldfinalprice=$oldprice*$oldquantity;
 
                 $changedsalesbalance=$oldsalesbalance-$oldfinalprice;
+                if($changedsalesbalance <0){
+                  return 0;
+                }
 //                $receivedfinalprice= $price * $quantity;
 //
 //                $lastsalesbalance=$changedsalesbalance-$receivedfinalprice;
@@ -898,8 +913,14 @@ return  $id;
 		return $query;
 	}
 	public function makeNotificationread($id){
-	$query=$this->db->query("UPDATE `notification` SET `status`='1' WHERE `id`='$id'" );
+	// $query=$this->db->query("UPDATE `notification` SET `status`='1' WHERE `id`='$id'" );
+  $query=$this->db->query("DELETE FROM `notification` WHERE `id`='$id'");
+  if($query)
 		return true;
+  else
+    return false;
+  
+
 	}
 	public function isnewuserchangestatus($user){
 	$query=$this->db->query("UPDATE `user` SET `onlinestatus`=0 WHERE `id`='$user'" );
@@ -970,6 +991,16 @@ WHERE `suggestion`.`id`='$id'")->row();
         echo $row;
         # code...
       }
+    }
+    public function getNotificationUnreadCount($user)
+    {
+      $query = $this->db->query("SELECT COUNT(*) as `notificationCount` FROM `notification` WHERE `status` = 2 AND `user`='$user'")->row();
+      return $query;
+    }
+    public function makeAllNotificationread($user)
+    {
+      $query = $this->db->query("UPDATE `notification` SET `status` = 1 WHERE `user` = '$user'");
+      return true;
     }
 }
 ?>

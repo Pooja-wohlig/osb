@@ -1477,7 +1477,8 @@ $sort=$this->input->get_post('sortid');
         $orderby="id";
         $orderorder="ASC";
     }
-    $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `notification`","WHERE `notification`.`status`='2'");
+    $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `notification`");
+
     $this->load->view("json",$data);
  }
  public function addproductimage(){
@@ -1515,6 +1516,17 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
  public function makeNotificationread(){
 	 $id=$this->input->get("id");
 		$data['message']=$this->restapi_model->makeNotificationread($id);
+		$this->load->view('json',$data);
+ }
+ public function makeAllNotificationread(){
+	 $id=$this->input->get("user");
+		$data['message']=$this->restapi_model->makeAllNotificationread($id);
+		$this->load->view('json',$data);
+ }
+
+ public function getNotificationUnreadCount(){
+	 $id=$this->input->get("user");
+		$data['message']=$this->restapi_model->getNotificationUnreadCount($id);
 		$this->load->view('json',$data);
  }
 
@@ -1631,9 +1643,14 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
     }
     public function againtest()
     {
-      $cat=$this->input->get('cat');
-      $data['message']=$this->restapi_model->againtest($cat);
-      $this->load->view("json",$data);
+      // $cat=$this->input->get('cat');
+      // $data['message']=$this->restapi_model->againtest($cat);
+      // $this->load->view("json",$data);
+      $var=-8;
+    if($var<0){
+      echo "negative";
+    }
+
     }
 
 }?>
