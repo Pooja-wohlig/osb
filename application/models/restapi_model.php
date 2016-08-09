@@ -346,8 +346,8 @@ $query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku
 	public function buyproduct($userid,$productid,$quantity,$name,$email,$contactno,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode)
     {
         $getproductdetails=$this->db->query("SELECT * FROM `product` WHERE `id`='$productid'")->row();
-		$user=$getproductdetails->user;
-		$productname=$getproductdetails->name;
+    		$user=$getproductdetails->user;
+    		$productname=$getproductdetails->name;
         $price=$getproductdetails->price;
         $oldquantity=$getproductdetails->quantity;
         $finalprice=$price*$quantity;
@@ -368,7 +368,7 @@ $query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku
         }
         else
         {
-            $querycreateorder=$this->db->query("INSERT INTO `order`( `user`, `name`, `email`,`contactno`, `billingaddress`, `billingcity`, `billingstate`, `billingcountry`, `billingpincode`, `shippingaddress`, `shippingcity`, `shippingcountry`, `shippingstate`,`shippingpincode`,`orderstatus`, `timestamp`) VALUES ('$userid','$name','$email','$contactno','$billingaddress','$billingcity','$billingstate','$billingcountry','$billingpincode','$shippingaddress','$shippingcity','$shippingcountry','$shippingstate','$shippingpincode','1',NULL)");
+            $querycreateorder=$this->db->query("INSERT INTO `order`( `user`, `name`, `email`,`contactno`, `billingaddress`, `billingcity`, `billingstate`, `billingcountry`, `billingpincode`, `shippingaddress`, `shippingcity`, `shippingcountry`, `shippingstate`,`shippingpincode`,`orderstatus`) VALUES ('$userid','$name','$email','$contactno','$billingaddress','$billingcity','$billingstate','$billingcountry','$billingpincode','$shippingaddress','$shippingcity','$shippingcountry','$shippingstate','$shippingpincode','1')");
             $order=$this->db->insert_id();
             $data  = array(
                 'order' => $order,
