@@ -1093,7 +1093,7 @@ $data['userid']=$this->input->get('id');
 $data['before']=$this->user_model->beforeedit($this->input->get('id'));
 $userid=$this->input->get('id');
 $data['activemenu'] = 'user category';
-$data["base_url"]=site_url("site/viewusercategoryjson");
+$data["base_url"]=site_url("site/viewusercategoryjson?id=").$this->input->get('id');
 $data["title"]="View usercategory";
 $this->load->view("template",$data);
 }
@@ -1237,7 +1237,7 @@ $this->checkaccess($access);
 //        $data['shopphotoid']=$this->input->get('shopphotoid');
 $this->usercategory_model->delete($this->input->get("id"));
 $data["redirect"]="site/viewusercategory?id=".$this->input->get('id');
-$this->load->view("redirect",$data);
+$this->load->view("redirect2",$data);
 }
 //	user_category ends------------------------------------------------------------------------------------------------------------------
 public function viewcategory()
@@ -3311,6 +3311,7 @@ $this->load->view("redirect",$data);
         $data["page"]="viewnotification";
         $data[ 'user' ] =$this->user_model->getuserdropdown();
         $data[ 'type' ] =$this->notification_model->gettypedropdown();
+
         $data["base_url"]=site_url("site/viewnotificationjson");
         $data['activemenu'] = 'user notification';
         $data["title"]="View notification";
@@ -3368,6 +3369,7 @@ $this->load->view("redirect",$data);
         $this->checkaccess($access);
         $data[ 'user' ] =$this->user_model->getuserdropdown();
         $data[ 'type' ] =$this->notification_model->gettypedropdown();
+				  $data[ 'status' ] =$this->notification_model->getstatusdropdown();
         $data["page"]="createnotification";
         $data["title"]="Create Notification";
         $this->load->view("template",$data);
@@ -3383,6 +3385,7 @@ $this->load->view("redirect",$data);
             $data["alerterror"]=validation_errors();
             $data[ 'user' ] =$this->user_model->getuserdropdown();
             $data[ 'type' ] =$this->notification_model->gettypedropdown();
+						  $data[ 'status' ] =$this->notification_model->getstatusdropdown();
             $data["page"]="createnotiication";
             $data["title"]="Create Notification";
             $this->load->view("template",$data);
@@ -3392,7 +3395,8 @@ $this->load->view("redirect",$data);
             $user=$this->input->get_post("user");
             $type=$this->input->get_post("type");
             $message=$this->input->get_post("message");
-            if($this->notification_model->create($user,$type,$message)==0)
+            $status=$this->input->get_post("status");
+            if($this->notification_model->create($user,$type,$message,$status)==0)
             $data["alerterror"]="New notification could not be created.";
             else
             $data["alertsuccess"]="notification created Successfully.";
@@ -3406,6 +3410,7 @@ $this->load->view("redirect",$data);
         $this->checkaccess($access);
         $data[ 'user' ] =$this->user_model->getuserdropdown();
         $data[ 'type' ] =$this->notification_model->gettypedropdown();
+				  $data[ 'status' ] =$this->notification_model->getstatusdropdown();
         $data["page"]="editnotification";
         $data["title"]="Edit Notification";
         $data["before"]=$this->notification_model->beforeedit($this->input->get("id"));
@@ -3423,6 +3428,7 @@ $this->load->view("redirect",$data);
             $data["alerterror"]=validation_errors();
             $data[ 'user' ] =$this->user_model->getuserdropdown();
             $data[ 'type' ] =$this->notification_model->gettypedropdown();
+						  $data[ 'status' ] =$this->notification_model->getstatusdropdown();
             $data["page"]="editnotification";
             $data["title"]="Edit Notification";
             $data["before"]=$this->notification_model->beforeedit($this->input->get("id"));
@@ -3434,8 +3440,9 @@ $this->load->view("redirect",$data);
             $user=$this->input->get_post("user");
             $type=$this->input->get_post("type");
             $message=$this->input->get_post("message");
+            $status=$this->input->get_post("status");
             $timestamp=$this->input->get_post("timestamp");
-            if($this->notification_model->edit($id,$user,$type,$timestamp,$message)==0)
+            if($this->notification_model->edit($id,$user,$type,$timestamp,$message,$status)==0)
             $data["alerterror"]="New notification could not be Updated.";
             else
             $data["alertsuccess"]="notification Updated Successfully.";

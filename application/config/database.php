@@ -52,7 +52,7 @@ $active_record = TRUE;
 
 $myserver=$_SERVER['SERVER_NAME'];
 
-if($myserver!="localhost")
+if($myserver!="localhost" && false)
 {
     $db['default']['hostname'] = 'localhost';
     $db['default']['username'] = 'swaap_osb';

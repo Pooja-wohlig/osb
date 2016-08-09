@@ -1426,10 +1426,59 @@ $sort=$this->input->get_post('sortid');
 		$data['message']=$this->restapi_model->getuserdetails($user);
 		$this->load->view('json',$data);
  }
-  public function getnotification(){
-		$user=$this->input->get(userid);
-		$data['message']=$this->restapi_model->getnotification($user);
-		$this->load->view('json',$data);
+  public function getnotification()
+  {
+    $user=$this->input->get('userid');
+    $elements=array();
+    $elements[0]=new stdClass();
+    $elements[0]->field="`notification`.`id`";
+    $elements[0]->sort="1";
+    $elements[0]->header="ID";
+    $elements[0]->alias="id";
+    $elements[1]=new stdClass();
+    $elements[1]->field="DATE(`notification`.`timestamp`)";
+    $elements[1]->sort="1";
+    $elements[1]->header="date";
+    $elements[1]->alias="date";
+    $elements[2]=new stdClass();
+    $elements[2]->field="`notification`.`message`";
+    $elements[2]->sort="1";
+    $elements[2]->header="Message";
+    $elements[2]->alias="message";
+    $elements[3]=new stdClass();
+    $elements[3]->field="`notification`.`type`";
+    $elements[3]->sort="1";
+    $elements[3]->header="Type";
+    $elements[3]->alias="type";
+    $elements[4]=new stdClass();
+    $elements[4]->field="`notification`.`status`";
+    $elements[4]->sort="1";
+    $elements[4]->header="Status";
+    $elements[4]->alias="status";
+
+    $elements[5]=new stdClass();
+    $elements[5]->field="DATE_FORMAT(STR_TO_DATE(`notification`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i')";
+    $elements[5]->sort="1";
+    $elements[5]->header="time";
+    $elements[5]->alias="time";
+
+    $search=$this->input->get_post("search");
+    $pageno=$this->input->get_post("pageno");
+    $orderby=$this->input->get_post("orderby");
+    $orderorder=$this->input->get_post("orderorder");
+    $maxrow=$this->input->get_post("maxrow");
+
+    if($maxrow=="")
+    {
+          $maxrow=5;
+    }
+    if($orderby=="")
+    {
+        $orderby="id";
+        $orderorder="ASC";
+    }
+    $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `notification`","WHERE `notification`.`status`='2'");
+    $this->load->view("json",$data);
  }
  public function addproductimage(){
 $user=$this->input->get_post("user");
@@ -1463,6 +1512,12 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
 	   }
 
  }
+ public function makeNotificationread(){
+	 $id=$this->input->get("id");
+		$data['message']=$this->restapi_model->makeNotificationread($id);
+		$this->load->view('json',$data);
+ }
+
  public function isnewuser(){
 	 $user=$this->input->get("user");
 		$data['message']=$this->restapi_model->isnewuser($user);
@@ -1512,7 +1567,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
           $this->load->helper('string');
               $randompassword=random_string('alnum',8);
           $data['message']=$this->user_model->forgotpasswordsubmit($randompassword,$userid);
-        $data["message"] = 'true';
+        $data["message"] = true;
         $this->load->view("json", $data);
 
         }
@@ -1573,6 +1628,12 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
       for($i=1;$i<=100;$i++){
           echo '<option value="'.$i.'">'.$i.'</option>';
       }
+    }
+    public function againtest()
+    {
+      $cat=$this->input->get('cat');
+      $data['message']=$this->restapi_model->againtest($cat);
+      $this->load->view("json",$data);
     }
 
 }?>

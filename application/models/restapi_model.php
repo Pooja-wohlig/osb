@@ -13,7 +13,14 @@ class restapi_model extends CI_Model {
     //	  return $query;
     //  }
     public function shopprofile($user) {
-        $query = $this->db->query("SELECT `user`.`shoplogo`,`user`.`purchasebalance`,`user`.`salesbalance`,`user`.`membershipno`,`user`.`percentpayment`, `user`.`id`,`user`.`shopname`,`user`.`billingaddress`,`user`.`description`,`user`.`website`,`user`.`shopcontact1`,`user`.`shopcontact2`,`user`.`shopemail`,`user`.`area` as `areaid`,`user`.`termsaccept`,`osb_area`.`name` as `area`,`osb_shopphoto`.`photo` as `shopphoto`,`osb_shopproductphoto`.`photo` as `productphoto`,`osb_category`.`id` as `categoryid`,`osb_category`.`name` as `category`,`user`.`billingcity`,`user`.`billingstate`,`user`.`billingpincode` FROM `user` LEFT OUTER JOIN `osb_shopphoto` ON `osb_shopphoto`.`user`=`user`.`id` LEFT OUTER JOIN `osb_shopproductphoto` ON `osb_shopproductphoto`.`user`=`user`.`id` LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_area` ON `osb_area`.`id`=`user`.`area` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE `user`.`id`='$user' GROUP BY `user`.`id`")->row();
+        $query = $this->db->query("SELECT `user`.`shoplogo`,`user`.`purchasebalance`,`user`.`salesbalance`,`user`.`membershipno`,`user`.`percentpayment`, `user`.`id`,`user`.`shopname`,`user`.`billingaddress`,`user`.`description`,`user`.`website`,`user`.`shopcontact1`,`user`.`shopcontact2`,`user`.`shopemail`,`user`.`area` as `areaid`,`user`.`termsaccept`,`osb_area`.`name` as `area`,`osb_shopphoto`.`photo` as `shopphoto`,`osb_shopproductphoto`.`photo` as `productphoto`,`user`.`billingcity`,`user`.`billingstate`,`user`.`billingpincode` ,GROUP_CONCAT(DISTINCT(`osb_category`.`id`)) as `categoryid` ,GROUP_CONCAT(DISTINCT(`osb_category`.`name`) SEPARATOR ', ') as `category`
+FROM `user`
+LEFT OUTER JOIN `osb_shopphoto` ON `osb_shopphoto`.`user`=`user`.`id`
+LEFT OUTER JOIN `osb_shopproductphoto` ON `osb_shopproductphoto`.`user`=`user`.`id`
+LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id`
+LEFT OUTER JOIN `osb_area` ON `osb_area`.`id`=`user`.`area`
+LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category`
+WHERE `user`.`id`='$user' GROUP BY `user`.`id`, `usercategory`.`user`")->row();
         return $query;
     }
     public function shopprofilemem($mem) {
@@ -214,6 +221,10 @@ public function sellingapproval($user) {
         else return $id;
     }
     public function updateprofile($id, $shopname, $address, $description, $shopcontact1, $shopcontact2, $shopemail, $website,$shoplogo,$billingcity,$billingstate,$billingpincode) {
+
+
+
+
         $query = $this->db->query("UPDATE `user` SET `shopname`='$shopname',`billingaddress`='$address',`description`='$description',`shopcontact1`='$shopcontact1',`shopcontact2`='$shopcontact2',`shopemail`='$shopemail',`website`='$website',`shoplogo`='$shoplogo',`billingcity`='$billingcity',`billingstate`='$billingstate',`billingpincode`='$billingpincode' WHERE `id`='$id'");
 		 if(!$query)
             return  0;
@@ -263,9 +274,20 @@ public function sellingapproval($user) {
         return $query;
     }
 	public function updatecat($userid,$catid){
-	$data = array('user' => $userid,'category' =>$catid);
-        $this->db->where('user', $userid);
-        $this->db->update('usercategory', $data);
+
+    $catarray=explode(",",$catid);
+    $querydelete=$this->db->query("DELETE FROM `usercategory` WHERE `user`='$userid'");
+
+    foreach($catarray as $row){
+      $data1  = array(
+          'user' => $userid,
+          'category' => $row
+      );
+      $query1=$this->db->insert( 'usercategory', $data1 );
+    }
+	// $data = array('user' => $userid,'category' =>$catid);
+  //       $this->db->where('user', $userid);
+  //       $this->db->update('usercategory', $data);
 		return $userid;
 	}
 	 public function getarea() {
@@ -875,6 +897,10 @@ return  $id;
 	$query=$this->db->query("SELECT `onlinestatus` FROM `user` WHERE `id`='$user'")->row();
 		return $query;
 	}
+	public function makeNotificationread($id){
+	$query=$this->db->query("UPDATE `notification` SET `status`='1' WHERE `id`='$id'" );
+		return true;
+	}
 	public function isnewuserchangestatus($user){
 	$query=$this->db->query("UPDATE `user` SET `onlinestatus`=0 WHERE `id`='$user'" );
 		return 1;
@@ -935,6 +961,15 @@ WHERE `suggestion`.`id`='$id'")->row();
     {
         $query = $this->db->query("SELECT `paymentstatus` FROM `osb_request` WHERE `id` = $id")->row();
         return $query;
+    }
+    public function againtest($cat)
+    {
+      $catarray=explode(",",$cat);
+      print_r($catarray);
+      foreach ($catarray as $row) {
+        echo $row;
+        # code...
+      }
     }
 }
 ?>

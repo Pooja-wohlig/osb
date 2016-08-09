@@ -3,9 +3,9 @@ if ( !defined( "BASEPATH" ) )
 exit( "No direct script access allowed" );
 class notification_model extends CI_Model
 {
-public function create($user,$type,$message)
+public function create($user,$type,$message,$status)
 {
-$data=array("user" => $user,"type" => $type,"message" => $message);
+$data=array("user" => $user,"type" => $type,"message" => $message,"status" => $status);
 $query=$this->db->insert( "notification", $data );
 $id=$this->db->insert_id();
 if(!$query)
@@ -24,9 +24,9 @@ $this->db->where("id",$id);
 $query=$this->db->get("notification")->row();
 return $query;
 }
-public function edit($id,$user,$type,$timestamp,$message)
+public function edit($id,$user,$type,$timestamp,$message,$status)
 {
-$data=array("user" => $user,"type" => $type,"timestamp" => $timestamp,"message" => $message);
+$data=array("user" => $user,"type" => $type,"timestamp" => $timestamp,"message" => $message,"status" => $status);
 $this->db->where( "id", $id );
 $query=$this->db->update( "notification", $data );
 return 1;
@@ -63,5 +63,13 @@ $timestamp=new DateTime();
              echo 'File written!';
         }
 	}
+  public function getstatusdropdown()
+  {
+    $onlinestatus= array(
+       "1" => "Read",
+      "2" => "Unread"
+      );
+    return $onlinestatus;
+  }
 }
 ?>
