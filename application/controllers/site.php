@@ -4069,7 +4069,7 @@ $this->load->view("redirect",$data);
 				$elements[1]->alias="hotelname";
 
 				$elements[2]=new stdClass();
-				$elements[2]->field="`hotel`.`timestamp`";
+				$elements[2]->field="ADDTIME(`hotel`.`timestamp`,'0 05:30:00')";
 				$elements[2]->sort="1";
 				$elements[2]->header="Timestamp";
 				$elements[2]->alias="timestamp";
@@ -4087,7 +4087,7 @@ $this->load->view("redirect",$data);
 				if($orderby=="")
 				{
 				$orderby="id";
-				$orderorder="ASC";
+				$orderorder="DESC";
 				}
 				$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `hotel`");
 				$this->load->view("json",$data);
