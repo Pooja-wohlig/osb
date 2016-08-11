@@ -23,7 +23,8 @@
         <?php	}
           ?>
         </div>
-      </div>	
+					<span>1400 x 1040 px</span>
+      </div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="normal-field">&nbsp;</label>
 				<div class="col-sm-4">

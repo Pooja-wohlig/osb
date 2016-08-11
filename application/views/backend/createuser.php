@@ -91,7 +91,7 @@
 				</div>
 			</div>
 				<div class=" form-group">
-				<label class="col-sm-3 control-label">State *</label>
+				<label class="col-sm-3 control-label">Area *</label>
 				<div class="col-sm-4">
 				<?php
 

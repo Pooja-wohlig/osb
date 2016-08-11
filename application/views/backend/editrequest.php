@@ -12,7 +12,7 @@
 				<div class="col-sm-4">
 					<?php echo $userfromname; ?>
 				</div>
-			</div> 
+			</div>
 			 <div class="form-group">
 				<label class="col-sm-2 control-label" for="normal-field">Buyer</label>
 				<div class="col-sm-4">
@@ -37,7 +37,7 @@
 				<div class="col-sm-4">
 					<?php echo $userfromname; ?>
 				</div>
-			</div> 
+			</div>
 			 <div class="form-group">
 				<label class="col-sm-2 control-label" for="normal-field">Seller</label>
 				<div class="col-sm-4">
@@ -65,7 +65,7 @@
                                   <?php echo $before->cashamount; ?>
                             </div>
                         </div>
-                   <?php }?>  
+                   <?php }?>
 
 
                         <div class="form-group">
@@ -73,7 +73,7 @@
 				<div class="col-sm-4">
 					<?php echo $before->amount; ?>
 				</div>
-			</div>     
+			</div>
 		      <div class="form-group" style="display:none;">
                             <label class="col-sm-2 control-label" for="normal-field">Amount</label>
                             <div class="col-sm-4">
@@ -98,7 +98,7 @@
                                 <input type="text" id="normal-field" class="form-control" readonly="true" name="timestamp" value='<?php echo set_value(' timestamp ',$before->timestamp);?>'>
                             </div>
                         </div>
-                        <div class=" form-group">
+                        <div class=" form-group" id='requestid'>
                             <label class="col-sm-2 control-label" for="normal-field">Request Status</label>
                             <div class="col-sm-4">
                                 <?php echo form_dropdown("requeststatus",$requeststatus,set_value('requeststatus',$before->requeststatus),"class='chzn-select form-control'");?>
@@ -111,23 +111,28 @@
                                 <?php echo form_dropdown("paymentstatus",$paymentstatus,set_value('paymentstatus',$before->paymentstatus),"class='chzn-select form-control'");?>
                             </div>
                         </div>
-                   <?php }?>       
-                           
+                   <?php }?>
+
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="normal-field">&nbsp;</label>
                             <div class="col-sm-4">
-                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="submit" class="btn btn-primary" id='save'>Save</button>
                                  <?php  if($before->userfrom==1){ ?>
                                 <a href='<?php echo site_url("site/viewrequestadmin"); ?>' class='btn btn-secondary'>Cancel</a>
-                                  <?php } else {?>    
+                                  <?php } else {?>
                                          <a href='<?php echo site_url("site/viewrequest"); ?>' class='btn btn-secondary'>Cancel</a>
-                                  <?php } ?>       
+                                  <?php } ?>
                             </div>
                         </div>
         </form>
     </div>
 </section>
 <script>
+var i=0;
     $('#cf_1268591').attr("disabled", true);
+    $( "#save" ).click(function() {
+  $("#save").hide();
+  });
+
 
 </script>
