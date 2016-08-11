@@ -1436,7 +1436,7 @@ $sort=$this->input->get_post('sortid');
     $elements[0]->header="ID";
     $elements[0]->alias="id";
     $elements[1]=new stdClass();
-    $elements[1]->field="DATE(`notification`.`timestamp`)";
+    $elements[1]->field="ADDTIME(`notification`.`timestamp`,'0 05:30:00')";
     $elements[1]->sort="1";
     $elements[1]->header="date";
     $elements[1]->alias="date";
@@ -1457,7 +1457,7 @@ $sort=$this->input->get_post('sortid');
     $elements[4]->alias="status";
 
     $elements[5]=new stdClass();
-    $elements[5]->field="DATE_FORMAT(STR_TO_DATE(`notification`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i')";
+    $elements[5]->field="DATE_FORMAT(STR_TO_DATE(ADDTIME(`notification`.`timestamp`,'0 05:30:00'), '%Y-%m-%d %H:%i:%s'), '%H:%i')";
     $elements[5]->sort="1";
     $elements[5]->header="time";
     $elements[5]->alias="time";
@@ -1475,9 +1475,9 @@ $sort=$this->input->get_post('sortid');
     if($orderby=="")
     {
         $orderby="id";
-        $orderorder="ASC";
+        $orderorder="DESC";
     }
-    $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `notification`");
+    $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `notification`","WHERE `notification`.`user`='$user'");
 
     $this->load->view("json",$data);
  }

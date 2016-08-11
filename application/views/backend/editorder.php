@@ -30,7 +30,11 @@ ini_set('display_errors', 1);?>
                           </tr>
                           <tr>
                             <td style="font-weight: bold;">Email</td>
-                            <td><?php echo $userto->email?></td>
+                            <td><?php echo $userto->shopemail?></td>
+                          </tr>
+                          <tr>
+                            <td style="font-weight: bold;">Mobile no</td>
+                            <td><?php echo $userto->shopcontact1?></td>
                           </tr>
                           <tr>
                             <td style="font-weight: bold;">Membership No</td>
@@ -64,7 +68,11 @@ ini_set('display_errors', 1);?>
                             </tr>
                             <tr>
                               <td style="font-weight: bold;">Email</td>
-                              <td><?php echo $userfrom->email?></td>
+                              <td><?php echo $userfrom->shopemail?></td>
+                            </tr>
+                            <tr>
+                              <td style="font-weight: bold;">Mobile no</td>
+                              <td><?php echo $userfrom->shopcontact1?></td>
                             </tr>
                             <tr>
                               <td style="font-weight: bold;">Membership No</td>
