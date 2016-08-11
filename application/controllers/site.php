@@ -140,6 +140,9 @@ class Site extends CI_Controller
 			$termsaccept=$this->input->post('termsaccept');
 			$pan=$this->input->post('pan');
 			$city=$this->input->post('city');
+			$state=$this->input->post('state');
+			echo "In user";
+			print_r($_POST);
 //            $category=$this->input->post('category');
 
 
@@ -217,12 +220,12 @@ class Site extends CI_Controller
 					if(preg_match('/^\d{10}$/',$shopcontact1) && preg_match('/^\d{6}$/',$billingpincode) && preg_match('/^\d{6}$/',$shippingpincode)) // phone number is valid
 						{
 							$shopcontact1=$shopcontact1;
-							if($this->user_model->create($termsaccept,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus,$pan,$city)==0)
+							if($this->user_model->create($termsaccept,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus,$pan,$city,$state)==0)
 							$data['alerterror']="New user could not be created.";
 							else
 							$data['alertsuccess']="User created Successfully.";
-							$data['redirect']="site/viewusers";
-							$this->load->view("redirect",$data);
+							// $data['redirect']="site/viewusers";
+							// $this->load->view("redirect",$data);
 						}else{
 						$data['alerterror'] = "Contact no. / Mobile no. should be 10 digits and Pincode should be 6 digits";
 							$data['accesslevel']=$this->user_model->getaccesslevels();
@@ -506,6 +509,7 @@ class Site extends CI_Controller
 				$termsaccept=$this->input->post('termsaccept');
 				$pan=$this->input->post('pan');
 				$city=$this->input->post('city');
+					$state=$this->input->post('state');
 
 
 //            $category=$this->input->get_post('category');
@@ -597,7 +601,7 @@ class Site extends CI_Controller
 						if(preg_match('/^\d{10}$/',$shopcontact1) && preg_match('/^\d{6}$/',$billingpincode) && preg_match('/^\d{6}$/',$shippingpincode)) // phone number is valid
 							{
 								$shopcontact1 =$shopcontact1;
-								if($this->user_model->edit($termsaccept,$id,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus,$pan,$city)==0)
+								if($this->user_model->edit($termsaccept,$id,$name,$email,$message,$personalcontact,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$shopname,$membershipno,$address,$description,$website,$shopcontact1,$shopcontact2,$shopemail,$purchasebalance,$salesbalance,$area,$shoplogo,$percentpayment,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode,$onlinestatus,$shopstatus,$pan,$city,$state)==0)
 								$data['alerterror']="User Editing was unsuccesful";
 								else
 								$data['alertsuccess']="User edited Successfully.";
