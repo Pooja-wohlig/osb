@@ -131,10 +131,11 @@
 			<div class=" form-group">
 					<label class="col-sm-3 control-label">Area *</label>
 					<div class="col-sm-4">
-					<?php
+					<!-- <?php
 
-						echo form_dropdown('area',$area,set_value('area',$before->area),'class="chzn-select form-control" 	data-placeholder="Choose a Accesslevel..."');
-					?>
+						// echo form_dropdown('area',$area,set_value('area',$before->area),'class="chzn-select form-control" 	data-placeholder="Choose a Accesslevel..."');
+					?> -->
+							<input type="text" id="normal-field" class="form-control" name="area" value="<?php echo set_value('area',$before->area);?>">
 					</div>
 				</div>
 			<div class=" form-group">

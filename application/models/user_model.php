@@ -92,6 +92,18 @@ class User_model extends CI_Model
 		$query=$this->db->insert( 'user', $data );
 		$id=$this->db->insert_id();
 
+		// if new area insert area
+		$querycheckarea=$this->db->query("SELECT * FROM `osb_area` WHERE `name` = '$area'")->row();
+		if($querycheckarea->num_rows() == 0)
+		{
+			$data1  = array(
+				'name' => $area
+			);
+			$query2=$this->db->insert( 'area', $data1 );
+		}
+
+
+
 		if(!$query)
 			return  0;
 		else
@@ -227,6 +239,16 @@ class User_model extends CI_Model
 			$data['password'] =md5($password);
 		$this->db->where( 'id', $id );
 		$query=$this->db->update( 'user', $data );
+
+		// if new area insert area
+		$querycheckarea=$this->db->query("SELECT * FROM `osb_area` WHERE `name` = '$area'")->row();
+		if($querycheckarea->num_rows() == 0)
+		{
+			$data1  = array(
+				'name' => $area
+			);
+			$query2=$this->db->insert( 'area', $data1 );
+		}
 
 		return 1;
 	}

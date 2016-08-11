@@ -1165,7 +1165,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $elements[5]->alias="orderstatus";
 
         $elements[6]=new stdClass();
-        $elements[6]->field="DATE(`order`.`timestamp`)";
+        $elements[6]->field="DATE(ADDTIME(`order`.`timestamp`,'0 05:30:00'))";
         $elements[6]->sort="1";
         $elements[6]->header="Timestamp";
         $elements[6]->alias="timestamp";
