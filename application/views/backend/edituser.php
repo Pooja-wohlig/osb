@@ -130,11 +130,11 @@
 			</div>
 			<div class=" form-group">
 				<label class="col-sm-3 control-label" for="normal-field">State</label>
-				<div class="col-sm-4"><?php echo $before->state;?>
-					<!-- <input type="text" id="normal-field" class="form-control" name="state" value="<?php echo set_value('state',$before->state);?>"> -->
-					<select name=state value="<?php echo $before->state;?>">
-						  <option value=<?php echo $before->state;?> selected>
-						<option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+				<div class="col-sm-4">
+
+					<select name=state value="<?php echo $before->state;?>" class="stateSel">
+
+						<option value="Andaman and Nicobar Islands"  >Andaman and Nicobar Islands</option>
 						<option value="Andhra Pradesh">Andhra Pradesh</option>
 						<option value="Arunachal Pradesh">Arunachal Pradesh</option>
 						<option value="Assam">Assam</option>
@@ -154,7 +154,7 @@
 						<option value="Kerala">Kerala</option>
 						<option value="Lakshadweep">Lakshadweep</option>
 						<option value="Madhya Pradesh">Madhya Pradesh</option>
-						<option value="Maharashtra">Maharashtra</option>
+						<option value="Maharashtra" >Maharashtra</option>
 						<option value="Manipur">Manipur</option>
 						<option value="Meghalaya">Meghalaya</option>
 						<option value="Mizoram">Mizoram</option>
@@ -175,7 +175,6 @@
 			<div class=" form-group">
 					<label class="col-sm-3 control-label">Area *</label>
 					<div class="col-sm-4">
-						<?php echo set_value('area',$before->area);?>
 							<input type="text" id="normal-field" class="form-control" name="area" value="<?php echo set_value('area',$before->area);?>">
 					</div>
 				</div>
@@ -394,4 +393,17 @@
 		}
 
 	}
+
+var StateVal = "<?php echo $before->state;?>";
+	$(document).ready(function() {
+		var $opt= $(".stateSel option");
+		for(var i=0;i<$opt.length;i++)
+		{
+				var value = $opt.eq(i).attr("value");
+				if(value==StateVal)
+				{
+					$opt.eq(i).attr("selected","selected");
+				}
+		};
+	});
 </script>

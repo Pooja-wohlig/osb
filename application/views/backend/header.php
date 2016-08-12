@@ -32,58 +32,58 @@ $(document).ready(function(){
 		 format: 'yyyy-mm-dd'
 	 });
 	 $("#select1").select2({
-		
+
 		allowClear: true,
 		//minimumInputLength: 3,
-		
+
 	 });
 	 $("#select2").select2({
-		
+
 		allowClear: true,
 		//minimumInputLength: 3,
-		
+
 	 });
 	 $("#select3").select2({
-		
+
 		allowClear: true,
 		//minimumInputLength: 3,
-		
+
 	 });
 	  $("#select4").select2({
-		
+
 		allowClear: true,
 		//minimumInputLength: 3,
-		
+
 	 });
 	 $("#select5").select2({
-		
+
 		allowClear: true,
 		//minimumInputLength: 3,
-		
+
 	 });
 	 $("#select10").select2({
-		
+
 		allowClear: true,
 		//minimumInputLength: 3,
-		
+
 	 });
 	 $("#select6").select2({
-		
+
 		allowClear: true,
 		//minimumInputLength: 3,
-		
+
 	 });
 	 $("#select7").select2({
-		
+
 		allowClear: true,
 		//minimumInputLength: 3,
-		
+
 	 });
 	 $("#select8").select2({
-		
+
 		allowClear: true,
 		//minimumInputLength: 3,
-		
+
 	 });
 });
 </script>
@@ -97,7 +97,7 @@ $(document).ready(function(){
                 <div data-original-title="Toggle Navigation" data-placement="right" class="icon-reorder tooltips"></div>
             </div>
             <!--logo start-->
-            <a href="#" class="logo"> <span>OSB</span></a>
+            <a href="#" class="logo"> <span>SWAAP</span></a>
             <!--logo end-->
             <div class="top-nav ">
                 <!--search & user info start-->
@@ -134,9 +134,9 @@ $(document).ready(function(){
               <!-- sidebar menu start-->
 			  <?php   $menus = $this->menu_model->viewmenus(); 	  ?>
 			  <ul class="sidebar-menu">
-				<?php  
+				<?php
 				foreach($menus as $row)
-				{  
+				{
 					$pieces = explode("/", $row->url);
 					$page2="";
 					if(empty($pieces) || !isset($pieces[1]))
@@ -148,24 +148,24 @@ $(document).ready(function(){
 					$submenus = $this->menu_model->getsubmenus($row->id);
 					?>
 					<li class="<?php if( $activemenu == strtolower($row->name) || $page == strtolower($row->name)) { echo 'active'; } //echo $page2;
-                    if(count($submenus > 0)) 
-					{ 
+                    if(count($submenus > 0))
+					{
 						$pages =  $this->menu_model->getpages($row->id);
-						//echo $page2; 
+						//echo $page2;
 						//print_r($pages);
-						echo ' sub-menu'; 
+						echo ' sub-menu';
 						if(in_array($page, $pages,TRUE))
 							echo ' active';
 					}
 					?> ">
-						<a class="" href="<?php 
+						<a class="" href="<?php
 						if($row->url == "")
 							echo "javascript:;";
 						else if($row->linktype == 1) echo site_url($row->url);
 						else if($row->linktype == 2) echo base_url($row->url);
-						else if($row->linktype == 3) echo ($row->url);						
+						else if($row->linktype == 3) echo ($row->url);
 						?>" <?php if($row->linktype == 3) echo "target='_blank'"; ?>>
-							<?php  
+							<?php
 							if($row->icon != "")
 							{  ?>
 								<i class="<?php echo $row->icon; ?>"></i>
@@ -180,9 +180,9 @@ $(document).ready(function(){
 							<ul class="sub">
 								<?php
 								foreach($submenus as $row2)
-								{ 
+								{
 									$pieces2 = explode("/", $row2->url);
-					
+
 									if(empty($pieces2) || !isset($pieces2[1]))
 									{
 										$page3="";
@@ -191,14 +191,14 @@ $(document).ready(function(){
 										$page3=$pieces2[1];
 								?>
 									<li class="<?php if($page==$page3 || $page == strtolower($row2->name)) { echo 'active'; } ?>">
-										<a href="<?php 
+										<a href="<?php
 											if($row2->url == "")
 												echo "javascript:;";
 											else if($row2->linktype == 1) echo site_url($row2->url);
 											else if($row2->linktype == 2) echo base_url($row2->url);
-											else if($row2->linktype == 3) echo ($row2->url);		
+											else if($row2->linktype == 3) echo ($row2->url);
 										?>">
-											<?php  
+											<?php
 											if($row2->icon != "")
 											{  ?>
 												<i class="<?php echo $row2->icon; ?>" <?php if($row2->linktype == 3) echo "target='_blank'"; ?>></i>
@@ -224,7 +224,7 @@ $(document).ready(function(){
                           <span>Dashboard</span>
                       </a>
                   </li>
-                
+
 				  <li >
                       <a href="<?php echo site_url('site/viewusers'); ?>" class="">
                           <i class="icon-user"></i>
@@ -253,7 +253,7 @@ $(document).ready(function(){
                           <span class="arrow"></span>
                       </a>
                   </li>
-				
+
 				   <li >
                       <a href="<?php echo site_url('site/viewamenity'); ?>" class="">
                           <i class="icon-book"></i>
