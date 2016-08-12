@@ -26,7 +26,7 @@
 					<input type="text" id="normal-field" class="form-control" name="country" value="<?php echo set_value('country',$before->country);?>">
 				  </div>
 				</div>
-        <div class="form-group">
+        <div class="form-group" style="display:none">
       <label class="col-sm-2 control-label" for="normal-field">City</label>
       <div class="col-sm-4">
       <input type="text" id="normal-field" class="form-control" name="city" value="<?php echo set_value('city',$before->city);?>">

@@ -123,7 +123,7 @@
 				</div>
 			</div>
 			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="normal-field">City *</label>
+				<label class="col-sm-3 control-label" for="normal-field">Area *</label>
 				<div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="city" value="<?php echo set_value('city',$before->city);?>">
 				</div>
@@ -173,7 +173,7 @@
 				</div>
 			</div>
 			<div class=" form-group">
-					<label class="col-sm-3 control-label">Area *</label>
+					<label class="col-sm-3 control-label">City *</label>
 					<div class="col-sm-4">
 							<input type="text" id="normal-field" class="form-control" name="area" value="<?php echo set_value('area',$before->area);?>">
 					</div>
