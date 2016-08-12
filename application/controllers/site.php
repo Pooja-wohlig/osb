@@ -1675,7 +1675,7 @@ $maxrow=20;
 if($orderby=="")
 {
 $orderby="id";
-$orderorder="ASC";
+$orderorder="DESC";
 }
 $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_request` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_request`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_request`.`userfrom`","WHERE `osb_request`.`userfrom`<>1  ");
 $this->load->view("json",$data);
@@ -2011,7 +2011,7 @@ $maxrow=20;
 if($orderby=="")
 {
 $orderby="id";
-$orderorder="ASC";
+$orderorder="DESC";
 }
 $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_transaction` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_transaction`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_transaction`.`userfrom`","WHERE `osb_transaction`.`userfrom`!=1 $where");
 $this->load->view("json",$data);
@@ -2109,7 +2109,7 @@ $maxrow=20;
 if($orderby=="")
 {
 $orderby="id";
-$orderorder="ASC";
+$orderorder="DESC";
 }
 $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_transaction` LEFT OUTER JOIN `user` as `tab1` ON `tab1`.`id`=`osb_transaction`.`userto` LEFT OUTER JOIN `user` as `tab2` ON `tab2`.`id`=`osb_transaction`.`userfrom`","WHERE `osb_transaction`.`userfrom`=1 $where");
 $this->load->view("json",$data);
@@ -2917,7 +2917,7 @@ $this->load->view("redirect",$data);
         if($orderby=="")
         {
             $orderby="id";
-            $orderorder="ASC";
+            $orderorder="DESC";
         }
         $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `order` INNER JOIN `orderstatus` ON `orderstatus`.`id`=`order`.`orderstatus`");
         $this->load->view("json",$data);
@@ -3359,7 +3359,7 @@ $this->load->view("redirect",$data);
         if($orderby=="")
         {
         $orderby="id";
-        $orderorder="ASC";
+        $orderorder="DESC";
         }
         $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `notification` LEFT OUTER JOIN `user` ON `notification`.`user`=`user`.`id` ");
         $this->load->view("json",$data);
@@ -3577,7 +3577,7 @@ $this->load->view("redirect",$data);
         if($orderby=="")
         {
             $orderby="id";
-            $orderorder="ASC";
+            $orderorder="DESC";
         }
 
         $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `register`");
@@ -4076,6 +4076,24 @@ $this->load->view("redirect",$data);
 				$elements[2]->header="Timestamp";
 				$elements[2]->alias="timestamp";
 
+				$elements[3]=new stdClass();
+				$elements[3]->field="`user`.`shopemail`";
+				$elements[3]->sort="1";
+				$elements[3]->header="Email";
+				$elements[3]->alias="shopemail";
+
+				$elements[4]=new stdClass();
+				$elements[4]->field="`user`.`shopname`";
+				$elements[4]->sort="1";
+				$elements[4]->header="Shop Name";
+				$elements[4]->alias="shopname";
+
+				$elements[5]=new stdClass();
+				$elements[5]->field="`user`.`shopcontact1`";
+				$elements[5]->sort="1";
+				$elements[5]->header="Contact No.";
+				$elements[5]->alias="shopcontact1";
+
 
 				$search=$this->input->get_post("search");
 				$pageno=$this->input->get_post("pageno");
@@ -4091,7 +4109,7 @@ $this->load->view("redirect",$data);
 				$orderby="id";
 				$orderorder="DESC";
 				}
-				$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `hotel`");
+				$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `hotel` INNER JOIN `user` ON `user`.`id`=`hotel`.`user`");
 				$this->load->view("json",$data);
 		}
 

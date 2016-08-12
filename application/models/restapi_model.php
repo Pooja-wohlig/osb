@@ -31,6 +31,10 @@ WHERE `user`.`id`='$user' GROUP BY `user`.`id`, `usercategory`.`user`")->row();
         $query['yourbalance'] = $this->db->query("SELECT `purchasebalance`,`salesbalance` FROM `user` WHERE `id`='$user'")->row();
         return $query;
     }
+    public function getAllSlider() {
+        $query = $this->db->query("SELECT * FROM `slider` ORDER BY `order` DESC")->result();
+        return $query;
+    }
     public function addbalance($user, $amount,$reason) {
         $data = array("userfrom" => 1, "userto" => $user, "amount" => $amount, "requeststatus" => 1,"reason" => $reason);
         $query = $this->db->insert("osb_request", $data);

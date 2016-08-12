@@ -1641,6 +1641,11 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
           echo '<option value="'.$i.'">'.$i.'</option>';
       }
     }
+    public function getAllSlider()
+    {
+        $data['message']=$this->restapi_model->getAllSlider();
+        $this->load->view("json",$data);
+    }
     public function againtest()
     {
       // $cat=$this->input->get('cat');
