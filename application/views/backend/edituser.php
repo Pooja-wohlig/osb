@@ -130,10 +130,10 @@
 			</div>
 			<div class=" form-group">
 				<label class="col-sm-3 control-label" for="normal-field">State</label>
-				<div class="col-sm-4">
+				<div class="col-sm-4"><?php echo $before->state;?>
 					<!-- <input type="text" id="normal-field" class="form-control" name="state" value="<?php echo set_value('state',$before->state);?>"> -->
-					<select name=state>
-						<option value="">------------Select State------------</option>
+					<select name=state value="<?php echo $before->state;?>">
+						  <option value=<?php echo $before->state;?> selected>
 						<option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
 						<option value="Andhra Pradesh">Andhra Pradesh</option>
 						<option value="Arunachal Pradesh">Arunachal Pradesh</option>
@@ -175,10 +175,7 @@
 			<div class=" form-group">
 					<label class="col-sm-3 control-label">Area *</label>
 					<div class="col-sm-4">
-					<!-- <?php
-
-						// echo form_dropdown('area',$area,set_value('area',$before->area),'class="chzn-select form-control" 	data-placeholder="Choose a Accesslevel..."');
-					?> -->
+						<?php echo set_value('area',$before->area);?>
 							<input type="text" id="normal-field" class="form-control" name="area" value="<?php echo set_value('area',$before->area);?>">
 					</div>
 				</div>

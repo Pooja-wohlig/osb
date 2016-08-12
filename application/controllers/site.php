@@ -89,6 +89,7 @@ class Site extends CI_Controller
 		if($this->form_validation->run() == FALSE)
 		{
 			$data['alerterror'] = validation_errors();
+			echo $data['alerterror'];
 			$data['accesslevel']=$this->user_model->getaccesslevels();
             $data[ 'status' ] =$this->user_model->getstatusdropdown();
             $data[ 'area' ] =$this->area_model->getareadropdown();
@@ -141,8 +142,6 @@ class Site extends CI_Controller
 			$pan=$this->input->post('pan');
 			$city=$this->input->post('city');
 			$state=$this->input->post('state');
-			echo "In user";
-			print_r($_POST);
 //            $category=$this->input->post('category');
 
 
@@ -224,8 +223,8 @@ class Site extends CI_Controller
 							$data['alerterror']="New user could not be created.";
 							else
 							$data['alertsuccess']="User created Successfully.";
-							// $data['redirect']="site/viewusers";
-							// $this->load->view("redirect",$data);
+							$data['redirect']="site/viewusers";
+							$this->load->view("redirect",$data);
 						}else{
 						$data['alerterror'] = "Contact no. / Mobile no. should be 10 digits and Pincode should be 6 digits";
 							$data['accesslevel']=$this->user_model->getaccesslevels();
@@ -607,7 +606,6 @@ class Site extends CI_Controller
 								$data['alertsuccess']="User edited Successfully.";
 
 								$data['redirect']="site/viewusers";
-								//$data['other']="template=$template";
 								$this->load->view("redirect",$data);
 
 								// your other code here
@@ -1792,7 +1790,7 @@ $timestamp=$this->input->get_post("timestamp");
     $this->user_model->addnotificationtodb($message,$userto);
 	}
 	if($requeststatus=="2" && $userfrom=="1"){
-	$this->transaction_model->adminaccept($amount,$userto,$userfrom,$id);
+	$this->transaction_model->adminaccept($amount,$userto,$userfrom,$id,$requeststatus);
 	}
 if($this->request_model->edit($id,$userfrom,$userto,$requeststatus,$amount,$reason,$approvalreason,$timestamp,$paymentstatus)==0)
 $data["alerterror"]="New request could not be Updated.";

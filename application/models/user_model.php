@@ -94,13 +94,13 @@ class User_model extends CI_Model
 		$id=$this->db->insert_id();
 
 		// if new area insert area
-		$querycheckarea=$this->db->query("SELECT * FROM `osb_area` WHERE `name` = '$area'")->row();
-		if($querycheckarea->num_rows() == 0)
+		$querycheckarea=$this->db->query("SELECT * FROM `osb_area` WHERE `name` = '$area'");
+		if($querycheckarea->num_rows == 0)
 		{
 			$data1  = array(
 				'name' => $area
 			);
-			$query2=$this->db->insert( 'area', $data1 );
+			$query2=$this->db->insert( 'osb_area', $data1 );
 		}
 
 
@@ -243,13 +243,13 @@ class User_model extends CI_Model
 		$query=$this->db->update( 'user', $data );
 
 		// if new area insert area
-		$querycheckarea=$this->db->query("SELECT * FROM `osb_area` WHERE `name` = '$area'")->row();
-		if($querycheckarea->num_rows() == 0)
+		$querycheckarea=$this->db->query("SELECT * FROM `osb_area` WHERE `name` = '$area'");
+		if($querycheckarea->num_rows == 0)
 		{
 			$data1  = array(
 				'name' => $area
 			);
-			$query2=$this->db->insert( 'area', $data1 );
+			$query2=$this->db->insert( 'osb_area', $data1 );
 		}
 
 		return 1;
