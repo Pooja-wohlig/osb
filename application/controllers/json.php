@@ -1458,8 +1458,14 @@ $sort=$this->input->get_post('sortid');
     $elements[4]->header="Status";
     $elements[4]->alias="status";
 
+    // $elements[5]=new stdClass();
+    // $elements[5]->field="DATE_FORMAT(STR_TO_DATE(ADDTIME(`notification`.`timestamp`,'0 05:30:00'), '%Y-%m-%d %H:%i:%s'), '%H:%i')";
+    // $elements[5]->sort="1";
+    // $elements[5]->header="time";
+    // $elements[5]->alias="time";
+
     $elements[5]=new stdClass();
-    $elements[5]->field="DATE_FORMAT(STR_TO_DATE(ADDTIME(`notification`.`timestamp`,'0 05:30:00'), '%Y-%m-%d %H:%i:%s'), '%H:%i')";
+    $elements[5]->field="DATE_FORMAT(STR_TO_DATE(`notification`.`timestamp`, '%Y-%m-%d %H:%i:%s'), '%H:%i')";
     $elements[5]->sort="1";
     $elements[5]->header="time";
     $elements[5]->alias="time";
