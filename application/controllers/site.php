@@ -1800,8 +1800,8 @@ if($this->request_model->edit($id,$userfrom,$userto,$requeststatus,$amount,$reas
 $data["alerterror"]="New request could not be Updated.";
 else
 $data["alertsuccess"]="request Updated Successfully.";
-// $data["redirect"]="site/viewrequest";
-// $this->load->view("redirect",$data);
+$data["redirect"]="site/viewrequest";
+$this->load->view("redirect",$data);
 
 }
 }
