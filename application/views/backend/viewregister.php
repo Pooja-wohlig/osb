@@ -1,7 +1,7 @@
 <div class=" row" style="padding:1% 0;">
 	<div class="col-md-12">
-	
-		<a class="btn btn-primary pull-right"  href="<?php echo site_url('site/createregister'); ?>"><i class="icon-plus"></i>Create </a> &nbsp; 
+
+		<a class="btn btn-primary pull-right"  href="<?php echo site_url('site/createregister'); ?>"><i class="icon-plus"></i>Create </a> &nbsp;
 	</div>
 	<div><a class="btn btn-primary" href="<?php echo site_url('site/exportregistercsv'); ?>"target="_blank"><i class="icon-plus"></i>Export to CSV </a></div>
 </div>
@@ -9,10 +9,10 @@
 	<div class="col-lg-12">
 		<section class="panel">
 			<header class="panel-heading">
-                Register Details
+                Vendor Details
             </header>
 			<div class="drawchintantable">
-                <?php $this->chintantable->createsearch("Register List");?>
+                <?php $this->chintantable->createsearch("Vendor List");?>
                 <table class="table table-striped table-hover" id="" cellpadding="0" cellspacing="0" >
                 <thead>
                     <tr>
@@ -25,7 +25,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                   
+
                 </tbody>
                 </table>
                    <?php $this->chintantable->createpagination();?>

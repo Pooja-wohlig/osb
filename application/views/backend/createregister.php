@@ -9,7 +9,7 @@
 	<div class="col-lg-12">
 	    <section class="panel">
 		    <header class="panel-heading">
-				 Register Details
+				 Vendor Details
 			</header>
 			<div class="panel-body">
 			  <form class="form-horizontal tasi-form" method="post" action="<?php echo site_url('site/createregistersubmit');?>" enctype= "multipart/form-data">
@@ -18,7 +18,7 @@
 				  <div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="name" value="<?php echo set_value('name');?>">
 				  </div>
-				</div>				
+				</div>
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">Email</label>
 				  <div class="col-sm-4">
@@ -37,13 +37,13 @@
 					<input type="text" id="normal-field" maxlength="10" class="form-control" name="personalcontact" value="<?php echo set_value('personalcontact');?>">
 				</div>
 			</div>
-				
-				
+
+
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label">Status</label>
 				  <div class="col-sm-4">
 					<?php
-						
+
 						echo form_dropdown('status',$status,set_value('status'),'class="chzn-select form-control" 	data-placeholder="Choose a Accesslevel..."');
 					?>
 				  </div>

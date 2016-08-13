@@ -1,10 +1,10 @@
 <div class=" row" style="padding:1% 0;">
 	<div class="col-md-12">
-	
-		<a class="btn btn-primary pull-right"  href="<?php echo site_url('site/createuser'); ?>"><i class="icon-plus"></i>Create </a> &nbsp; 
+
+		<a class="btn btn-primary pull-right"  href="<?php echo site_url('site/createuser'); ?>"><i class="icon-plus"></i>Create </a> &nbsp;
 	</div>
     <div><a class="btn btn-primary" href="<?php echo site_url('site/exportusercsv'); ?>"target="_blank"><i class="icon-plus"></i>Export to CSV </a></div>
-	
+
 </div>
 <div class="row">
 	<div class="col-lg-12">
@@ -27,9 +27,9 @@
                         <th data-field="accesslevelname">accesslevel</th>
 <!--                        <th data-field="status">status</th>-->
                         <th data-field="shopname">shopname</th>
-                        <th data-field="membershipno">membershipno</th>
+                        <th data-field="membershipno">Vendor no</th>
                          <th data-field="purchasebalance">purchasebalance</th>
-                        <th data-field="salesbalance">salesbalance</th>  
+                        <th data-field="salesbalance">salesbalance</th>
 <!--
                         <th data-field="address">address</th>
                         <th data-field="description">description</th>
@@ -38,13 +38,13 @@
                         <th data-field="shopcontact2">shopcontact2</th>
                         <th data-field="shopemail">shopemail</th>
                         <th data-field="purchasebalance">purchasebalance</th>
-                        <th data-field="salesbalance">salesbalance</th>       
+                        <th data-field="salesbalance">salesbalance</th>
 -->
                         <th data-field="action"> Actions </th>
                     </tr>
                 </thead>
                 <tbody>
-                   
+
                 </tbody>
                 </table>
                    <?php $this->chintantable->createpagination();?>

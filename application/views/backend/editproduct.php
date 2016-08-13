@@ -27,7 +27,7 @@
 					  </div>
 					</div>
 
-					<div class="form-group">
+					<div class="form-group" style="display:none">
 						<label class="col-sm-2 control-label">SKU</label>
 						<div class="col-sm-4">
 						  <input type="text" id="normal-field" class="form-control" name="sku" value="<?php echo set_value('sku',$before['product']->sku);?>">

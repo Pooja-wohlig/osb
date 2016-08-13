@@ -38,58 +38,50 @@ return $query;
 }
 	public function adminaccept($amount,$userto,$userfrom,$requestid,$requeststatus){
 		$newrequeststatus=$requeststatus;
-
 		$checkrequeststatus=$this->db->query("SELECT * FROM `osb_request` WHERE  `id`= '$requestid'" )->row();
 		$oldrequeststatus=$checkrequeststatus->requeststatus;
 
-
-
-			$checkifadded=$this->db->query("SELECT * FROM `osb_transaction` WHERE  `userto`= '$userto' AND `userfrom`=1 AND `payableamount`='$amount' AND `transactiondone`=0" );
-			//if row present amount not added
-			if($checkifadded->num_rows > 0 && $oldrequeststatus==1 && $newrequeststatus==2)
+			if( $oldrequeststatus==1 && $newrequeststatus==2)
 			{
 				// update amount in transaction
 				$query=$this->db->query("SELECT `percentpayment` FROM `user` WHERE `id`= '$userto'" )->row();
 				$x=$query->percentpayment;
 				$y=100;
 				$m=$x/$y;
-				$query=$this->db->query("UPDATE `osb_transaction` SET `amount`=$amount*$m WHERE `userto`= '$userto' AND `userfrom`=1 AND `payableamount`='$amount' AND `transactiondone`=1");
+				$checkifadded=$this->db->query("SELECT * FROM `osb_transaction` WHERE  `userto`= '$userto' AND `userfrom`=1 AND `payableamount`='$amount' AND `transactiondone`=0 AND `amount`='$amount*$m'" );
+				if($checkifadded->num_rows >0 || $checkifadded->num_rows ==0 )
+				{
+					$data=array("userto" => $userto,"userfrom" => $userfrom,"payableamount" => $amount,"requestid"=> $requestid);
+					$query=$this->db->insert( "osb_transaction", $data );
+					$id=$this->db->insert_id();
 
-				// Transaction table ka change
-				$data=array("userto" => $userto,"userfrom" => $userfrom,"payableamount" => $amount,"requestid"=> $requestid);
-				$query=$this->db->insert( "osb_transaction", $data );
-				$id=$this->db->insert_id();
+					$query1=$this->db->query("UPDATE `osb_transaction` SET `amount`=$amount*$m,`transactiondone`=1 WHERE `id`='$id'");
+					//notification
+					$this->user_model->sendnotification("Your request is accepted by admin of amount:$amount",$userto);
+					$message="Your request is accepted by admin of amount".$amount;
+					$this->user_model->addnotificationtodb($message,$userto);
 
-				//notification
-				$this->user_model->sendnotification("Your request is accepted by admin of amount:$amount",$userto);
-				$message="Your request is accepted by admin of amount".$amount;
-				$this->user_model->addnotificationtodb($message,$userto);
+					//User PB and SB change
+					$query=$this->db->query("UPDATE `user` SET `user`.`salesbalance`=`user`.`salesbalance`+$amount,`user`.`purchasebalance`=`user`.`purchasebalance`+$amount WHERE `user`.`id`= '$userto'" );
+				}
 
-				//User PB and SB change
-				$query=$this->db->query("UPDATE `user` SET `user`.`salesbalance`=`user`.`salesbalance`+$amount,`user`.`purchasebalance`=`user`.`purchasebalance`+$amount WHERE `user`.`id`= '$userto'" );
+
 			}
-			else if($checkifadded->num_rows == 0 && $oldrequeststatus==2 && $newrequeststatus==1){
+			else if(($oldrequeststatus==2 && $newrequeststatus==1) || ($oldrequeststatus==2 && $newrequeststatus==3)){
 				// update amount in transaction
 				$query=$this->db->query("SELECT `percentpayment` FROM `user` WHERE `id`= '$userto'" )->row();
 				$x=$query->percentpayment;
 				$y=100;
 				$m=$x/$y;
-				$query=$this->db->query("UPDATE `osb_transaction` SET `amount`=$amount-$m WHERE `userto`= '$userto' AND `userfrom`=1 AND `payableamount`='$amount' AND `transactiondone`=1");
+				$checkifadded=$this->db->query("SELECT * FROM `osb_transaction` WHERE  `userto`= '$userto' AND `userfrom`=1 AND `payableamount`='$amount' AND `transactiondone`=1 AND `amount`='$amount*$m'" );
+					if($checkifadded->num_rows >0 || $checkifadded->num_rows ==0 )
+					{
+							$query=$this->db->query("UPDATE `osb_transaction` SET `amount`=$amount-$m WHERE `userto`= '$userto' AND `userfrom`=1 AND `payableamount`='$amount' AND `transactiondone`=-1");
 
-				//User PB and SB change
-				$query=$this->db->query("UPDATE `user` SET `user`.`salesbalance`=`user`.`salesbalance`-$amount,`user`.`purchasebalance`=`user`.`purchasebalance`-$amount WHERE `user`.`id`= '$userto'" );
+							$query=$this->db->query("UPDATE `user` SET `user`.`salesbalance`=`user`.`salesbalance`-$amount,`user`.`purchasebalance`=`user`.`purchasebalance`-$amount WHERE `user`.`id`= '$userto'" );
+					}
 			}
-			else if($checkifadded->num_rows == 0 && $oldrequeststatus==2 && $newrequeststatus==3){
-				// update amount in transaction
-				$query=$this->db->query("SELECT `percentpayment` FROM `user` WHERE `id`= '$userto'" )->row();
-				$x=$query->percentpayment;
-				$y=100;
-				$m=$x/$y;
-				$query=$this->db->query("UPDATE `osb_transaction` SET `amount`=$amount-$m WHERE `userto`= '$userto' AND `userfrom`=1 AND `payableamount`='$amount' AND `transactiondone`=1");
 
-				//User PB and SB change
-				$query=$this->db->query("UPDATE `user` SET `user`.`salesbalance`=`user`.`salesbalance`-$amount,`user`.`purchasebalance`=`user`.`purchasebalance`-$amount WHERE `user`.`id`= '$userto'" );
-			}
 
 			return $userto;
 	}

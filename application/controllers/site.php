@@ -305,7 +305,7 @@ class Site extends CI_Controller
 		$elements[7]=new stdClass();
         $elements[7]->field="`user`.`membershipno`";
         $elements[7]->sort="1";
-        $elements[7]->header="Membershipno";
+        $elements[7]->header="Vendor no";
         $elements[7]->alias="membershipno";
 
 		$elements[8]=new stdClass();
@@ -1783,21 +1783,25 @@ $reason=$this->input->get_post("reason");
 $approvalreason=$this->input->get_post("approvalreason");
 $paymentstatus=$this->input->get_post("paymentstatus");
 $timestamp=$this->input->get_post("timestamp");
+$query=$this->db->query("SELECT * FROM `osb_request` WHERE `id`='$id'")->row();
+$oldstatus=$query->requeststatus;
+
 //    print_r($_POST);
 	if($requeststatus=="3" && $userfrom=="1"){
 	$this->user_model->sendnotification("Your request is rejected by admin of amount:$amount",$userto);
 	$message="Your request is rejected by admin of amount".$amount;
     $this->user_model->addnotificationtodb($message,$userto);
 	}
-	if($requeststatus=="2" && $userfrom=="1"){
-	$this->transaction_model->adminaccept($amount,$userto,$userfrom,$id,$requeststatus);
+	if($requeststatus != $oldstatus && ($userfrom=="1")){
+		$this->transaction_model->adminaccept($amount,$userto,$userfrom,$id,$requeststatus);
 	}
+
 if($this->request_model->edit($id,$userfrom,$userto,$requeststatus,$amount,$reason,$approvalreason,$timestamp,$paymentstatus)==0)
 $data["alerterror"]="New request could not be Updated.";
 else
 $data["alertsuccess"]="request Updated Successfully.";
-$data["redirect"]="site/viewrequest";
-$this->load->view("redirect",$data);
+// $data["redirect"]="site/viewrequest";
+// $this->load->view("redirect",$data);
 
 }
 }

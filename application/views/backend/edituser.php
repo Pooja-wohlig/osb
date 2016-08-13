@@ -12,7 +12,7 @@
 				</div>
 			</div> -->
 			<div class=" form-group">
-				<label class="col-sm-3 control-label" for="normal-field">Membership no *</label>
+				<label class="col-sm-3 control-label" for="normal-field">Vendor no *</label>
 				<div class="col-sm-4">
 					<input type="text" id="normal-field" class="form-control" name="membershipno" value="<?php echo set_value('membershipno',$before->membershipno);?>">
 				</div>

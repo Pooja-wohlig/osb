@@ -1,6 +1,6 @@
 <section class="panel">
 	<header class="panel-heading">
-		Register Details
+		Vendor Details
 	</header>
 	<div class="panel-body">
 		<form class="form-horizontal tasi-form" method="post" action="<?php echo site_url('site/editregistersubmit');?>" enctype="multipart/form-data">
@@ -19,7 +19,7 @@
 					<input type="text" id="normal-field" class="form-control" name="name" value="<?php echo set_value('name',$before->name);?>">
 				</div>
 			</div>
-			
+
 			<div class=" form-group">
 				<label class="col-sm-2 control-label" for="normal-field">Email</label>
 				<div class="col-sm-4">
@@ -45,7 +45,7 @@
 				</div>
 			</div>
 
-		
+
 			<div class=" form-group">
 				<label class="col-sm-2 control-label">&nbsp;</label>
 				<div class="col-sm-4">
