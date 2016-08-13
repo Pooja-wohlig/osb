@@ -253,6 +253,27 @@ public function sellingapproval($user) {
             else
             return  $id;
     }
+    public function removeProfileImage($user) {
+        $query = $this->db->query("UPDATE `user` SET `shoplogo`='' WHERE `id`='$user'");
+            if(!$query)
+            return  0;
+            else
+            return  true;
+    }
+    public function deleteShopPhoto($id) {
+        $query = $this->db->query("DELETE FROM `osb_shopphoto` WHERE `id`='$id'");
+            if(!$query)
+            return  0;
+            else
+            return  true;
+    }
+    public function deleteProductsPhoto($id) {
+        $query = $this->db->query("DELETE FROM `osb_shopproductphoto` WHERE `id`='$id'");
+            if(!$query)
+            return  0;
+            else
+            return  true;
+    }
 
 
     public function acceptreason($id, $reason) {

@@ -1592,6 +1592,24 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $user = $this->input->get_post('id');
         $this->user_model->sendnotification($content,$user);
     }
+  public function removeProfileImage()
+    {
+        $user = $this->input->get_post('id');
+        $data['message']=$this->restapi_model->removeProfileImage($user);
+        $this->load->view("json",$data);
+    }
+  public function deleteShopPhoto()
+    {
+        $id = $this->input->get_post('id');
+        $data['message']=$this->restapi_model->deleteShopPhoto($id);
+        $this->load->view("json",$data);
+    }
+  public function deleteProductsPhoto()
+    {
+        $id = $this->input->get_post('id');
+        $data['message']=$this->restapi_model->deleteProductsPhoto($id);
+        $this->load->view("json",$data);
+    }
 
     public function updateterms(){
        $id=$this->input->get('id');
