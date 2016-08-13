@@ -578,6 +578,8 @@ $data['message']=$this->restapi_model->updatearea($userid,$areaid);
         if(move_uploaded_file($_FILES["file"]["tmp_name"], "./uploads/".$imageName)){
             $object = new stdClass();
             $object->value = $imageName;
+            //update image in user
+        $query = $this->db->query("UPDATE `user` SET `shoplogo`='$imageName' WHERE `id`='$user'");
        		$data["message"]=$object;
             	$this->load->view("json",$data);
         }else{

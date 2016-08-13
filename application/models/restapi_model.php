@@ -238,7 +238,7 @@ public function sellingapproval($user) {
 
 
 
-        $query = $this->db->query("UPDATE `user` SET `shopname`='$shopname',`billingaddress`='$address',`description`='$description',`shopcontact1`='$shopcontact1',`shopcontact2`='$shopcontact2',`shopemail`='$shopemail',`website`='$website',`shoplogo`='$shoplogo',`billingcity`='$billingcity',`billingstate`='$billingstate',`billingpincode`='$billingpincode' WHERE `id`='$id'");
+        $query = $this->db->query("UPDATE `user` SET `shopname`='$shopname',`billingaddress`='$address',`description`='$description',`shopcontact1`='$shopcontact1',`shopcontact2`='$shopcontact2',`shopemail`='$shopemail',`website`='$website',`billingcity`='$billingcity',`billingstate`='$billingstate',`billingpincode`='$billingpincode' WHERE `id`='$id'");
 		 if(!$query)
             return  0;
             else
