@@ -4424,5 +4424,512 @@ $this->load->view("redirect",$data);
 	        $this->load->view("redirect",$data);
 	    }
 
+
+//HOTEL INTEGRATION
+
+public function viewcountry()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="viewcountry";
+$data["base_url"]=site_url("site/viewcountryjson");
+$data["title"]="View country";
+$this->load->view("template",$data);
+}
+function viewcountryjson()
+{
+$elements=array();
+$elements[0]=new stdClass();
+$elements[0]->field="`osb_country`.`id`";
+$elements[0]->sort="1";
+$elements[0]->header="Id";
+$elements[0]->alias="id";
+$elements[1]=new stdClass();
+$elements[1]->field="`osb_country`.`name`";
+$elements[1]->sort="1";
+$elements[1]->header="Name";
+$elements[1]->alias="name";
+$search=$this->input->get_post("search");
+$pageno=$this->input->get_post("pageno");
+$orderby=$this->input->get_post("orderby");
+$orderorder=$this->input->get_post("orderorder");
+$maxrow=$this->input->get_post("maxrow");
+if($maxrow=="")
+{
+$maxrow=20;
+}
+if($orderby=="")
+{
+$orderby="id";
+$orderorder="ASC";
+}
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_country`");
+$this->load->view("json",$data);
+}
+
+public function createcountry()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="createcountry";
+$data["title"]="Create country";
+$this->load->view("template",$data);
+}
+public function createcountrysubmit()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->form_validation->set_rules("name","Name","trim");
+if($this->form_validation->run()==FALSE)
+{
+$data["alerterror"]=validation_errors();
+$data["page"]="createcountry";
+$data["title"]="Create country";
+$this->load->view("template",$data);
+}
+else
+{
+$id=$this->input->get_post("id");
+$name=$this->input->get_post("name");
+if($this->country_model->create($name)==0)
+$data["alerterror"]="New country could not be created.";
+else
+$data["alertsuccess"]="country created Successfully.";
+$data["redirect"]="site/viewcountry";
+$this->load->view("redirect",$data);
+}
+}
+public function editcountry()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="editcountry";
+$data["title"]="Edit country";
+$data["before"]=$this->country_model->beforeedit($this->input->get("id"));
+$this->load->view("template",$data);
+}
+public function editcountrysubmit()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->form_validation->set_rules("id","Id","trim");
+$this->form_validation->set_rules("name","Name","trim");
+if($this->form_validation->run()==FALSE)
+{
+$data["alerterror"]=validation_errors();
+$data["page"]="editcountry";
+$data["title"]="Edit country";
+$data["before"]=$this->country_model->beforeedit($this->input->get("id"));
+$this->load->view("template",$data);
+}
+else
+{
+$id=$this->input->get_post("id");
+$name=$this->input->get_post("name");
+if($this->country_model->edit($id,$name)==0)
+$data["alerterror"]="New country could not be Updated.";
+else
+$data["alertsuccess"]="country Updated Successfully.";
+$data["redirect"]="site/viewcountry";
+$this->load->view("redirect",$data);
+}
+}
+public function deletecountry()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->country_model->delete($this->input->get("id"));
+$data["redirect"]="site/viewcountry";
+$this->load->view("redirect",$data);
+}
+public function viewstate()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="viewstate";
+$data["base_url"]=site_url("site/viewstatejson");
+$data["title"]="View state";
+$this->load->view("template",$data);
+}
+function viewstatejson()
+{
+$elements=array();
+$elements[0]=new stdClass();
+$elements[0]->field="`osb_state`.`id`";
+$elements[0]->sort="1";
+$elements[0]->header="Id";
+$elements[0]->alias="id";
+$elements[1]=new stdClass();
+$elements[1]->field="`osb_country`.`name`";
+$elements[1]->sort="1";
+$elements[1]->header="Country";
+$elements[1]->alias="country";
+$elements[2]=new stdClass();
+$elements[2]->field="`osb_state`.`name`";
+$elements[2]->sort="1";
+$elements[2]->header="Name";
+$elements[2]->alias="name";
+$search=$this->input->get_post("search");
+$pageno=$this->input->get_post("pageno");
+$orderby=$this->input->get_post("orderby");
+$orderorder=$this->input->get_post("orderorder");
+$maxrow=$this->input->get_post("maxrow");
+if($maxrow=="")
+{
+$maxrow=20;
+}
+if($orderby=="")
+{
+$orderby="id";
+$orderorder="ASC";
+}
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_state` INNER JOIN `osb_country` ON `osb_country`.`id`=`osb_state`.`country`");
+$this->load->view("json",$data);
+}
+
+public function createstate()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="createstate";
+$data["country"]=$this->country_model->getdropdown();
+$data["title"]="Create state";
+$this->load->view("template",$data);
+}
+public function createstatesubmit()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->form_validation->set_rules("country","Country","trim");
+$this->form_validation->set_rules("name","Name","trim");
+if($this->form_validation->run()==FALSE)
+{
+$data["alerterror"]=validation_errors();
+$data["country"]=$this->country_model->getdropdown();
+$data["page"]="createstate";
+$data["title"]="Create state";
+$this->load->view("template",$data);
+}
+else
+{
+$id=$this->input->get_post("id");
+$country=$this->input->get_post("country");
+$name=$this->input->get_post("name");
+if($this->state_model->create($country,$name)==0)
+$data["alerterror"]="New state could not be created.";
+else
+$data["alertsuccess"]="state created Successfully.";
+$data["redirect"]="site/viewstate";
+$this->load->view("redirect",$data);
+}
+}
+public function editstate()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="editstate";
+$data["title"]="Edit state";
+$data["country"]=$this->country_model->getdropdown();
+$data["before"]=$this->state_model->beforeedit($this->input->get("id"));
+$this->load->view("template",$data);
+}
+public function editstatesubmit()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->form_validation->set_rules("id","Id","trim");
+$this->form_validation->set_rules("country","Country","trim");
+$this->form_validation->set_rules("name","Name","trim");
+if($this->form_validation->run()==FALSE)
+{
+$data["alerterror"]=validation_errors();
+$data["page"]="editstate";
+$data["title"]="Edit state";
+$data["country"]=$this->country_model->getdropdown();
+$data["before"]=$this->state_model->beforeedit($this->input->get("id"));
+$this->load->view("template",$data);
+}
+else
+{
+$id=$this->input->get_post("id");
+$country=$this->input->get_post("country");
+$name=$this->input->get_post("name");
+if($this->state_model->edit($id,$country,$name)==0)
+$data["alerterror"]="New state could not be Updated.";
+else
+$data["alertsuccess"]="state Updated Successfully.";
+$data["redirect"]="site/viewstate";
+$this->load->view("redirect",$data);
+}
+}
+public function deletestate()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->state_model->delete($this->input->get("id"));
+$data["redirect"]="site/viewstate";
+$this->load->view("redirect",$data);
+}
+public function viewcity()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="viewcity";
+$data["base_url"]=site_url("site/viewcityjson");
+$data["title"]="View city";
+$this->load->view("template",$data);
+}
+function viewcityjson()
+{
+$elements=array();
+$elements[0]=new stdClass();
+$elements[0]->field="`osb_city`.`id`";
+$elements[0]->sort="1";
+$elements[0]->header="Id";
+$elements[0]->alias="id";
+$elements[1]=new stdClass();
+$elements[1]->field="`osb_state`.`name`";
+$elements[1]->sort="1";
+$elements[1]->header="State";
+$elements[1]->alias="state";
+$elements[2]=new stdClass();
+$elements[2]->field="`osb_city`.`name`";
+$elements[2]->sort="1";
+$elements[2]->header="Name";
+$elements[2]->alias="name";
+$search=$this->input->get_post("search");
+$pageno=$this->input->get_post("pageno");
+$orderby=$this->input->get_post("orderby");
+$orderorder=$this->input->get_post("orderorder");
+$maxrow=$this->input->get_post("maxrow");
+if($maxrow=="")
+{
+$maxrow=20;
+}
+if($orderby=="")
+{
+$orderby="id";
+$orderorder="ASC";
+}
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_city` INNER JOIN `osb_state` ON `osb_state`.`id`=`osb_city`.`state`");
+$this->load->view("json",$data);
+}
+
+public function createcity()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="createcity";
+$data["title"]="Create city";
+$data["state"]=$this->state_model->getdropdown();
+$this->load->view("template",$data);
+}
+public function createcitysubmit()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->form_validation->set_rules("state","State","trim");
+$this->form_validation->set_rules("name","Name","trim");
+if($this->form_validation->run()==FALSE)
+{
+$data["alerterror"]=validation_errors();
+$data["page"]="createcity";
+$data["title"]="Create city";
+$data["state"]=$this->state_model->getdropdown();
+$this->load->view("template",$data);
+}
+else
+{
+$id=$this->input->get_post("id");
+$state=$this->input->get_post("state");
+$name=$this->input->get_post("name");
+if($this->city_model->create($state,$name)==0)
+$data["alerterror"]="New city could not be created.";
+else
+$data["alertsuccess"]="city created Successfully.";
+$data["redirect"]="site/viewcity";
+$this->load->view("redirect",$data);
+}
+}
+public function editcity()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="editcity";
+$data["title"]="Edit city";
+$data["state"]=$this->state_model->getdropdown();
+$data["before"]=$this->city_model->beforeedit($this->input->get("id"));
+$this->load->view("template",$data);
+}
+public function editcitysubmit()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->form_validation->set_rules("id","Id","trim");
+$this->form_validation->set_rules("state","State","trim");
+$this->form_validation->set_rules("name","Name","trim");
+if($this->form_validation->run()==FALSE)
+{
+$data["alerterror"]=validation_errors();
+$data["page"]="editcity";
+$data["title"]="Edit city";
+$data["state"]=$this->state_model->getdropdown();
+$data["before"]=$this->city_model->beforeedit($this->input->get("id"));
+$this->load->view("template",$data);
+}
+else
+{
+$id=$this->input->get_post("id");
+$state=$this->input->get_post("state");
+$name=$this->input->get_post("name");
+if($this->city_model->edit($id,$state,$name)==0)
+$data["alerterror"]="New city could not be Updated.";
+else
+$data["alertsuccess"]="city Updated Successfully.";
+$data["redirect"]="site/viewcity";
+$this->load->view("redirect",$data);
+}
+}
+public function deletecity()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->city_model->delete($this->input->get("id"));
+$data["redirect"]="site/viewcity";
+$this->load->view("redirect",$data);
+}
+public function viewhotelref()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="viewhotelref";
+
+$data["base_url"]=site_url("site/viewhotelrefjson");
+$data["title"]="View hotelref";
+$this->load->view("template",$data);
+}
+function viewhotelrefjson()
+{
+$elements=array();
+$elements[0]=new stdClass();
+$elements[0]->field="`osb_hotelref`.`id`";
+$elements[0]->sort="1";
+$elements[0]->header="Id";
+$elements[0]->alias="id";
+$elements[1]=new stdClass();
+$elements[1]->field="`osb_city`.`name`";
+$elements[1]->sort="1";
+$elements[1]->header="City";
+$elements[1]->alias="city";
+$elements[2]=new stdClass();
+$elements[2]->field="`osb_hotelref`.`name`";
+$elements[2]->sort="1";
+$elements[2]->header="Name";
+$elements[2]->alias="name";
+$search=$this->input->get_post("search");
+$pageno=$this->input->get_post("pageno");
+$orderby=$this->input->get_post("orderby");
+$orderorder=$this->input->get_post("orderorder");
+$maxrow=$this->input->get_post("maxrow");
+if($maxrow=="")
+{
+$maxrow=20;
+}
+if($orderby=="")
+{
+$orderby="id";
+$orderorder="ASC";
+}
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `osb_hotelref` INNER JOIN `osb_city` ON `osb_city`.`id`=`osb_hotelref`.`city`");
+$this->load->view("json",$data);
+}
+
+public function createhotelref()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="createhotelref";
+$data["title"]="Create hotelref";
+$data["city"]=$this->city_model->getdropdown();
+$this->load->view("template",$data);
+}
+public function createhotelrefsubmit()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->form_validation->set_rules("city","City","trim");
+$this->form_validation->set_rules("name","Name","trim");
+if($this->form_validation->run()==FALSE)
+{
+$data["alerterror"]=validation_errors();
+$data["page"]="createhotelref";
+$data["city"]=$this->city_model->getdropdown();
+$data["title"]="Create hotelref";
+$this->load->view("template",$data);
+}
+else
+{
+$id=$this->input->get_post("id");
+$city=$this->input->get_post("city");
+$name=$this->input->get_post("name");
+if($this->hotelref_model->create($city,$name)==0)
+$data["alerterror"]="New hotelref could not be created.";
+else
+$data["alertsuccess"]="hotelref created Successfully.";
+$data["redirect"]="site/viewhotelref";
+$this->load->view("redirect",$data);
+}
+}
+public function edithotelref()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="edithotelref";
+$data["title"]="Edit hotelref";
+$data["city"]=$this->city_model->getdropdown();
+$data["before"]=$this->hotelref_model->beforeedit($this->input->get("id"));
+$this->load->view("template",$data);
+}
+public function edithotelrefsubmit()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->form_validation->set_rules("id","Id","trim");
+$this->form_validation->set_rules("city","City","trim");
+$this->form_validation->set_rules("name","Name","trim");
+if($this->form_validation->run()==FALSE)
+{
+$data["alerterror"]=validation_errors();
+$data["page"]="edithotelref";
+$data["title"]="Edit hotelref";
+$data["city"]=$this->city_model->getdropdown();
+$data["before"]=$this->hotelref_model->beforeedit($this->input->get("id"));
+$this->load->view("template",$data);
+}
+else
+{
+$id=$this->input->get_post("id");
+$city=$this->input->get_post("city");
+$name=$this->input->get_post("name");
+if($this->hotelref_model->edit($id,$city,$name)==0)
+$data["alerterror"]="New hotelref could not be Updated.";
+else
+$data["alertsuccess"]="hotelref Updated Successfully.";
+$data["redirect"]="site/viewhotelref";
+$this->load->view("redirect",$data);
+}
+}
+public function deletehotelref()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->hotelref_model->delete($this->input->get("id"));
+$data["redirect"]="site/viewhotelref";
+$this->load->view("redirect",$data);
+}
+
+
+
+
 }
 ?>
