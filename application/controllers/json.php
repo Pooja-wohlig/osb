@@ -1683,5 +1683,47 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
     }
 
     }
+    public function testsms()
+    {
+    $this->load->helper('url');
+   $mainurl=$this->config->base_url();
+   $username="Pooja";
+//    $exactpath="http://api-alerts.solutionsinfini.com/v3/?method=sms&api_key=A8f9d0962570b73f21b888dba919045d5&to=9594390024,9870969411&sender=SwaapI&message=Dear".$username.",Welcome to Swaap. This SMS should go as new user is signed in. Thank You&
+// format=php&custom=1,2&flash=0";
+   $exactpath="http://api-alerts.solutionsinfini.com/v3/?method=sms&api_key=A8f9d0962570b73f21b888dba919045d5&to=9594390024,9870969411&sender=SwaapI&message=Dear XXXXX, Welcome to Swaap&
+format=json&custom=1,2&flash=0";
+   echo $exactpath;
+     // GET CURL
+       $ch = curl_init();
+       $url=$exactpath;
+       curl_setopt($ch,CURLOPT_URL,$url);
+       curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+       curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+       curl_setopt($ch,CURLOPT_HEADER, false);
+       $output=curl_exec($ch);
+       echo curl_exec($ch);
+       print_r(curl_exec($ch));
+       curl_close($ch);
+       echo $output;
+       print_r(unserialize($response));
+
+    // // Get cURL resource
+    //   $curl = curl_init();
+    //   // Set some options - we are passing in a useragent too here
+    //   curl_setopt_array($curl, array(
+    //       CURLOPT_RETURNTRANSFER => 1,
+    //       CURLOPT_URL => $exactpath,
+    //       CURLOPT_USERAGENT => 'Codular Sample cURL Request'
+    //   ));
+    //   // Send the request & save response to $resp
+    //   $output = curl_exec($curl);
+    //   // Close request to clear up some resources
+    //   curl_close($curl);
+    //    echo " In suvces  ";
+    //
+    //    print_r($output);
+
+    }
 
 }?>
