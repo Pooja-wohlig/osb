@@ -904,14 +904,25 @@ $echo.= "done2";
         else
         return  $echo;
 	}
-	public function becomeamember($name,$email,$number,$message,$os){
-$data=array("name" => $name,"email" => $email,"personalcontact" => $number,"message" => $message,"status"=>2);
-$query=$this->db->insert( "register", $data );
-$id=$this->db->insert_id();
-if(!$query)
-return  0;
-else
-return  $id;
+	public function becomeamember($name,$email,$number,$message,$os)
+  {
+        $data=array("name" => $name,"email" => $email,"personalcontact" => $number,"message" => $message,"status"=>2);
+        $query=$this->db->insert( "register", $data );
+        $id=$this->db->insert_id();
+        if($id)
+        {
+          $this->load->helper('url');
+          $mainurl=$this->config->base_url();
+          $username=$name;
+          $text = "Dear ".$username." ,Welcome to Swaap";
+          $text = urlencode ( $text );
+          $exactpath="http://api-alerts.solutionsinfini.com/v3/?method=sms&api_key=A8f9d0962570b73f21b888dba919045d5&to=9594390024&sender=SwaapI&message=$text&format=php&custom=1,2&flash=0";
+          $return = file_get_contents($exactpath);
+        }
+      if(!$query)
+      return  0;
+      else
+      return  $id;
  }
 	public function viewmyproducts($user){
 	 $query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `status`, `user`, `quantity`, `image`,`moderated` FROM `product` WHERE `user`='$user' ORDER BY `id` DESC")->result();
