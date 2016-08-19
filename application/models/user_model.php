@@ -102,7 +102,15 @@ class User_model extends CI_Model
 			);
 			$query2=$this->db->insert( 'osb_area', $data1 );
 		}
-
+		if($id){
+			$this->load->helper('url');
+			$mainurl=$this->config->base_url();
+			$username=$name;
+			$text = "Dear ".$username." ,Welcome to Swaap";
+			$text = urlencode ( $text );
+			$shopcontact1 = urlencode ( $shopcontact1 );
+			$exactpath="http://api-alerts.solutionsinfini.com/v3/?method=sms&api_key=A8f9d0962570b73f21b888dba919045d5&to=$shopcontact1&sender=SwaapI&message=$text&format=php&custom=1,2&flash=0";
+		}
 
 
 		if(!$query)
