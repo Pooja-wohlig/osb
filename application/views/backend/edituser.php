@@ -241,6 +241,28 @@
 						?>
 						</div>
 					</div>
+
+
+				<div class=" form-group">
+						<label class="col-sm-3 control-label">Select Accesslevel</label>
+						<div class="col-sm-4">
+						<?php
+
+							echo form_dropdown('accesslevel',$accesslevel,set_value('accesslevel',$before->accesslevel),'class="chzn-select form-control" 	data-placeholder="Choose a Accesslevel..."');
+						?>
+						</div>
+					</div>
+
+
+
+
+
+
+
+
+
+
+
 					<?php
 							$accesslevel=$this->session->userdata('accesslevel');
 							if($accesslevel==1)

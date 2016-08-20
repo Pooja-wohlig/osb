@@ -5,7 +5,7 @@ class email_model extends CI_Model
 {
 	public function emailer($htmltext,$subject,$toemail,$toname)
   {
-  
+
 					$query=$this->db->query("SELECT * FROM `emailer`")->row();
 					$username=$query->username;
 					$password=$query->password;
