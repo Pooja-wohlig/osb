@@ -253,21 +253,6 @@
 						</div>
 					</div>
 
-
-
-
-
-
-
-
-
-
-
-					<?php
-							$accesslevel=$this->session->userdata('accesslevel');
-							if($accesslevel==1)
-							{
-							?>
 					<div class=" form-group">
 						<label class="col-sm-3 control-label" for="normal-field">Purchase Balance *</label>
 						<div class="col-sm-4">
@@ -280,8 +265,6 @@
 							<input type="text" id="normal-field" class="form-control" name="salesbalance" value="<?php echo set_value('salesbalance',$before->salesbalance);?>">
 						</div>
 					</div>
-					<?php }
-							?>
 
 			<div class=" form-group">
 				<label class="col-sm-3 control-label" for="normal-field">Barter Percentage (in %) *</label>
