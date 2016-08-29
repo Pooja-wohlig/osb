@@ -96,7 +96,7 @@ class User_model extends CI_Model
 
 		$this->load->helper('url');
 		$username=$name;
-		$text = "Dear ".$username." ,Welcome to Swaap";
+		$text = "Dear ".$username." ,Welcome to Swaap. Your vendor's ID would be your mobile no. and your password would be Firstname123";
 		$text = urlencode ( $text );
 		$shopcontact1 = urlencode ( $shopcontact1 );
 		$exactpath="http://api-alerts.solutionsinfini.com/v3/?method=sms&api_key=A8f9d0962570b73f21b888dba919045d5&to=$shopcontact1&sender=SwaapI&message=$text&format=php&custom=1,2&flash=0";
