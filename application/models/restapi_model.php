@@ -298,11 +298,13 @@ public function sellingapproval($user) {
             return  true;
     }
     public function deleteProductsImage($id) {
+          $query1 = $this->db->query("SELECT * FROM `productimage` WHERE `id`='$id'")->row();
+          $prodid=$query1->product;
         $query = $this->db->query("DELETE FROM `productimage` WHERE `id`='$id'");
             if(!$query)
             return  0;
             else
-            return  $id;
+            return  intval($prodid);
     }
 
 
