@@ -297,6 +297,13 @@ public function sellingapproval($user) {
             else
             return  true;
     }
+    public function deleteProductsImage($id) {
+        $query = $this->db->query("DELETE FROM `productimage` WHERE `id`='$id'");
+            if(!$query)
+            return  0;
+            else
+            return  true;
+    }
 
 
     public function acceptreason($id, $reason) {

@@ -1616,6 +1616,12 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $data['message']=$this->restapi_model->deleteProductsPhoto($id);
         $this->load->view("json",$data);
     }
+  public function deleteProductsImage()
+    {
+        $id = $this->input->get_post('id');
+        $data['message']=$this->restapi_model->deleteProductsImage($id);
+        $this->load->view("json",$data);
+    }
 
     public function updateterms(){
        $id=$this->input->get('id');
