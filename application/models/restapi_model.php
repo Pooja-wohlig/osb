@@ -396,6 +396,7 @@ public function sellingapproval($user) {
 // }
 		public function getsingleproduct($id){
 $query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` as `category`,`osb_category`.`name` as `categoryname`,`user`.`shopname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`id`='$id'")->row();
+$query->images=$this->db->query("SELECT * FROM `productimage` WHERE `product`='$id'")->result();
 		return $query;
  }
 
@@ -494,6 +495,7 @@ WHERE `orderitems`.`order`='$orderid'")->result();
 
 	public function createproduct($name,$price,$description,$status,$user,$quantity,$category,$image)
     {
+      // insert each image
         $data=array(
             "name" => $name,
 //            "sku" => $sku,
@@ -501,8 +503,7 @@ WHERE `orderitems`.`order`='$orderid'")->result();
             "description" => $description,
             "user" => $user,
             "quantity" => $quantity,
-            "status" => $status,
-			"image" => $image
+            "status" => $status
         );
         $userdetails=$this->db->query("SELECT * FROM `user` WHERE `id`='$user'")->row();
         $salesbalance=$userdetails->salesbalance;
@@ -515,6 +516,12 @@ WHERE `orderitems`.`order`='$orderid'")->result();
         {
             $query=$this->db->insert( "product", $data );
             $id=$this->db->insert_id();
+
+  // insert each image
+  foreach($image as $img){
+    $querycategory=$this->db->query("INSERT INTO `productimage`(`image`, `product`) VALUES ('$img','$id')");
+  }
+
 			$querycategory=$this->db->query("INSERT INTO `productcategory`(`product`, `category`) VALUES ('$id','$category')");
             if($status==1)
             {
