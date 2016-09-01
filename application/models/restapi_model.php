@@ -232,7 +232,7 @@ public function sellingapproval($user) {
         }
         else {
             $htmltext = $this->load->view('emailers/hotelinfo', $data, true);
-            $this->email_model->emailer($htmltext,'Hotel Form Submission','swaapindia@gmail.com',"Sir/Madam");
+            $this->email_model->emailer($htmltext,'Hotel Form Submission','hotels@swaap.in',"Sir/Madam");
             $object = new stdClass();
             $object->data = 'Inserted';
             $object->value = true;
@@ -302,7 +302,7 @@ public function sellingapproval($user) {
             if(!$query)
             return  0;
             else
-            return  true;
+            return  $id;
     }
 
 
@@ -817,12 +817,16 @@ WHERE `orderitems`.`order`='$orderid'")->result();
         }
 
 
-        //print_r("SELECT `user`.`id`,`user`.`shopname` as `name`,`user`.`salesbalance` as `sellbalance` FROM `user` LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id` LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category` WHERE $areaquery AND $categoryquery");
         $query = $this->db->query("SELECT DISTINCT(`user`.`id`),`user`.`shopname` as `name`,`user`.`salesbalance` as `sellbalance`,`user`.`onlinestatus` as `onlinestatus`
         FROM `user`
         LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id`
         LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category`
         WHERE $areaquery AND $categoryquery AND $onlinequery AND `user`.`shopstatus`!=0 AND `user`.`salesbalance` > 0 ORDER BY `user`.`salesbalance` DESC")->result();
+        echo "SELECT DISTINCT(`user`.`id`),`user`.`shopname` as `name`,`user`.`salesbalance` as `sellbalance`,`user`.`onlinestatus` as `onlinestatus`
+        FROM `user`
+        LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id`
+        LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category`
+        WHERE $areaquery AND $categoryquery AND $onlinequery AND `user`.`shopstatus`!=0 AND `user`.`salesbalance` > 0 ORDER BY `user`.`salesbalance` DESC";
 
         return $query;
     }
