@@ -502,12 +502,12 @@ WHERE `orderitems`.`order`='$orderid'")->result();
         return  $query;
 	}
 
-	public function createproduct($name,$price,$description,$status,$user,$quantity,$category,$image)
+		public function createproduct($name,$price,$description,$status,$user,$quantity,$category,$image)
     {
       // insert each image
         $data=array(
             "name" => $name,
-//            "sku" => $sku,
+            "image" => $image,
             "price" => $price,
             "description" => $description,
             "user" => $user,
@@ -527,9 +527,9 @@ WHERE `orderitems`.`order`='$orderid'")->result();
             $id=$this->db->insert_id();
 
   // insert each image
-  foreach($image as $img){
-    $querycategory=$this->db->query("INSERT INTO `productimage`(`image`, `product`) VALUES ('$img','$id')");
-  }
+  // foreach($image as $img){
+  //   $querycategory=$this->db->query("INSERT INTO `productimage`(`image`, `product`) VALUES ('$img','$id')");
+  // }
 
 			$querycategory=$this->db->query("INSERT INTO `productcategory`(`product`, `category`) VALUES ('$id','$category')");
             if($status==1)
