@@ -19,7 +19,7 @@ class email_model extends CI_Model
 							'subject'   => $subject,
 							'html'      => $htmltext,
 							'text'      => 'Swaap',
-							'from'      => 'swaapindia@gmail.com',
+							'from'      => 'bookings@swaap.in',
 							'fromname'      => 'Swaap'
 						);
 					$request =  $url.'api/mail.send.json';

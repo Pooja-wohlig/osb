@@ -232,7 +232,7 @@ public function sellingapproval($user) {
         }
         else {
             $htmltext = $this->load->view('emailers/hotelinfo', $data, true);
-            $this->email_model->emailer($htmltext,'Hotel Form Submission','hotels@swaap.in',"Sir/Madam");
+            $this->email_model->emailer($htmltext,'Hotel Form Submission','bookings@swaap.in',"Sir/Madam");
             $object = new stdClass();
             $object->data = 'Inserted';
             $object->value = true;
