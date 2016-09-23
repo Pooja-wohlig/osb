@@ -1332,6 +1332,38 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
 
 }
  }
+ public function editProductImages(){
+	    $id=$this->input->get_post("id");
+$date = new DateTime();
+         $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+$config['max_size']	= '10000000';
+$config['overwrite']	= true;
+$config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
+
+        $this->load->library('upload', $config);
+        //$image="file";
+        if (  $this->upload->do_upload("file"))
+        {
+            $uploaddata = $this->upload->data();
+            $image=$uploaddata['file_name'];
+            // update $image in db
+            $this->restapi_model->editProductImages($id,$image);
+        $obj = new stdClass();
+        $obj->value=$image;
+        $data["message"]=$obj;
+        $this->load->view("json2",$data);
+        }
+       else
+{
+
+        $obj = new stdClass();
+        $obj->value=$this->upload->display_errors();
+        $data["message"]=$obj;
+        $this->load->view("json2",$data);
+
+}
+ }
 
 public function searchproduct(){
 $product=$this->input->get_post('product');
@@ -1614,6 +1646,12 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
     {
         $id = $this->input->get_post('id');
         $data['message']=$this->restapi_model->deleteProductsPhoto($id);
+        $this->load->view("json",$data);
+    }
+  public function deleteProductsImage()
+    {
+        $id = $this->input->get_post('id');
+        $data['message']=$this->restapi_model->deleteProductsImage($id);
         $this->load->view("json",$data);
     }
 

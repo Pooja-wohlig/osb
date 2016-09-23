@@ -308,6 +308,16 @@ public function sellingapproval($user) {
     }
 
 
+    public function editProductImages($id, $image) {
+        // $data = array('image' => $image);
+        // $this->db->where('product', $id);
+        // $this->db->update('productimage', $data);
+        $data1  = array(
+          'image' => $image,
+          'product' => $id
+        );
+        $query1=$this->db->insert( 'productimage', $data1 );
+    }
     public function acceptreason($id, $reason) {
         $data = array('reason' => $reason);
         $this->db->where('id', $id);
@@ -824,11 +834,6 @@ WHERE `orderitems`.`order`='$orderid'")->result();
         LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id`
         LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category`
         WHERE $areaquery AND $categoryquery AND $onlinequery AND `user`.`shopstatus`!=0 AND `user`.`salesbalance` > 0 ORDER BY `user`.`salesbalance` DESC")->result();
-        echo "SELECT DISTINCT(`user`.`id`),`user`.`shopname` as `name`,`user`.`salesbalance` as `sellbalance`,`user`.`onlinestatus` as `onlinestatus`
-        FROM `user`
-        LEFT OUTER JOIN `usercategory` ON `usercategory`.`user`=`user`.`id`
-        LEFT OUTER JOIN `osb_category` ON `osb_category`.`id`=`usercategory`.`category`
-        WHERE $areaquery AND $categoryquery AND $onlinequery AND `user`.`shopstatus`!=0 AND `user`.`salesbalance` > 0 ORDER BY `user`.`salesbalance` DESC";
 
         return $query;
     }
