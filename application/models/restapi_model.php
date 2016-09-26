@@ -951,7 +951,14 @@ $echo.= "done2";
       return  $id;
  }
 	public function viewmyproducts($user){
-	 $query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `status`, `user`, `quantity`, `image`,`moderated` FROM `product` WHERE `user`='$user' ORDER BY `id` DESC")->result();
+
+	 $query=$this->db->query("SELECT `id`, `name`, `sku`, `price`, `description`, `status`, `user`, `quantity`, `moderated` FROM `product` WHERE `user`='$user' ORDER BY `id` DESC")->result();
+
+   foreach ($query as $row) {
+
+	    $query1=$this->db->query("SELECT * FROM `productimage` WHERE `product`='$row->id'")->row();
+      $row->image=$query1->image;
+   }
         if(!$query)
         return  0;
         else
