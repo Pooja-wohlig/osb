@@ -1351,6 +1351,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
             $this->restapi_model->editProductImages($id,$image);
         $obj = new stdClass();
         $obj->value=$image;
+        $obj->id=$id;
         $data["message"]=$obj;
         $this->load->view("json2",$data);
         }
