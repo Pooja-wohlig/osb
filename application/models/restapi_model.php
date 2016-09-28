@@ -414,7 +414,11 @@ public function sellingapproval($user) {
 //		return $query;
 // }
 		public function getsingleproduct($id){
-$query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` as `category`,`osb_category`.`name` as `categoryname`,`user`.`shopname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`id`='$id'")->row();
+$query=$this->db->query("SELECT `product`.`id`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `productimage`.`image`,`productcategory`.`category` as `category`,`osb_category`.`name` as `categoryname`,`user`.`shopname` FROM `product`
+LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id`
+LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id`
+LEFT OUTER JOIN `productimage` ON `product`.`id`=`productimage`.`product`
+LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`id`='$id'")->row();
 $query->images=$this->db->query("SELECT * FROM `productimage` WHERE `product`='$id'")->result();
 		return $query;
  }
@@ -1019,7 +1023,12 @@ $echo.= "done2";
         {
             $orderclause .=" ORDER BY `product`.`price` DESC ";
         }
-        $query = $this->db->query("SELECT `product`.`id` as `productid`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `product`.`image`,`productcategory`.`category` ,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id` LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id` LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user` WHERE `product`.`quantity` > 0 AND `product`.`status`=1 AND `product`.`moderated`=1  $wherequery GROUP BY `product`.`id` $orderclause ")->result();
+        $query = $this->db->query("SELECT `product`.`id` as `productid`, `product`.`name`, `product`.`sku`, `product`.`price`, `product`.`description`, `product`.`status`, `product`.`user`, `product`.`quantity`, `productimage`.`image`,`productcategory`.`category` ,`osb_category`.`name` as `categoryname` FROM `product` LEFT OUTER JOIN `productcategory` ON `productcategory`.`product`=`product`.`id`
+        LEFT OUTER JOIN `osb_category` ON `productcategory`.`category`=`osb_category`.`id`
+ LEFT OUTER JOIN `productimage` ON `product`.`id`=`productimage`.`product`
+        LEFT OUTER JOIN `user` ON `user`.`id`=`product`.`user`
+        WHERE `product`.`quantity` > 0 AND `product`.`status`=1 AND `product`.`moderated`=1  $wherequery GROUP BY `product`.`id` $orderclause ")->result();
+
         return $query;
     }
 
