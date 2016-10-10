@@ -210,6 +210,8 @@ class Order_model extends CI_Model
 		return $query;
 	}
 
+
+
 	public function edit($id,$user,$firstname,$email,$contactno,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid,$logisticcharge)
 	{
 
@@ -232,11 +234,50 @@ class Order_model extends CI_Model
 		// 	'transactionid' => $transactionid,
 		// 	'logisticcharge' => $logisticcharge
 		// );
+
+		$userdetails=$this->db->query("SELECT * FROM `user` WHERE `id`='$user'")->row();
+		$shopcontact1=$userdetails->$shopcontact1;
+		$orderproduct=$this->db->query("SELECT `orderitems`.`id`, `orderitems`.`order`, `orderitems`.`product`, `orderitems`.`quantity`, `orderitems`.`price`, `orderitems`.`discount`, `orderitems`.`finalprice`,`product`.`name`
+		FROM `orderitems` 
+		LEFT OUTER JOIN `product` ON `product`.`id`=`orderitems`.`product`
+		WHERE `orderitems`.`order`='$id'")->row();
+		$productname=$orderproduct->name;
 		$data  = array(
 			'orderstatus' =>$orderstatus
 		);
+			$this->load->helper('url');
+			echo " order status ".$orderstatus;
+		// sms on order status change 
+		if($orderstatus== 2){
+			//PROCESSING
+		
+			$username=$firstname;
+			$text = "Order confirmed, Congrats ".$username."! Your order for ".$productname." item is confirmed";
+			sendSms($text,$shopcontact1);
+		}
+		else if($orderstatus== 4){
+			// DELIVERED
+			$username=$firstname;
+			$text = "Order Delivered, We have now delieverd your ".$productname.", We hope you are happy with the product!";
+			sendSms($text,$shopcontact1);
+
+		}
+		else if($orderstatus== 3){
+			// SHIPPED
+			$username=$firstname;
+			$text = "Order shipped, We just shipped your ".$productname.", It will reach to you in 2 working days";
+			sendSms($text,$shopcontact1);
+
+		}
+		
+	
+		
+
 		$this->db->where( 'id', $id );
 		$query=$this->db->update( 'order', $data );
+
+	
+
 
 //		if($query)
 //		{

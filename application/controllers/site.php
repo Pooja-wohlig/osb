@@ -3089,7 +3089,7 @@ $this->load->view("redirect",$data);
             }
 			$data['redirect']="site/vieworder";
 			//$data['other']="template=$template";
-			$this->load->view("redirect",$data);
+			// $this->load->view("redirect",$data);
 		}
 
 	}
