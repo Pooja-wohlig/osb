@@ -152,6 +152,10 @@ public function sellingapproval($user) {
                 $query1=$this->db->query("SELECT `salesbalance` FROM `user` WHERE id='$userto'" )->row();
                 $salesbalance=$query1->salesbalance;
                 $message="Your Purchase Request for Amount : Rs. " .$amount. " is accepted. Transaction Id : ".$transid;
+
+             
+
+
                 $this->user_model->addnotificationtodb($message,$userfrom);
                 if($salesbalance<1000){
                      $this->user_model->sendnotification("Your Sell balance is too low please recharge your Account!!!",$userfrom);
@@ -231,6 +235,13 @@ public function sellingapproval($user) {
              $object->value = false;
         }
         else {
+            $userdata=$this->db->query("SELECT * FROM `user` WHERE `id`='$user'")->row();
+            $shopcontact1=$userdata->shopcontact1;
+            //send sms
+			$text = "Thanks , your request is received , Team swaap will contact you with booking update";
+			$this->menu_model->sendSms($text,$shopcontact1);
+
+            //send mail
             $htmltext = $this->load->view('emailers/hotelinfo', $data, true);
             $this->email_model->emailer($htmltext,'Hotel Form Submission','bookings@swaap.in',"Sir/Madam");
             $object = new stdClass();
@@ -240,7 +251,10 @@ public function sellingapproval($user) {
         return $object;
     }
     public function purchaserequest($userfrom, $userto, $amount, $reason) {
-
+        $userfromdata=$this->db->query("SELECT * FROM `user` WHERE `id`='$userfrom'")->row();
+        $usertodata=$this->db->query("SELECT * FROM `user` WHERE `id`='$userto'")->row();
+        $shopcontact1=$usertodata->shopcontact1;
+        $name=$userfromdata->name;
         $data = array(
 			"userfrom" => $userfrom,
 			"userto" => $userto,
@@ -252,6 +266,11 @@ public function sellingapproval($user) {
         $id = $this->db->insert_id();
         $this->user_model->sendnotification("You have a new Purchase Request for Amount: $amount",$userto);
 		$message="You have a new Purchase Request for Amount: ".$amount;
+        // send sms
+        $text = "Congrats, You have a new approval from Vendor ".$name." for Rs. ".$amount;
+		sendSms($text,$shopcontact1);
+        // send sms end 
+
 		$this->user_model->addnotificationtodb($message,$userto);
         if (!$query) return 0;
         else return $id;
@@ -427,7 +446,13 @@ $query->images=$this->db->query("SELECT * FROM `productimage` WHERE `product`='$
 	public function buyproduct($userid,$productid,$quantity,$name,$email,$contactno,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$shippingaddress,$shippingcity,$shippingcountry,$shippingstate,$shippingpincode)
     {
         $getproductdetails=$this->db->query("SELECT * FROM `product` WHERE `id`='$productid'")->row();
+        $buyeruser=$this->db->query("SELECT * FROM `user` WHERE `id`='$userid'")->row();
+        $buyername=$buyeruser->name;
+        $buyercontact=$buyeruser->shopcontact1;
     		$user=$getproductdetails->user;
+            $selleruser=$this->db->query("SELECT * FROM `user` WHERE `id`='$user'")->row();
+            $sellername=$selleruser->name;
+            $sellercontact=$selleruser->shopcontact1;
     		$productname=$getproductdetails->name;
         $price=$getproductdetails->price;
         $oldquantity=$getproductdetails->quantity;
@@ -437,6 +462,8 @@ $query->images=$this->db->query("SELECT * FROM `productimage` WHERE `product`='$
         $getuserdetails=$this->db->query("SELECT * FROM `user` WHERE `id`='$userid'")->row();
         $purchasebalance=$getuserdetails->purchasebalance;
         $shopname=$getuserdetails->shopname;
+        $ownername=$getuserdetails->name;
+        $shopcontact1=$getuserdetails->shopcontact1;
         $newpurchasebalance=$purchasebalance - $finalprice;
 
         if($quantity > $oldquantity)
@@ -476,7 +503,12 @@ $query->images=$this->db->query("SELECT * FROM `productimage` WHERE `product`='$
 			$this->user_model->sendnotification("Your Product ".$productname." is purchased by ".$shopname." Quantity : ".$quantity." Order Id : ".$order,$user);
 			 $message="Your Product ".$productname." is purchased by ".$shopname." Quantity : ".$quantity." Order Id : ".$order;
 		     $this->user_model->addnotificationtodb($message,$user);
-
+             // send sms seller
+            $text = "Congrats ".$sellername.", Your ".$productname." of worth Rs ".$finalprice." has been sold";
+			$this->menu_model->sendSms($text,$shopcontact1);
+             // send sms buyer
+			$text = "Congrats ".$buyername.", Your ".$productname." of worth Rs ".$finalprice." has been Purchased";
+			$this->menu_model->sendSms($text,$shopcontact1);
     //        $id=$this->db->insert_id();
             if(!$query)
                 return  0;

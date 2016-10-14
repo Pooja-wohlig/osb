@@ -62,6 +62,25 @@ class Product_model extends CI_Model
 
 	public function editproduct( $id,$name,$sku,$description,$price,$status,$category,$user,$quantity,$image,$onlinestatus,$moderated)
 	{
+		// check if moderated update
+	$productquery=$this->db->query("SELECT * FROM `product` WHERE `id`='$id'")->row();
+	$oldmoderated=$productquery->moderated;
+	if($oldmoderated !==$moderated){
+		// send sms approved
+		$userdetails=$this->db->query("SELECT * FROM `user` WHERE `id`='$user'")->row();
+		$shopcontact1=$userdetails->shopcontact1;
+		if($moderated==1){
+			//accepted
+			$text = "Product Approved, Swaap Congrats for the same";
+			$this->menu_model->sendSms($text,$shopcontact1);
+		}
+		else if($moderated==2){
+			// rejected
+			$text = "Product rejected,Team Swaap will contact you";
+			$this->menu_model->sendSms($text,$shopcontact1);
+		}
+	}
+
 		$data = array(
 			'name' => $name,
 			'sku' => $sku,
@@ -88,10 +107,7 @@ class Product_model extends CI_Model
 				$query=$this->db->insert( 'productcategory', $data1 );
 			}
 		}
-//		if($q)
-//		{
-//			$this->saveproductlog($id,"Product Details Edited");
-//		}
+		
 
 		return 1;
 	}

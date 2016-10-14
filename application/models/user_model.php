@@ -889,6 +889,7 @@ else
 				$getemail = $this->db->query("SELECT * FROM `user`
 				WHERE `id`='$userid'")->row();
 				$shopemail=$getemail->shopemail;
+				$shopcontact1=$getemail->shopcontact1;
 				$newpassword=$password;
         $password=md5($password);
 
@@ -897,6 +898,8 @@ else
 				// send forgot password mail
 				$htmltext = $this->load->view('emailers/forgotpassword', $data, true);
 				$this->email_model->emailer($htmltext,'Forgot Password',$shopemail,"Sir/Madam");
+				$text = "Your New Password is ".$newpassword.", Thanks for using Swaap";
+				$this->menu_model->sendSms($text,$shopcontact1);
 				if(!$query)
 					return  0;
 				else

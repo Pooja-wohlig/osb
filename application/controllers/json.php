@@ -1619,7 +1619,7 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         {
           $this->load->helper('string');
               $randompassword=random_string('alnum',8);
-          $data['message']=$this->user_model->forgotpasswordsubmit($randompassword,$userid);
+          $msg=$this->user_model->forgotpasswordsubmit($randompassword,$userid);
         $data["message"] = true;
         $this->load->view("json", $data);
 
@@ -1724,12 +1724,10 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
     }
     public function testsms()
     {
-     $this->load->helper('url');
-     $mainurl=$this->config->base_url();
      $username="Pooja";
      $text = "Dear Pooja ,Welcome to Swaap";
-     $text = urlencode ( $text );
-     $exactpath="http://api-alerts.solutionsinfini.com/v3/?method=sms&api_key=A8f9d0962570b73f21b888dba919045d5&to=9594390024&sender=SwaapI&message=$text&format=php&custom=1,2&flash=0";
+     $this->menu_model->sendSms($text,9594390024);
+    //  $exactpath="http://api-alerts.solutionsinfini.com/v3/?method=sms&api_key=A8f9d0962570b73f21b888dba919045d5&to=9594390024&sender=SwaapI&message=$text&format=php&custom=1,2&flash=0";
      $return = file_get_contents($exactpath);
 
 
