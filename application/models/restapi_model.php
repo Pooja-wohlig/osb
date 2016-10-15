@@ -1141,9 +1141,20 @@ WHERE `suggestion`.`id`='$id'")->row();
             $updateid = $userid->userto;
             $updatebal = $this->db->query("UPDATE `user` SET `purchasebalance` = `purchasebalance` + '$amount', `salesbalance` = `salesbalance` + '$amount' WHERE `id` = '$updateid'");
             $this->load->model('transaction_model');
+                //send sms success
+            $userquery=$this->db->query("SELECT * FROM `user` WHERE `id` = $updateid")->row();
+            $shopcontact1=$userquery->shopcontact1;
+            $username=$userquery->name;
+            $purchasebalance=$userquery->purchasebalance;
+            $salesbalance=$userquery->salesbalance;
+            $text = "Dear ".$username.", Your Account is Credited for Rs ".$amount." . New Purchase Bal is ".$purchasebalance." and New Sell Bal is ".$salesbalance;
+			$this->menu_model->sendSms($text,$shopcontact1);
+              //send sms end
+            	
             $this->transaction_model->adminaccept($amount,$updateid,1,$transid);
         } else {
             $query2 = $this->db->query("UPDATE `osb_request` SET `paymentstatus` = 2 WHERE `id` = $transid")->row();
+            // Your recharge of Rs XXXXXX is unsuccessful , Call customer care +919222634567
         }
         return true;
     }
