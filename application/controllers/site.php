@@ -2968,7 +2968,7 @@ $this->load->view("redirect",$data);
 			$data[ 'user' ] =$this->order_model->getuser();
 			$data[ 'country' ] =$this->user_model->getcountry();
 			$data[ 'orderstatus' ] =$this->order_model->getorderstatus();
-			$data[ 'currency' ] =$this->currency_model->getcurrencydropdown();
+			// $data[ 'currency' ] =$this->currency_model->getcurrencydropdown();
 			$data['before']=$this->order_model->beforeedit($this->input->get('id'));
 			$data['page']='createorder';
 			$data['page2']='block/orderblock';
@@ -3049,7 +3049,6 @@ $this->load->view("redirect",$data);
 			$data[ 'user' ] =$this->order_model->getuser();
 			$data[ 'country' ] =$this->order_model->getcountry();
 			$data[ 'orderstatus' ] =$this->order_model->getorderstatus();
-			$data[ 'currency' ] =$this->currency_model->getcurrencydropdown();
 			$data['before']=$this->order_model->beforeedit($this->input->get('id'));
 			$data['page']='editorder';
 			$data['page2']='block/orderblock';
@@ -3088,13 +3087,38 @@ $this->load->view("redirect",$data);
 
             }
 			$data['redirect']="site/vieworder";
-			//$data['other']="template=$template";
-			// $this->load->view("redirect",$data);
+			// $data['other']="template=$template";
+			$this->load->view("redirect",$data);
 		}
 
 	}
-
-
+	function printorderlabel()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$data[ 'table' ] =$this->order_model->getorderitem($this->input->get('id'));
+		$data['before']=$this->order_model->beforeedit($this->input->get('id'));
+        $data['id']=$this->input->get('id');
+		$data['page']='templatelabel';
+		$data['title']='Edit order items';
+		$this->load->view('templatelabel',$data);
+	}
+	function printorderinvoice()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$data[ 'country' ] =$this->order_model->getcountry();
+		$data[ 'orderstatus' ] =$this->order_model->getorderstatus();
+		$data['before']=$this->order_model->beforeedit($this->input->get('id'));
+        $data[ 'userfrom' ] =$this->order_model->getuserfrom($this->input->get('id'));
+        $data[ 'userto' ] =$this->order_model->getuserto($this->input->get('id'));
+        $data[ 'product' ] =$this->order_model->getProduct($this->input->get('id'));
+        $data[ 'rupees' ] =$this->order_model->amountInRupees($this->input->get('id'));
+         $data['id']=$this->input->get('id');
+        $data['invoicedate'] = date( "d M, Y", strtotime($data['before']['order']->timestamp));
+        $data['id']=$this->input->get('id');
+		$this->load->view('templateinvoice1',$data);
+	}
 	function vieworderitems()
 	{
           $access=array("1","2");

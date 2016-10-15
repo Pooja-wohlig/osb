@@ -18,9 +18,6 @@
                             <th data-field="id">ID</th>
                             <th data-field="name">name</th>
                             <th data-field="email">email</th>
-                            <th data-field="transactionid">transactionid</th>
-<!--                            <th data-field="description">description</th>-->
-                            <th data-field="trackingcode">trackingcode</th>
                             <th data-field="orderstatusname">Status</th>
                             <th data-field="Action">Action</th>
                         </tr>
@@ -33,7 +30,7 @@
         </section>
         <script>
             function drawtable(resultrow) {
-                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.name + "</td><td>" + resultrow.email + "</td><td>" + resultrow.transactionid + "</td><td>" + resultrow.trackingcode + "</td><td>" + resultrow.orderstatusname + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editorder?id=');?>" + resultrow.id + "'><i class='icon-pencil'></i></a></td></tr>";
+                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.name + "</td><td>" + resultrow.email + "</td><td>" + resultrow.orderstatusname + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editorder?id=');?>" + resultrow.id + "'><i class='icon-pencil'></i></a></td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/printorderinvoice?id=');?>" + resultrow.id + "'><i class='icon-print'></i></a></td></tr>";
             }
             generatejquery("<?php echo $base_url;?>");
         </script>

@@ -246,29 +246,28 @@ class Order_model extends CI_Model
 			'orderstatus' =>$orderstatus
 		);
 			$this->load->helper('url');
-			echo " order status ".$orderstatus;
 		// sms on order status change 
-		if($orderstatus== 2){
-			//PROCESSING
+		// if($orderstatus== 2){
+		// 	//PROCESSING
 		
-			$username=$firstname;
-			$text = "Order confirmed, Congrats ".$username."! Your order for ".$productname." item is confirmed";
-			sendSms($text,$shopcontact1);
-		}
-		else if($orderstatus== 4){
-			// DELIVERED
-			$username=$firstname;
-			$text = "Order Delivered, We have now delieverd your ".$productname.", We hope you are happy with the product!";
-			sendSms($text,$shopcontact1);
+		// 	$username=$firstname;
+		// 	$text = "Order confirmed, Congrats ".$username."! Your order for ".$productname." item is confirmed";
+		// 	sendSms($text,$shopcontact1);
+		// }
+		// else if($orderstatus== 4){
+		// 	// DELIVERED
+		// 	$username=$firstname;
+		// 	$text = "Order Delivered, We have now delieverd your ".$productname.", We hope you are happy with the product!";
+		// 	sendSms($text,$shopcontact1);
 
-		}
-		else if($orderstatus== 3){
-			// SHIPPED
-			$username=$firstname;
-			$text = "Order shipped, We just shipped your ".$productname.", It will reach to you in 2 working days";
-			sendSms($text,$shopcontact1);
+		// }
+		// else if($orderstatus== 3){
+		// 	// SHIPPED
+		// 	$username=$firstname;
+		// 	$text = "Order shipped, We just shipped your ".$productname.", It will reach to you in 2 working days";
+		// 	sendSms($text,$shopcontact1);
 
-		}
+		// }
 		
 	
 		
@@ -414,6 +413,57 @@ class Order_model extends CI_Model
 		$query1=$this->db->query("SELECT * FROM `user` WHERE `id`=(SELECT `user` FROM `product` WHERE `id`='$product')" )->row();
         return $query1;
 	}
+    public function amountInRupees($id)
+	{
+		$query=$this->db->query("SELECT * FROM `orderitems` WHERE `order`='$id'" )->row();
+		$number=$query->finalprice;
+   $no = round($number);
+   $point = round($number - $no, 2) * 100;
+   $hundred = null;
+   $digits_1 = strlen($no);
+   $i = 0;
+   $str = array();
+   $words = array('0' => '', '1' => 'one', '2' => 'two',
+    '3' => 'three', '4' => 'four', '5' => 'five', '6' => 'six',
+    '7' => 'seven', '8' => 'eight', '9' => 'nine',
+    '10' => 'ten', '11' => 'eleven', '12' => 'twelve',
+    '13' => 'thirteen', '14' => 'fourteen',
+    '15' => 'fifteen', '16' => 'sixteen', '17' => 'seventeen',
+    '18' => 'eighteen', '19' =>'nineteen', '20' => 'twenty',
+    '30' => 'thirty', '40' => 'forty', '50' => 'fifty',
+    '60' => 'sixty', '70' => 'seventy',
+    '80' => 'eighty', '90' => 'ninety');
+   $digits = array('', 'hundred', 'thousand', 'lakh', 'crore');
+   while ($i < $digits_1) {
+     $divider = ($i == 2) ? 10 : 100;
+     $number = floor($no % $divider);
+     $no = floor($no / $divider);
+     $i += ($divider == 10) ? 1 : 2;
+     if ($number) {
+        $plural = (($counter = count($str)) && $number > 9) ? 's' : null;
+        $hundred = ($counter == 1 && $str[0]) ? ' and ' : null;
+        $str [] = ($number < 21) ? $words[$number] .
+            " " . $digits[$counter] . $plural . " " . $hundred
+            :
+            $words[floor($number / 10) * 10]
+            . " " . $words[$number % 10] . " "
+            . $digits[$counter] . $plural . " " . $hundred;
+     } else $str[] = null;
+  }
+  $str = array_reverse($str);
+  $result = implode('', $str);
+  $points = ($point) ?
+    "." . $words[$point / 10] . " " . 
+          $words[$point = $point % 10] : '';
+  $returnNum=$result . "Rupees  " . $points;
+  return $returnNum;
+	}
+    public function getProduct($id)
+	{
+		$query=$this->db->query("SELECT `orderitems`. `order`, `orderitems`.`product`, `orderitems`.`quantity`, `orderitems`.`price`, `orderitems`.`discount`, `orderitems`.`finalprice`,`product`.`name` FROM `orderitems` INNER JOIN `product` ON `product`.`id`=`orderitems`.`product` WHERE `orderitems`. `order`=$id" )->row();
+		
+        return $query;
+	}
     public function getuserto($id)
 	{
 		$query=$this->db->query("SELECT * FROM `order` WHERE `id`='$id'" )->row();
@@ -452,7 +502,35 @@ class Order_model extends CI_Model
 
 		return $query;
 	}
+  function gettotallastamt($id)
+	{
+        $query=$this->db->query("SELECT * FROM `orderitems` WHERE `order`='$id'" )->result();
+        $tot=0;
+        foreach($query as $row){
+            $finalprice=$row->finalprice;
+            $tot=$tot+$finalprice;
+        }
 
+		return $tot;
+	}
+	  function amtinwords($id)
+	{
+        $query=$this->db->query("SELECT * FROM `orderitems` WHERE `order`='$id'" )->result();
+        $tot=0;
+        foreach($query as $row){
+            $finalprice=$row->finalprice;
+            $tot=$tot+$finalprice;
+        }
+        $amtinwords=$this->order_model->convert_number_to_words($tot);
+		echo $amtinwords;
+        return $amtinwords;
+	}
+	  function totalqty($id)
+	{
+        $query=$this->db->query("SELECT * FROM `orderitems` WHERE `order`='$id'" )->row();
+      	$tot=$query->finalprice;
+		return $tot;
+	}
 	function getorderitem($id)
 	{
         $query=$this->db->query("SELECT `orderitems`.`id`,`order`.`name`,`orderitems`.`order`,`orderitems`.`product`,`product`.`name` AS `productname`,`product`.`sku`,`orderitems`.`quantity`,`orderitems`.`price`,`orderitems`.`discount`,`orderitems`.`finalprice`,`productimage`.`image`FROM `orderitems` LEFT OUTER JOIN `order` ON `order`.`id`=`orderitems`.`order` LEFT OUTER JOIN `product` ON `product`.`id`=`orderitems`.`product` LEFT OUTER JOIN `productimage` ON `productimage`.`product`=`orderitems`.`product`
@@ -460,7 +538,12 @@ WHERE `orderitems`.`order`='$id'")->row();
 		return $query;
 	}
 
+ function getorder($id)
+	{
+        $query=$this->db->query("SELECT * FROM `order` WHERE `id`='$id'" )->row();
 
+		return $query;
+	}
 	public function getorderdropdown()
 	{
 		$query=$this->db->query("SELECT * FROM `order`  ORDER BY `id` ASC")->result();
