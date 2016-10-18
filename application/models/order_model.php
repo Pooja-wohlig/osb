@@ -234,9 +234,14 @@ class Order_model extends CI_Model
 		// 	'transactionid' => $transactionid,
 		// 	'logisticcharge' => $logisticcharge
 		// );
+// get user idate
+
+	$getuserid=$this->db->query("SELECT * FROM `order` WHERE `id`='$id'")->row();
+	$user=$getuserid->user;
+	$firstname=$getuserid->name;
 
 		$userdetails=$this->db->query("SELECT * FROM `user` WHERE `id`='$user'")->row();
-		$shopcontact1=$userdetails->$shopcontact1;
+		$shopcontact1=$userdetails->shopcontact1;
 		$orderproduct=$this->db->query("SELECT `orderitems`.`id`, `orderitems`.`order`, `orderitems`.`product`, `orderitems`.`quantity`, `orderitems`.`price`, `orderitems`.`discount`, `orderitems`.`finalprice`,`product`.`name`
 		FROM `orderitems` 
 		LEFT OUTER JOIN `product` ON `product`.`id`=`orderitems`.`product`
@@ -245,19 +250,20 @@ class Order_model extends CI_Model
 		$data  = array(
 			'orderstatus' =>$orderstatus
 		);
-			$this->load->helper('url');
 		// sms on order status change 
 		if($orderstatus== 2){
 			//PROCESSING
 		
 			$username=$firstname;
 			$text = "Order confirmed, Congrats ".$username."! Your order for ".$productname." item is confirmed";
+		
 			$this->menu_model->sendSms($text,$shopcontact1);
 		}
 		else if($orderstatus== 4){
 			// DELIVERED
 			$username=$firstname;
 			$text = "Order Delivered, We have now delieverd your ".$productname.", We hope you are happy with the product!";
+		
 			$this->menu_model->sendSms($text,$shopcontact1);
 
 		}
@@ -265,6 +271,7 @@ class Order_model extends CI_Model
 			// SHIPPED
 			$username=$firstname;
 			$text = "Order shipped, We just shipped your ".$productname.", It will reach to you in 2 working days";
+		
 			$this->menu_model->sendSms($text,$shopcontact1);
 
 		}
