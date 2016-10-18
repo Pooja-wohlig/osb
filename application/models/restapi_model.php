@@ -266,12 +266,13 @@ public function sellingapproval($user) {
         $id = $this->db->insert_id();
         $this->user_model->sendnotification("You have a new Purchase Request for Amount: $amount",$userto);
 		$message="You have a new Purchase Request for Amount: ".$amount;
-        // send sms
-        $text = "Congrats, You have a new approval from Vendor ".$name." for Rs. ".$amount;
-		sendSms($text,$shopcontact1);
-        // send sms end 
+      
 
 		$this->user_model->addnotificationtodb($message,$userto);
+          // send sms
+        $text = "Congrats, You have a new approval from Vendor ".$name." for Rs. ".$amount;
+		$this->menu_model->sendSms($text,$shopcontact1);
+        // send sms end 
         if (!$query) return 0;
         else return $id;
     }
@@ -504,11 +505,11 @@ $query->images=$this->db->query("SELECT * FROM `productimage` WHERE `product`='$
 			 $message="Your Product ".$productname." is purchased by ".$shopname." Quantity : ".$quantity." Order Id : ".$order;
 		     $this->user_model->addnotificationtodb($message,$user);
              // send sms seller
-            $text = "Congrats ".$sellername.", Your ".$productname." of worth Rs ".$finalprice." has been sold";
-			$this->menu_model->sendSms($text,$shopcontact1);
+            $text1 = "Congrats ".$sellername.", Your ".$productname." of worth Rs ".$finalprice." has been sold";
+			$this->menu_model->sendSms($text1,$sellercontact);
              // send sms buyer
-			$text = "Congrats ".$buyername.", Your ".$productname." of worth Rs ".$finalprice." has been Purchased";
-			$this->menu_model->sendSms($text,$shopcontact1);
+			$text2 = "Congrats ".$buyername.", Your ".$productname." of worth Rs ".$finalprice." has been Purchased";
+			$this->menu_model->sendSms($text2,$buyercontact);
     //        $id=$this->db->insert_id();
             if(!$query)
                 return  0;

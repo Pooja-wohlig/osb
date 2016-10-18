@@ -3061,7 +3061,6 @@ $this->load->view("redirect",$data);
 			$id=$this->input->post('id');
 			$user=$this->input->post('user');
 			$firstname=$this->input->post('firstname');
-//			$lastname=$this->input->post('lastname');
 			$email=$this->input->post('email');
 			$contactno=$this->input->post('contactno');
 			$billingaddress=$this->input->post('billingaddress');
@@ -3073,12 +3072,10 @@ $this->load->view("redirect",$data);
 			$shippingstate=$this->input->post('shippingstate');
 			$shippingcountry=$this->input->post('shippingcountry');
 			$shippingpincode=$this->input->post('shippingpincode');
-//			$currency=$this->input->post('currency');
 			$orderstatus=$this->input->post('orderstatus');
 			$trackingcode=$this->input->post('trackingcode');
 			$transactionid=$this->input->post('transactionid');
 			$logisticcharge=$this->input->post('logisticcharge');
-			// print_r($_POST);
 			if(($this->order_model->edit($id,$user,$firstname,$email,$contactno,$billingaddress,$billingcity,$billingstate,$billingcountry,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$orderstatus,$trackingcode,$transactionid,$logisticcharge))==0)
 				$data['alerterror']="Order could not be edited.";
 			else
