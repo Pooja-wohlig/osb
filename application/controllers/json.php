@@ -1725,10 +1725,13 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
     public function testsms()
     {
      $username="Pooja";
-     $text = "Dear Pooja ,Welcome to Swaap";
-     $this->menu_model->sendSms($text,9594390024);
-    //  $exactpath="http://api-alerts.solutionsinfini.com/v3/?method=sms&api_key=A8f9d0962570b73f21b888dba919045d5&to=9594390024&sender=SwaapI&message=$text&format=php&custom=1,2&flash=0";
-     $return = file_get_contents($exactpath);
+     $text = "Dear XXXXX, Welcome to Swaap";
+     $num="9870969411";
+     $text = urlencode ( $text );
+     $this->menu_model->sendSms($text,$num);
+    //  $exactpath="http://api-alerts.solutionsinfini.com/v3/?method=sms&api_key=A8f9d0962570b73f21b888dba919045d5&to=9870969411&sender=SwaapI&message=$text&format=php&custom=1,2&flash=0";
+    //  $return = file_get_contents($exactpath);
+    //  echo $return;
 
 
 

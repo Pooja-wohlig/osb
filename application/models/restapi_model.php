@@ -1154,7 +1154,13 @@ WHERE `suggestion`.`id`='$id'")->row();
             $this->transaction_model->adminaccept($amount,$updateid,1,$transid);
         } else {
             $query2 = $this->db->query("UPDATE `osb_request` SET `paymentstatus` = 2 WHERE `id` = $transid")->row();
-            // Your recharge of Rs XXXXXX is unsuccessful , Call customer care +919222634567
+            $userid = $this->db->query("SELECT `userto`,`amount` FROM `osb_request` WHERE `id` = $transid")->row();
+            $updateid = $userid->userto;
+            $amount = $userid->amount;
+            $userquery=$this->db->query("SELECT * FROM `user` WHERE `id` = $updateid")->row();
+            $shopcontact1=$userquery->shopcontact1;
+             $text = "Your recharge of Rs ".$amount." is unsuccessful , Call customer care +919222634567";
+			$this->menu_model->sendSms($text,$shopcontact1);
         }
         return true;
     }

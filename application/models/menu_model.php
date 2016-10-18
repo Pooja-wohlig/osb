@@ -52,7 +52,7 @@ class Menu_model extends CI_Model
 		$text = urlencode ( $text );
 		$shopcontact1 = urlencode ( $shopcontact1 );
 		$exactpath="http://api-alerts.solutionsinfini.com/v3/?method=sms&api_key=A8f9d0962570b73f21b888dba919045d5&to=$shopcontact1&sender=SwaapI&message=$text&format=php&custom=1,2&flash=0";
-		
+		echo $exactpath;
 		$return = file_get_contents($exactpath);
 	   
 		
