@@ -1675,6 +1675,10 @@ $config['file_name']	= "image-".rand(0, 100000)."-$user-".$date->getTimestamp();
         $data['message'] = $this->restapi_model->getTransactionStatus($id);
         $this->load->view('json',$data);
     }
+    public function getAllHotels() {
+        $data['message'] = $this->restapi_model->getAllHotels();
+        $this->load->view('json',$data);
+    }
 
     // hotel submit
 

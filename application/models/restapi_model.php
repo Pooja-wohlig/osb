@@ -1189,5 +1189,10 @@ WHERE `suggestion`.`id`='$id'")->row();
       $query = $this->db->query("UPDATE `notification` SET `status` = 1 WHERE `user` = '$user'");
       return true;
     }
+    public function getAllHotels()
+    {
+      $query = $this->db->query("SELECT * FROM `osb_hotelref`")->result();
+      return  $query;
+    }
 }
 ?>

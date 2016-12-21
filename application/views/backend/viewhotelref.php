@@ -43,7 +43,7 @@ generatejquery("<?php echo $base_url;?>");
                     <thead>
                         <tr>
                             <th data-field="id">ID</th>
-                            <th data-field="city">City</th>
+                            <!--<th data-field="city">City</th>-->
                             <th data-field="name">Name</th>
                         </tr>
                     </thead>
@@ -55,7 +55,7 @@ generatejquery("<?php echo $base_url;?>");
         </section>
         <script>
             function drawtable(resultrow) {
-                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.city + "</td><td>" + resultrow.name + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/edithotelref?id=');?>" + resultrow.id + "'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' onclick=\"return confirm('Are you sure you want to delete?');\" href='<?php echo site_url('site/deletehotelref?id='); ?>" + resultrow.id + "'><i class='icon-trash '></i></a></td></tr>";
+                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.name + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/edithotelref?id=');?>" + resultrow.id + "'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' onclick=\"return confirm('Are you sure you want to delete?');\" href='<?php echo site_url('site/deletehotelref?id='); ?>" + resultrow.id + "'><i class='icon-trash '></i></a></td></tr>";
             }
             generatejquery("<?php echo $base_url;?>");
         </script>

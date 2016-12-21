@@ -39,12 +39,12 @@ Hotel Reference Details
 <div class="panel-body">
 <form class='form-horizontal tasi-form' method='post' action='<?php echo site_url("site/createhotelrefsubmit");?>' enctype= 'multipart/form-data'>
 <div class="panel-body">
-  <div class=" form-group">
+  <!--<div class=" form-group">
   <label class="col-sm-2 control-label" for="normal-field">City</label>
   <div class="col-sm-4">
   <?php echo form_dropdown("city",$city,set_value('city'),"class='chzn-select form-control'");?>
   </div>
-  </div>
+  </div>-->
 <div class="form-group">
 <label class="col-sm-2 control-label" for="normal-field">Name</label>
 <div class="col-sm-4">
