@@ -21,6 +21,7 @@ Request Details
 <th data-field="userfrom">User From</th>
 <th data-field="userto">User to</th>
 <th data-field="requeststatus">Request Status</th>
+<th data-field="paymentstatus">Payment Status</th>
 <th data-field="amount">Amount</th>
 <th data-field="timestamp">Time stamp</th>
 <th data-field="action">Action</th>
@@ -47,7 +48,20 @@ function drawtable(resultrow) {
 	{
 	resultrow.requeststatus="Rejected";
 	}
-return "<tr id='maintable' class='"+ classvalue +"'><td>" + resultrow.id + "</td><td>" + resultrow.userfrom + "</td><td>" + resultrow.userto + "</td><td>" + resultrow.requeststatus + "</td><td>" + resultrow.amount + "</td><td>" + resultrow.timestamp + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editrequest?id=');?>"+resultrow.id+"'><i class='icon-pencil'></i></a></td></tr>";
+
+		if(resultrow.paymentstatus==0)
+	{
+	resultrow.paymentstatus="Pending";
+	}
+		if(resultrow.paymentstatus==1)
+	{
+	resultrow.paymentstatus="Done";
+	}
+		if(resultrow.paymentstatus==undefined)
+	{
+	resultrow.paymentstatus="-";
+	}
+return "<tr id='maintable' class='"+ classvalue +"'><td>" + resultrow.id + "</td><td>" + resultrow.userfrom + "</td><td>" + resultrow.userto + "</td><td>" + resultrow.requeststatus + "</td><td>" + resultrow.paymentstatus + "</td><td>" + resultrow.amount + "</td><td>" + resultrow.timestamp + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editrequest?id=');?>"+resultrow.id+"'><i class='icon-pencil'></i></a></td></tr>";
 }
 generatejquery("<?php echo $base_url;?>");
 </script>

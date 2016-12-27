@@ -1589,6 +1589,13 @@ $elements[5]->field="ADDTIME(`osb_request`.`timestamp`,'0 05:30:00')";
 $elements[5]->sort="1";
 $elements[5]->header="Time stamp";
 $elements[5]->alias="timestamp";
+
+$elements[6]=new stdClass();
+$elements[6]->field="`osb_request`.`paymentstatus`";
+$elements[6]->sort="1";
+$elements[6]->header="Payment Status";
+$elements[6]->alias="paymentstatus";
+
 $search=$this->input->get_post("search");
 $pageno=$this->input->get_post("pageno");
 $orderby=$this->input->get_post("orderby");
